@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Grand + — Passerelle Transmission</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1A2744; --navy2:#253660; --teal:#2A7F7F; --teal2:#3a9f9f; --tealp:#e8f4f4;
+  --gold:#C9A84C; --gold2:#e8c96a; --creme:#F5F0E8; --creme2:#ede6d6;
+  --white:#fff; --tx:#1A2744; --tx2:#3d4f6e; --tx3:#6b7fa0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--creme);color:var(--tx);}
+
+/* LOGIN */
+#login{min-height:100vh;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:20px;}
+.lbox{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);padding:48px 40px;width:100%;max-width:420px;text-align:center;}
+.llogo{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Cormorant Garamond',serif;}
+.lbrand{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:#fff;margin-bottom:4px;}
+.lbrand em{font-style:italic;color:var(--gold);}
+.lsub{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:32px;}
+.ldiv{width:36px;height:1px;background:var(--gold);margin:0 auto 32px;}
+.rtabs{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:24px;}
+.rtab{padding:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:12px;font-weight:500;letter-spacing:1px;cursor:pointer;transition:.3s;font-family:'DM Sans',sans-serif;}
+.rtab.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+.linput{width:100%;padding:13px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:10px;outline:none;}
+.linput::placeholder{color:rgba(255,255,255,.3);}
+.linput:focus{border-color:var(--teal2);}
+.lbtn{width:100%;padding:14px;background:var(--gold);color:var(--navy);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:6px;}
+.lbtn:hover{background:var(--gold2);}
+.lerr{color:#ff8a80;font-size:12px;margin-top:10px;display:none;}
+
+/* APP */
+#app{display:none;}
+.hdr{background:var(--navy);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hbrand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#fff;}
+.hbrand em{font-style:italic;color:var(--gold);}
+.hright{display:flex;align-items:center;gap:12px;}
+.hbadge{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);font-weight:500;}
+.hname{font-size:12px;color:rgba(255,255,255,.55);}
+.hout{background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);padding:5px 12px;font-size:10px;letter-spacing:1px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hout:hover{border-color:var(--gold);color:var(--gold);}
+
+/* NAV */
+.nav{background:#fff;border-bottom:1px solid var(--creme2);padding:0 28px;display:flex;overflow-x:auto;}
+.ntab{padding:14px 16px;font-size:11px;font-weight:500;letter-spacing:1px;color:var(--tx3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.3s;font-family:'DM Sans',sans-serif;}
+.ntab:hover{color:var(--teal);}
+.ntab.on{color:var(--teal);border-bottom-color:var(--teal);}
+
+/* PAGES */
+.page{display:none;max-width:880px;margin:0 auto;padding:36px 28px;}
+.page.on{display:block;}
+
+/* DASHBOARD */
+.dtitle{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--navy);margin-bottom:6px;}
+.dtitle em{font-style:italic;color:var(--teal);}
+.dsub{font-size:14px;font-weight:300;color:var(--tx2);margin-bottom:24px;}
+.pbar{background:var(--creme2);height:3px;border-radius:2px;margin:0 0 6px;overflow:hidden;}
+.pbfill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .7s;}
+.plabel{font-size:11px;color:var(--tx3);letter-spacing:1px;margin-bottom:28px;}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:8px;}
+.scard{background:#fff;padding:24px 20px;cursor:pointer;transition:.3s;position:relative;overflow:hidden;border-left:3px solid transparent;}
+.scard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,39,68,.09);}
+.scard.done{border-left-color:var(--gold);}
+.scard.cur{border-left-color:var(--teal);}
+.scnum{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--tealp);position:absolute;top:6px;right:10px;line-height:1;}
+.sclbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:6px;}
+.sctitle{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:6px;line-height:1.2;}
+.scdesc{font-size:12px;font-weight:300;color:var(--tx2);line-height:1.5;}
+.sctag{display:inline-block;margin-top:10px;padding:2px 8px;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:500;}
+.tag-todo{background:var(--tealp);color:var(--teal);}
+.tag-done{background:#fff8e7;color:var(--gold);}
+
+/* SÉANCE HEADER */
+.shdr{background:var(--navy);padding:28px;margin:-36px -28px 20px;position:relative;overflow:hidden;}
+.shdr::after{content:'';position:absolute;right:-40px;bottom:-40px;width:160px;height:160px;border-radius:50%;background:rgba(201,168,76,.07);}
+.snum{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#fff;margin-bottom:6px;}
+.ssub{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);}
+.backbtn{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.45);cursor:pointer;margin-bottom:16px;background:none;border:none;font-family:'DM Sans',sans-serif;}
+.backbtn:hover{color:var(--gold);}
+
+/* OBJECTIF PÉDAGOGIQUE */
+.opeda{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:20px 24px;margin-bottom:16px;border-left:3px solid var(--gold);display:flex;gap:14px;align-items:flex-start;}
+.opeda-icon{font-size:24px;flex-shrink:0;}
+.opeda-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:4px;}
+.opeda-txt{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;font-style:italic;color:#fff;line-height:1.5;}
+.opeda-list{margin-top:8px;list-style:none;}
+.opeda-list li{font-size:12px;color:rgba(255,255,255,.65);padding:2px 0 2px 14px;position:relative;}
+.opeda-list li::before{content:'✓';position:absolute;left:0;color:var(--teal2);}
+
+/* SWITCH COACH/CLIENT */
+.vswitch{display:flex;gap:0;margin-bottom:16px;border:2px solid var(--navy);overflow:hidden;}
+.vsw{flex:1;padding:11px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.3s;background:var(--creme2);color:var(--tx3);}
+.vsw.coach{background:var(--navy);color:var(--gold);}
+.vsw.client{background:var(--teal);color:#fff;}
+
+/* ZONE COACH */
+.zcoach{background:#0f1d3a;border:2px solid var(--gold);margin-bottom:14px;}
+.zcoach-hdr{background:var(--gold);padding:10px 20px;display:flex;align-items:center;gap:8px;}
+.zcoach-hdr span{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--navy);}
+.zcoach-body{padding:20px;}
+.zcoach .lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px;margin-top:16px;}
+.zcoach .lbl:first-child{margin-top:0;}
+.zcoach .qtxt{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px;font-weight:300;color:rgba(255,255,255,.8);line-height:1.6;padding-left:18px;position:relative;}
+.zcoach .qtxt::before{content:'→';position:absolute;left:0;color:var(--gold);}
+.zcoach .qtxt:last-child{border-bottom:none;}
+.zcoach textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.85);font-family:'DM Sans',sans-serif;padding:10px 14px;font-size:12px;outline:none;resize:vertical;line-height:1.7;margin-top:4px;min-height:90px;}
+.zcoach textarea:focus{border-color:var(--gold);}
+.zcoach textarea::placeholder{color:rgba(255,255,255,.25);}
+.zcoach .chk-list{list-style:none;}
+.zcoach .chk-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;font-weight:300;color:rgba(255,255,255,.75);}
+.zcoach .chk-item:last-child{border-bottom:none;}
+.chkbox{width:18px;height:18px;border:2px solid rgba(201,168,76,.5);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:.2s;}
+.chkbox.on{background:var(--gold);border-color:var(--gold);color:var(--navy);}
+.btnok{display:inline-block;padding:11px 24px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:14px;}
+.btnok:hover{background:var(--gold2);}
+.zcoach .dcard{background:rgba(255,255,255,.06);padding:14px;border-left:2px solid rgba(201,168,76,.4);cursor:pointer;margin-bottom:6px;transition:.2s;}
+.zcoach .dcard:hover{background:rgba(255,255,255,.1);}
+.zcoach .dcard.on{border-left-color:var(--gold);background:rgba(201,168,76,.1);}
+.zcoach .dname{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:3px;}
+.zcoach .dmsg{font-size:11px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:4px;}
+.zcoach .dperm{font-size:11px;color:var(--teal2);font-weight:500;}
+
+/* ZONE CLIENT */
+.zclient{background:#f0f9f9;border:2px solid var(--teal);margin-bottom:14px;}
+.zclient-hdr{background:var(--teal);padding:10px 20px;display:flex;align-items:center;gap:8px;}
+.zclient-hdr span{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#fff;}
+.zclient-body{padding:20px;}
+.zclient .lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:10px;margin-top:16px;}
+.zclient .lbl:first-child{margin-top:0;}
+.exo{background:#fff;border-left:3px solid var(--teal);padding:18px;margin:10px 0;}
+.exo-t{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:8px;}
+.exo p{font-size:13px;font-weight:300;color:var(--tx2);line-height:1.7;margin-bottom:10px;}
+.zclient textarea{width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px 14px;font-size:13px;outline:none;resize:vertical;line-height:1.7;margin-bottom:6px;min-height:90px;}
+.zclient textarea:focus{border-color:var(--teal);}
+.zclient input[type=text]{width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px 14px;font-size:13px;outline:none;margin-bottom:6px;}
+.zclient input:focus{border-color:var(--teal);}
+.scale{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap;}
+.sbtn{width:40px;height:40px;border:2px solid var(--creme2);background:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:'DM Sans',sans-serif;font-weight:500;color:var(--tx2);}
+.sbtn:hover{border-color:var(--teal);color:var(--teal);}
+.sbtn.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+.quote{border-left:3px solid var(--gold);padding:14px 20px;background:var(--creme);margin:12px 0;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--navy);line-height:1.5;}
+.qa{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);font-style:normal;margin-top:6px;display:block;}
+
+/* COURBE DEUIL */
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0;}
+.detape{padding:12px;cursor:pointer;transition:.3s;border-bottom:2px solid transparent;}
+.detape:hover{transform:translateY(-2px);}
+.detape.on{outline:2px solid var(--gold);}
+.de-emoji{font-size:20px;margin-bottom:4px;}
+.de-title{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;margin-bottom:3px;}
+.de-desc{font-size:11px;font-weight:300;line-height:1.4;}
+
+/* HUDSON */
+.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0;}
+.hphase{padding:16px;cursor:pointer;transition:.2s;}
+.hphase:hover{transform:scale(1.01);}
+.hphase.on{outline:2px solid var(--gold);}
+.hp-num{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:4px;}
+.hp-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;margin-bottom:5px;}
+.hp-desc{font-size:11px;font-weight:300;line-height:1.5;}
+
+/* FORMAT CRÉATIF */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0;}
+.fcard{background:var(--creme2);padding:12px;text-align:center;cursor:pointer;border:2px solid transparent;transition:.2s;}
+.fcard:hover,.fcard.on{border-color:var(--teal);}
+.fcard-icon{font-size:24px;margin-bottom:4px;}
+.fcard-lbl{font-size:11px;font-weight:500;color:var(--navy);}
+
+/* TALENTS */
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0;}
+.tcard{background:#fff;padding:12px 14px;cursor:pointer;transition:.2s;border-left:2px solid transparent;border-bottom:1px solid var(--creme2);}
+.tcard:hover{border-left-color:var(--teal);background:var(--tealp);}
+.tcard.on{border-left-color:var(--gold);background:#fff8e7;}
+.tname{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.tdef{font-size:11px;font-weight:300;color:var(--tx2);line-height:1.4;}
+.tjustif{display:none;margin-top:8px;}
+.tcard.on .tjustif{display:block;}
+.tcount{text-align:center;padding:10px;font-size:12px;font-weight:500;background:var(--tealp);margin:6px 0;}
+
+/* MOTEURS */
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0;}
+.mcard{padding:12px 8px;background:var(--creme);cursor:pointer;transition:.2s;text-align:center;border-bottom:2px solid transparent;}
+.mcard:hover{background:#fff;}
+.mcard.on{border-bottom-color:var(--gold);background:#fff8e7;}
+.micon{font-size:20px;margin-bottom:5px;}
+.mname{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--navy);}
+.mdesc{font-size:10px;font-weight:300;color:var(--tx2);line-height:1.4;margin-top:4px;}
+.mjustif{display:none;margin-top:8px;text-align:left;}
+.mcard.on .mjustif{display:block;}
+
+/* COMPÉTENCES */
+.cdomain{background:#fff;border-left:4px solid var(--teal);margin-bottom:10px;}
+.cdomain-hdr{background:var(--teal);padding:12px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.cdomain-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#fff;}
+.cdomain-sub{font-size:11px;color:rgba(255,255,255,.7);font-style:italic;}
+.cdomain-score{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--gold);min-width:60px;text-align:right;}
+.cdomain-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.cdomain-body.open{max-height:3000px;padding:14px 18px;}
+.cskill{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--creme2);}
+.cskill:last-child{border-bottom:none;}
+.csname{font-size:13px;font-weight:500;color:var(--navy);}
+.csind{font-size:11px;font-weight:300;color:var(--tx3);margin-top:3px;padding-left:8px;border-left:2px solid var(--tealp);}
+.cstars{display:flex;gap:3px;}
+.cstar{width:26px;height:26px;border:2px solid var(--creme2);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.15s;color:#ccc;}
+.cstar:hover{border-color:var(--gold);color:var(--gold);}
+.cstar.on{background:var(--gold);border-color:var(--gold);color:#fff;}
+.ctotal{background:var(--navy);padding:10px 18px;display:flex;justify-content:space-between;align-items:center;}
+.ctlbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.ctval{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--gold);}
+
+/* PROFIL BARRES */
+.profil{background:#fff;padding:18px;margin:12px 0;border:1px solid var(--creme2);}
+.profil-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:12px;text-align:center;}
+.pbar-row{margin-bottom:8px;}
+.pbar-head{display:flex;justify-content:space-between;margin-bottom:3px;}
+.pbar-name{font-size:11px;font-weight:500;color:var(--navy);}
+.pbar-val{font-size:11px;color:var(--teal);font-weight:600;}
+.pbar-bg{background:var(--creme2);height:7px;border-radius:3px;overflow:hidden;}
+.pbar-fill{background:linear-gradient(90deg,var(--teal),var(--gold));height:100%;border-radius:3px;width:0%;transition:width .5s;}
+
+/* IKIGAÏ */
+.ikgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+.ik-cercle{padding:16px;border-radius:1px;}
+.ik-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;margin-bottom:4px;}
+.ik-q{font-size:11px;font-style:italic;color:var(--tx2);margin-bottom:10px;}
+
+/* ENTOURAGE */
+.ent-row{display:grid;grid-template-columns:100px 1fr;gap:6px;align-items:center;margin-bottom:6px;}
+.ent-lbl{font-size:11px;font-weight:500;color:var(--navy);padding:8px;background:var(--creme);}
+
+/* SAVE */
+.saved{position:fixed;bottom:20px;right:20px;background:var(--teal);color:#fff;padding:8px 18px;font-size:11px;letter-spacing:1px;opacity:0;transition:opacity .3s;z-index:999;}
+.saved.on{opacity:1;}
+
+/* TABLE */
+.dtable{width:100%;border-collapse:collapse;margin:10px 0;}
+.dtable th{background:var(--navy);color:#fff;padding:9px 12px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;text-align:left;}
+.dtable td{padding:8px 12px;border-bottom:1px solid var(--creme2);font-size:12px;color:rgba(255,255,255,.7);}
+.dtable tr:nth-child(even) td{background:rgba(255,255,255,.04);}
+.dtable.light td{color:var(--tx2);}
+.dtable.light tr:nth-child(even) td{background:var(--creme);}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .sgrid,.tgrid,.hgrid,.ikgrid,.fgrid{grid-template-columns:1fr;}
+  .dgrid{grid-template-columns:1fr 1fr;}
+  .mgrid{grid-template-columns:1fr 1fr;}
+  .page{padding:24px 16px;}
+  .shdr{margin:-24px -16px 20px;padding:24px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="lbox">
+    <p class="llogo">Wanda Laurent Coaching</p>
+    <h1 class="lbrand">Le Grand <em>+</em></h1>
+    <p class="lsub">Passerelle Transmission</p>
+    <div class="ldiv"></div>
+    <div class="rtabs">
+      <button class="rtab on" onclick="setRole(this,'coach')">🎯 Coach</button>
+      <button class="rtab" onclick="setRole(this,'client')">🌿 Client</button>
+    </div>
+    <div id="coach-fields">
+      <input type="password" class="linput" id="pwd" placeholder="Mot de passe coach"/>
+    </div>
+    <div id="client-fields" style="display:none">
+      <input type="text" class="linput" id="prenom" placeholder="Votre prénom"/>
+      <input type="text" class="linput" id="ddn" placeholder="Date de naissance JJ/MM/AAAA"/>
+    </div>
+    <button class="lbtn" onclick="login()">Accéder à mon espace →</button>
+    <p class="lerr" id="lerr">Identifiants incorrects.</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header class="hdr">
+    <div class="hbrand">Le Grand <em>+</em> &nbsp;·&nbsp; Passerelle Transmission</div>
+    <div class="hright">
+      <span class="hbadge" id="hbadge">Coach</span>
+      <span class="hname" id="hname">Wanda Laurent</span>
+      <button class="hout" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
+  <nav class="nav" id="nav">
+    <div class="ntab on" onclick="goPage('dash')">Vue d'ensemble</div>
+    <div class="ntab" onclick="goSeance(1)">S1 · Prise de conscience</div>
+    <div class="ntab" onclick="goSeance(2)">S2 · Portrait de vie</div>
+    <div class="ntab" onclick="goSeance(3)">S3 · Bilan de talents</div>
+    <div class="ntab" onclick="goSeance(4)">S4 · Projet de vie</div>
+    <div class="ntab" onclick="goSeance(5)">S5 · Croyances & Drivers</div>
+    <div class="ntab" onclick="goSeance(6)">S6 · Sécurité & Santé</div>
+    <div class="ntab" onclick="goSeance(7)">S7 · Écosystème</div>
+    <div class="ntab" onclick="goSeance(8)">S8 · Ikigaï & Envol</div>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <div class="page on" id="page-dash">
+    <h1 class="dtitle">Bienvenue <em id="wname">Wanda</em></h1>
+    <p class="dsub" id="wsub">Votre espace de travail — Passerelle Transmission</p>
+    <div class="pbar"><div class="pbfill" id="pbfill" style="width:0%"></div></div>
+    <p class="plabel" id="plbl">0 séance complétée sur 8</p>
+    <div class="sgrid">
+      <div class="scard cur" onclick="goSeance(1)"><div class="scnum">1</div><div class="sclbl">Séance 1 · Ouverture</div><div class="sctitle">La prise de conscience</div><div class="scdesc">Nommer ce qu'on ressent vraiment. Cartographier dangers, freins, ressources.</div><span class="sctag tag-todo" id="tag1">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(2)"><div class="scnum">2</div><div class="sclbl">Séance 2 · Ancrage</div><div class="sctitle">Le portrait de vie</div><div class="scdesc">Courbe du deuil, cycle d'Hudson, exercice créatif, fil de vie.</div><span class="sctag tag-todo" id="tag2">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(3)"><div class="scnum">3</div><div class="sclbl">Séance 3 · Exploration</div><div class="sctitle">Le bilan de talents</div><div class="scdesc">34 talents Gallup, moteurs de sens, valeurs fondamentales, compétences.</div><span class="sctag tag-todo" id="tag3">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(4)"><div class="scnum">4</div><div class="sclbl">Séance 4 · Vision</div><div class="sctitle">Le projet de vie</div><div class="scdesc">Vision 5 ans, 5 piliers, 3 projets prioritaires.</div><span class="sctag tag-todo" id="tag4">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(5)"><div class="scnum">5</div><div class="sclbl">Séance 5 · Libération</div><div class="sctitle">Croyances & Drivers</div><div class="scdesc">Croyances limitantes, 5 drivers ICI, 7 pistes d'assouplissement.</div><span class="sctag tag-todo" id="tag5">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(6)"><div class="scnum">6</div><div class="sclbl">Séance 6 · Vitalité</div><div class="sctitle">Sécurité & Santé</div><div class="scdesc">Finances, rituels bien-être, intelligence émotionnelle.</div><span class="sctag tag-todo" id="tag6">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(7)"><div class="scnum">7</div><div class="sclbl">Séance 7 · Connexion</div><div class="sctitle">L'écosystème</div><div class="scdesc">Partenaires, projets, engagements. Préparer l'Ikigaï.</div><span class="sctag tag-todo" id="tag7">À démarrer</span></div>
+      <div class="scard" onclick="goSeance(8)"><div class="scnum">8</div><div class="sclbl">Séance 8 · Envol</div><div class="sctitle">Ikigaï & Plan de vie</div><div class="scdesc">Ikigaï, plan 90 jours, lettre à soi-même. On s'élance.</div><span class="sctag tag-todo" id="tag8">À démarrer</span></div>
+    </div>
+  </div>
+
+  <!-- S1 -->
+  <div class="page" id="page-s1">
+    <div class="shdr">
+      <button class="backbtn" onclick="goPage('dash')">← Retour</button>
+      <div class="snum">Séance 1 · Ouverture</div>
+      <h2 class="stitle">La prise de conscience</h2>
+      <p class="ssub">Nommer pour transformer — cartographier sa situation réelle face à la retraite</p>
+    </div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Permettre au client de nommer ce qu'il ressent vraiment face à sa transition retraite, dans un espace de confiance.</div><ul class="opeda-list"><li>Créer un espace de sécurité émotionnelle</li><li>Identifier peurs, freins et résistances présents</li><li>Repérer les premières ressources et aspirations</li><li>Poser le cadre du parcours et l'engagement mutuel</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw1c" onclick="sw(1,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw1x" onclick="sw(1,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v1c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 1</span></div><div class="zcoach-body">
+        <div class="lbl">Routine d'ouverture · 7 temps</div>
+        <ul class="chk-list">
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>1/ Bris de glace</b> — Êtes-vous bien installé·e ? Comment vous sentez-vous ?</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>2/ Conseil prise de notes</b> — Je vous propose de noter pour construire votre fil conducteur</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>3/ Rappel objectif séance</b> — Aujourd'hui nous allons cartographier votre situation réelle</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>4/ État d'esprit</b> — Confidentialité, non-jugement, bienveillance</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>5/ JE-VOUS-NOUS</b> — Qui vous êtes, ambition du programme</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>6/ Déroulé de la séance</b></span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span><b>7/ Avant de raccrocher</b> — Le ressenti + mots rassurants positifs</span></li>
+        </ul>
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Qu'est-ce qui vous a amené·e à entamer ce parcours maintenant ?</div>
+        <div class="qtxt">Quand vous pensez à votre retraite, quel est le premier sentiment qui émerge ?</div>
+        <div class="qtxt">Quels sont les 3 mots qui décrivent ce que vous ressentez face à ce changement ?</div>
+        <div class="qtxt">Qu'est-ce qui vous fait le plus peur dans cette transition ?</div>
+        <div class="qtxt">Qu'est-ce qui vous enthousiasme, même timidement ?</div>
+        <div class="qtxt">Qu'avez-vous mis de côté pendant votre vie professionnelle que vous voulez retrouver ?</div>
+        <div class="qtxt">Si dans 2 ans vous regardiez en arrière, qu'aimeriez-vous avoir accompli ?</div>
+        <div class="qtxt">Qui sont les personnes qui comptent vraiment pour vous ?</div>
+        <div class="lbl">Notes coach</div>
+        <textarea id="n1" placeholder="Observations, mots-clés, ressentis du client, pistes à approfondir..." oninput="save('n1')"></textarea>
+        <button class="btnok" onclick="done(1)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v1x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 1</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">Mon énergie aujourd'hui</div>
+          <p>Sur une échelle de 😰 à 😊, comment vous sentez-vous face à votre retraite ?</p>
+          <div class="scale" id="sc1"><button class="sbtn" onclick="scl('sc1',this)">😰</button><button class="sbtn" onclick="scl('sc1',this)">😟</button><button class="sbtn" onclick="scl('sc1',this)">😐</button><button class="sbtn" onclick="scl('sc1',this)">🙂</button><button class="sbtn" onclick="scl('sc1',this)">😊</button></div>
+          <textarea id="x1r" placeholder="En quelques mots, je me sens..." style="min-height:60px" oninput="save('x1r')"></textarea>
+        </div>
+        <div class="exo"><div class="exo-t">📌 Les dangers que je perçois</div><p>Qu'est-ce qui vous inquiète dans cette transition ? Tout noter sans se censurer :</p><textarea id="x1d" placeholder="Ex : perdre mon identité, m'ennuyer, manquer d'argent, perdre le lien avec mes collègues..." oninput="save('x1d')"></textarea></div>
+        <div class="exo"><div class="exo-t">🌿 Mes freins personnels</div><p>Qu'est-ce qui vous retient, en vous, face à ce changement ?</p><textarea id="x1f" placeholder="Ex : peur du vide, besoin d'être utile, difficulté à lâcher le contrôle..." oninput="save('x1f')"></textarea></div>
+        <div class="exo"><div class="exo-t">✨ Ce qui m'enthousiasme</div><textarea id="x1e" placeholder="Même timidement — ce qui m'attire dans cette nouvelle vie..." oninput="save('x1e')"></textarea></div>
+        <div class="exo"><div class="exo-t">💪 Mes ressources personnelles</div><textarea id="x1rs" placeholder="Forces, qualités, expériences, soutiens dont je dispose..." oninput="save('x1rs')"></textarea></div>
+        <div class="exo"><div class="exo-t">🎯 Mes 3 premières actions</div>
+          <input type="text" id="x1a1" placeholder="Action 1..." oninput="save('x1a1')">
+          <input type="text" id="x1a2" placeholder="Action 2..." oninput="save('x1a2')">
+          <input type="text" id="x1a3" placeholder="Action 3..." oninput="save('x1a3')">
+        </div>
+        <div class="quote">« La plus grande révolution est la découverte que les êtres humains peuvent transformer leur vie en changeant simplement de mentalité. »<span class="qa">William James</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="page" id="page-s2">
+    <div class="shdr">
+      <button class="backbtn" onclick="goPage('dash')">← Retour</button>
+      <div class="snum">Séance 2 · Ancrage</div>
+      <h2 class="stitle">Le portrait de vie</h2>
+      <p class="ssub">Comprendre d'où on vient pour savoir où on va</p>
+    </div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Permettre au client de comprendre et situer sa transition dans un cadre psychologique clair.</div><ul class="opeda-list"><li>Identifier sa phase dans la courbe du deuil</li><li>Situer son cycle de vie — modèle d'Hudson</li><li>Valoriser le parcours accompli</li><li>Créer un premier acte de transmission symbolique</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw2c" onclick="sw(2,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw2x" onclick="sw(2,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v2c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 2</span></div><div class="zcoach-body">
+        <div class="lbl">Courbe du deuil — Repérage</div>
+        <div class="dgrid">
+          <div class="detape" style="background:#fee2e2" onclick="this.classList.toggle('on')"><div class="de-emoji">😨</div><div class="de-title" style="color:#991b1b">Choc</div><div class="de-desc" style="color:#7f1d1d">Sidération, incompréhension</div></div>
+          <div class="detape" style="background:#fef3c7" onclick="this.classList.toggle('on')"><div class="de-emoji">😤</div><div class="de-title" style="color:#92400e">Déni</div><div class="de-desc" style="color:#78350f">Refuse de voir la réalité</div></div>
+          <div class="detape" style="background:#fee2e2" onclick="this.classList.toggle('on')"><div class="de-emoji">😡</div><div class="de-title" style="color:#991b1b">Colère</div><div class="de-desc" style="color:#7f1d1d">Révolte contre la situation</div></div>
+          <div class="detape" style="background:#ede9fe" onclick="this.classList.toggle('on')"><div class="de-emoji">😰</div><div class="de-title" style="color:#5b21b6">Peur</div><div class="de-desc" style="color:#4c1d95">Angoisse face à l'inconnu</div></div>
+          <div class="detape" style="background:#fce7f3" onclick="this.classList.toggle('on')"><div class="de-emoji">😢</div><div class="de-title" style="color:#9d174d">Tristesse</div><div class="de-desc" style="color:#831843">Deuil de l'identité pro</div></div>
+          <div class="detape" style="background:#d1fae5" onclick="this.classList.toggle('on')"><div class="de-emoji">🤝</div><div class="de-title" style="color:#065f46">Acceptation</div><div class="de-desc" style="color:#064e3b">Intègre la réalité, s'ouvre</div></div>
+          <div class="detape" style="background:#dbeafe" onclick="this.classList.toggle('on')"><div class="de-emoji">🔍</div><div class="de-title" style="color:#1e40af">Quête de sens</div><div class="de-desc" style="color:#1e3a8a">Cherche une direction</div></div>
+          <div class="detape" style="background:#fef9c3" onclick="this.classList.toggle('on')"><div class="de-emoji">🌟</div><div class="de-title" style="color:#713f12">Renouveau</div><div class="de-desc" style="color:#78350f">Énergie, projet en cours</div></div>
+          <div class="detape" style="background:#d1fae5" onclick="this.classList.toggle('on')"><div class="de-emoji">✨</div><div class="de-title" style="color:#065f46">Sérénité</div><div class="de-desc" style="color:#064e3b">Épanouissement</div></div>
+        </div>
+        <div class="lbl">Modèle d'Hudson</div>
+        <div class="hgrid">
+          <div class="hphase" style="background:#dbeafe;color:#1e3a8a" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#3b82f6">Phase 1 🍒</div><div class="hp-title">Lancement</div><div class="hp-desc">Action, enthousiasme, passion. Énergie haute.</div></div>
+          <div class="hphase" style="background:#fee2e2;color:#7f1d1d" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#ef4444">Phase 2 🍂</div><div class="hp-title">Désynchronisation</div><div class="hp-desc">Frustration, résistance, déception. Énergie en baisse.</div></div>
+          <div class="hphase" style="background:#f3e8ff;color:#4c1d95" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#a855f7">Phase 3 🌿</div><div class="hp-title">Grand Marasme</div><div class="hp-desc">Repli, immobilisme. Régénération nécessaire.</div></div>
+          <div class="hphase" style="background:#d1fae5;color:#064e3b" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#10b981">Phase 4 🌱</div><div class="hp-title">Renouveau</div><div class="hp-desc">Exploration, sérénité. Énergie remontante.</div></div>
+        </div>
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Racontez-moi 3 moments clés de votre parcours — lequel vous rend le plus fier·e ?</div>
+        <div class="qtxt">Qu'est-ce que vous avez construit qui vous survivra ?</div>
+        <div class="qtxt">Si vous résumez votre contribution en une phrase, ce serait quoi ?</div>
+        <div class="qtxt">Quelle période a été la plus alignée avec qui vous êtes vraiment ?</div>
+        <div class="qtxt">Quel message voulez-vous transmettre à la génération suivante ?</div>
+        <div class="lbl">Notes coach</div>
+        <textarea id="n2" placeholder="Phase de deuil, phase Hudson, moments clés, ressources repérées..." oninput="save('n2')"></textarea>
+        <button class="btnok" onclick="done(2)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v2x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 2</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">📍 La courbe du deuil — Ma phase actuelle</div>
+          <p>Toute grande transition ressemble à un deuil. Ce n'est pas une faiblesse — c'est un processus universel. Cliquez sur votre phase :</p>
+          <div class="dgrid">
+            <div class="detape" style="background:#fee2e2" onclick="this.classList.toggle('on')"><div class="de-emoji">😨</div><div class="de-title" style="color:#991b1b">Choc</div><div class="de-desc" style="color:#7f1d1d">Sidération. « C'est maintenant ? »</div></div>
+            <div class="detape" style="background:#fef3c7" onclick="this.classList.toggle('on')"><div class="de-emoji">😤</div><div class="de-title" style="color:#92400e">Déni</div><div class="de-desc" style="color:#78350f">On continue comme avant. « Ça ne change pas grand chose. »</div></div>
+            <div class="detape" style="background:#fee2e2" onclick="this.classList.toggle('on')"><div class="de-emoji">😡</div><div class="de-title" style="color:#991b1b">Colère</div><div class="de-desc" style="color:#7f1d1d">Révolte contre la situation, l'entreprise.</div></div>
+            <div class="detape" style="background:#ede9fe" onclick="this.classList.toggle('on')"><div class="de-emoji">😰</div><div class="de-title" style="color:#5b21b6">Peur</div><div class="de-desc" style="color:#4c1d95">Angoisse face à l'inconnu. « Et si je n'y arrivais pas ? »</div></div>
+            <div class="detape" style="background:#fce7f3" onclick="this.classList.toggle('on')"><div class="de-emoji">😢</div><div class="de-title" style="color:#9d174d">Tristesse</div><div class="de-desc" style="color:#831843">Deuil de l'identité pro, des collègues. Une vraie perte à traverser.</div></div>
+            <div class="detape" style="background:#d1fae5" onclick="this.classList.toggle('on')"><div class="de-emoji">🤝</div><div class="de-title" style="color:#065f46">Acceptation</div><div class="de-desc" style="color:#064e3b">La résistance s'allège. On peut regarder en avant.</div></div>
+            <div class="detape" style="background:#dbeafe" onclick="this.classList.toggle('on')"><div class="de-emoji">🔍</div><div class="de-title" style="color:#1e40af">Quête de sens</div><div class="de-desc" style="color:#1e3a8a">On cherche activement un projet, une direction.</div></div>
+            <div class="detape" style="background:#fef9c3" onclick="this.classList.toggle('on')"><div class="de-emoji">🌟</div><div class="de-title" style="color:#713f12">Renouveau</div><div class="de-desc" style="color:#78350f">Énergie, plaisir retrouvés. Un projet prend forme.</div></div>
+            <div class="detape" style="background:#d1fae5" onclick="this.classList.toggle('on')"><div class="de-emoji">✨</div><div class="de-title" style="color:#065f46">Sérénité</div><div class="de-desc" style="color:#064e3b">Épanouissement. La nouvelle vie est pleinement habitée.</div></div>
+          </div>
+          <textarea id="x2d" placeholder="Je me reconnais dans la phase... parce que... Ce que je ressens concrètement..." style="margin-top:10px" oninput="save('x2d')"></textarea>
+        </div>
+        <div class="exo"><div class="exo-t">🎨 Exercice créatif — Mon cycle de vie selon Hudson</div>
+          <p>Les 4 saisons de votre vie en ce moment. Cliquez sur votre saison puis exprimez-vous à votre façon :</p>
+          <div class="hgrid" style="margin-bottom:10px">
+            <div class="hphase" style="background:#dbeafe;color:#1e3a8a" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#3b82f6">🍒 Été</div><div class="hp-title">Lancement</div><div class="hp-desc">Enthousiasme, projets, élan. Énergie haute.</div></div>
+            <div class="hphase" style="background:#fee2e2;color:#7f1d1d" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#ef4444">🍂 Automne</div><div class="hp-title">Désynchronisation</div><div class="hp-desc">Quelque chose ne fonctionne plus. Il faut lâcher.</div></div>
+            <div class="hphase" style="background:#f3e8ff;color:#4c1d95" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#a855f7">🌿 Hiver</div><div class="hp-title">Retrait intérieur</div><div class="hp-desc">Temps de régénération nécessaire. Pas un échec.</div></div>
+            <div class="hphase" style="background:#d1fae5;color:#064e3b" onclick="this.classList.toggle('on')"><div class="hp-num" style="color:#10b981">🌱 Printemps</div><div class="hp-title">Renouveau</div><div class="hp-desc">Quelque chose émerge. Curiosité retrouvée.</div></div>
+          </div>
+          <p style="font-size:13px;color:var(--tx2);margin-bottom:8px">Choisissez votre format d'expression :</p>
+          <div class="fgrid">
+            <div class="fcard" onclick="this.classList.toggle('on')"><div class="fcard-icon">🎨</div><div class="fcard-lbl">Dessin ou schéma</div></div>
+            <div class="fcard" onclick="this.classList.toggle('on')"><div class="fcard-icon">✍️</div><div class="fcard-lbl">Poème ou haïku</div></div>
+            <div class="fcard" onclick="this.classList.toggle('on')"><div class="fcard-icon">🎵</div><div class="fcard-lbl">Chanson ou refrain</div></div>
+            <div class="fcard" onclick="this.classList.toggle('on')"><div class="fcard-icon">🌉</div><div class="fcard-lbl">Métaphore ou image</div></div>
+          </div>
+          <textarea id="x2h" placeholder="Votre création ici — dessin décrit, poème, refrain, métaphore... Laissez libre cours !" style="min-height:120px" oninput="save('x2h')"></textarea>
+        </div>
+        <div class="exo"><div class="exo-t">🏅 Mes 3 moments forts</div>
+          <textarea id="x2m1" placeholder="Moment 1 — Le plus formateur..." oninput="save('x2m1')"></textarea>
+          <textarea id="x2m2" placeholder="Moment 2 — Celui dont je suis le plus fier·e..." oninput="save('x2m2')"></textarea>
+          <textarea id="x2m3" placeholder="Moment 3 — Celui qui m'a le plus transformé·e..." oninput="save('x2m3')"></textarea>
+        </div>
+        <div class="exo"><div class="exo-t">💌 Ma phrase de transmission</div><textarea id="x2p" placeholder="Si je devais résumer en une phrase ce que j'ai apporté au monde... J'ai..." style="min-height:60px" oninput="save('x2p')"></textarea></div>
+        <div class="quote">« Le chemin se fait en marchant. Et ce que vous avez marché, personne ne peut vous l'enlever. »<span class="qa">Inspiration Le Grand +</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="page" id="page-s3">
+    <div class="shdr">
+      <button class="backbtn" onclick="goPage('dash')">← Retour</button>
+      <div class="snum">Séance 3 · Exploration</div>
+      <h2 class="stitle">Le bilan de talents</h2>
+      <p class="ssub">Qui suis-je vraiment, au-delà de mon titre ? — 34 talents, moteurs de sens, compétences</p>
+    </div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Permettre au client de découvrir ses talents distinctifs, ses moteurs de sens et ses compétences transférables.</div><ul class="opeda-list"><li>Identifier ses 5 talents dominants parmi 34 (Gallup)</li><li>Recueillir le regard de l'entourage</li><li>Repérer ses 3 moteurs de sens dominants</li><li>Évaluer ses 6 domaines de compétences</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw3c" onclick="sw(3,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw3x" onclick="sw(3,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v3c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 3</span></div><div class="zcoach-body">
+        <div class="lbl">Moteurs de sens — Repérage (8 catégories)</div>
+        <div class="mgrid" style="background:rgba(255,255,255,.04);padding:10px">
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🏠<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Sécurité</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🦅<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Autonomie</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🎓<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Compétence</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">👑<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Leadership</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🚀<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Entrepreneuriat</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🤝<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Engagement</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🏆<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Défi</div></div>
+          <div style="text-align:center;padding:8px;cursor:pointer;border:1px solid rgba(201,168,76,.2)" onclick="this.style.borderColor=this.style.borderColor=='rgb(201, 168, 76)'?'rgba(201,168,76,.2)':'rgb(201, 168, 76)'">🌸<div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:4px">Qualité de vie</div></div>
+        </div>
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Si vous n'aviez aucune contrainte, comment occuperiez-vous votre temps ?</div>
+        <div class="qtxt">Quelle est votre compétence la plus précieuse, celle que personne n'a comme vous ?</div>
+        <div class="qtxt">Quand est-ce que vous vous sentez vraiment dans votre élément ?</div>
+        <div class="qtxt">Qu'est-ce qui vous donne de l'énergie ? Qu'est-ce qui vous en prend ?</div>
+        <div class="qtxt">Si vous deviez transmettre une seule chose, ce serait quoi ?</div>
+        <div class="lbl">Notes coach</div>
+        <textarea id="n3" placeholder="Moteurs dominants, valeurs identifiées, talents émergents..." oninput="save('n3')"></textarea>
+        <button class="btnok" onclick="done(3)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v3x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 3</span></div><div class="zclient-body">
+        <!-- 34 TALENTS -->
+        <div class="exo" style="border-left-color:var(--gold);background:#fffbf0"><div class="exo-t" style="color:#92400e">🌟 Mes 5 talents dominants — Liste complète (34 talents Gallup)</div>
+          <p>Lisez chaque talent et sa définition. <b>Cliquez sur les 5 qui vous ressemblent le plus.</b> Un champ s'ouvre pour expliquer pourquoi.</p>
+          <div class="tgrid">
+            <div class="tcard" onclick="talent(this)"><div class="tname">🏅 Accomplissement</div><div class="tdef">Vous ressentez le besoin d'accomplir des choses chaque jour. La productivité est votre étalon de réussite.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-acc')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">⚡ Activateur</div><div class="tdef">Vous transformez les pensées en actions. Le présent vous importe plus que le passé ou le futur.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-act')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🌊 Adaptabilité</div><div class="tdef">Vous vivez dans le présent et vous ajustez facilement. Le changement vous stimule.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ada')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🔬 Analyse</div><div class="tdef">Vous cherchez les raisons et les causes. Vous aimez les données et remettre en question ce qui semble évident.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ana')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🎼 Arrangeur</div><div class="tdef">Vous organisez avec flexibilité. Vous aimez gérer des variables complexes et trouver la configuration optimale.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-arr')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🦁 Assurance</div><div class="tdef">Vous avez foi en vos capacités et prenez des décisions sans hésitation excessive. Vous assumez vos positions.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ass')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🗣️ Communication</div><div class="tdef">Vous trouvez facilement les mots pour mettre des images sur vos idées. Vous aimez captiver votre auditoire.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-com')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🏆 Compétition</div><div class="tdef">Vous mesurez vos progrès par rapport aux autres. Vous aimez gagner et êtes stimulé·e par les comparaisons.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-cmp')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🔗 Connectivité</div><div class="tdef">Vous croyez que tout est lié. Les coïncidences n'existent pas — tout a un sens et une raison d'être.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-con')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">📚 Contexte</div><div class="tdef">Vous comprenez le présent en étudiant le passé. L'histoire vous aide à prendre de meilleures décisions.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ctx')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🎯 Correction</div><div class="tdef">Vous repérez les erreurs et anomalies. Votre attention aux détails est un atout précieux pour la qualité.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-cor')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">✨ Croyance</div><div class="tdef">Vous avez des valeurs fondamentales inaltérables qui orientent votre vie et lui donnent du sens.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-cry')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🌱 Développeur</div><div class="tdef">Vous reconnaissez et cultivez le potentiel des autres. Vous voyez les progrès là où d'autres voient des lacunes.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-dev')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">📋 Discipline</div><div class="tdef">Vous aimez la routine, la structure et l'ordre. Vous planifiez et suivez vos plans avec rigueur.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-dis')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">💛 Empathie</div><div class="tdef">Vous ressentez les émotions des autres comme si c'étaient les vôtres. Vous comprenez les besoins non exprimés.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-emp')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">⚖️ Équité</div><div class="tdef">Vous croyez en des règles équitables pour tous. La cohérence et la justice sont vos boussoles.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-equ')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">⭐ Excellence</div><div class="tdef">Vous transformez le bon en formidable. Vous vous concentrez sur vos forces pour aller vers l'exception.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-exc')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🔭 Futuriste</div><div class="tdef">Vous êtes fasciné·e par l'avenir. Vos visions du possible inspirent et motivent ceux qui vous entourent.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-fut')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">☮️ Harmonie</div><div class="tdef">Vous cherchez le consensus. Vous évitez les conflits et trouvez les zones d'accord entre les personnes.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-har')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">💡 Idéation</div><div class="tdef">Vous êtes fasciné·e par les idées. Vous trouvez des connexions inattendues entre des phénomènes sans rapport apparent.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ide')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🫂 Inclusion</div><div class="tdef">Vous êtes conscient·e des personnes exclues et vous efforcez de les intégrer. Personne ne doit être laissé pour compte.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-inc')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🦄 Individualisation</div><div class="tdef">Vous êtes intrigué·e par les qualités uniques de chaque personne. Vous savez tirer le meilleur de chacun.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-ind')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🧠 Intellection</div><div class="tdef">Vous aimez la réflexion intellectuelle profonde. La solitude et le temps de penser vous sont nécessaires.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-int')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">📈 Maximalisation</div><div class="tdef">Vous stimulez l'excellence individuelle et collective. Vous refusez la médiocrité et transformez le bien en très bien.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-max')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">☀️ Positivité</div><div class="tdef">Vous avez un enthousiasme contagieux. Vous êtes généreux·se en éloges et savez voir le meilleur des situations.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-pos')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🛡️ Prudence</div><div class="tdef">Vous anticipez les obstacles et prenez des précautions. Vos décisions sont mûrement réfléchies.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-pru')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">📦 Recueil</div><div class="tdef">Vous aimez accumuler et collectionner. L'information, les idées, les objets — vous aimez tout garder.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-rec')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🤗 Relationnel</div><div class="tdef">Vous appréciez les relations profondes et authentiques. Vous investissez dans les personnes que vous connaissez déjà.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-rel')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🤲 Responsabilité</div><div class="tdef">Vous vous engagez émotionnellement dans ce que vous promettez. Votre intégrité est non négociable.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-res')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">🔧 Restauration</div><div class="tdef">Vous êtes très efficace·e pour résoudre les problèmes. Vous aimez identifier ce qui ne va pas et y remédier.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-rst')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">♟️ Stratégique</div><div class="tdef">Vous créez des alternatives. Face à une situation, vous voyez rapidement les patterns et choisissez le meilleur chemin.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-str')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">📖 Studieux</div><div class="tdef">Vous aimez apprendre. Le processus d'acquisition — plus que le résultat — vous nourrit profondément.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-stu')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">👊 Commandement</div><div class="tdef">Vous avez de la présence. Vous prenez en charge les situations et faites entendre votre voix avec conviction.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-cmd')"></textarea></div></div>
+            <div class="tcard" onclick="talent(this)"><div class="tname">💫 Idéalisme</div><div class="tdef">Vous aspirez à un monde meilleur. Vous êtes en quête de sens profond et de cohérence entre vos actes et vos valeurs.</div><div class="tjustif"><textarea placeholder="Pourquoi ce talent vous ressemble..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical" oninput="save('tj-idl')"></textarea></div></div>
+          </div>
+          <div class="tcount" id="tcount">0 / 5 talents sélectionnés</div>
+        </div>
+        <!-- ENTOURAGE -->
+        <div class="exo" style="border-left-color:var(--gold);background:#fffbf0"><div class="exo-t" style="color:#92400e">👥 Le regard de votre entourage</div>
+          <p>Demandez à <b>5 personnes proches</b> de répondre à cette question :</p>
+          <div style="background:#fff;border:2px solid var(--gold);padding:14px;margin:10px 0;text-align:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--navy)">« Quels sont les 3 talents ou qualités qui me définissent le mieux selon toi ? »</div>
+          <div class="ent-row"><div class="ent-lbl">Personne 1</div><input type="text" id="e1" placeholder="Talents cités..." oninput="save('e1')"></div>
+          <div class="ent-row"><div class="ent-lbl">Personne 2</div><input type="text" id="e2" placeholder="Talents cités..." oninput="save('e2')"></div>
+          <div class="ent-row"><div class="ent-lbl">Personne 3</div><input type="text" id="e3" placeholder="Talents cités..." oninput="save('e3')"></div>
+          <div class="ent-row"><div class="ent-lbl">Personne 4</div><input type="text" id="e4" placeholder="Talents cités..." oninput="save('e4')"></div>
+          <div class="ent-row"><div class="ent-lbl">Personne 5</div><input type="text" id="e5" placeholder="Talents cités..." oninput="save('e5')"></div>
+          <div class="lbl" style="color:var(--teal);margin-top:10px">Ce que ces réponses révèlent</div>
+          <textarea id="ea" placeholder="Surprises... Confirmations... Ce que je retiens..." oninput="save('ea')"></textarea>
+        </div>
+        <!-- MOTEURS -->
+        <div class="exo"><div class="exo-t">🔥 Mes 3 moteurs de sens dominants</div><p>Cliquez sur les 3 qui vous ressemblent le plus :</p>
+          <div class="mgrid">
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🏠</div><div class="mname">Sécurité</div><div class="mdesc">Besoin de stabilité et d'ancrage dans une organisation ou un territoire</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms1')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🦅</div><div class="mname">Autonomie</div><div class="mdesc">Besoin d'agir à votre façon, à votre rythme, sans contrainte imposée</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms2')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🎓</div><div class="mname">Compétence</div><div class="mdesc">Le contenu prime. Expertise, spécialisation, reconnaissance par les pairs</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms3')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">👑</div><div class="mname">Leadership</div><div class="mdesc">Diriger, guider, influencer. Les hautes responsabilités vous épanouissent</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms4')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🚀</div><div class="mname">Entrepreneuriat</div><div class="mdesc">Créer, innover, construire quelque chose de nouveau à partir de rien</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms5')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🤝</div><div class="mname">Engagement</div><div class="mdesc">Se dévouer à une cause. Servir, contribuer. Le sens prime sur tout</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms6')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🏆</div><div class="mname">Goût du défi</div><div class="mdesc">Se dépasser, relever des défis. L'ennui est insupportable</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms7')"></textarea></div></div>
+            <div class="mcard" onclick="moteur(this)"><div class="micon">🌸</div><div class="mname">Qualité de vie</div><div class="mdesc">Famille, amis, loisirs passent en premier. L'équilibre harmonieux est votre priorité</div><div class="mjustif"><textarea placeholder="Pourquoi..." style="min-height:50px;width:100%;background:#fff;border:1px solid rgba(42,127,127,.2);font-family:'DM Sans',sans-serif;padding:6px;font-size:11px;outline:none;resize:vertical" oninput="save('ms8')"></textarea></div></div>
+          </div>
+        </div>
+        <!-- COMPÉTENCES -->
+        <div class="exo" style="border-left-color:var(--navy);background:#f5f6fa;padding:0;overflow:hidden">
+          <div style="background:var(--navy);padding:12px 18px;display:flex;align-items:center;gap:10px"><span style="font-size:18px">💼</span><div><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:2px">Mes compétences transférables</div><div style="font-size:13px;color:rgba(255,255,255,.8);font-weight:300;font-family:'Cormorant Garamond',serif;font-style:italic">Évaluez chaque domaine de 1 à 5 — elles vous appartiennent pour toujours</div></div></div>
+          <div style="padding:14px 18px">
+            <div style="background:#fff8e7;border:1px solid var(--gold);padding:9px 12px;margin-bottom:12px;font-size:11px;color:var(--tx2)"><b style="color:var(--navy)">Échelle :</b> 1 = Jamais · 2 = Rarement · 3 = Ponctuellement · 4 = Fréquemment · 5 = Maîtrise totale</div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">📋 Organiser</div><div class="cdomain-sub">Structurer des activités — /20</div></div><div class="cdomain-score" id="cs-org">0/20</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">Gérer son temps</div><div class="csind">• Préparer le matériel • Avoir lu toutes les données utiles</div></div><div class="cstars" data-d="org"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Appréhender la situation</div><div class="csind">• Établir une stratégie • Fixer des objectifs clairs • Anticiper les imprévus</div></div><div class="cstars" data-d="org"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Planifier</div><div class="csind">• Fixer les priorités • Déterminer les étapes • Coordonner les tâches</div></div><div class="cstars" data-d="org"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Anticiper</div><div class="csind">• Identifier les éléments importants • Prévoir les conséquences</div></div><div class="cstars" data-d="org"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Organiser</span><span class="ctval" id="ct-org">0 / 20</span></div>
+            </div></div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">🔬 Traiter l'information</div><div class="cdomain-sub">Recevoir, comprendre, traiter et restituer — /45</div></div><div class="cdomain-score" id="cs-tra">0/45</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">Comprendre l'information</div><div class="csind">• Dégager les problématiques • Répondre aux questions posées</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Faire une synthèse</div><div class="csind">• Présenter l'information de façon réduite en gardant structure et sens</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Analyser</div><div class="csind">• Vision claire et complète • Inférences logiques • Identifier les données utiles</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Argumenter / Réfuter</div><div class="csind">• Défendre sa position sur des faits exacts • Remettre en cause les éléments émis</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Exprimer son opinion</div><div class="csind">• Émettre un point de vue personnel • Argumenter avec logique et cohérence</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Mémoriser / Abstraire</div><div class="csind">• Restituer l'information • Dégager des problématiques généralisables</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Faire des associations</div><div class="csind">• Établir des liens cohérents entre texte et éléments extérieurs</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Mémoriser</div><div class="csind">• Restituer l'information en utilisant des notes de façon sporadique</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Traitement global</div><div class="csind">• Traiter l'information dans un cadre de référence plus large</div></div><div class="cstars" data-d="tra"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Traiter l'information</span><span class="ctval" id="ct-tra">0 / 45</span></div>
+            </div></div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">🔧 Résoudre les problèmes</div><div class="cdomain-sub">Produire une solution efficace — /30</div></div><div class="cdomain-score" id="cs-res">0/30</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">Gérer l'imprévu</div><div class="csind">• Réagir de façon adaptée • Agir même si paramètres inconnus</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Prendre des initiatives</div><div class="csind">• Proposer des solutions concrètes spontanément</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Faire des choix / Décider</div><div class="csind">• Comparer les possibilités • Trancher malgré les pressions</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Maîtriser la situation</div><div class="csind">• Fixer des objectifs clairs • Définir les rôles • Être rigoureux</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Planifier la solution</div><div class="csind">• Établir une stratégie • Anticiper les flous et imprévus</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Évaluer / Contrôler</div><div class="csind">• Mesurer les résultats • Réajuster le plan d'action si nécessaire</div></div><div class="cstars" data-d="res"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Résoudre les problèmes</span><span class="ctval" id="ct-res">0 / 30</span></div>
+            </div></div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">🤝 Travailler en équipe</div><div class="cdomain-sub">Collaborer efficacement — /35</div></div><div class="cdomain-score" id="cs-equ">0/35</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">Collaborer</div><div class="csind">• Écouter • Partager l'information • Contribuer activement</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">S'adapter aux autres</div><div class="csind">• Adapter son langage • Faire preuve de souplesse</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Créer un bon climat</div><div class="csind">• Rester impartial • Favoriser l'esprit d'équipe • Susciter l'intérêt mutuel</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Gérer les conflits</div><div class="csind">• Clarifier les désaccords • Envisager le point de vue de l'autre • Chercher le compromis</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Motiver et valoriser</div><div class="csind">• Valoriser les contributions • Responsabiliser • Encourager les meilleures solutions</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Animer la discussion</div><div class="csind">• Introduire les sujets • Reformuler • Donner la parole • Conclure</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Partager l'information</div><div class="csind">• Transmettre fidèlement les données • Répondre précisément aux questions</div></div><div class="cstars" data-d="equ"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Travailler en équipe</span><span class="ctval" id="ct-equ">0 / 35</span></div>
+            </div></div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">👑 Encadrer</div><div class="cdomain-sub">Conduire des personnes vers un objectif — /50</div></div><div class="cdomain-score" id="cs-enc">0/50</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">S'imposer</div><div class="csind">• Capter l'attention • Prendre sa place • Susciter le consensus</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Contrôler la situation</div><div class="csind">• Fixer des objectifs clairs • Définir les rôles • Être rigoureux</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Prendre le leadership</div><div class="csind">• Définir des priorités communes • Inciter à respecter le temps • Déterminer la stratégie</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Motiver ses collaborateurs</div><div class="csind">• Valoriser les contributions • Responsabiliser • Encourager</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Créer un bon climat</div><div class="csind">• Écouter attentivement • Rester impartial • Faire preuve de dynamisme</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">S'informer / Négocier</div><div class="csind">• Chercher l'avis des interlocuteurs • Traiter les situations difficiles avec tact</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Prendre des décisions</div><div class="csind">• Trancher malgré les pressions • Consulter avant de décider</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Animer la discussion</div><div class="csind">• Introduire les sujets • Reformuler • Synthétiser • Conclure</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Informer</div><div class="csind">• Transmettre fidèlement les données • Répondre précisément aux questions</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Déléguer / Évaluer</div><div class="csind">• Confier des responsabilités • Mesurer les résultats et donner du feedback</div></div><div class="cstars" data-d="enc"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Encadrer</span><span class="ctval" id="ct-enc">0 / 50</span></div>
+            </div></div>
+            <div class="cdomain"><div class="cdomain-hdr" onclick="cd(this)"><div><div class="cdomain-title">🗣️ Communiquer</div><div class="cdomain-sub">Adapter son discours pour conduire vers un objectif — /45</div></div><div class="cdomain-score" id="cs-com">0/45</div></div>
+            <div class="cdomain-body">
+              <div class="cskill"><div><div class="csname">Rendre l'information</div><div class="csind">• Faire une introduction précise • Expliquer clairement • Discours structuré</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Se renseigner</div><div class="csind">• Poser des questions • Chercher les informations manquantes • Insister</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Gérer son comportement</div><div class="csind">• Les émotions sont maîtrisées • La gestuelle est contrôlée</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Intéresser un auditoire</div><div class="csind">• Contact non verbal avec le public • S'adresser de manière dynamique • Utiliser des accroches</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Négocier</div><div class="csind">• Traiter les situations difficiles avec tact • Chercher le compromis</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Argumenter</div><div class="csind">• Défendre sa position sur des faits exacts • Faire des associations pertinentes</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Réfuter</div><div class="csind">• Remettre en cause les éléments émis • Manifester son désaccord</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Animer la discussion</div><div class="csind">• Introduire • Reformuler • Synthétiser • Donner la parole tour à tour • Conclure</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="cskill"><div><div class="csname">Informer</div><div class="csind">• Transmettre fidèlement les données utiles • Répondre précisément</div></div><div class="cstars" data-d="com"><div class="cstar" onclick="cst(this,1)">★</div><div class="cstar" onclick="cst(this,2)">★</div><div class="cstar" onclick="cst(this,3)">★</div><div class="cstar" onclick="cst(this,4)">★</div><div class="cstar" onclick="cst(this,5)">★</div></div></div>
+              <div class="ctotal"><span class="ctlbl">Score Communiquer</span><span class="ctval" id="ct-com">0 / 45</span></div>
+            </div></div>
+            <!-- PROFIL -->
+            <div class="profil">
+              <div class="profil-lbl">📊 Mon profil de compétences /10</div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">📋 Organiser</span><span class="pbar-val" id="pv-org">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-org"></div></div></div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">🔬 Traiter l'information</span><span class="pbar-val" id="pv-tra">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-tra"></div></div></div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">🔧 Résoudre les problèmes</span><span class="pbar-val" id="pv-res">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-res"></div></div></div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">🤝 Travailler en équipe</span><span class="pbar-val" id="pv-equ">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-equ"></div></div></div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">👑 Encadrer</span><span class="pbar-val" id="pv-enc">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-enc"></div></div></div>
+              <div class="pbar-row"><div class="pbar-head"><span class="pbar-name">🗣️ Communiquer</span><span class="pbar-val" id="pv-com">0/10</span></div><div class="pbar-bg"><div class="pbar-fill" id="pf-com"></div></div></div>
+              <div style="margin-top:12px"><div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:6px">Ce que ce profil révèle pour ma nouvelle vie</div><textarea id="cp-syn" placeholder="Mes domaines de force... Ce que je peux transmettre..." oninput="save('cp-syn')"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <!-- VALEURS -->
+        <div class="exo"><div class="exo-t">💎 Mes valeurs fondamentales</div>
+          <p><b>Imaginez :</b> aucune contrainte financière, aucune obligation, tout votre temps est disponible.</p>
+          <textarea id="x3v1" placeholder="Question 1 : que faites-vous ? (notez tout, sans vous censurer — au moins 10 lignes)" style="min-height:100px" oninput="save('x3v1')"></textarea>
+          <textarea id="x3v2" placeholder="Question 2 : pourquoi ? Quelles valeurs profondes ces choix révèlent-ils ?" oninput="save('x3v2')"></textarea>
+        </div>
+        <div class="quote">« Vos talents sont ce que vous emportez pour toujours — ils ne prennent pas leur retraite avec vous. »<span class="qa">Le Grand + · Passerelle Transmission</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="page" id="page-s4">
+    <div class="shdr"><button class="backbtn" onclick="goPage('dash')">← Retour</button><div class="snum">Séance 4 · Vision</div><h2 class="stitle">Le projet de vie</h2><p class="ssub">Construire sa vision — poser les fondations de sa seconde vie</p></div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Construire une vision concrète et enthousiasmante de la vie après la retraite.</div><ul class="opeda-list"><li>Explorer les 5 piliers de la seconde vie</li><li>Formuler une vision inspirante à 5 ans</li><li>Identifier 3 projets prioritaires concrets</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw4c" onclick="sw(4,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw4x" onclick="sw(4,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v4c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 4</span></div><div class="zcoach-body">
+        <div class="lbl">Les 5 piliers du projet de vie</div>
+        <table class="dtable"><tr><th>Pilier</th><th>Questions à explorer</th></tr><tr><td style="color:rgba(255,255,255,.85)">👨‍👩‍👧 Famille & Relations</td><td>Comment habiter vos liens familiaux ? Quel rôle jouer ?</td></tr><tr><td style="color:rgba(255,255,255,.85)">🌍 Engagement & Transmission</td><td>À quelle cause contribuer ? Que léguer ?</td></tr><tr><td style="color:rgba(255,255,255,.85)">🎨 Création & Apprentissage</td><td>Qu'avez-vous toujours voulu créer ou apprendre ?</td></tr><tr><td style="color:rgba(255,255,255,.85)">🌿 Santé & Vitalité</td><td>Comment prendre soin de votre corps et énergie ?</td></tr><tr><td style="color:rgba(255,255,255,.85)">💫 Sens & Spiritualité</td><td>Qu'est-ce qui donne le plus de sens à votre vie ?</td></tr></table>
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Si dans 5 ans vous regardiez en arrière, qu'est-ce qui vous rendrait fier·e ?</div>
+        <div class="qtxt">Qu'avez-vous mis de côté que vous voulez maintenant récupérer ?</div>
+        <div class="qtxt">Quel projet a toujours dormi dans un tiroir ?</div>
+        <div class="qtxt">Comment voulez-vous que les gens parlent de vous dans 10 ans ?</div>
+        <textarea id="n4" placeholder="Vision émergente, piliers prioritaires, projets identifiés..." oninput="save('n4')" style="margin-top:12px"></textarea>
+        <button class="btnok" onclick="done(4)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v4x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 4</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">🌅 Ma vision dans 5 ans</div><p>Décrivez votre vie idéale dans 5 ans. Une journée type. Avec qui ? Que faites-vous ? Comment vous sentez-vous ?</p><textarea id="x4v" placeholder="Je me lève le matin et..." style="min-height:120px" oninput="save('x4v')"></textarea></div>
+        <div class="exo"><div class="exo-t">🗺️ Mes 3 projets prioritaires</div>
+          <input type="text" id="x4p1" placeholder="Projet 1 — le plus important..." oninput="save('x4p1')">
+          <input type="text" id="x4p2" placeholder="Projet 2..." oninput="save('x4p2')">
+          <input type="text" id="x4p3" placeholder="Projet 3..." oninput="save('x4p3')">
+        </div>
+        <div class="quote">« Le chemin se fait en marchant. Et ce que vous avez marché, personne ne peut vous l'enlever. »<span class="qa">Inspiration Le Grand +</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="page" id="page-s5">
+    <div class="shdr"><button class="backbtn" onclick="goPage('dash')">← Retour</button><div class="snum">Séance 5 · Libération</div><h2 class="stitle">Croyances & Drivers</h2><p class="ssub">Identifier et assouplir — transformer les messages contraignants</p></div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Permettre au client de prendre conscience de ses freins intérieurs et de les transformer en ressources.</div><ul class="opeda-list"><li>Identifier ses croyances limitantes liées à la retraite</li><li>Reconnaître son ou ses drivers dominants</li><li>Formuler une nouvelle permission libératrice</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw5c" onclick="sw(5,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw5x" onclick="sw(5,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v5c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 5</span></div><div class="zcoach-body">
+        <div class="lbl">Les 5 Drivers — Messages contraignants (ICI)</div>
+        <div class="dcard" onclick="this.classList.toggle('on')"><div class="dname">Sois Parfait</div><div class="dmsg">« La perfection est possible »</div><div class="dperm">→ Permission : Sois réaliste, donne-toi le droit à l'erreur</div></div>
+        <div class="dcard" onclick="this.classList.toggle('on')"><div class="dname">Sois Fort</div><div class="dmsg">« Tu peux tout gérer seul·e »</div><div class="dperm">→ Permission : Sois ouvert·e, exprime tes émotions</div></div>
+        <div class="dcard" onclick="this.classList.toggle('on')"><div class="dname">Fais Vite</div><div class="dmsg">« Si tu vas vite, tu pourras tout faire »</div><div class="dperm">→ Permission : Aie un rythme efficace, réfléchis avant d'agir</div></div>
+        <div class="dcard" onclick="this.classList.toggle('on')"><div class="dname">Fais Plaisir</div><div class="dmsg">« Je peux faire plaisir à tout le monde »</div><div class="dperm">→ Permission : Pense aussi à toi, dis non</div></div>
+        <div class="dcard" onclick="this.classList.toggle('on')"><div class="dname">Fais des Efforts</div><div class="dmsg">« Si on s'acharne, on gagne toujours »</div><div class="dperm">→ Permission : Réussis à ta mesure, accepte le plaisir</div></div>
+        <div class="lbl">7 Pistes d'assouplissement</div>
+        <div class="qtxt"><b>Piste 1</b> — Croyance opposée : « Quelle serait la croyance totalement opposée ? »</div>
+        <div class="qtxt"><b>Piste 2</b> — L'échelle dans l'espace : visualiser limitante en bas, aidante en haut</div>
+        <div class="qtxt"><b>Piste 3</b> — Chercher un modèle : « Pense à quelqu'un qui n'aurait pas cette difficulté »</div>
+        <div class="qtxt"><b>Piste 4</b> — Lien avec l'émotion : « Quelle émotion t'envahit quand tu penses que... »</div>
+        <div class="qtxt"><b>Piste 5</b> — Équivalences : « Quels sont les faits sur lesquels tu te bases ? »</div>
+        <div class="qtxt"><b>Piste 6</b> — Capacité/permission : « Je ne suis pas... mais je suis capable de... »</div>
+        <div class="qtxt"><b>Piste 7</b> — Évitement : « Qu'est-ce que cela te permet d'éviter ? »</div>
+        <textarea id="n5" placeholder="Drivers identifiés, croyances repérées, pistes travaillées..." oninput="save('n5')" style="margin-top:12px"></textarea>
+        <button class="btnok" onclick="done(5)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v5x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 5</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">🔍 Mes croyances sur la retraite</div><textarea id="x5c" placeholder="Ex : à la retraite on devient inutile / ma valeur vient de mon travail / je ne saurai pas quoi faire..." oninput="save('x5c')"></textarea></div>
+        <div class="exo"><div class="exo-t">✨ Les croyances aidantes que je veux cultiver</div><textarea id="x5a" placeholder="Ex : ma valeur vient de qui je suis / j'ai tout le temps pour découvrir / capable d'apprendre à tout âge..." oninput="save('x5a')"></textarea></div>
+        <div class="exo"><div class="exo-t">💌 Ma nouvelle permission</div><textarea id="x5p" placeholder="Je m'autorise à... / J'ai le droit de..." style="min-height:60px" oninput="save('x5p')"></textarea></div>
+        <div class="quote">« Nos pensées deviennent une prophétie. Choisissons-les bien. »<span class="qa">ICI · Institut de Coaching International</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="page" id="page-s6">
+    <div class="shdr"><button class="backbtn" onclick="goPage('dash')">← Retour</button><div class="snum">Séance 6 · Vitalité</div><h2 class="stitle">Sécurité & Santé</h2><p class="ssub">Anticiper sereinement — rituels de vie et intelligence émotionnelle</p></div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Anticiper les aspects pratiques et construire des bases solides pour la vitalité.</div><ul class="opeda-list"><li>Clarifier et dédramatiser la situation financière</li><li>Identifier les rituels de santé à installer</li><li>Développer la conscience émotionnelle</li><li>Prévenir le syndrome du glissement</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw6c" onclick="sw(6,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw6x" onclick="sw(6,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v6c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 6</span></div><div class="zcoach-body">
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Comment vivez-vous le rapport à l'argent lié à la retraite ?</div>
+        <div class="qtxt">Qu'allez-vous perdre en termes de structure de vie ? Comment le remplacer ?</div>
+        <div class="qtxt">Quelles activités physiques vous ressourcent ? Les pratiquez-vous ?</div>
+        <div class="qtxt">Comment gérez-vous vos émotions quand les choses ne vont pas ?</div>
+        <div class="qtxt">Qui sont les personnes qui vous nourrissent vraiment ?</div>
+        <div class="qtxt">Quel serait votre rituel de matin idéal dans votre nouvelle vie ?</div>
+        <textarea id="n6" placeholder="Situation financière perçue, rituels à créer, besoins émotionnels identifiés..." oninput="save('n6')" style="margin-top:12px"></textarea>
+        <button class="btnok" onclick="done(6)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v6x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 6</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">💰 Ma sécurité financière</div><textarea id="x6f" placeholder="Ce que je sais... / Ce que je dois vérifier... / Mes inquiétudes... / Ce qui me rassure..." oninput="save('x6f')"></textarea></div>
+        <div class="exo"><div class="exo-t">🌿 Mes rituels de vitalité à créer</div>
+          <input type="text" id="x6r1" placeholder="Rituel matin (ex : marche 30 min, méditation...)" oninput="save('x6r1')">
+          <input type="text" id="x6r2" placeholder="Activité physique hebdomadaire..." oninput="save('x6r2')">
+          <input type="text" id="x6r3" placeholder="Lien social régulier (avec qui, quand ?)" oninput="save('x6r3')">
+          <input type="text" id="x6r4" placeholder="Apprentissage ou créativité (quoi ?)" oninput="save('x6r4')">
+        </div>
+        <div class="exo"><div class="exo-t">💡 Mon quotient émotionnel — Auto-évaluation</div>
+          <p style="margin-bottom:8px">Notez-vous de 1 (rarement) à 5 (presque toujours) :</p>
+          <div style="display:grid;gap:10px">
+            <div><div style="font-size:12px;font-weight:500;color:var(--navy);margin-bottom:4px">Conscience de soi</div><div class="scale" id="qe1"><button class="sbtn" onclick="scl('qe1',this)">1</button><button class="sbtn" onclick="scl('qe1',this)">2</button><button class="sbtn" onclick="scl('qe1',this)">3</button><button class="sbtn" onclick="scl('qe1',this)">4</button><button class="sbtn" onclick="scl('qe1',this)">5</button></div></div>
+            <div><div style="font-size:12px;font-weight:500;color:var(--navy);margin-bottom:4px">Gestion émotionnelle</div><div class="scale" id="qe2"><button class="sbtn" onclick="scl('qe2',this)">1</button><button class="sbtn" onclick="scl('qe2',this)">2</button><button class="sbtn" onclick="scl('qe2',this)">3</button><button class="sbtn" onclick="scl('qe2',this)">4</button><button class="sbtn" onclick="scl('qe2',this)">5</button></div></div>
+            <div><div style="font-size:12px;font-weight:500;color:var(--navy);margin-bottom:4px">Empathie</div><div class="scale" id="qe3"><button class="sbtn" onclick="scl('qe3',this)">1</button><button class="sbtn" onclick="scl('qe3',this)">2</button><button class="sbtn" onclick="scl('qe3',this)">3</button><button class="sbtn" onclick="scl('qe3',this)">4</button><button class="sbtn" onclick="scl('qe3',this)">5</button></div></div>
+            <div><div style="font-size:12px;font-weight:500;color:var(--navy);margin-bottom:4px">Optimisme</div><div class="scale" id="qe4"><button class="sbtn" onclick="scl('qe4',this)">1</button><button class="sbtn" onclick="scl('qe4',this)">2</button><button class="sbtn" onclick="scl('qe4',this)">3</button><button class="sbtn" onclick="scl('qe4',this)">4</button><button class="sbtn" onclick="scl('qe4',this)">5</button></div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="page" id="page-s7">
+    <div class="shdr"><button class="backbtn" onclick="goPage('dash')">← Retour</button><div class="snum">Séance 7 · Connexion</div><h2 class="stitle">L'écosystème de transmission</h2><p class="ssub">Se connecter avant de partir — être déjà en mouvement</p></div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Tisser concrètement les liens de la nouvelle vie avant le départ officiel.</div><ul class="opeda-list"><li>Identifier son écosystème de vie</li><li>Prendre 3 engagements d'action dans les 30 jours</li><li>Préparer les 4 cercles de l'Ikigaï pour S8</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw7c" onclick="sw(7,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw7x" onclick="sw(7,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v7c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 7</span></div><div class="zcoach-body">
+        <div class="lbl">Questions de coaching</div>
+        <div class="qtxt">Qui dans votre entourage ou réseau pourrait devenir un partenaire de votre nouvelle vie ?</div>
+        <div class="qtxt">Y a-t-il une association, un projet qui vous attend depuis longtemps ?</div>
+        <div class="qtxt">Comment commencer à construire ces liens AVANT votre départ ?</div>
+        <div class="qtxt">Quel héritage voulez-vous laisser — et à qui ?</div>
+        <div class="lbl">Préparer l'Ikigaï — S8</div>
+        <ul class="chk-list">
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Ce qu'il aime faire (passions)</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Ce pour quoi il est doué (talents S3)</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Ce dont le monde a besoin</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Ce pour quoi il peut être reconnu·e</span></li>
+        </ul>
+        <textarea id="n7" placeholder="Connexions identifiées, actions engagées, éléments Ikigaï recueillis..." oninput="save('n7')" style="margin-top:12px"></textarea>
+        <button class="btnok" onclick="done(7)">✓ Séance complétée</button>
+      </div></div>
+    </div>
+    <div id="v7x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 7</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">🌐 Mon écosystème de vie</div><textarea id="x7e" placeholder="Personnes ressources, associations, projets, formations, communautés..." oninput="save('x7e')"></textarea></div>
+        <div class="exo"><div class="exo-t">🎯 Mes 3 engagements dans les 30 prochains jours</div>
+          <input type="text" id="x7a1" placeholder="Engagement 1 — Je vais contacter / rejoindre / visiter..." oninput="save('x7a1')">
+          <input type="text" id="x7a2" placeholder="Engagement 2..." oninput="save('x7a2')">
+          <input type="text" id="x7a3" placeholder="Engagement 3..." oninput="save('x7a3')">
+        </div>
+        <div class="exo" style="border-left-color:var(--gold);background:#fffbf0"><div class="exo-t" style="color:#92400e">🌟 Préparez votre Ikigaï pour la prochaine séance</div>
+          <p style="margin-bottom:12px">Réfléchissez à ces 4 questions avant notre dernière séance :</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:#fff0f3;padding:12px;border-left:2px solid #f9a8d4"><div style="font-size:9px;color:#9d174d;font-weight:600;letter-spacing:1px;margin-bottom:6px">❤️ CE QUE J'AIME</div><textarea style="width:100%;background:#fff;border:1px solid #f9a8d4;font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical;min-height:70px" placeholder="Mes passions..." id="ip1" oninput="save('ip1')"></textarea></div>
+            <div style="background:#f5f3ff;padding:12px;border-left:2px solid #a78bfa"><div style="font-size:9px;color:#5b21b6;font-weight:600;letter-spacing:1px;margin-bottom:6px">⭐ MES TALENTS</div><textarea style="width:100%;background:#fff;border:1px solid #a78bfa;font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical;min-height:70px" placeholder="Ce pour quoi je suis doué·e..." id="ip2" oninput="save('ip2')"></textarea></div>
+            <div style="background:#f0fdf4;padding:12px;border-left:2px solid #4ade80"><div style="font-size:9px;color:#065f46;font-weight:600;letter-spacing:1px;margin-bottom:6px">🌍 BESOINS DU MONDE</div><textarea style="width:100%;background:#fff;border:1px solid #4ade80;font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical;min-height:70px" placeholder="Les causes qui m'interpellent..." id="ip3" oninput="save('ip3')"></textarea></div>
+            <div style="background:#fffbeb;padding:12px;border-left:2px solid var(--gold)"><div style="font-size:9px;color:#92400e;font-weight:600;letter-spacing:1px;margin-bottom:6px">💰 RECONNAISSANCE</div><textarea style="width:100%;background:#fff;border:1px solid var(--gold);font-family:'DM Sans',sans-serif;padding:8px;font-size:12px;outline:none;resize:vertical;min-height:70px" placeholder="Ce pour quoi on me sollicite..." id="ip4" oninput="save('ip4')"></textarea></div>
+          </div>
+        </div>
+        <div class="quote">« Donner du temps aux autres, c'est recevoir en retour. »<span class="qa">France Bénévolat</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="page" id="page-s8">
+    <div class="shdr"><button class="backbtn" onclick="goPage('dash')">← Retour</button><div class="snum">Séance 8 · Envol</div><h2 class="stitle">Ikigaï & Plan de vie</h2><p class="ssub">Votre raison d'être · Plan 90 jours · On ne part plus — on s'élance</p></div>
+    <div class="opeda"><div class="opeda-icon">🎯</div><div><div class="opeda-lbl">Objectif pédagogique</div><div class="opeda-txt">Formaliser la raison d'être (Ikigaï), construire le plan d'action et célébrer la transformation.</div><ul class="opeda-list"><li>Construire son Ikigaï — croisement des 4 cercles</li><li>Formuler sa mission de vie en une phrase</li><li>Plan d'action concret sur 90 jours avec échéances</li><li>Célébrer le chemin parcouru</li></ul></div></div>
+    <div class="vswitch"><button class="vsw coach" id="sw8c" onclick="sw(8,'coach')">🎯 ESPACE COACH</button><button class="vsw" id="sw8x" onclick="sw(8,'client')">🌿 ESPACE CLIENT</button></div>
+    <div id="v8c">
+      <div class="zcoach"><div class="zcoach-hdr"><span style="font-size:16px">🎯</span><span>Guide & Outils Coach — Séance 8</span></div><div class="zcoach-body">
+        <div class="lbl">Objectifs de clôture</div>
+        <ul class="chk-list">
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Synthèse du parcours — ce qui a changé depuis S1</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Construction de l'Ikigaï avec le client</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Formulation de la mission de vie en une phrase</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Plan d'action 90 jours — 5 engagements avec échéances</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Ancrage nouvelle identité — « Qui suis-je maintenant ? »</span></li>
+          <li class="chk-item"><div class="chkbox" onclick="chk(this)"></div><span>Célébration du chemin parcouru</span></li>
+        </ul>
+        <div class="lbl">Questions de clôture</div>
+        <div class="qtxt">Qu'est-ce qui a changé en vous depuis la séance 1 ?</div>
+        <div class="qtxt">Quelle a été la prise de conscience la plus importante ?</div>
+        <div class="qtxt">Comment vous définissez-vous aujourd'hui, en dehors de votre métier ?</div>
+        <div class="qtxt">Qu'est-ce que vous emportez pour la suite ?</div>
+        <textarea id="n8" placeholder="Évolution observée, Ikigaï formulé, plan validé, message de clôture..." style="min-height:120px;margin-top:12px" oninput="save('n8')"></textarea>
+        <button class="btnok" onclick="done(8)">✓ Parcours complété 🎉</button>
+      </div></div>
+    </div>
+    <div id="v8x" style="display:none">
+      <div class="zclient"><div class="zclient-hdr"><span style="font-size:16px">🌿</span><span>Votre espace de travail — Séance 8 · Envol</span></div><div class="zclient-body">
+        <div class="exo"><div class="exo-t">Mon Ikigaï — Ma raison d'être</div><p>L'Ikigaï (生き甲斐) signifie « raison de se lever le matin ». Il se trouve au croisement de 4 cercles :</p>
+          <div class="ikgrid">
+            <div class="ik-cercle" style="background:#fff0f3;border-left:3px solid #f9a8d4"><div class="ik-title" style="color:#9d174d">❤️ Ce que j'aime</div><div class="ik-q">Mes passions, ce qui me fait vibrer</div><textarea id="ik1" placeholder="Ex : enseigner, jardiner, créer, accompagner..." oninput="save('ik1')"></textarea></div>
+            <div class="ik-cercle" style="background:#f5f3ff;border-left:3px solid #a78bfa"><div class="ik-title" style="color:#5b21b6">⭐ Ce pour quoi je suis doué·e</div><div class="ik-q">Mes talents distinctifs (voir S3)</div><textarea id="ik2" placeholder="Ex : analyser, fédérer, expliquer..." oninput="save('ik2')"></textarea></div>
+            <div class="ik-cercle" style="background:#f0fdf4;border-left:3px solid #4ade80"><div class="ik-title" style="color:#065f46">🌍 Ce dont le monde a besoin</div><div class="ik-q">Les causes que je veux aider à résoudre</div><textarea id="ik3" placeholder="Ex : transmission des savoirs, lien social..." oninput="save('ik3')"></textarea></div>
+            <div class="ik-cercle" style="background:#fffbeb;border-left:3px solid var(--gold)"><div class="ik-title" style="color:#92400e">💰 Ce pour quoi je peux être reconnu·e</div><div class="ik-q">Ce pour quoi on me remercie, me sollicite</div><textarea id="ik4" placeholder="Ex : expertise, capacité à rassurer..." oninput="save('ik4')"></textarea></div>
+          </div>
+          <div class="exo" style="margin-top:10px"><div class="exo-t">✨ Ma mission de vie en une phrase</div><textarea id="ikm" placeholder="Je suis fait·e pour... / Ma mission est de... / Je contribue au monde en..." style="min-height:60px" oninput="save('ikm')"></textarea></div>
+          <div style="background:var(--creme2);padding:14px;margin-top:10px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:8px">Les 4 croisements de l'Ikigaï</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="background:#fff;padding:8px;font-size:11px;color:var(--tx2)"><b style="color:var(--navy)">Passion</b> = Ce que j'aime + Mes talents</div><div style="background:#fff;padding:8px;font-size:11px;color:var(--tx2)"><b style="color:var(--navy)">Mission</b> = Ce que j'aime + Besoins du monde</div><div style="background:#fff;padding:8px;font-size:11px;color:var(--tx2)"><b style="color:var(--navy)">Vocation</b> = Besoins du monde + Reconnaissance</div><div style="background:#fff;padding:8px;font-size:11px;color:var(--tx2)"><b style="color:var(--navy)">Profession</b> = Reconnaissance + Talents</div></div></div>
+        </div>
+        <div class="exo"><div class="exo-t">📅 Mon plan d'action — 90 jours</div>
+          <div style="display:grid;gap:6px">
+            <div style="display:grid;grid-template-columns:1fr 110px;gap:6px"><input type="text" id="pl1" placeholder="Action prioritaire 1..." oninput="save('pl1')" style="margin:0"><input type="text" id="pd1" placeholder="Échéance..." oninput="save('pd1')" style="background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px;font-size:12px;outline:none"></div>
+            <div style="display:grid;grid-template-columns:1fr 110px;gap:6px"><input type="text" id="pl2" placeholder="Action 2..." oninput="save('pl2')" style="margin:0"><input type="text" id="pd2" placeholder="Échéance..." oninput="save('pd2')" style="background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px;font-size:12px;outline:none"></div>
+            <div style="display:grid;grid-template-columns:1fr 110px;gap:6px"><input type="text" id="pl3" placeholder="Action 3..." oninput="save('pl3')" style="margin:0"><input type="text" id="pd3" placeholder="Échéance..." oninput="save('pd3')" style="background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px;font-size:12px;outline:none"></div>
+            <div style="display:grid;grid-template-columns:1fr 110px;gap:6px"><input type="text" id="pl4" placeholder="Action 4..." oninput="save('pl4')" style="margin:0"><input type="text" id="pd4" placeholder="Échéance..." oninput="save('pd4')" style="background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px;font-size:12px;outline:none"></div>
+            <div style="display:grid;grid-template-columns:1fr 110px;gap:6px"><input type="text" id="pl5" placeholder="Action 5..." oninput="save('pl5')" style="margin:0"><input type="text" id="pd5" placeholder="Échéance..." oninput="save('pd5')" style="background:#fff;border:1px solid rgba(42,127,127,.2);color:var(--tx);font-family:'DM Sans',sans-serif;padding:10px;font-size:12px;outline:none"></div>
+          </div>
+        </div>
+        <div class="exo"><div class="exo-t">💌 Ma lettre à moi-même dans 1 an</div><textarea id="x8l" placeholder="Chère moi, dans un an..." style="min-height:150px" oninput="save('x8l')"></textarea></div>
+        <div class="quote">« Vous ne partez plus. Vous vous élancez. »<span class="qa">Le Grand + · Passerelle Transmission · Wanda Laurent Coaching</span></div>
+      </div></div>
+    </div>
+  </div>
+
+</div><!-- fin app -->
+<div class="saved" id="saved">✓ Sauvegardé</div>
+
+<script>
+// ===== ÉTAT =====
+let role='coach', notes={}, done_s={};
+
+// ===== LOGIN =====
+function setRole(btn,r){
+  role=r;
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('coach-fields').style.display=r==='coach'?'block':'none';
+  document.getElementById('client-fields').style.display=r==='client'?'block':'none';
+}
+
+function login(){
+  if(role==='coach'){
+    if(document.getElementById('pwd').value==='passerelle'){startApp();}
+    else{document.getElementById('lerr').style.display='block';setTimeout(()=>document.getElementById('lerr').style.display='none',3000);}
+  }else{
+    const p=document.getElementById('prenom').value.trim();
+    const d=document.getElementById('ddn').value.trim();
+    if(p.length>1&&d.match(/\d{2}\/\d{2}\/\d{4}/)){startApp();}
+    else{document.getElementById('lerr').style.display='block';setTimeout(()=>document.getElementById('lerr').style.display='none',3000);}
+  }
+}
+
+function startApp(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  const name=role==='coach'?'Wanda Laurent':document.getElementById('prenom').value.trim();
+  document.getElementById('hbadge').textContent=role==='coach'?'🎯 Coach':'🌿 Client';
+  document.getElementById('hname').textContent=name;
+  document.getElementById('wname').textContent=name;
+  if(role==='client')document.getElementById('wsub').textContent='Votre espace personnel — Passerelle Transmission';
+  load();
+  updateProgress();
+}
+
+function logout(){
+  document.getElementById('login').style.display='flex';
+  document.getElementById('app').style.display='none';
+  document.getElementById('pwd').value='';
+}
+
+// ===== NAVIGATION =====
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');
+  document.querySelectorAll('.ntab')[0].classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function goSeance(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('page-s'+n).classList.add('on');
+  document.querySelectorAll('.ntab')[n].classList.add('on');
+  // Afficher la bonne vue selon le rôle
+  sw(n, role);
+  window.scrollTo(0,0);
+}
+
+// ===== SWITCH COACH/CLIENT =====
+function sw(n,r){
+  const vc=document.getElementById('v'+n+'c');
+  const vx=document.getElementById('v'+n+'x');
+  const bc=document.getElementById('sw'+n+'c');
+  const bx=document.getElementById('sw'+n+'x');
+  if(!vc||!vx)return;
+  if(r==='coach'){
+    vc.style.display='block';
+    vx.style.display='none';
+    if(bc){bc.className='vsw coach';}
+    if(bx){bx.className='vsw';}
+  }else{
+    vc.style.display='none';
+    vx.style.display='block';
+    if(bx){bx.className='vsw client';}
+    if(bc){bc.className='vsw';}
+  }
+}
+
+// ===== INTERACTIONS =====
+function chk(el){el.classList.toggle('on');el.textContent=el.classList.contains('on')?'✓':'';}
+
+function scl(id,btn){
+  document.querySelectorAll('#'+id+' .sbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// Talents
+let tc=0;
+function talent(el){
+  const sel=el.classList.contains('on');
+  if(!sel&&tc>=5){alert('Vous avez déjà sélectionné 5 talents. Désélectionnez-en un d\'abord.');return;}
+  el.classList.toggle('on');
+  const j=el.querySelector('.tjustif');
+  if(j)j.style.display=el.classList.contains('on')?'block':'none';
+  tc=document.querySelectorAll('.tcard.on').length;
+  const c=document.getElementById('tcount');
+  if(c){c.textContent=tc+' / 5 talents sélectionnés';c.style.color=tc===5?'var(--gold)':'var(--teal)';}
+}
+
+// Moteurs
+function moteur(el){
+  const cnt=document.querySelectorAll('.mcard.on').length;
+  if(!el.classList.contains('on')&&cnt>=3){alert('Sélectionnez maximum 3 moteurs.');return;}
+  el.classList.toggle('on');
+  const j=el.querySelector('.mjustif');
+  if(j)j.style.display=el.classList.contains('on')?'block':'none';
+}
+
+// Compétences
+const dmaxes={org:20,tra:45,res:30,equ:35,enc:50,com:45};
+function cd(hdr){hdr.nextElementSibling.classList.toggle('open');}
+function cst(star,val){
+  const stars=star.closest('.cstars');
+  stars.querySelectorAll('.cstar').forEach((s,i)=>s.classList.toggle('on',i<val));
+  stars.dataset.v=val;
+  const d=stars.dataset.d;
+  if(!d)return;
+  const max=dmaxes[d]||20;
+  let tot=0;
+  document.querySelectorAll('.cstars[data-d="'+d+'"]').forEach(s=>tot+=parseInt(s.dataset.v||0));
+  const el1=document.getElementById('cs-'+d);if(el1)el1.textContent=tot+'/'+max;
+  const el2=document.getElementById('ct-'+d);if(el2)el2.textContent=tot+' / '+max;
+  const s10=Math.round(tot/max*10);
+  const pv=document.getElementById('pv-'+d);if(pv)pv.textContent=s10+'/10';
+  const pf=document.getElementById('pf-'+d);if(pf)pf.style.width=(s10*10)+'%';
+}
+
+// ===== SAUVEGARDE =====
+let st=null;
+function save(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  notes[id]=el.value;
+  localStorage.setItem('gp5_notes',JSON.stringify(notes));
+  const ind=document.getElementById('saved');
+  ind.classList.add('on');
+  clearTimeout(st);
+  st=setTimeout(()=>ind.classList.remove('on'),2000);
+}
+
+function load(){
+  const sn=localStorage.getItem('gp5_notes');
+  if(sn){notes=JSON.parse(sn);Object.keys(notes).forEach(id=>{const el=document.getElementById(id);if(el)el.value=notes[id];});}
+  const sd=localStorage.getItem('gp5_done');
+  if(sd)done_s=JSON.parse(sd);
+}
+
+function done(n){
+  done_s[n]=true;
+  localStorage.setItem('gp5_done',JSON.stringify(done_s));
+  const t=document.getElementById('tag'+n);
+  if(t){t.className='sctag tag-done';t.textContent='✓ Complétée';}
+  updateProgress();
+  goPage('dash');
+}
+
+function updateProgress(){
+  const d=Object.keys(done_s).length;
+  const f=document.getElementById('pbfill');
+  const l=document.getElementById('plbl');
+  if(f)f.style.width=Math.round(d/8*100)+'%';
+  if(l)l.textContent=d+' séance'+(d>1?'s':'')+' complétée'+(d>1?'s':'')+' sur 8';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login').style.display!=='none')login();});
+</script>
+</body>
+</html>

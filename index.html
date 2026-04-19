@@ -3016,6 +3016,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
 .s-bdc { background: rgba(201,168,76,.15); color: #C9A84C; }
 .s-psp { background: rgba(0,201,167,.15); color: #00C9A7; }
 .s-neuro { background: rgba(139,92,246,.15); color: #A78BFA; }
+.s-grand { background: rgba(201,168,76,.2); color: #E8B550; border: 1px solid rgba(201,168,76,.35); }
 
 /* MODAL */
 .modal-backdrop {
@@ -3215,6 +3216,8 @@ font-size:.71rem;color:var(--muted);font-style:italic;
 }
 .wl-ob-hero.bdc-hero { background: linear-gradient(135deg, #1A2E3B 0%, #2D7B7E 60%, #3D9B9E 100%); }
 .wl-ob-hero.psp-hero { background: linear-gradient(135deg, #007A8C 0%, #00C9B5 60%, #1AD4C0 100%); }
+.wl-ob-hero.grand-hero { background: linear-gradient(135deg, #12100A 0%, #2A2010 40%, #C9A84C 100%); }
+.wl-ob-hero.neuro-hero { background: linear-gradient(135deg, #0E0B1A 0%, #2D1B69 60%, #7C3AED 100%); }
 .wl-ob-hero::before {
   content:''; position:absolute; inset:0;
   background-image: linear-gradient(rgba(255,255,255,.04)1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04)1px,transparent 1px);
@@ -3418,8 +3421,8 @@ font-size:.71rem;color:var(--muted);font-style:italic;
 </style>
 
 <style>
-#wl-ob-bdc.hidden, #wl-ob-psp.hidden { display: none !important; }
-#wl-ob-bdc:not(.hidden), #wl-ob-psp:not(.hidden) { display: flex !important; }
+#wl-ob-bdc.hidden, #wl-ob-psp.hidden, #wl-ob-grand.hidden, #wl-ob-neuro.hidden { display: none !important; }
+#wl-ob-bdc:not(.hidden), #wl-ob-psp:not(.hidden), #wl-ob-grand:not(.hidden), #wl-ob-neuro:not(.hidden) { display: flex !important; }
 </style>
 </head>
 <body>
@@ -3669,7 +3672,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
           <span class="card-pill">🎯 9 séances</span>
           <span class="card-pill">📋 MBTI · DISC</span>
         </div>
-        <button class="card-cta" onclick="showClientLogin('bdc')">Accéder à mon espace <span class="card-arrow">→</span></button>
+        <button class="card-cta" onclick="openApp('bdc', null)">Accéder à mon espace <span class="card-arrow">→</span></button>
       </div>
       <div class="hub-card psp-card">
         <span class="card-badge">Lycéens · Parcoursup 2026</span>
@@ -3682,7 +3685,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
           <span class="card-pill">🤖 IA incluse</span>
           <span class="card-pill">🏆 Badges</span>
         </div>
-        <button class="card-cta" onclick="showClientLogin('psp')">Accéder à mon espace <span class="card-arrow">→</span></button>
+        <button class="card-cta" onclick="openApp('psp', null)">Accéder à mon espace <span class="card-arrow">→</span></button>
       </div>
       <div class="hub-card neuro-card">
         <span class="card-badge">TDAH · Bipolaire · Neuro-atypique</span>
@@ -3695,9 +3698,9 @@ font-size:.71rem;color:var(--muted);font-style:italic;
           <span class="card-pill">🧬 8 modules</span>
           <span class="card-pill">✦ CPF éligible</span>
         </div>
-        <button class="card-cta" onclick="showClientLogin('neuro')">Accéder à mon espace <span class="card-arrow">→</span></button>
+        <button class="card-cta" onclick="openApp('neuro', null)">Accéder à mon espace <span class="card-arrow">→</span></button>
       </div>
-      <div class="hub-card" style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,0.18);border-radius:24px;padding:2.5rem 2rem;cursor:pointer;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.34,1.2,.64,1);" onmouseenter="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(201,168,76,.45)';this.style.boxShadow='0 24px 60px rgba(0,0,0,.3)'" onmouseleave="this.style.transform='';this.style.borderColor='rgba(201,168,76,0.18)';this.style.boxShadow=''" onclick="showClientLogin('grandplus')">
+      <div class="hub-card" style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,0.18);border-radius:24px;padding:2.5rem 2rem;cursor:pointer;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.34,1.2,.64,1);" onmouseenter="this.style.transform='translateY(-6px)';this.style.borderColor='rgba(201,168,76,.45)';this.style.boxShadow='0 24px 60px rgba(0,0,0,.3)'" onmouseleave="this.style.transform='';this.style.borderColor='rgba(201,168,76,0.18)';this.style.boxShadow=''" onclick="openApp('grandplus', null)">
         <span class="card-badge" style="display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .75rem;border-radius:50px;margin-bottom:1.5rem;position:relative;background:rgba(201,168,76,.15);color:#C9A84C;border:1px solid rgba(201,168,76,.3);">Retraite · Transition de vie</span>
         <span class="card-icon" style="font-size:2.8rem;display:block;margin-bottom:1rem;">🌅</span>
         <h2 style="font-family:'Cormorant Garamond','Nunito',serif;font-size:1.55rem;font-weight:600;color:white;margin-bottom:.5rem;line-height:1.2;">Le Grand +</h2>
@@ -6588,8 +6591,8 @@ font-size:.71rem;color:var(--muted);font-style:italic;
 ═══════════════════════════════════════════ */
 var COACH_PASSWORD = 'wanda2026';
 var COACH_PIN = '1234';
-var PRIX = { bdc: 1600, psp: 650, neuro: 1600 };
-var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 9 };
+var PRIX = { bdc: 1600, psp: 650, neuro: 1600, grandplus: 1800 };
+var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 9, grandplus: 9 };
 
 /* ─── STORAGE HELPERS ─── */
 /* ── Stockage avec fallback mémoire (Firefox file://) ── */
@@ -6651,7 +6654,8 @@ function initSampleData() {
     {id:'c1',prenom:'Sophie',nom:'Martin',ddn:'15/03/1985',programme:'bdc',statut:'active',email:'sophie.martin@gmail.com',tel:'06 12 34 56 78',debut:past(30),financement:'CPF',notes:'Reconversion depuis RH vers coaching'},
     {id:'c2',prenom:'Thomas',nom:'Bernard',ddn:'22/07/1990',programme:'bdc',statut:'active',email:'t.bernard@pro.fr',tel:'06 98 76 54 32',debut:past(15),financement:'Perso',notes:'Cadre en burn-out, cherche un virage'},
     {id:'c3',prenom:'Léa',nom:'Durand',ddn:'10/09/2006',programme:'psp',statut:'active',email:'lea.durand@lycee.fr',tel:'',debut:past(7),financement:'Perso',notes:'Terminale S, hésite entre médecine et biologie'},
-    {id:'c4',prenom:'Marc',nom:'Petit',ddn:'05/01/1978',programme:'bdc',statut:'terminé',email:'m.petit@mail.com',tel:'',debut:past(120),financement:'Employeur',notes:'BDC terminé — réorientation réussie vers le management'}
+    {id:'c4',prenom:'Marc',nom:'Petit',ddn:'05/01/1978',programme:'bdc',statut:'terminé',email:'m.petit@mail.com',tel:'',debut:past(120),financement:'Employeur',notes:'BDC terminé — réorientation réussie vers le management'},
+    {id:'c5',prenom:'Isabelle',nom:'Fontaine',ddn:'12/03/1963',programme:'grandplus',statut:'active',email:'i.fontaine@orange.fr',tel:'06 45 23 87 12',debut:past(10),financement:'Personnel',notes:'Retraite prévue dans 18 mois — cadre supérieure RH'}
   ];
   var seances = [
     {id:'s1',clientId:'c1',num:1,date:past(28)+'T10:00',statut:'realisee',notes:'Bonne première séance. MBTI passé.'},
@@ -6769,12 +6773,14 @@ function openApp(which, clientData) {
   document.getElementById('app-bdc').classList.remove('active');
   document.getElementById('app-psp').classList.remove('active');
   document.getElementById('app-neuro').style.display = 'none';
+  if (document.getElementById('app-grand')) document.getElementById('app-grand').style.display = 'none';
 
   if (which === 'bdc') {
     document.getElementById('app-bdc').classList.add('active');
     document.getElementById('back-bar-label').textContent = (clientData ? clientData.prenom + ' — ' : '👩‍💼 Coach — ') + 'Bilan de Compétences';
     document.body.style.background = '#FDFAF4';
     document.body.style.color = '#2C3A42';
+    if (!coachLoggedIn) setTimeout(showBDCOnboarding, 400);
   } else if (which === 'neuro') {
     document.getElementById('app-neuro').style.display = 'block';
     document.getElementById('back-bar-label').textContent = (clientData ? clientData.prenom + ' — ' : '') + 'Bilan Talents Neuro-Atypique';
@@ -6783,6 +6789,17 @@ function openApp(which, clientData) {
     // La back-bar revient au menu des séances neuro (pas au hub principal)
     document.querySelector('.back-btn').onclick = function(){ neuroGoBack(); };
     window._neuroGoHub = fromDashboard ? openDashboard : goHub;
+    if (!coachLoggedIn) {
+      var nEl = document.getElementById('neuro-ob-prenom');
+      if (nEl && clientData) nEl.textContent = clientData.prenom + ' !';
+      setTimeout(showNeuroOnboarding, 400);
+    }
+  } else if (which === 'grandplus') {
+    if (document.getElementById('app-grand')) document.getElementById('app-grand').style.display = 'block';
+    document.getElementById('back-bar-label').textContent = (clientData ? clientData.prenom + ' — ' : '👩‍💼 Coach — ') + 'Le Grand + · Passerelle Transmission';
+    document.body.style.background = '#0F0D08';
+    document.body.style.color = '#F5EFD8';
+    if (typeof initGrandApp === 'function') initGrandApp(clientData);
   } else {
     document.getElementById('app-psp').classList.add('active');
     document.getElementById('back-bar-label').textContent = (clientData ? clientData.prenom + ' — ' : '👩‍💼 Coach — ') + 'Bilan Talent Parcoursup';
@@ -6791,6 +6808,7 @@ function openApp(which, clientData) {
     if (clientData && document.getElementById('hdr-student')) {
       document.getElementById('hdr-student').textContent = clientData.prenom + ' ' + clientData.nom;
     }
+    if (!coachLoggedIn) setTimeout(showPSPOnboarding, 400);
   }
   window.scrollTo(0, 0);
 }
@@ -6801,6 +6819,7 @@ function openDashboard() {
   document.getElementById('app-bdc').classList.remove('active');
   document.getElementById('app-psp').classList.remove('active');
   document.getElementById('app-neuro').style.display = 'none';
+  if(document.getElementById('app-grand'))document.getElementById('app-grand').style.display='none';
   document.getElementById('app-dashboard').classList.add('active');
   document.getElementById('back-bar').classList.add('visible');
   document.getElementById('back-bar-label').textContent = 'Espace Coach';
@@ -6818,6 +6837,7 @@ function goHub() {
   document.getElementById('app-bdc').classList.remove('active');
   document.getElementById('app-psp').classList.remove('active');
   document.getElementById('app-neuro').style.display = 'none';
+  if(document.getElementById('app-grand'))document.getElementById('app-grand').style.display='none';
   document.getElementById('app-dashboard').classList.remove('active');
   document.getElementById('back-bar').classList.remove('visible');
   document.body.style.background = '#0D1B26';
@@ -6861,8 +6881,11 @@ function renderDashboard() {
 }
 
 function clientName(c) { return c.prenom + ' ' + c.nom; }
-function progLabel(p) { return p === 'bdc' ? 'BDC' : p === 'neuro' ? 'Neuro-Atypique' : 'Parcoursup'; }
-function progBadge(p) { return '<span class="status-badge ' + (p==='bdc'?'s-bdc': p==='neuro'?'s-neuro':'s-psp') + '">' + progLabel(p) + '</span>'; }
+function progLabel(p) { return p === 'bdc' ? 'BDC' : p === 'neuro' ? 'Neuro-Atypique' : p === 'grandplus' ? 'Le Grand +' : 'Parcoursup'; }
+function progBadge(p) {
+  var cls = p==='bdc'?'s-bdc': p==='neuro'?'s-neuro': p==='grandplus'?'s-grand':'s-psp';
+  return '<span class="status-badge ' + cls + '">' + progLabel(p) + '</span>';
+}
 function statutBadge(s) {
   var map = {active:'s-active',planifié:'s-pending',terminé:'s-done',abandon:'s-abandon',
     realisee:'s-active',planifiee:'s-pending',absence:'s-abandon',reportee:'s-pending'};
@@ -7446,6 +7469,9 @@ function renderFicheCard(c) {
   html += '</div></div>';
 
   html += '</div>'; // fiche-sections
+  html += '<div style="border-top:1px solid rgba(255,255,255,.07);padding:1rem 1.5rem;">';
+  html += '<button class="dash-btn-sm gold" style="width:100%;" data-cid="' + c.id + '" data-prog="' + c.programme + '" onclick="var btn=this;openApp(btn.dataset.prog, getClients().find(function(x){return x.id===btn.dataset.cid;}))">Ouvrir l’espace de ' + c.prenom + ' →</button>';
+  html += '</div>';
   html += '</div>'; // fiche-body
   html += '</div>'; // fiche-card
   return html;
@@ -9015,6 +9041,915 @@ if (document.readyState === 'loading') {
 
 <!-- APP DASHBOARD COACH -->
 
+<!-- ══ APP GRAND + ══ -->
+<div id="app-grand" style="display:none;min-height:100vh;">
+<style>
+#app-grand {
+  --g-bg:#0F0D08;--g-surface:#1A1710;--g-surface2:#221F14;
+  --g-gold:#C9A84C;--g-gold-l:#E8C96A;--g-amber:#E8B550;
+  --g-cream:#F5EFD8;--g-muted:rgba(245,239,216,.5);
+  --g-border:rgba(201,168,76,.18);--g-border-h:rgba(201,168,76,.45);
+  --g-teal:#2D7B7E;
+  background:var(--g-bg);color:var(--g-cream);font-family:'DM Sans',sans-serif;
+}
+#app-grand *{box-sizing:border-box;}
+#app-grand .g-header{background:linear-gradient(180deg,#1A1710 0%,#0F0D08 100%);border-bottom:1px solid var(--g-border);padding:2rem 2rem 1.5rem;text-align:center;}
+#app-grand .g-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.4rem;}
+#app-grand .g-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:300;color:var(--g-cream);line-height:1.1;margin-bottom:.3rem;}
+#app-grand .g-title em{font-style:italic;color:var(--g-gold);}
+#app-grand .g-sub{font-size:.85rem;color:var(--g-muted);font-style:italic;margin-bottom:1rem;}
+#app-grand .g-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid var(--g-border);border-radius:50px;padding:.35rem 1.1rem;font-size:.8rem;color:var(--g-amber);font-weight:600;}
+#app-grand .g-nav{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;padding:.8rem 1.5rem;background:#141208;border-bottom:1px solid var(--g-border);position:sticky;top:44px;z-index:50;}
+#app-grand .g-nb{padding:.38rem .9rem;border-radius:50px;border:1px solid rgba(201,168,76,.15);background:transparent;color:var(--g-muted);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+#app-grand .g-nb:hover,#app-grand .g-nb.active{background:rgba(201,168,76,.15);border-color:var(--g-gold);color:var(--g-gold);}
+#app-grand .g-content{max-width:900px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+#app-grand .g-tab{display:none;}
+#app-grand .g-tab.active{display:block;}
+#app-grand .g-prog-track{height:3px;background:rgba(201,168,76,.12);border-radius:3px;overflow:hidden;margin-bottom:.4rem;}
+#app-grand .g-prog-fill{height:100%;background:linear-gradient(90deg,var(--g-gold),var(--g-gold-l));border-radius:3px;transition:width .6s ease;}
+#app-grand .g-prog-lbl{font-size:.69rem;color:var(--g-muted);text-align:right;margin-bottom:1rem;}
+#app-grand .g-dotmap{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+#app-grand .g-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--g-border);display:flex;align-items:center;justify-content:center;font-size:.67rem;font-weight:700;color:var(--g-muted);cursor:pointer;transition:all .2s;}
+#app-grand .g-dot.done{background:linear-gradient(135deg,var(--g-gold),var(--g-gold-l));border-color:var(--g-gold);color:#0F0D08;}
+#app-grand .g-dot:hover{border-color:var(--g-gold);color:var(--g-gold);}
+#app-grand .g-phase-hd{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid var(--g-border);border-radius:16px;padding:1.3rem 1.5rem;margin-bottom:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:border-color .2s;}
+#app-grand .g-phase-hd:hover{border-color:var(--g-border-h);}
+#app-grand .g-phase-num{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.25rem;}
+#app-grand .g-phase-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--g-cream);}
+#app-grand .g-phase-sub{font-size:.73rem;color:var(--g-muted);margin-top:.2rem;}
+#app-grand .g-phase-chev{font-size:.9rem;color:var(--g-gold);transition:transform .3s;}
+#app-grand .g-phase-body{display:none;}
+#app-grand .g-phase-body.open{display:block;}
+#app-grand .g-sb{background:var(--g-surface);border:1px solid var(--g-border);border-radius:14px;margin-bottom:1rem;overflow:hidden;}
+#app-grand .g-sh{display:flex;align-items:center;gap:.9rem;padding:1.1rem 1.4rem;cursor:pointer;transition:background .2s;}
+#app-grand .g-sh:hover{background:var(--g-surface2);}
+#app-grand .g-sn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--g-gold),var(--g-gold-l));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:#0F0D08;flex-shrink:0;}
+#app-grand .g-st{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--g-cream);}
+#app-grand .g-ss{font-size:.72rem;color:var(--g-muted);margin-top:.12rem;}
+#app-grand .g-sbody{padding:0 1.4rem 1.4rem;display:none;}
+#app-grand .g-sbody.open{display:block;}
+#app-grand .g-obj{display:flex;gap:.7rem;align-items:flex-start;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:1.1rem;font-size:.84rem;color:var(--g-muted);line-height:1.65;font-style:italic;}
+#app-grand .g-cl{margin-bottom:1.1rem;}
+#app-grand .g-cl-t{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.5rem;}
+#app-grand .g-cl-t.after{color:var(--g-teal);}
+#app-grand .g-ci{display:flex;align-items:flex-start;gap:.55rem;padding:.35rem 0;font-size:.83rem;color:var(--g-muted);cursor:pointer;line-height:1.5;}
+#app-grand .g-ci input[type=checkbox]{margin-top:.12rem;accent-color:var(--g-gold);flex-shrink:0;}
+#app-grand .g-ci:hover{color:var(--g-cream);}
+#app-grand .g-tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1.1rem 0;}
+#app-grand .g-tc{background:var(--g-surface2);border:1px solid var(--g-border);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;}
+#app-grand .g-tc:hover{border-color:var(--g-border-h);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3);}
+#app-grand .g-ti{font-size:1.5rem;margin-bottom:.4rem;}
+#app-grand .g-tn{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-weight:600;color:var(--g-cream);margin-bottom:.25rem;}
+#app-grand .g-td{font-size:.74rem;color:var(--g-muted);line-height:1.5;margin-bottom:.5rem;}
+#app-grand .g-ta{font-size:.7rem;font-weight:700;color:var(--g-gold);letter-spacing:.05em;}
+#app-grand .g-fl{display:block;font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.42rem;margin-top:1rem;}
+#app-grand .g-fta{width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(201,168,76,.18);border-radius:10px;color:var(--g-cream);font-family:'DM Sans',sans-serif;font-size:.86rem;line-height:1.6;padding:.75rem 1rem;resize:vertical;min-height:80px;transition:border-color .2s;}
+#app-grand .g-fta:focus{outline:none;border-color:var(--g-gold);}
+#app-grand .g-fta::placeholder{color:rgba(245,239,216,.28);}
+#app-grand .g-btn{display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--g-gold),var(--g-gold-l));color:#0F0D08;font-weight:700;font-size:.82rem;border:none;border-radius:50px;padding:.62rem 1.4rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;margin-top:1.1rem;}
+#app-grand .g-btn:hover{transform:scale(1.02);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+#app-grand .g-pb{background:rgba(45,123,126,.07);border:1px solid rgba(45,123,126,.22);border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;}
+#app-grand .g-pb-t{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g-teal);margin-bottom:.65rem;}
+#app-grand .g-pi{display:flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:.55rem .85rem;margin-bottom:.45rem;text-decoration:none;color:inherit;transition:background .2s;}
+#app-grand .g-pi:hover{background:rgba(255,255,255,.08);}
+#app-grand .g-pn{font-size:.77rem;font-weight:600;color:var(--g-cream);}
+#app-grand .g-pd{font-size:.7rem;color:var(--g-muted);}
+#app-grand .g-ib{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:1rem 1.2rem;font-size:.83rem;color:var(--g-muted);line-height:1.65;margin:1rem 0;}
+#app-grand .g-ib strong{color:var(--g-amber);}
+/* MODALS */
+#app-grand .g-mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9000;align-items:center;justify-content:center;padding:1rem;}
+#app-grand .g-mo.open{display:flex;}
+#app-grand .g-md{background:#1A1710;border:1px solid var(--g-border);border-radius:20px;width:100%;max-width:680px;max-height:88vh;overflow-y:auto;}
+#app-grand .g-mh{display:flex;align-items:flex-start;justify-content:space-between;padding:1.4rem 1.4rem .9rem;border-bottom:1px solid var(--g-border);}
+#app-grand .g-mh h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--g-cream);}
+#app-grand .g-mh p{font-size:.76rem;color:var(--g-muted);margin-top:.18rem;}
+#app-grand .g-mc{background:none;border:none;color:var(--g-muted);font-size:1.1rem;cursor:pointer;padding:.2rem;}
+#app-grand .g-mb{padding:1.3rem 1.4rem 1.4rem;}
+#app-grand .g-mi{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--g-border);border-radius:8px;color:var(--g-cream);font-family:'DM Sans',sans-serif;font-size:.84rem;padding:.62rem .88rem;margin-bottom:.65rem;transition:border-color .2s;}
+#app-grand .g-mi:focus{outline:none;border-color:var(--g-gold);}
+#app-grand .g-mi::placeholder{color:rgba(245,239,216,.28);}
+#app-grand .g-mta{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--g-border);border-radius:8px;color:var(--g-cream);font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.6;padding:.65rem .88rem;resize:vertical;min-height:75px;margin-bottom:.65rem;}
+#app-grand .g-mta:focus{outline:none;border-color:var(--g-gold);}
+#app-grand .g-mta::placeholder{color:rgba(245,239,216,.28);}
+#app-grand .g-ml{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.38rem;margin-top:.85rem;}
+#app-grand .g-br{display:flex;gap:.7rem;margin-top:1.1rem;}
+#app-grand .g-bg{background:linear-gradient(135deg,var(--g-gold),var(--g-gold-l));color:#0F0D08;font-weight:700;font-size:.82rem;border:none;border-radius:50px;padding:.62rem 1.4rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+#app-grand .g-bo{background:transparent;color:var(--g-muted);font-size:.82rem;border:1px solid var(--g-border);border-radius:50px;padding:.62rem 1.4rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+#app-grand .g-ig{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0;}
+#app-grand .g-ic{background:var(--g-surface2);border:1px solid var(--g-border);border-radius:12px;padding:.95rem;}
+#app-grand .g-icl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.4rem;}
+@media(max-width:600px){#app-grand .g-tg{grid-template-columns:1fr;}#app-grand .g-ig{grid-template-columns:1fr;}}
+</style>
+
+<!-- MODAL -->
+<div class="g-mo" id="g-modal-overlay" onclick="gCloseOverlay(event)">
+  <div class="g-md" id="g-modal-content"></div>
+</div>
+
+
+<!-- ONBOARDING GRAND+ -->
+<div class="wl-onboarding hidden" id="wl-ob-grand" style="position:fixed;inset:0;z-index:8000;background:rgba(10,8,4,.92);display:flex;align-items:center;justify-content:center;padding:1rem;">
+  <div class="wl-ob-card" style="max-width:680px;width:100%;background:#1A1710;border:1px solid rgba(201,168,76,.25);border-radius:24px;overflow:hidden;max-height:90vh;overflow-y:auto;">
+
+    <div class="wl-ob-hero grand-hero" style="padding:2.5rem 2rem;text-align:center;position:relative;">
+      <div style="font-size:3rem;margin-bottom:.75rem;">⚓</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:300;color:#F5EFD8;line-height:1.15;margin-bottom:.5rem;">Bienvenue dans votre<br><em style="font-style:italic;color:#E8C96A;">Espace Le Grand +</em></div>
+      <div style="font-size:.82rem;color:rgba(245,239,216,.6);font-style:italic;" id="grand-ob-sub">Passerelle Transmission · Wanda Laurent Coaching</div>
+    </div>
+
+    <div style="padding:2rem;">
+      <div style="display:flex;justify-content:center;gap:.5rem;margin-bottom:1.5rem;" id="grand-ob-dots">
+        <div style="width:8px;height:8px;border-radius:50%;background:#C9A84C;" id="gdot0"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(201,168,76,.3);" id="gdot1"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(201,168,76,.3);" id="gdot2"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(201,168,76,.3);" id="gdot3"></div>
+      </div>
+
+      <!-- ÉCRAN 1 : Bienvenue -->
+      <div id="gOb0">
+        <p style="font-size:.92rem;color:rgba(245,239,216,.75);line-height:1.75;margin-bottom:1.4rem;">
+          Bonjour <strong style="color:#E8C96A;" id="grand-ob-prenom">!</strong> Je suis heureuse de vous accompagner dans cette transition.<br>
+          Le Grand + est un <strong style="color:#F5EFD8;">parcours de 9 séances</strong> pour préparer votre retraite avec clarté, construire un projet de vie qui vous ressemble, et transmettre ce qui compte vraiment.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.4rem;">
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">🪞</div>
+            <div><strong style="font-size:.85rem;color:#F5EFD8;display:block;margin-bottom:.2rem;">Se connaître vraiment</strong><span style="font-size:.78rem;color:rgba(245,239,216,.55);">Valeurs, talents naturels, bilan de vie — qui êtes-vous au fond ?</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">☯</div>
+            <div><strong style="font-size:.85rem;color:#F5EFD8;display:block;margin-bottom:.2rem;">Trouver son IKIGAI de transmission</strong><span style="font-size:.78rem;color:rgba(245,239,216,.55);">Votre raison d'être post-carrière — ce que vous voulez donner au monde</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">⚓</div>
+            <div><strong style="font-size:.85rem;color:#F5EFD8;display:block;margin-bottom:.2rem;">S'engager avec un Pacte</strong><span style="font-size:.78rem;color:rgba(245,239,216,.55);">3 engagements concrets envers vous-même pour la suite</span></div>
+          </div>
+        </div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;">
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#C9A84C;margin-bottom:.6rem;">✨ Ce avec quoi vous repartez</div>
+          <div style="font-size:.81rem;color:rgba(245,239,216,.65);line-height:1.7;">
+            ✦ Votre <strong style="color:#F5EFD8;">IKIGAI de Transmission</strong> — votre mission post-carrière<br>
+            ✦ Une <strong style="color:#F5EFD8;">Ligne de vie</strong> complète avec vos talents et valeurs identifiés<br>
+            ✦ Votre <strong style="color:#F5EFD8;">projet post-retraite</strong> validé et structuré<br>
+            ✦ Un <strong style="color:#F5EFD8;">Plan d'action</strong> avec 5 premières étapes concrètes<br>
+            ✦ Votre <strong style="color:#F5EFD8;">Pacte</strong> — 3 engagements écrits envers vous-même
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button onclick="gObNext(0)" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#12100A;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Découvrir le parcours →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 2 : Les 3 phases -->
+      <div id="gOb1" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(245,239,216,.7);line-height:1.7;margin-bottom:1.2rem;">
+          Votre parcours se déroule en <strong style="color:#F5EFD8;">3 phases</strong> sur 2 à 3 mois — 9 séances de coaching + des exercices entre les séances.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem;">
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8C96A);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#12100A;flex-shrink:0;">I</div>
+            <div style="flex:1;">
+              <div style="font-size:.85rem;font-weight:700;color:#F5EFD8;margin-bottom:.2rem;">Connaissance de soi</div>
+              <div style="font-size:.75rem;color:rgba(245,239,216,.5);">Bilan de vie · Valeurs · Talents · DISC · Driving Forces</div>
+            </div>
+            <div style="font-size:.72rem;font-weight:700;color:#C9A84C;white-space:nowrap;">S1 → S3</div>
+          </div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8C96A);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#12100A;flex-shrink:0;">II</div>
+            <div style="flex:1;">
+              <div style="font-size:.85rem;font-weight:700;color:#F5EFD8;margin-bottom:.2rem;">Explorer & Imaginer</div>
+              <div style="font-size:.75rem;color:rgba(245,239,216,.5);">Relations · Transmission · IKIGAI · Vision idéale · Projet</div>
+            </div>
+            <div style="font-size:.72rem;font-weight:700;color:#C9A84C;white-space:nowrap;">S4 → S6</div>
+          </div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#E8C96A);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#12100A;flex-shrink:0;">III</div>
+            <div style="flex:1;">
+              <div style="font-size:.85rem;font-weight:700;color:#F5EFD8;margin-bottom:.2rem;">Décider & S'engager</div>
+              <div style="font-size:.75rem;color:rgba(245,239,216,.5);">Corps & vitalité · Héritage · Plan d'action · Pacte final</div>
+            </div>
+            <div style="font-size:.72rem;font-weight:700;color:#C9A84C;white-space:nowrap;">S7 → S9</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button onclick="gObPrev(1)" style="background:transparent;color:rgba(245,239,216,.5);font-size:.83rem;border:1px solid rgba(201,168,76,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="gObNext(1)" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#12100A;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Les outils →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 3 : Les outils -->
+      <div id="gOb2" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(245,239,216,.7);line-height:1.7;margin-bottom:1.2rem;">
+          Chaque séance s'appuie sur des <strong style="color:#F5EFD8;">outils interactifs</strong> que vous complétez à votre rythme.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.4rem;">
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">🎯</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Test DISC</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">📈</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Ligne de vie</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">💎</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Mes valeurs</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">⚡</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Driving Forces</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">⭕</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Roue de vie</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">☯</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">IKIGAI</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">⚖️</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Matrice de choix</div></div>
+          <div style="background:#1E1A10;border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">🗺️</span><div style="font-size:.78rem;color:rgba(245,239,216,.7);">Plan d'action</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button onclick="gObPrev(2)" style="background:transparent;color:rgba(245,239,216,.5);font-size:.83rem;border:1px solid rgba(201,168,76,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="gObNext(2)" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#12100A;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Avant de commencer →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 4 : Avant de commencer -->
+      <div id="gOb3" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(245,239,216,.7);line-height:1.7;margin-bottom:1.2rem;">
+          Quelques informations importantes avant de commencer :
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem;">
+          <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#E8B550;margin-bottom:.3rem;">🔒 Confidentialité totale</div>
+            <div style="font-size:.78rem;color:rgba(245,239,216,.6);line-height:1.6;">Vos réponses sont sauvegardées localement sur votre appareil. Wanda n'y a pas accès sans votre accord.</div>
+          </div>
+          <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#E8B550;margin-bottom:.3rem;">💾 Sauvegarde automatique</div>
+            <div style="font-size:.78rem;color:rgba(245,239,216,.6);line-height:1.6;">Cliquez sur "Sauvegarder" après chaque séance. Utilisez toujours le même navigateur et le même appareil.</div>
+          </div>
+          <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#E8B550;margin-bottom:.3rem;">⏱ À votre rythme</div>
+            <div style="font-size:.78rem;color:rgba(245,239,216,.6);line-height:1.6;">Vous pouvez revenir à tout moment. Aucune durée imposée — prenez le temps qu'il vous faut pour chaque exercice.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <button onclick="gObPrev(3)" style="background:transparent;color:rgba(245,239,216,.5);font-size:.83rem;border:1px solid rgba(201,168,76,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="gObClose()" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#12100A;font-weight:700;font-size:.88rem;border:none;border-radius:50px;padding:.75rem 1.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">⚓ Commencer mon parcours</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- FIN ONBOARDING GRAND+ -->
+<div class="g-header">
+  <div class="g-eyebrow">Wanda Laurent Coaching</div>
+  <div class="g-title">Le Grand <em>+</em></div>
+  <div class="g-sub">Passerelle Transmission — Préparer la suite, transmettre ce qui compte</div>
+  <div class="g-pill">⚓ <span id="grand-client-name">Mon espace</span></div>
+</div>
+
+<nav class="g-nav" id="grand-nav">
+  <button class="g-nb active" onclick="gTab('gt-accueil',this)">🏠 Accueil</button>
+  <button class="g-nb" onclick="gTab('gt-p1',this)">Phase 1 · S1–S3</button>
+  <button class="g-nb" onclick="gTab('gt-p2',this)">Phase 2 · S4–S6</button>
+  <button class="g-nb" onclick="gTab('gt-p3',this)">Phase 3 · S7–S9</button>
+  <button class="g-nb" onclick="gTab('gt-outils',this)">🧰 Outils</button>
+  <button class="g-nb" onclick="gTab('gt-synthese',this)">☯ Mon IKIGAI</button>
+</nav>
+
+<div class="g-content">
+
+  <div class="g-prog-track"><div class="g-prog-fill" id="gbar" style="width:0%"></div></div>
+  <div class="g-prog-lbl" id="glbl">0 / 9 séances complétées</div>
+  <div class="g-dotmap" id="gdots">
+    <div class="g-dot" onclick="gGoS(1)">S1</div><div class="g-dot" onclick="gGoS(2)">S2</div>
+    <div class="g-dot" onclick="gGoS(3)">S3</div><div class="g-dot" onclick="gGoS(4)">S4</div>
+    <div class="g-dot" onclick="gGoS(5)">S5</div><div class="g-dot" onclick="gGoS(6)">S6</div>
+    <div class="g-dot" onclick="gGoS(7)">S7</div><div class="g-dot" onclick="gGoS(8)">S8</div>
+    <div class="g-dot" onclick="gGoS(9)">S9✦</div>
+  </div>
+
+  <!-- ACCUEIL -->
+  <div class="g-tab active" id="gt-accueil">
+    <div class="g-ib"><strong>Bienvenue dans votre Espace Le Grand +</strong><br>
+    Ce parcours de 9 séances accompagne l'une des transitions les plus profondes de la vie. Non pas une fin, mais un <em>nouveau départ</em> : construire votre projet de vie post-carrière, identifier ce que vous voulez transmettre, et aborder la retraite avec clarté et élan.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.2rem 0;">
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:14px;padding:1.3rem;text-align:center;"><div style="font-size:1.6rem;margin-bottom:.4rem;">📍</div><div style="font-size:.67rem;color:var(--g-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem;">Phase 1 · S1–S3</div><div style="font-size:.92rem;font-weight:700;color:var(--g-gold);">Connaissance de soi</div><div style="font-size:.71rem;color:var(--g-muted);margin-top:.2rem;">Bilan de vie · Valeurs · Talents</div></div>
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:14px;padding:1.3rem;text-align:center;"><div style="font-size:1.6rem;margin-bottom:.4rem;">🧭</div><div style="font-size:.67rem;color:var(--g-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem;">Phase 2 · S4–S6</div><div style="font-size:.92rem;font-weight:700;color:var(--g-gold);">Explorer & Imaginer</div><div style="font-size:.71rem;color:var(--g-muted);margin-top:.2rem;">Transmission · IKIGAI · Vision</div></div>
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:14px;padding:1.3rem;text-align:center;"><div style="font-size:1.6rem;margin-bottom:.4rem;">⚓</div><div style="font-size:.67rem;color:var(--g-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem;">Phase 3 · S7–S9</div><div style="font-size:.92rem;font-weight:700;color:var(--g-gold);">Décider & S'engager</div><div style="font-size:.71rem;color:var(--g-muted);margin-top:.2rem;">Projet · Corps · Pacte final</div></div>
+    </div>
+    <span class="g-fl">📍 Où en êtes-vous aujourd'hui ?</span>
+    <textarea class="g-fta" id="g-situation" placeholder="Décrivez votre situation actuelle, ce qui vous a amené(e) à ce parcours..." rows="3" onchange="gSave('situation',this.value)"></textarea>
+    <span class="g-fl">🎯 Mes 3 objectifs pour ce parcours</span>
+    <textarea class="g-fta" id="g-objectifs" placeholder="1. Je veux comprendre...&#10;2. Je veux construire...&#10;3. Je veux décider..." rows="3" onchange="gSave('objectifs',this.value)"></textarea>
+    <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="g-tab" id="gt-p1">
+    <div class="g-phase-hd" onclick="gPhase('gp1')">
+      <div><div class="g-phase-num">Phase 01 · Séances 1 à 3</div>
+      <div class="g-phase-title">Connaissance de soi — Poser les bases</div>
+      <div class="g-phase-sub">Bilan de vie · Valeurs · Talents · DISC · Driving Forces</div></div>
+      <div class="g-phase-chev" id="gp1-c">▼</div>
+    </div>
+    <div class="g-phase-body open" id="gp1">
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs1')">
+        <div class="g-sn">1</div><div style="flex:1"><div class="g-st">Accueil & Bilan de vie</div><div class="g-ss">Panorama · Réussites · Étapes clés</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs1">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Dresser le panorama de votre vie professionnelle et personnelle, identifier les moments charnières et poser les fondations du parcours.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Présentation du cadre et du parcours Le Grand +</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Chronologie de vie : grandes étapes professionnelles et personnelles</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Identification des 3 tournants décisifs de votre parcours</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Vos 3 plus grandes fiertés — sans filtre</span></label>
+        </div>
+        <div class="g-cl"><div class="g-cl-t after">🏠 Entre les séances</div>
+          <label class="g-ci"><input type="checkbox"><span>Compléter votre Ligne de vie (outil ci-dessous)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Passer le test DISC (lien ci-dessous)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Lister 10 réussites de votre vie (grandes ou petites)</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('disc')"><div class="g-ti">🎯</div><div class="g-tn">Test DISC</div><div class="g-td">Profil comportemental — Dominance, Influence, Stabilité, Conformité.</div><div class="g-ta">↗ Accéder au test</div></div>
+          <div class="g-tc" onclick="gModal('ligndevie')"><div class="g-ti">📈</div><div class="g-tn">Ligne de vie</div><div class="g-td">Cartographiez les hauts et bas de votre parcours pour en extraire les patterns.</div><div class="g-ta">✏ Compléter</div></div>
+          <div class="g-tc" onclick="gModal('reussites')"><div class="g-ti">🏆</div><div class="g-tn">Mes réussites</div><div class="g-td">10 moments dont vous êtes fier(e) — ils révèlent vos vrais talents.</div><div class="g-ta">✏ Remplir</div></div>
+        </div>
+        <div class="g-pb"><div class="g-pb-t">🎧 À écouter — Retraite & sens</div>
+          <a class="g-pi" href="https://www.radiofrance.fr/franceculture/podcasts/les-pieds-sur-terre" target="_blank"><span style="font-size:1.2rem;">🌿</span><div><div class="g-pn">La vie après le travail</div><div class="g-pd">France Culture — Témoignages de transitions réussies</div></div></a>
+          <a class="g-pi" href="https://www.slate.fr/podcasts/transfert" target="_blank"><span style="font-size:1.2rem;">💼</span><div><div class="g-pn">Transfert — Histoires de vie</div><div class="g-pd">Slate — Récits de transitions et de sens retrouvé</div></div></a>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 1</span>
+        <textarea class="g-fta" id="g-s1n" placeholder="Prises de conscience, émotions, surprises..." rows="3" onchange="gSave('s1n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs2')">
+        <div class="g-sn">2</div><div style="flex:1"><div class="g-st">Mes valeurs profondes</div><div class="g-ss">Valeurs · Driving Forces · Ce qui m'anime vraiment</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs2">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Identifier les valeurs qui ont guidé vos choix tout au long de votre vie — souvent sans le savoir.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Exploration des valeurs : tri et priorisation (parmi 40 cartes)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Moments où vous avez trahi une valeur — et le coût émotionnel</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Identification de vos 5 valeurs fondamentales</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Lien entre vos valeurs et votre projet post-retraite</span></label>
+        </div>
+        <div class="g-cl"><div class="g-cl-t after">🏠 Entre les séances</div>
+          <label class="g-ci"><input type="checkbox"><span>Compléter l'exercice Valeurs (outil ci-dessous)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Explorer vos Driving Forces — vos 6 motivations profondes</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('valeurs')"><div class="g-ti">💎</div><div class="g-tn">Mes valeurs</div><div class="g-td">Identifiez et priorisez vos 5 valeurs guides pour la suite de votre vie.</div><div class="g-ta">✏ Compléter</div></div>
+          <div class="g-tc" onclick="gModal('drivers')"><div class="g-ti">⚡</div><div class="g-tn">Driving Forces</div><div class="g-td">Vos 6 motivations profondes (TTI SI) — ce qui vous pousse à agir.</div><div class="g-ta">✏ Explorer</div></div>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 2</span>
+        <textarea class="g-fta" id="g-s2n" placeholder="Mes valeurs identifiées, ce qui m'a surpris..." rows="3" onchange="gSave('s2n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs3')">
+        <div class="g-sn">3</div><div style="flex:1"><div class="g-st">Mes talents & compétences</div><div class="g-ss">Forces naturelles · Compétences transférables · Zone de génie</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs3">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Identifier vos talents naturels et compétences transférables vers un projet post-retraite.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Analyse des réussites — quelles compétences révèlent-elles ?</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Distinction talents (naturels) vs compétences (acquises)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Identification de votre Zone de Génie</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Compétences transférables vers le projet post-retraite</span></label>
+        </div>
+        <div class="g-cl"><div class="g-cl-t after">🏠 Entre les séances</div>
+          <label class="g-ci"><input type="checkbox"><span>Compléter la Carte des compétences (outil ci-dessous)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Demander à 3 proches : "Quel talent vois-tu en moi ?"</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Remplir la Roue de vie — état des lieux actuel</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('competences')"><div class="g-ti">🛠</div><div class="g-tn">Carte des compétences</div><div class="g-td">Savoirs, savoir-faire, savoir-être — inventaire complet.</div><div class="g-ta">✏ Remplir</div></div>
+          <div class="g-tc" onclick="gModal('rouedevie')"><div class="g-ti">⭕</div><div class="g-tn">Roue de vie</div><div class="g-td">Satisfaction actuelle dans les 8 domaines clés de votre vie.</div><div class="g-ta">✏ Évaluer</div></div>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 3</span>
+        <textarea class="g-fta" id="g-s3n" placeholder="Mes talents identifiés, ma zone de génie..." rows="3" onchange="gSave('s3n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="g-tab" id="gt-p2">
+    <div class="g-phase-hd" onclick="gPhase('gp2')">
+      <div><div class="g-phase-num">Phase 02 · Séances 4 à 6</div>
+      <div class="g-phase-title">Explorer & Imaginer — Construire la vision</div>
+      <div class="g-phase-sub">Relations · Transmission · IKIGAI · Vision idéale · Projet</div></div>
+      <div class="g-phase-chev" id="gp2-c">▼</div>
+    </div>
+    <div class="g-phase-body open" id="gp2">
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs4')">
+        <div class="g-sn">4</div><div style="flex:1"><div class="g-st">Relations & empreinte</div><div class="g-ss">Ce que j'ai donné · Ce que j'ai reçu · Mon héritage vivant</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs4">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Explorer votre réseau de transmission — qui vous a façonné, qui vous avez influencé, quelle empreinte vous laissez.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Cartographie relationnelle : mentors, équipes, proches marquants</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Ce que vous avez transmis — intentionnellement ou non</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Votre empreinte : ce que les autres retiennent de vous</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Ce que vous voulez encore transmettre dans la suite</span></label>
+        </div>
+        <div class="g-cl"><div class="g-cl-t after">🏠 Entre les séances</div>
+          <label class="g-ci"><input type="checkbox"><span>Identifier les 3 personnes à qui vous voulez transmettre quelque chose</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Commencer l'IKIGAI de Transmission (outil ci-dessous)</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('ikigai')"><div class="g-ti">☯</div><div class="g-tn">IKIGAI de Transmission</div><div class="g-td">Votre raison d'être post-carrière — à la convergence de ce que vous aimez, savez faire, pouvez offrir au monde.</div><div class="g-ta">✏ Construire mon IKIGAI</div></div>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 4</span>
+        <textarea class="g-fta" id="g-s4n" placeholder="Les personnes qui comptent, ce que je veux transmettre..." rows="3" onchange="gSave('s4n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs5')">
+        <div class="g-sn">5</div><div style="flex:1"><div class="g-st">Ma vision de la retraite</div><div class="g-ss">Représentations · Désirs · Craintes · Vision idéale</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs5">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Explorer vos représentations de la retraite, transformer les peurs en ressources, formuler votre vision idéale.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Exploration des représentations et croyances sur la retraite</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Ce que vous craignez — et ce que ça révèle de vos besoins</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Votre vision idéale dans 5 ans — sans censure</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Roue de vie projetée : les 8 domaines dans 3 ans</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('vision')"><div class="g-ti">🌅</div><div class="g-tn">Vision de vie idéale</div><div class="g-td">Décrivez votre vie idéale dans 5 ans — activités, relations, lieu, sens.</div><div class="g-ta">✏ Rédiger ma vision</div></div>
+          <div class="g-tc" onclick="gModal('rouedevie')"><div class="g-ti">⭕</div><div class="g-tn">Roue de vie projetée</div><div class="g-td">Votre satisfaction souhaitée dans 3 ans — votre cap.</div><div class="g-ta">✏ Projeter</div></div>
+        </div>
+        <div class="g-pb"><div class="g-pb-t">🎧 À écouter — Sens & retraite</div>
+          <a class="g-pi" href="https://www.radiofrance.fr/franceculture/podcasts/le-temps-du-debat" target="_blank"><span style="font-size:1.2rem;">🧓</span><div><div class="g-pn">Vieillir autrement</div><div class="g-pd">France Culture — Nouvelles visions du grand âge</div></div></a>
+          <a class="g-pi" href="https://www.radiofrance.fr/franceculture/podcasts/les-pieds-sur-terre" target="_blank"><span style="font-size:1.2rem;">🌿</span><div><div class="g-pn">Les pieds sur terre</div><div class="g-pd">France Culture — Témoignages de vie après le travail</div></div></a>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 5</span>
+        <textarea class="g-fta" id="g-s5n" placeholder="Ma vision, mes craintes transformées en ressources..." rows="3" onchange="gSave('s5n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs6')">
+        <div class="g-sn">6</div><div style="flex:1"><div class="g-st">Mon projet post-carrière</div><div class="g-ss">Idées · Faisabilité · Matrice de choix</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs6">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Faire émerger des projets concrets, évaluer leur faisabilité et choisir votre direction principale.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Brainstorming : bénévolat, mentorat, création, écriture, famille, voyage...</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Évaluation faisabilité avec la matrice (outil ci-dessous)</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Choix du projet principal + 1-2 projets complémentaires</span></label>
+        </div>
+        <div class="g-cl"><div class="g-cl-t after">🏠 Entre les séances</div>
+          <label class="g-ci"><input type="checkbox"><span>Compléter la matrice de faisabilité pour vos 3 projets</span></label>
+          <label class="g-ci"><input type="checkbox"><span>En parler à un proche — observer sa réaction</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('matrice')"><div class="g-ti">⚖️</div><div class="g-tn">Matrice de faisabilité</div><div class="g-td">Évaluez vos projets selon vos valeurs, contraintes et ressources.</div><div class="g-ta">✏ Comparer mes projets</div></div>
+          <div class="g-tc" onclick="gModal('ikigai')"><div class="g-ti">☯</div><div class="g-tn">IKIGAI — Vérification</div><div class="g-td">Votre projet correspond-il à votre IKIGAI de transmission ?</div><div class="g-ta">↗ Revoir mon IKIGAI</div></div>
+        </div>
+        <span class="g-fl">📝 Mes notes de séance 6</span>
+        <textarea class="g-fta" id="g-s6n" placeholder="Mes projets, le projet choisi et pourquoi..." rows="3" onchange="gSave('s6n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="g-tab" id="gt-p3">
+    <div class="g-phase-hd" onclick="gPhase('gp3')">
+      <div><div class="g-phase-num">Phase 03 · Séances 7 à 9</div>
+      <div class="g-phase-title">Décider & S'engager — Passer à l'action</div>
+      <div class="g-phase-sub">Corps · Héritage · Plan d'action · Pacte final</div></div>
+      <div class="g-phase-chev" id="gp3-c">▼</div>
+    </div>
+    <div class="g-phase-body open" id="gp3">
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs7')">
+        <div class="g-sn">7</div><div style="flex:1"><div class="g-st">Corps, énergie & vitalité</div><div class="g-ss">Santé · Rythme · Rituels · Équilibre</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs7">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Aborder la dimension physique de la retraite — identifier vos rituels de vitalité et les ajustements à mettre en place.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Bilan énergétique : qu'est-ce qui vous ressource vraiment ?</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Votre relation au corps, au rythme, au repos</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Ce que vous voulez changer ou préserver dans votre hygiène de vie</span></label>
+          <label class="g-ci"><input type="checkbox"><span>3 rituels de vitalité à installer dès la retraite</span></label>
+        </div>
+        <span class="g-fl">💪 Mes rituels de vitalité prioritaires</span>
+        <textarea class="g-fta" id="g-s7v" placeholder="Sport, sommeil, nature, méditation, alimentation... Ce qui me ressource vraiment." rows="3" onchange="gSave('s7v',this.value)"></textarea>
+        <span class="g-fl">📝 Mes notes de séance 7</span>
+        <textarea class="g-fta" id="g-s7n" placeholder="Ce que je veux changer, ce que je veux préserver..." rows="3" onchange="gSave('s7n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs8')">
+        <div class="g-sn">8</div><div style="flex:1"><div class="g-st">Mon héritage & ma lettre</div><div class="g-ss">Héritage · Lettre au futur · Plan d'action</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs8">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Formaliser votre héritage en 3 dimensions, rédiger votre lettre au futur et construire votre plan d'action concret.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Héritage professionnel : ce que je laisse à mon domaine</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Héritage familial : ce que je transmets à mes proches</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Héritage social : ma contribution à la communauté</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Plan d'action : les 5 premières étapes concrètes</span></label>
+        </div>
+        <div class="g-tg">
+          <div class="g-tc" onclick="gModal('planaction')"><div class="g-ti">🗺️</div><div class="g-tn">Plan d'action</div><div class="g-td">5 actions concrètes avec délai et ressources nécessaires.</div><div class="g-ta">✏ Construire mon plan</div></div>
+        </div>
+        <span class="g-fl">✉️ Ma lettre à moi dans 10 ans</span>
+        <textarea class="g-fta" id="g-lettre" placeholder="Cher(e) [prénom], dans 10 ans tu auras... Je veux que tu saches que..." rows="7" onchange="gSave('lettre',this.value)"></textarea>
+        <span class="g-fl">📝 Mes notes de séance 8</span>
+        <textarea class="g-fta" id="g-s8n" placeholder="Mon héritage en 3 dimensions..." rows="3" onchange="gSave('s8n',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder</button>
+      </div></div>
+
+      <div class="g-sb"><div class="g-sh" onclick="gSB('gs9')">
+        <div class="g-sn" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);font-size:.9rem;">✦</div>
+        <div style="flex:1"><div class="g-st">Le Pacte avec moi-même</div><div class="g-ss">Clôture · Célébration · Engagement final</div></div><div style="font-size:.85rem;color:var(--g-gold);">▾</div>
+      </div><div class="g-sbody" id="gs9">
+        <div class="g-obj">🎯 <span><strong>Objectif :</strong> Clôturer le parcours par une séance de célébration et formaliser votre pacte — les engagements concrets envers vous-même.</span></div>
+        <div class="g-cl"><div class="g-cl-t">📹 En séance avec Wanda</div>
+          <label class="g-ci"><input type="checkbox"><span>Les 3 révélations majeures du parcours</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Lecture et signature du Pacte avec soi-même</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Célébration du chemin parcouru</span></label>
+          <label class="g-ci"><input type="checkbox"><span>Remise de la synthèse finale</span></label>
+        </div>
+        <span class="g-fl">⚓ Mon Pacte — 3 engagements concrets</span>
+        <textarea class="g-fta" id="g-pacte" placeholder="1. Je m'engage à... avant le [date]&#10;2. Je m'engage à... chaque...&#10;3. Je renonce à..." rows="5" onchange="gSave('pacte',this.value)"></textarea>
+        <span class="g-fl">🎯 Mon cap en une phrase</span>
+        <textarea class="g-fta" id="g-cap" placeholder="Une phrase courte, forte, la vôtre — qui résume votre direction." rows="2" onchange="gSave('cap',this.value)"></textarea>
+        <span class="g-fl">💌 Un mot pour Wanda</span>
+        <textarea class="g-fta" id="g-motwanda" placeholder="Ce que vous souhaitez lui dire à la fin de ce voyage..." rows="3" onchange="gSave('motwanda',this.value)"></textarea>
+        <button class="g-btn" onclick="gSaveAll()">💾 Finaliser mon parcours ✦</button>
+      </div></div>
+
+    </div>
+  </div>
+
+  <!-- OUTILS -->
+  <div class="g-tab" id="gt-outils">
+    <div class="g-ib">Accès direct à tous les outils du parcours — disponibles à tout moment.</div>
+    <div class="g-tg">
+      <div class="g-tc" onclick="gModal('disc')"><div class="g-ti">🎯</div><div class="g-tn">Test DISC</div><div class="g-td">Profil comportemental.</div><div class="g-ta">↗ Accéder</div></div>
+      <div class="g-tc" onclick="gModal('ligndevie')"><div class="g-ti">📈</div><div class="g-tn">Ligne de vie</div><div class="g-td">Hauts et bas du parcours.</div><div class="g-ta">✏ Compléter</div></div>
+      <div class="g-tc" onclick="gModal('reussites')"><div class="g-ti">🏆</div><div class="g-tn">Mes réussites</div><div class="g-td">10 moments marquants.</div><div class="g-ta">✏ Remplir</div></div>
+      <div class="g-tc" onclick="gModal('valeurs')"><div class="g-ti">💎</div><div class="g-tn">Mes valeurs</div><div class="g-td">5 valeurs fondamentales.</div><div class="g-ta">✏ Identifier</div></div>
+      <div class="g-tc" onclick="gModal('drivers')"><div class="g-ti">⚡</div><div class="g-tn">Driving Forces</div><div class="g-td">6 motivations profondes.</div><div class="g-ta">✏ Explorer</div></div>
+      <div class="g-tc" onclick="gModal('competences')"><div class="g-ti">🛠</div><div class="g-tn">Carte des compétences</div><div class="g-td">Savoirs · Savoir-faire · Savoir-être.</div><div class="g-ta">✏ Inventorier</div></div>
+      <div class="g-tc" onclick="gModal('rouedevie')"><div class="g-ti">⭕</div><div class="g-tn">Roue de vie</div><div class="g-td">8 domaines — état des lieux.</div><div class="g-ta">✏ Évaluer</div></div>
+      <div class="g-tc" onclick="gModal('ikigai')"><div class="g-ti">☯</div><div class="g-tn">IKIGAI de Transmission</div><div class="g-td">Votre raison d'être post-carrière.</div><div class="g-ta">✏ Construire</div></div>
+      <div class="g-tc" onclick="gModal('matrice')"><div class="g-ti">⚖️</div><div class="g-tn">Matrice de faisabilité</div><div class="g-td">Comparer 3 projets.</div><div class="g-ta">✏ Comparer</div></div>
+      <div class="g-tc" onclick="gModal('vision')"><div class="g-ti">🌅</div><div class="g-tn">Vision idéale</div><div class="g-td">Ma vie dans 5 ans.</div><div class="g-ta">✏ Rédiger</div></div>
+      <div class="g-tc" onclick="gModal('planaction')"><div class="g-ti">🗺️</div><div class="g-tn">Plan d'action</div><div class="g-td">5 étapes concrètes.</div><div class="g-ta">✏ Planifier</div></div>
+    </div>
+  </div>
+
+  <!-- SYNTHÈSE -->
+  <div class="g-tab" id="gt-synthese">
+
+    <!-- IKIGAI VISUEL -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--g-cream);margin-bottom:.3rem;">Mon <em style="font-style:italic;color:var(--g-gold);">IKIGAI</em> de Transmission</div>
+      <div style="font-size:.82rem;color:var(--g-muted);font-style:italic;">Le livrable central de votre parcours Le Grand +</div>
+    </div>
+
+    <!-- DIAGRAMME IKIGAI SVG -->
+    <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+      <div style="position:relative;width:340px;height:340px;flex-shrink:0;">
+        <!-- Cercles SVG -->
+        <svg width="340" height="340" viewBox="0 0 340 340" style="position:absolute;top:0;left:0;">
+          <!-- Ce que j'aime -->
+          <circle cx="170" cy="120" r="100" fill="rgba(224,112,112,0.18)" stroke="rgba(224,112,112,0.5)" stroke-width="1.5"/>
+          <!-- Ce pour quoi je suis fait(e) -->
+          <circle cx="230" cy="210" r="100" fill="rgba(106,159,216,0.18)" stroke="rgba(106,159,216,0.5)" stroke-width="1.5"/>
+          <!-- Ce dont le monde a besoin -->
+          <circle cx="110" cy="210" r="100" fill="rgba(112,196,112,0.18)" stroke="rgba(112,196,112,0.5)" stroke-width="1.5"/>
+          <!-- Centre IKIGAI -->
+          <circle cx="170" cy="182" r="38" fill="rgba(201,168,76,0.22)" stroke="rgba(201,168,76,0.7)" stroke-width="2"/>
+        </svg>
+        <!-- Labels cercles -->
+        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:.68rem;font-weight:700;color:#E07070;text-align:center;white-space:nowrap;">❤️ Ce que j'aime</div>
+        <div style="position:absolute;bottom:12px;right:4px;font-size:.68rem;font-weight:700;color:#6A9FD8;text-align:center;">💡 Ce pour quoi<br>je suis fait(e)</div>
+        <div style="position:absolute;bottom:12px;left:4px;font-size:.68rem;font-weight:700;color:#70C470;text-align:center;">🌍 Ce dont le<br>monde a besoin</div>
+        <!-- Centre label -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);text-align:center;pointer-events:none;">
+          <div style="font-size:.62rem;font-weight:700;color:var(--g-gold);letter-spacing:.08em;text-transform:uppercase;">☯ IKIGAI</div>
+          <div style="font-size:.58rem;color:var(--g-amber);margin-top:.15rem;">Ma mission</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 QUADRANTS ÉDITABLES -->
+    <div class="g-ig" style="margin-bottom:1.5rem;">
+      <div class="g-ic" style="border-color:rgba(224,112,112,0.35);">
+        <div class="g-icl" style="color:#E07070;">❤️ Ce que j'aime profondément</div>
+        <textarea class="g-fta" id="g-ik-aime" placeholder="Activités, sujets, personnes qui m'animent encore..." rows="4" onchange="gSave('ik_aime',this.value);gUpdateIkigai()"></textarea>
+      </div>
+      <div class="g-ic" style="border-color:rgba(106,159,216,0.35);">
+        <div class="g-icl" style="color:#6A9FD8;">💡 Ce pour quoi je suis fait(e)</div>
+        <textarea class="g-fta" id="g-ik-fait" placeholder="Mes talents naturels, ce qui coule de source..." rows="4" onchange="gSave('ik_fait',this.value);gUpdateIkigai()"></textarea>
+      </div>
+      <div class="g-ic" style="border-color:rgba(112,196,112,0.35);">
+        <div class="g-icl" style="color:#70C470;">🌍 Ce dont mon entourage a besoin</div>
+        <textarea class="g-fta" id="g-ik-besoin" placeholder="Besoins de ma famille, communauté, territoire..." rows="4" onchange="gSave('ik_besoin',this.value);gUpdateIkigai()"></textarea>
+      </div>
+      <div class="g-ic" style="border-color:rgba(201,168,76,0.35);">
+        <div class="g-icl" style="color:var(--g-amber);">🤝 Ce que je peux donner & transmettre</div>
+        <textarea class="g-fta" id="g-ik-donner" placeholder="Savoirs, expérience, réseau, temps, présence..." rows="4" onchange="gSave('ik_donner',this.value);gUpdateIkigai()"></textarea>
+      </div>
+    </div>
+
+    <!-- IKIGAI CENTRAL — la phrase -->
+    <div style="background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));border:2px solid rgba(201,168,76,.45);border-radius:18px;padding:1.6rem 1.8rem;margin-bottom:1.5rem;">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g-gold);margin-bottom:.7rem;">⭐ Mon IKIGAI — Ma raison d'être post-carrière</div>
+      <textarea class="g-fta" id="g-ik-mission" placeholder="À l'intersection de ces 4 dimensions : quelle est ma mission ? En 1 à 3 phrases, courtes et fortes." rows="4" onchange="gSave('ik_mission',this.value)" style="font-size:.95rem;line-height:1.7;min-height:100px;background:rgba(0,0,0,.2);border-color:rgba(201,168,76,.3);"></textarea>
+    </div>
+
+    <!-- SYNTHÈSE COMPACTE en dessous -->
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g-muted);margin-bottom:1rem;margin-top:.5rem;">Les autres piliers de votre synthèse</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.85rem;margin-bottom:1.5rem;">
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:12px;padding:1.1rem;">
+        <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.45rem;">💎 Mes 5 valeurs</div>
+        <textarea class="g-fta" id="g-sv" placeholder="1. Liberté&#10;2. Loyauté&#10;..." rows="4" onchange="gSave('sv',this.value)"></textarea>
+      </div>
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:12px;padding:1.1rem;">
+        <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.45rem;">✦ Mes 5 talents</div>
+        <textarea class="g-fta" id="g-st" placeholder="Ce que je fais mieux que la plupart..." rows="4" onchange="gSave('st',this.value)"></textarea>
+      </div>
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:12px;padding:1.1rem;">
+        <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.45rem;">🎯 Mon projet principal</div>
+        <textarea class="g-fta" id="g-sp" placeholder="Le projet qui m'anime le plus..." rows="4" onchange="gSave('sp',this.value)"></textarea>
+      </div>
+      <div style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:12px;padding:1.1rem;">
+        <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.45rem;">⚓ Mon Pacte</div>
+        <textarea class="g-fta" id="g-spc" placeholder="Mes 3 engagements concrets..." rows="4" onchange="gSave('spc',this.value)"></textarea>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:1px solid var(--g-border-h);border-radius:12px;padding:1.1rem;">
+        <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.45rem;">🎯 Mon cap en une phrase</div>
+        <textarea class="g-fta" id="g-sc" placeholder="Une phrase courte, forte, la vôtre." rows="4" onchange="gSave('sc',this.value)"></textarea>
+      </div>
+    </div>
+
+    <button class="g-btn" onclick="gSaveAll()">💾 Sauvegarder ma synthèse IKIGAI</button>
+  </div>
+
+</div>
+
+<script>
+var _gD={};
+function gLoad(){
+  try{_gD=JSON.parse(localStorage.getItem('wlc_grand')||'{}');}catch(e){_gD={};}
+  document.querySelectorAll('#app-grand textarea[id]').forEach(function(ta){
+    var k=ta.id.replace('g-','').replace(/-/g,'_');
+    if(_gD[k])ta.value=_gD[k];
+  });
+  gProg();
+}
+function gSave(k,v){_gD[k]=v;gProg();}
+function gSaveAll(){
+  document.querySelectorAll('#app-grand textarea[id]').forEach(function(ta){
+    var k=ta.id.replace('g-','').replace(/-/g,'_');
+    _gD[k]=ta.value;
+  });
+  try{localStorage.setItem('wlc_grand',JSON.stringify(_gD));}catch(e){}
+  if(typeof showDashToast==='function')showDashToast('✦ Séance sauvegardée');
+}
+function gProg(){
+  var f=Object.values(_gD).filter(function(v){return v&&String(v).trim().length>10;}).length;
+  var p=Math.min(100,Math.round(f/25*100));
+  var bar=document.getElementById('gbar');
+  var lbl=document.getElementById('glbl');
+  if(bar)bar.style.width=p+'%';
+  var done=Math.round(p/100*9);
+  if(lbl)lbl.textContent=done+' / 9 séances · '+p+'% complété';
+  document.querySelectorAll('#gdots .g-dot').forEach(function(d,i){d.classList.toggle('done',i<done);});
+}
+function gTab(id,btn){
+  document.querySelectorAll('#app-grand .g-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('#app-grand .g-nb').forEach(function(b){b.classList.remove('active');});
+  var t=document.getElementById(id);if(t)t.classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function gGoS(n){
+  var ph=n<=3?'gt-p1':n<=6?'gt-p2':'gt-p3';
+  var bi=n<=3?1:n<=6?2:3;
+  var btn=document.querySelectorAll('#grand-nav .g-nb')[bi];
+  gTab(ph,btn);
+  setTimeout(function(){
+    var el=document.getElementById('gs'+n);
+    if(el){el.classList.add('open');var sh=el.previousElementSibling;if(sh)sh.scrollIntoView({behavior:'smooth',block:'start'});}
+  },120);
+}
+function gPhase(id){
+  var b=document.getElementById(id);
+  var c=document.getElementById(id+'-c');
+  if(!b)return;
+  b.classList.toggle('open');
+  if(c)c.style.transform=b.classList.contains('open')?'':'rotate(-90deg)';
+}
+function gSB(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function initGrandApp(cd){
+  var el=document.getElementById('grand-client-name');
+  if(el)el.textContent=cd?(cd.prenom+' '+cd.nom):'Mode Coach — aperçu';
+  // Update onboarding name
+  var pEl=document.getElementById('grand-ob-prenom');
+  if(pEl && cd) pEl.textContent=cd.prenom+' !';
+  gTab('gt-accueil',document.querySelector('#grand-nav .g-nb'));
+  gLoad();
+  // Show onboarding on first visit
+  var seen=localStorage.getItem('wlc_grand_ob_seen');
+  if(!seen){
+    var ob=document.getElementById('wl-ob-grand');
+    if(ob) ob.classList.remove('hidden');
+  }
+}
+function gObNext(n){
+  document.getElementById('gOb'+n).style.display='none';
+  document.getElementById('gOb'+(n+1)).style.display='block';
+  // Update dots
+  for(var i=0;i<4;i++){var d=document.getElementById('gdot'+i);if(d)d.style.background=i<=n+1?'#C9A84C':'rgba(201,168,76,.3)';}
+}
+function gObPrev(n){
+  document.getElementById('gOb'+n).style.display='none';
+  document.getElementById('gOb'+(n-1)).style.display='block';
+  for(var i=0;i<4;i++){var d=document.getElementById('gdot'+i);if(d)d.style.background=i<=n-1?'#C9A84C':'rgba(201,168,76,.3)';}
+}
+function gObClose(){
+  var ob=document.getElementById('wl-ob-grand');
+  if(ob) ob.classList.add('hidden');
+  try{localStorage.setItem('wlc_grand_ob_seen','1');}catch(e){}
+}
+/* MODALS */
+function gModal(t){
+  var o=document.getElementById('g-modal-overlay');
+  var c=document.getElementById('g-modal-content');
+  c.innerHTML=gMC(t);
+  o.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function gClose(){document.getElementById('g-modal-overlay').classList.remove('open');document.body.style.overflow='';}
+function gCloseOverlay(e){if(e.target===document.getElementById('g-modal-overlay'))gClose();}
+function gMC(t){
+  var vals=['Liberté','Famille','Loyauté','Créativité','Justice','Sécurité','Aventure','Authenticité','Transmission','Service','Excellence','Humilité','Courage','Paix','Connexion','Croissance','Sens','Générosité','Indépendance','Partage'];
+  var m={
+disc:'<div class="g-mh"><div><h2>🎯 Test DISC</h2><p>Dominance · Influence · Stabilité · Conformité</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1.1rem;">Le DISC révèle votre style comportemental. Très utile pour comprendre comment vous allez fonctionner dans votre projet post-retraite.</p><a href="https://www.tonyrobbins.com/disc/" target="_blank" style="display:flex;align-items:center;gap:.7rem;background:var(--g-surface2);border:1px solid var(--g-border);border-radius:10px;padding:.8rem 1rem;text-decoration:none;color:inherit;margin-bottom:1rem;"><span style="font-size:1.3rem;">🌐</span><div><div style="font-size:.84rem;font-weight:600;color:var(--g-cream);">Tony Robbins DISC (gratuit)</div><div style="font-size:.72rem;color:var(--g-muted);">Résultats instantanés en français</div></div><span style="margin-left:auto;color:var(--g-gold);">↗</span></a><label class="g-ml">Mon profil DISC</label><input class="g-mi" placeholder="Ex : D dominant, I secondaire, S modéré"><label class="g-ml">Ce que j\'ai appris sur mon style</label><textarea class="g-mta" placeholder="Mes points forts, zones de vigilance dans mon projet..."></textarea><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+ligndevie:'<div class="g-mh"><div><h2>📈 Ligne de vie</h2><p>Les hauts et bas de votre parcours</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Notez les événements marquants, leur date et leur impact émotionnel (−10 à +10).</p>'+[1,2,3,4,5,6,7,8].map(function(i){return'<div style="display:grid;grid-template-columns:28px 1fr 80px;gap:.5rem;align-items:center;margin-bottom:.45rem;"><div style="font-family:\'Cormorant Garamond\',serif;font-size:.95rem;font-weight:600;color:var(--g-gold);text-align:center;">'+i+'</div><input class="g-mi" style="margin:0;" placeholder="Événement..."><input class="g-mi" type="number" min="-10" max="10" style="margin:0;text-align:center;" placeholder="score"></div>';}).join('')+'<label class="g-ml">Ce que ces courbes révèlent</label><textarea class="g-mta" placeholder="Les patterns, périodes de transformation, moments clés..."></textarea><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+reussites:'<div class="g-mh"><div><h2>🏆 Mes réussites</h2><p>10 moments dont vous êtes fier(e)</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Grande ou petite, pro ou perso — toute réussite révèle un talent.</p>'+[1,2,3,4,5,6,7,8,9,10].map(function(i){return'<div style="background:var(--g-surface2);border:1px solid var(--g-border);border-radius:9px;padding:.8rem 1rem;margin-bottom:.45rem;"><div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g-gold);margin-bottom:.35rem;">Réussite '+i+'</div><textarea class="g-mta" style="min-height:50px;margin:0;" placeholder="Décrivez cette réussite..."></textarea></div>';}).join('')+'<div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+valeurs:'<div class="g-mh"><div><h2>💎 Mes valeurs fondamentales</h2><p>Ce qui guide vos choix de vie</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Cliquez sur les valeurs qui résonnent, puis gardez vos 5 essentielles.</p><div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.1rem;">'+vals.map(function(v){return'<span style="padding:.3rem .8rem;background:var(--g-surface2);border:1px solid var(--g-border);border-radius:50px;font-size:.77rem;color:var(--g-muted);cursor:pointer;" onclick="var s=this.style;var on=s.background.indexOf(\'168\')>-1;s.background=on?\'var(--g-surface2)\':\' rgba(201,168,76,.2)\';s.borderColor=on?\'rgba(201,168,76,.18)\':\' var(--g-gold)\';s.color=on?\'var(--g-muted)\':\' var(--g-amber)\';">'+v+'</span>';}).join('')+'</div>'+[1,2,3,4,5].map(function(n){return'<label class="g-ml">Valeur '+n+'</label><input class="g-mi" placeholder="La valeur et pourquoi elle est essentielle...">';}).join('')+'<div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer mes valeurs</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+drivers:'<div class="g-mh"><div><h2>⚡ Driving Forces</h2><p>Vos 6 motivations profondes (TTI SI)</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Les Driving Forces révèlent POURQUOI vous agissez — ce qui donne du sens à vos actions.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;">'+[['🔬 Théorique','Comprendre, apprendre, analyser'],['💰 Utilitaire','Rentabilité et résultats concrets'],['🎨 Esthétique','Harmonie, beauté, équilibre'],['🤝 Social','Aider, servir, contribuer'],['👑 Individualiste','Autonomie, leadership, impact'],['⛪ Traditionnel','Sens, valeurs, structure']].map(function(d){return'<div style="background:var(--g-surface2);border:1px solid var(--g-border);border-radius:10px;padding:.85rem;"><div style="font-size:.8rem;font-weight:700;color:var(--g-amber);margin-bottom:.25rem;">'+d[0]+'</div><div style="font-size:.72rem;color:var(--g-muted);margin-bottom:.4rem;">'+d[1]+'</div><input class="g-mi" style="margin:0;text-align:center;width:80px;" type="number" min="1" max="6" placeholder="Rang 1-6"></div>';}).join('')+'</div><label class="g-ml">Comment mes drivers influencent mon projet post-retraite</label><textarea class="g-mta" placeholder="Ex : Mon driver Social m\'attire vers le bénévolat. Mon driver Théorique vers la transmission de savoirs..."></textarea><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+competences:'<div class="g-mh"><div><h2>🛠 Carte des compétences</h2><p>Savoirs · Savoir-faire · Savoir-être</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem;">'+[['📚 Savoirs','Connaissances théoriques et techniques'],['🛠 Savoir-faire','Compétences pratiques maîtrisées'],['💫 Savoir-être','Qualités humaines et relationnelles'],['🔄 Compétences transférables','Utiles dans votre projet post-retraite'],['⭐ Zone de génie','Ce qui coule de source et crée de la valeur'],['⚠️ Ce que je ne veux plus faire','Limites et renoncements assumés']].map(function(c){return'<div style="background:var(--g-surface2);border:1px solid var(--g-border);border-radius:11px;padding:.9rem;"><div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--g-gold);margin-bottom:.35rem;">'+c[0]+'</div><div style="font-size:.7rem;color:var(--g-muted);margin-bottom:.4rem;">'+c[1]+'</div><textarea class="g-mta" style="min-height:65px;margin:0;" placeholder="..."></textarea></div>';}).join('')+'</div><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+rouedevie:'<div class="g-mh"><div><h2>⭕ Roue de vie</h2><p>Satisfaction dans les 8 domaines clés</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Notez votre satisfaction actuelle (0-10) puis votre objectif dans 3 ans.</p>'+[['❤️ Famille & proches'],['💪 Santé & vitalité'],['💶 Finances & sécurité'],['🌿 Loisirs & passions'],['🤝 Relations sociales'],['🌱 Développement personnel'],['🏡 Cadre de vie'],['☯ Sens & spiritualité']].map(function(d){return'<div style="display:grid;grid-template-columns:1fr 90px 90px;gap:.55rem;align-items:center;padding:.45rem 0;border-bottom:1px solid var(--g-border);"><div style="font-size:.82rem;color:var(--g-cream);">'+d[0]+'</div><input class="g-mi" style="margin:0;text-align:center;" type="number" min="0" max="10" placeholder="Auj."><input class="g-mi" style="margin:0;text-align:center;" type="number" min="0" max="10" placeholder="3 ans"></div>';}).join('')+'<label class="g-ml" style="margin-top:1rem;">Ce que la roue révèle — domaines prioritaires</label><textarea class="g-mta" placeholder="Les domaines les plus déséquilibrés, ce que je vais prioriser..."></textarea><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+ikigai:'<div class="g-mh"><div><h2>☯ IKIGAI de Transmission</h2><p>Votre raison d\'être post-carrière</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">L\'IKIGAI adapté à la transmission : à la convergence de ce que vous aimez, savez faire, pouvez offrir et dont le monde a besoin.</p><div class="g-ig"><div class="g-ic"><div class="g-icl" style="color:#E07070;">❤️ Ce que j\'aime profondément</div><textarea class="g-mta" placeholder="Activités, sujets, personnes qui m\'animent encore..." style="min-height:70px;"></textarea></div><div class="g-ic"><div class="g-icl" style="color:#6A9FD8;">💡 Ce pour quoi je suis fait(e)</div><textarea class="g-mta" placeholder="Mes talents naturels, ce qui coule de source..." style="min-height:70px;"></textarea></div><div class="g-ic"><div class="g-icl" style="color:#70C470;">🌍 Ce dont mon entourage a besoin</div><textarea class="g-mta" placeholder="Besoins de ma famille, communauté, territoire..." style="min-height:70px;"></textarea></div><div class="g-ic"><div class="g-icl" style="color:var(--g-amber);">🤝 Ce que je peux donner & transmettre</div><textarea class="g-mta" placeholder="Savoirs, expérience, réseau, temps, présence..." style="min-height:70px;"></textarea></div></div><label class="g-ml">⭐ Mon IKIGAI — Ma mission post-carrière</label><textarea class="g-mta" placeholder="À l\'intersection de ces 4 dimensions : quelle est ma raison d\'être ?" style="min-height:80px;background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.3);"></textarea><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer mon IKIGAI</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+vision:'<div class="g-mh"><div><h2>🌅 Vision de vie idéale</h2><p>Ma vie dans 5 ans — sans censure</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Décrivez votre vie idéale dans 5 ans comme si c\'était déjà réel.</p>'+[['🗓 Une journée type idéale','Du réveil au coucher — où êtes-vous, que faites-vous, avec qui ?'],['🤝 Mes relations clés','Avec qui passez-vous du temps ? Quel rôle jouez-vous ?'],['🎯 Ma contribution','Quel impact avez-vous sur votre entourage ?'],['🌿 Mon cadre de vie','Où vivez-vous ? Quel rythme ? Quelle liberté ?'],['💫 Ma fierté','Dans 5 ans, qu\'est-ce qui vous remplit de fierté ?']].map(function(q){return'<label class="g-ml">'+q[0]+'</label><textarea class="g-mta" placeholder="'+q[1]+'" style="min-height:70px;"></textarea>';}).join('')+'<div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+matrice:'<div class="g-mh"><div><h2>⚖️ Matrice de faisabilité</h2><p>Comparez vos projets (note 1 à 5)</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem;margin-bottom:.9rem;">'+[1,2,3].map(function(n){return'<input class="g-mi" style="text-align:center;margin:0;" placeholder="Projet '+n+'">';}).join('')+'</div><div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:.79rem;">'+['Aligné avec mes valeurs','Compatible avec mon énergie','Faisable financièrement','Soutien de l\'entourage','Délai réaliste','Impact souhaité','Plaisir quotidien','Lié à mon IKIGAI'].map(function(c){return'<tr style="border-bottom:1px solid var(--g-border);"><td style="padding:.45rem;color:var(--g-muted);">'+c+'</td>'+[1,2,3].map(function(){return'<td style="padding:.35rem;text-align:center;"><select style="background:var(--g-surface);border:1px solid var(--g-border);border-radius:6px;padding:.2rem .35rem;color:var(--g-cream);font-size:.77rem;"><option>—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>';}).join('')+'</tr>';}).join('')+'<tr style="background:rgba(201,168,76,.08);"><td style="padding:.55rem;font-weight:700;color:var(--g-gold);">Score /40</td><td style="text-align:center;font-weight:700;color:var(--g-gold);">—</td><td style="text-align:center;font-weight:700;color:var(--g-gold);">—</td><td style="text-align:center;font-weight:700;color:var(--g-gold);">—</td></tr></table></div><div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>',
+
+planaction:'<div class="g-mh"><div><h2>🗺️ Plan d\'action</h2><p>5 premières étapes concrètes</p></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="font-size:.86rem;color:var(--g-muted);line-height:1.7;margin-bottom:1rem;">Chaque action doit être concrète, datée et à votre portée.</p>'+[1,2,3,4,5].map(function(n){return'<div style="background:var(--g-surface2);border:1px solid var(--g-border);border-radius:11px;padding:.9rem;margin-bottom:.65rem;"><div style="display:flex;gap:.45rem;margin-bottom:.45rem;"><div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--g-gold),var(--g-gold-l));display:flex;align-items:center;justify-content:center;font-size:.77rem;font-weight:700;color:#0F0D08;flex-shrink:0;">'+n+'</div><input class="g-mi" style="margin:0;flex:1;" placeholder="Action concrète..."></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:.45rem;"><input class="g-mi" type="date" style="margin:0;"><input class="g-mi" style="margin:0;" placeholder="Ressource nécessaire"></div></div>';}).join('')+'<div class="g-br"><button class="g-bg" onclick="gClose()">💾 Enregistrer</button><button class="g-bo" onclick="gClose()">Fermer</button></div></div>'
+  };
+  return m[t]||'<div class="g-mh"><div><h2>Outil</h2></div><button class="g-mc" onclick="gClose()">✕</button></div><div class="g-mb"><p style="color:var(--g-muted);">Bientôt disponible.</p></div>';
+}
+</script>
+</div>
+<!-- ══ FIN APP GRAND + ══ -->
+
+<!-- ONBOARDING NEURO -->
+<div class="wl-onboarding hidden" id="wl-ob-neuro" style="position:fixed;inset:0;z-index:8000;background:rgba(5,3,15,.93);display:flex;align-items:center;justify-content:center;padding:1rem;">
+  <div style="max-width:660px;width:100%;background:#16122A;border:1px solid rgba(139,92,246,.3);border-radius:24px;overflow:hidden;max-height:90vh;overflow-y:auto;">
+
+    <div class="wl-ob-hero neuro-hero" style="padding:2.5rem 2rem;text-align:center;">
+      <div style="font-size:3rem;margin-bottom:.75rem;">🧠</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,4vw,2.3rem);font-weight:300;color:#EDE9F8;line-height:1.15;margin-bottom:.5rem;">Bienvenue dans votre<br><em style="font-style:italic;color:#C4B5FD;">Espace Neuro-Atypique</em></div>
+      <div style="font-size:.82rem;color:rgba(237,233,248,.55);font-style:italic;" id="neuro-ob-sub">Bilan Talents TDAH & Bipolaire · Wanda Laurent Coaching</div>
+    </div>
+
+    <div style="padding:2rem;">
+      <div style="display:flex;justify-content:center;gap:.5rem;margin-bottom:1.5rem;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#8B5CF6;" id="ndot0"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(139,92,246,.3);" id="ndot1"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(139,92,246,.3);" id="ndot2"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:rgba(139,92,246,.3);" id="ndot3"></div>
+      </div>
+
+      <!-- ÉCRAN 1 : Bienvenue -->
+      <div id="nOb0">
+        <p style="font-size:.92rem;color:rgba(237,233,248,.75);line-height:1.75;margin-bottom:1.4rem;">
+          Bonjour <strong style="color:#C4B5FD;" id="neuro-ob-prenom">!</strong> Ce parcours a été conçu <em>spécialement</em> pour vous.<br>
+          Le Bilan Talents Neuro-Atypique est un accompagnement de <strong style="color:#EDE9F8;">8 séances de 45 minutes</strong> pensé pour les cerveaux TDAH et bipolaires — pas pour les corriger, mais pour <strong style="color:#EDE9F8;">révéler leurs superpououvoirs.</strong>
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.4rem;">
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">⚡</div>
+            <div><strong style="font-size:.85rem;color:#EDE9F8;display:block;margin-bottom:.2rem;">Transformer l'hyperfocus en atout</strong><span style="font-size:.78rem;color:rgba(237,233,248,.5);">Identifier vos zones de génie et les conditions qui les activent</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">🌊</div>
+            <div><strong style="font-size:.85rem;color:#EDE9F8;display:block;margin-bottom:.2rem;">Comprendre vos cycles d'énergie</strong><span style="font-size:.78rem;color:rgba(237,233,248,.5);">Travailler avec votre cerveau, pas contre lui — adapter votre environnement</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:1.4rem;flex-shrink:0;">🎯</div>
+            <div><strong style="font-size:.85rem;color:#EDE9F8;display:block;margin-bottom:.2rem;">Construire un projet professionnel adapté</strong><span style="font-size:.78rem;color:rgba(237,233,248,.5);">Un métier, un environnement et un rythme qui respectent votre neurologie</span></div>
+          </div>
+        </div>
+        <div style="background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:1.5rem;">
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#A78BFA;margin-bottom:.6rem;">✨ Ce avec quoi vous repartez</div>
+          <div style="font-size:.81rem;color:rgba(237,233,248,.65);line-height:1.7;">
+            ✦ Votre <strong style="color:#EDE9F8;">profil de talents neuro-atypiques</strong> documenté<br>
+            ✦ Votre <strong style="color:#EDE9F8;">carte des hyperfocus</strong> et conditions optimales<br>
+            ✦ Des <strong style="color:#EDE9F8;">stratégies concrètes</strong> adaptées à votre profil<br>
+            ✦ Un <strong style="color:#EDE9F8;">projet professionnel</strong> aligné avec votre neurologie<br>
+            ✦ Un <strong style="color:#EDE9F8;">plan d'action</strong> micro-étapes (compatible cerveau TDAH)
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button onclick="nObNext(0)" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Découvrir le parcours →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 2 : Les 8 séances -->
+      <div id="nOb1" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(237,233,248,.7);line-height:1.7;margin-bottom:1.2rem;">
+          <strong style="color:#EDE9F8;">8 séances de 45 minutes</strong> — courtes et intenses, pensées pour maintenir votre concentration sans vous épuiser.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.4rem;">
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#8B5CF6;flex-shrink:0;width:24px;text-align:center;">S1</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Accueil & profil neuro</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Cartographie de votre cerveau unique</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#8B5CF6;flex-shrink:0;width:24px;text-align:center;">S2</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Hyperfocus & zones de génie</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Identifier vos superpououvoirs cognitifs</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#8B5CF6;flex-shrink:0;width:24px;text-align:center;">S3</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Valeurs & motivations profondes</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Driving Forces adaptées au profil neuro</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#A78BFA;flex-shrink:0;width:24px;text-align:center;">S4</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Cycles d'énergie & biais cognitifs</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Comprendre votre rythme naturel</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#A78BFA;flex-shrink:0;width:24px;text-align:center;">S5</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Environnement & conditions optimales</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Concevoir votre cadre de travail idéal</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#A78BFA;flex-shrink:0;width:24px;text-align:center;">S6</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Exploration métiers & ressources</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Métiers compatibles avec votre profil</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#C4B5FD;flex-shrink:0;width:24px;text-align:center;">S7</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Mon projet professionnel neuro-adapté</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Construire un plan micro-étapes</div></div>
+          </div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.2);border-radius:11px;padding:.85rem 1.1rem;display:flex;gap:.85rem;align-items:center;">
+            <div style="font-size:1rem;font-weight:700;color:#C4B5FD;flex-shrink:0;width:24px;text-align:center;">S8</div>
+            <div><div style="font-size:.82rem;font-weight:700;color:#EDE9F8;">Synthèse & stratégie long terme</div><div style="font-size:.72rem;color:rgba(237,233,248,.45);">Votre profil complet + plan de maintien</div></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button onclick="nObPrev(1)" style="background:transparent;color:rgba(237,233,248,.45);font-size:.83rem;border:1px solid rgba(139,92,246,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="nObNext(1)" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Les outils →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 3 : Les outils -->
+      <div id="nOb2" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(237,233,248,.7);line-height:1.7;margin-bottom:1.2rem;">
+          Des outils <strong style="color:#EDE9F8;">spécialement adaptés</strong> à votre fonctionnement cognitif — courts, visuels, modulables.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.4rem;">
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">⚡</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Carte des hyperfocus</div></div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">🌊</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Cycles d'énergie</div></div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">💎</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Valeurs & Driving Forces</div></div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">🧭</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Profil cognitif</div></div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">📋</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Micro-plan d'action</div></div>
+          <div style="background:#1E1930;border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:.8rem 1rem;display:flex;align-items:center;gap:.6rem;"><span style="font-size:1.1rem;">📓</span><div style="font-size:.78rem;color:rgba(237,233,248,.7);">Journal de bord</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button onclick="nObPrev(2)" style="background:transparent;color:rgba(237,233,248,.45);font-size:.83rem;border:1px solid rgba(139,92,246,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="nObNext(2)" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;font-weight:700;font-size:.85rem;border:none;border-radius:50px;padding:.7rem 1.6rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Avant de commencer →</button>
+        </div>
+      </div>
+
+      <!-- ÉCRAN 4 : Avant de commencer -->
+      <div id="nOb3" style="display:none;">
+        <p style="font-size:.88rem;color:rgba(237,233,248,.7);line-height:1.7;margin-bottom:1.2rem;">Quelques points importants :</p>
+        <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem;">
+          <div style="background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#A78BFA;margin-bottom:.3rem;">⏱ 45 minutes par séance</div>
+            <div style="font-size:.78rem;color:rgba(237,233,248,.6);line-height:1.6;">Les séances sont volontairement courtes pour respecter votre fenêtre d'attention optimale. Pas de pression.</div>
+          </div>
+          <div style="background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#A78BFA;margin-bottom:.3rem;">🔒 Espace sécurisé</div>
+            <div style="font-size:.78rem;color:rgba(237,233,248,.6);line-height:1.6;">Tout ce que vous écrivez reste sur votre appareil. Wanda n'y accède que si vous lui partagez explicitement.</div>
+          </div>
+          <div style="background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
+            <div style="font-size:.8rem;font-weight:700;color:#A78BFA;margin-bottom:.3rem;">⚕️ Avertissement</div>
+            <div style="font-size:.78rem;color:rgba(237,233,248,.6);line-height:1.6;">Wanda n'est ni psychiatre ni psychologue. Ce bilan est un accompagnement au projet professionnel, complémentaire à votre suivi médical.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <button onclick="nObPrev(3)" style="background:transparent;color:rgba(237,233,248,.45);font-size:.83rem;border:1px solid rgba(139,92,246,.2);border-radius:50px;padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;">← Retour</button>
+          <button onclick="nObClose()" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;font-weight:700;font-size:.88rem;border:none;border-radius:50px;padding:.75rem 1.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">🧠 Commencer mon parcours</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- FIN ONBOARDING NEURO -->
+
 <!-- ══ APP NEURO ══ -->
 <div id="app-neuro" style="display:none;min-height:100vh;background:#0E0B1A;">
 <style>
@@ -9763,6 +10698,12 @@ html{scroll-behavior:smooth}
               <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5;">TDAH & Bipolaire — 8 séances 45 min, hyperfocus, biais cognitifs</div>
               <div style="margin-top:.9rem;display:inline-block;font-size:.76rem;font-weight:700;color:#A78BFA;letter-spacing:.05em;">Ouvrir l'espace →</div>
             </div>
+            <div style="background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:1.4rem 1.6rem;cursor:pointer;transition:all .2s;" onclick="openApp('grandplus',null)" onmouseover="this.style.borderColor='rgba(201,168,76,.7)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(201,168,76,.25)';this.style.transform='translateY(0)'">
+              <div style="font-size:1.6rem;margin-bottom:.6rem;">⚓</div>
+              <div style="font-weight:700;font-size:.95rem;color:#E8B550;margin-bottom:.3rem;">Le Grand + · Transmission</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5;">Retraite & Transmission — 9 séances, bilan de vie, IKIGAI</div>
+              <div style="margin-top:.9rem;display:inline-block;font-size:.76rem;font-weight:700;color:#E8B550;letter-spacing:.05em;">Ouvrir l'espace →</div>
+            </div>
           </div>
         </div>
 
@@ -10179,6 +11120,31 @@ function dismissBDCOnboarding() {
 }
 
 /* ═══ PSP ONBOARDING ═══ */
+function showNeuroOnboarding() {
+  if (!_storGet('wlc_neuro_ob_done')) {
+    var ob = document.getElementById('wl-ob-neuro');
+    if (ob) ob.classList.remove('hidden');
+  }
+}
+function dismissNeuroOnboarding() {
+  var ob = document.getElementById('wl-ob-neuro');
+  if (ob) ob.classList.add('hidden');
+  _storSet('wlc_neuro_ob_done', '1');
+}
+function nObNext(n) {
+  document.getElementById('nOb'+n).style.display='none';
+  document.getElementById('nOb'+(n+1)).style.display='block';
+  for(var i=0;i<4;i++){var d=document.getElementById('ndot'+i);if(d)d.style.background=i<=n+1?'#8B5CF6':'rgba(139,92,246,.3)';}
+}
+function nObPrev(n) {
+  document.getElementById('nOb'+n).style.display='none';
+  document.getElementById('nOb'+(n-1)).style.display='block';
+  for(var i=0;i<4;i++){var d=document.getElementById('ndot'+i);if(d)d.style.background=i<=n-1?'#8B5CF6':'rgba(139,92,246,.3)';}
+}
+function nObClose() {
+  dismissNeuroOnboarding();
+}
+
 function showPSPOnboarding() {
   if (!_storGet('wlc_psp_ob_done')) {
     document.getElementById('wl-ob-psp').classList.remove('hidden');

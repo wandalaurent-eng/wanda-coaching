@@ -5053,6 +5053,521 @@ font-size:.71rem;color:var(--muted);font-style:italic;
     </div>
   </div>
 
+
+<!-- ══ STRATÉGIE COMMERCIALE BDC (COACH ONLY) ══ -->
+<style>
+.strat-fab{position:fixed;bottom:1.5rem;right:1.5rem;z-index:8888;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#1A2E3B;border:none;border-radius:50px;padding:.7rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(201,168,76,.45);display:none;align-items:center;gap:.5rem;transition:all .2s;}
+.strat-fab:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.5);}
+.coach-mode #strat-fab-bdc{display:flex;}
+.strat-overlay{display:none;position:fixed;inset:0;z-index:9500;background:rgba(8,12,20,.97);overflow-y:auto;font-family:'DM Sans',sans-serif;color:#F0EDE8;}
+.strat-overlay.open{display:block;}
+.strat-inner{max-width:1060px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.strat-close-bar{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1.5rem;background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.2);position:sticky;top:0;z-index:10;}
+.strat-close-bar h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#C9A84C;}
+.strat-close-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:white;font-size:.82rem;border-radius:50px;padding:.4rem 1rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.strat-tabs{display:flex;gap:.35rem;flex-wrap:wrap;margin:1.4rem 0 1rem;}
+.strat-tab-btn{padding:.4rem .95rem;border-radius:50px;border:1px solid rgba(201,168,76,.2);background:transparent;color:rgba(240,237,232,.5);font-size:.76rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.strat-tab-btn.active,.strat-tab-btn:hover{background:rgba(201,168,76,.15);border-color:#C9A84C;color:#C9A84C;}
+.strat-panel{display:none;}.strat-panel.active{display:block;}
+.strat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem;margin-bottom:1.1rem;}
+.strat-card-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#E8C96A;margin-bottom:.85rem;}
+.strat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem;margin-bottom:1.1rem;}
+.strat-kpi{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:1.1rem;text-align:center;}
+.strat-kpi-val{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:#C9A84C;}
+.strat-kpi-lbl{font-size:.73rem;color:rgba(240,237,232,.5);margin-top:.25rem;}
+.strat-label{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:.45rem;display:block;margin-top:.9rem;}
+.strat-ta{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.18);border-radius:10px;color:#F0EDE8;font-family:'DM Sans',sans-serif;font-size:.85rem;line-height:1.65;padding:.72rem .95rem;resize:vertical;min-height:76px;}
+.strat-ta:focus{outline:none;border-color:#C9A84C;}
+.strat-ta::placeholder{color:rgba(240,237,232,.28);}
+.strat-pill{display:inline-block;padding:.25rem .82rem;border-radius:50px;font-size:.73rem;font-weight:600;margin:.2rem;}
+.pill-gold{background:rgba(201,168,76,.14);color:#C9A84C;border:1px solid rgba(201,168,76,.3);}
+.pill-teal{background:rgba(42,127,127,.14);color:#3BBFBF;border:1px solid rgba(42,127,127,.3);}
+.pill-red{background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.25);}
+.pill-green{background:rgba(22,163,74,.1);color:#4ADE80;border:1px solid rgba(22,163,74,.25);}
+.strat-table{width:100%;border-collapse:collapse;font-size:.83rem;}
+.strat-table th{background:rgba(201,168,76,.1);color:#C9A84C;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;padding:.58rem .85rem;text-align:left;border-bottom:1px solid rgba(201,168,76,.2);}
+.strat-table td{padding:.62rem .85rem;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;line-height:1.55;}
+.strat-table tr:last-child td{border-bottom:none;}
+.strat-table tr:hover td{background:rgba(255,255,255,.02);}
+.strat-save-btn{display:inline-flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#1A2E3B;font-weight:700;font-size:.82rem;border:none;border-radius:50px;padding:.6rem 1.4rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:.9rem;}
+.strat-save-btn:hover{transform:scale(1.02);}
+.strat-hl{background:rgba(201,168,76,.07);border-left:3px solid #C9A84C;border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin:.75rem 0;font-size:.86rem;color:rgba(240,237,232,.8);line-height:1.7;}
+.strat-hl strong{color:#C9A84C;}
+.strat-section-sub{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.6);margin:1.4rem 0 .6rem;}
+.strat-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:700;padding:.22rem .7rem;border-radius:50px;}
+.badge-hot{background:rgba(239,68,68,.15);color:#F87171;border:1px solid rgba(239,68,68,.25);}
+.badge-warm{background:rgba(251,146,60,.15);color:#FB923C;border:1px solid rgba(251,146,60,.25);}
+.badge-cold{background:rgba(148,163,184,.1);color:#94A3B8;border:1px solid rgba(148,163,184,.2);}
+</style>
+
+<button class="strat-fab" id="strat-fab-bdc" onclick="document.getElementById('strat-overlay-bdc').classList.add('open');window.scrollTo(0,0);">
+  📊 Stratégie BDC
+</button>
+
+<div class="strat-overlay" id="strat-overlay-bdc">
+  <div class="strat-close-bar">
+    <h2>📊 Stratégie Commerciale — Bilan de Compétences</h2>
+    <button class="strat-close-btn" onclick="document.getElementById('strat-overlay-bdc').classList.remove('open')">✕ Fermer</button>
+  </div>
+  <div class="strat-inner">
+
+    <div class="strat-tabs">
+      <button class="strat-tab-btn active" onclick="stratTab('bdc','positionnement',this)">🎯 Positionnement</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','cibles',this)">👥 Personas & Cibles</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','veille',this)">🔭 Veille & Entreprises</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','financement',this)">💶 Prix & OPCO</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','arguments',this)">💬 Arguments & Objections</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','pipeline',this)">🔄 Pipeline Prospects</button>
+      <button class="strat-tab-btn" onclick="stratTab('bdc','notes',this)">📝 Mes notes</button>
+    </div>
+
+    <!-- ══ POSITIONNEMENT ══ -->
+    <div class="strat-panel active" id="strat-bdc-positionnement">
+      <div class="strat-grid">
+        <div class="strat-kpi"><div class="strat-kpi-val">1 600 €</div><div class="strat-kpi-lbl">Prix catalogue TTC</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">9 séances</div><div class="strat-kpi-lbl">16 heures · 3 phases</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">Qualiopi</div><div class="strat-kpi-lbl">Certifiée · CPF éligible</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">100 %</div><div class="strat-kpi-lbl">Distanciel · France entière</div></div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">🎯 Positionnement unique — Ce qui vous distingue</div>
+        <div class="strat-hl">
+          Wanda Laurent Coaching propose un Bilan de Compétences <strong>certifié Qualiopi</strong>, 100% distanciel, alliant outils scientifiques (MBTI, DISC, Driving Forces) et coaching ICI certifié. Approche humaine, bienveillante et orientée action — pour les adultes en transition professionnelle qui veulent se réorienter avec clarté et courage. <strong>Spécialité unique :</strong> offre adaptée aux profils neuro-atypiques (TDAH, bipolaire), inexistante chez 95% des concurrents.
+        </div>
+        <div class="strat-label">Vos 7 différenciateurs clés</div>
+        <div>
+          <span class="strat-pill pill-gold">✦ Certifiée ICI (pas ICF)</span>
+          <span class="strat-pill pill-gold">✦ DISC + Driving Forces certifiée TTI SI</span>
+          <span class="strat-pill pill-gold">✦ 100% distanciel accessible partout</span>
+          <span class="strat-pill pill-gold">✦ CPF éligible — reste à charge 102€</span>
+          <span class="strat-pill pill-teal">✦ Approche neuro-inclusive (TDAH/bipolaire)</span>
+          <span class="strat-pill pill-teal">✦ Background corporate BNP Paribas</span>
+          <span class="strat-pill pill-teal">✦ Fondatrice Lconnect — réseau féminin</span>
+        </div>
+        <div class="strat-label">Pitch 30 secondes — à mémoriser</div>
+        <textarea class="strat-ta" id="strat-bdc-pitch" placeholder="Ex : J'accompagne les adultes en transition professionnelle avec un bilan certifié Qualiopi, en ligne et à votre rythme. En 9 séances, vous clarifiez qui vous êtes, explorez vos possibilités et décidez avec confiance. Finançable à 100% par le CPF." rows="3" onchange="stratSave('bdc_pitch',this.value)"></textarea>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">⚡ Avantages vs concurrents directs</div>
+        <table class="strat-table">
+          <thead><tr><th>Concurrent</th><th>Leur approche</th><th>Votre avantage</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#C9A84C;font-weight:600;">Orientaction, Cadremploi</td><td style="color:rgba(240,237,232,.5);">Grandes plateformes standardisées, coachs interchangeables</td><td style="color:#86EFAC;">Suivi personnalisé, plateforme sur-mesure par client, relation directe</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Cabinets RH locaux</td><td style="color:rgba(240,237,232,.5);">Présentiel seulement, zone géographique limitée</td><td style="color:#86EFAC;">100% distanciel — France entière, créneaux flexibles</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Coaches indépendants non certifiés</td><td style="color:rgba(240,237,232,.5);">Pas de certification Qualiopi, pas CPF</td><td style="color:#86EFAC;">Qualiopi = financement CPF assuré, gage de qualité officiel</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">APEC (cadres)</td><td style="color:rgba(240,237,232,.5);">Réservé aux cadres en recherche d'emploi, délais longs</td><td style="color:#86EFAC;">Accessible à tous les actifs, y compris salariés en poste</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Centres CIBC publics</td><td style="color:rgba(240,237,232,.5);">Délais d'attente 2-6 mois, moins personnalisé</td><td style="color:#86EFAC;">Démarrage en 2 semaines, plateforme interactive, IA synthèse</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ PERSONAS & CIBLES ══ -->
+    <div class="strat-panel" id="strat-bdc-cibles">
+      <div class="strat-card">
+        <div class="strat-card-title">👥 Persona 1 — Le Cadre en Burn-out</div>
+        <table class="strat-table">
+          <tbody>
+            <tr><td style="width:30%;color:#C9A84C;font-weight:600;">Profil</td><td>35-50 ans · Cadre ou manager · CDI en place · Secteurs : banque, assurance, conseil, industrie</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Douleur</td><td>Sentiment de vide, perte de sens, fatigue chronique · "Je ne me reconnais plus dans mon travail"</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Déclencheur d'achat</td><td>Arrêt maladie, avertissement RH, anniversaire marquant, divorce, retour de congé mat</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Objection principale</td><td>"J'ai besoin de temps pour y réfléchir" → Il a peur de déstabiliser une situation stable</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Argument clé</td><td>Le bilan n'oblige à rien — c'est un espace pour clarifier, pas pour tout quitter</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Où le trouver</td><td>LinkedIn (posts sur burn-out, sens au travail) · Médecins du travail · Psys · RH de grands groupes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">👥 Persona 2 — La Reconversion Active</div>
+        <table class="strat-table">
+          <tbody>
+            <tr><td style="width:30%;color:#C9A84C;font-weight:600;">Profil</td><td>28-45 ans · En poste ou légèrement inactif · CPF alimenté · Projet flou mais envie forte</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Douleur</td><td>"Je sais que je veux changer mais je ne sais pas vers quoi" · Paralysie devant les options</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Déclencheur d'achat</td><td>Découverte du CPF, recommandation d'un ami, post LinkedIn inspirant, nouvel an / anniversaire</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Objection principale</td><td>"Je peux le faire seul(e)" → Lui montrer la valeur de l'accompagnement structuré vs auto-réflexion</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Argument clé</td><td>Le CPF finance tout (reste à charge 102€ depuis 2024) — zéro risque financier pour tester</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Où le trouver</td><td>Mon Compte Formation · Google (bilan de compétences distanciel) · LinkedIn · Groupes Facebook reconversion</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">👥 Persona 3 — Le Profil Neuro-Atypique Pro</div>
+        <table class="strat-table">
+          <tbody>
+            <tr><td style="width:30%;color:#C9A84C;font-weight:600;">Profil</td><td>25-50 ans · TDAH / bipolaire diagnostiqué ou suspecté · Carrière en dents de scie · Sous-performant(e)</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Douleur</td><td>"Je ne comprends pas pourquoi je n'arrive pas à m'en sortir malgré mes capacités" · Sentiment d'échec</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Déclencheur d'achat</td><td>Diagnostic récent, licenciement, recommandation d'un psy ou coach spécialisé</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Argument clé</td><td>Wanda est elle-même concernée (TDAH) — approche empathique, sans jugement, adaptée</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Où le trouver</td><td>Communautés TDAH (HPI France, TDAH France) · LinkedIn posts neuro · Psys spécialisés · MDPH</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">🚫 Non-cibles — À éviter</div>
+        <div>
+          <span class="strat-pill pill-red">Personnes sous pression Pôle Emploi cherchant un emploi vite</span>
+          <span class="strat-pill pill-red">Clients cherchant un soutien psychologique / thérapie</span>
+          <span class="strat-pill pill-red">Personnes attendant une solution miracle sans s'impliquer</span>
+          <span class="strat-pill pill-red">Clients qui refusent les exercices entre séances</span>
+          <span class="strat-pill pill-red">Personnes en grande détresse psychologique nécessitant soins médicaux</span>
+        </div>
+      </div>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ VEILLE & ENTREPRISES ══ -->
+    <div class="strat-panel" id="strat-bdc-veille">
+
+      <div class="strat-section-sub">🏢 Prescripteurs institutionnels — Contacts directs à développer</div>
+      <div class="strat-card">
+        <div class="strat-card-title">Médecine du travail & Santé au travail</div>
+        <div class="strat-hl">Les médecins du travail et SSST (Services de Santé au Travail) prescrivent régulièrement des bilans de compétences lors de reprises après burn-out, maladies professionnelles ou inaptitudes. C'est un canal à fort potentiel, peu exploité par les coachs indépendants.</div>
+        <table class="strat-table">
+          <thead><tr><th>Structure</th><th>Type</th><th>Action recommandée</th><th>Priorité</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CIAMT</strong> (Centre Interentreprises de Médecine du Travail — Paris)</td><td>SSST privé, 80 000 salariés suivis</td><td>Contacter le directeur médical, proposer convention de partenariat</td><td><span class="strat-badge badge-hot">🔥 Haute</span></td></tr>
+            <tr><td><strong>ACMS</strong> (Association pour la santé au travail — IDF)</td><td>SSST IDF, 600 000 salariés</td><td>Email de présentation + plaquette Qualiopi</td><td><span class="strat-badge badge-hot">🔥 Haute</span></td></tr>
+            <tr><td><strong>SIST</strong> (Services Interentreprises de Santé au Travail)</td><td>Réseau national, 22 régions</td><td>Contacter le délégué régional le plus proche</td><td><span class="strat-badge badge-warm">⚡ Moyenne</span></td></tr>
+            <tr><td><strong>Médecins du travail indépendants</strong></td><td>Praticiens libéraux</td><td>LinkedIn : recherche "médecin du travail" + message personnalisé</td><td><span class="strat-badge badge-warm">⚡ Moyenne</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="strat-card">
+        <div class="strat-card-title">Service Social & Assurance Maladie</div>
+        <div class="strat-hl">Depuis 2022, la CPAM finance les bilans de compétences dans le cadre de la prévention de la désinsertion professionnelle (PDP). Les assistants sociaux CPAM et les cellules PDP sont des prescripteurs directs.</div>
+        <table class="strat-table">
+          <thead><tr><th>Structure</th><th>Périmètre</th><th>Action recommandée</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cellules PDP — CPAM</strong></td><td>100 caisses régionales en France</td><td>Contacter la CPAM de Paris (75) et de votre région — demander le référent PDP</td></tr>
+            <tr><td><strong>Assistants de service social CARSAT</strong></td><td>Retraite + invalidité</td><td>Email + plaquette Qualiopi · Axer sur reconversion après invalidité partielle</td></tr>
+            <tr><td><strong>MDPH</strong> (Maisons Dép. Personnes Handicapées)</td><td>Profils RQTH, handicap invisible</td><td>Partenariat formel via convention — clientèle neuro-atypique éligible</td></tr>
+            <tr><td><strong>Assistants sociaux d'entreprise</strong></td><td>Grands groupes +500 salariés</td><td>Via LinkedIn : "assistant social entreprise" + nom groupe cible</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="strat-section-sub">🏗️ Secteurs & Entreprises cibles — Par type de client</div>
+      <div class="strat-card">
+        <div class="strat-card-title">Grands groupes — DRH à contacter (financement employeur + OPCO)</div>
+        <table class="strat-table">
+          <thead><tr><th>Secteur</th><th>Exemples d'entreprises</th><th>OPCO associé</th><th>Angle d'approche</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Banque & Assurance</td>
+              <td>BNP Paribas, Société Générale, Crédit Agricole, AXA, Allianz, Groupama, Natixis, Caisse d'Épargne</td>
+              <td><strong>Atlas</strong> (banque/assurance/conseil)</td>
+              <td>Wanda ex-BNP — crédibilité immédiate. Cibler RH et chargés de mission mobilité interne</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Conseil & Audit</td>
+              <td>Deloitte, PwC, EY, KPMG, McKinsey, Capgemini, Accenture, Sopra Steria</td>
+              <td><strong>Atlas</strong></td>
+              <td>Forte pression, burn-out fréquents, rotation élevée — bilan comme outil de fidélisation RH</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Industrie & Énergie</td>
+              <td>TotalEnergies, EDF, Engie, Air Liquide, Michelin, Saint-Gobain, Schneider Electric</td>
+              <td><strong>OPCO 2i</strong> (industries)</td>
+              <td>Transitions énergétiques = reconversions massives en cours. Bilan pour les "salariés déplacés"</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Santé & Médico-social</td>
+              <td>AP-HP, Korian, Orpea, Elsan, Ramsay Santé, Croix-Rouge, FEHAP</td>
+              <td><strong>OPCO Santé</strong> + <strong>ANFH</strong> (hôpitaux)</td>
+              <td>Épuisement professionnel post-Covid massif. L'ANFH finance 100% du bilan pour les hospitaliers</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Distribution & Retail</td>
+              <td>Carrefour, LVMH, L'Oréal, Decathlon, Fnac-Darty, Boulanger, Leroy Merlin</td>
+              <td><strong>L'Opcommerce</strong></td>
+              <td>Fort turnover cadres intermédiaires. Cibler responsables de zone, directeurs magasin</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Tech & Numérique</td>
+              <td>Orange, Thales, Dassault Systèmes, Ubisoft, Criteo, Doctolib, BlaBlaCar, Dailymotion</td>
+              <td><strong>Afdas</strong> (médias/digital) ou <strong>Atlas</strong></td>
+              <td>Profils TDAH surreprésentés, rythme intense, reconversions fréquentes</td>
+            </tr>
+            <tr>
+              <td style="color:#C9A84C;font-weight:600;">Secteur Public & Para-public</td>
+              <td>Mairies, Conseils régionaux, La Poste, SNCF, RATP, Pôle Emploi/France Travail</td>
+              <td><strong>Uniformation</strong> (ESS/associations) ou plan de formation interne</td>
+              <td>Mobilité interne forte. Cibler les DRH de collectivités via appels d'offres formation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="strat-card">
+        <div class="strat-card-title">Les 11 OPCO — Qui contacter selon votre client</div>
+        <table class="strat-table">
+          <thead><tr><th>OPCO</th><th>Secteurs couverts</th><th>Site</th><th>Pertinence BDC</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Atlas</strong></td><td>Banque, assurance, finance, conseil, audit, 108 000 entreprises</td><td>atlas.fr</td><td><span class="strat-badge badge-hot">🔥 Prioritaire</span></td></tr>
+            <tr><td><strong>OPCO Santé</strong></td><td>Hôpitaux privés, cliniques, médico-social, pharmacies, optique</td><td>opco-sante.fr</td><td><span class="strat-badge badge-hot">🔥 Prioritaire</span></td></tr>
+            <tr><td><strong>OPCO 2i</strong></td><td>Industrie chimique, pharmaceutique, métallurgie, papier</td><td>opco2i.fr</td><td><span class="strat-badge badge-warm">⚡ Utile</span></td></tr>
+            <tr><td><strong>Uniformation</strong></td><td>ESS, associations, mutuelles, économie sociale</td><td>uniformation.fr</td><td><span class="strat-badge badge-warm">⚡ Utile</span></td></tr>
+            <tr><td><strong>L'Opcommerce</strong></td><td>Commerce de détail, grande distribution, e-commerce</td><td>lopcommerce.com</td><td><span class="strat-badge badge-warm">⚡ Utile</span></td></tr>
+            <tr><td><strong>Afdas</strong></td><td>Culture, médias, communication, sport, tourisme, numérique</td><td>afdas.com</td><td><span class="strat-badge badge-warm">⚡ Utile</span></td></tr>
+            <tr><td><strong>Akto</strong></td><td>Propreté, intérim, restauration rapide, services à la personne</td><td>akto.fr</td><td><span class="strat-badge badge-cold">Secondaire</span></td></tr>
+            <tr><td><strong>Constructys</strong></td><td>BTP, bâtiment, travaux publics, matériaux</td><td>constructys.fr</td><td><span class="strat-badge badge-cold">Secondaire</span></td></tr>
+            <tr><td><strong>OPCO EP</strong></td><td>Enseignement privé, sport, animation, tourisme social</td><td>opcoep.fr</td><td><span class="strat-badge badge-cold">Secondaire</span></td></tr>
+            <tr><td><strong>OPCO Mobilités</strong></td><td>Transport routier, automobile, logistique, marine</td><td>opcomobilites.fr</td><td><span class="strat-badge badge-cold">Secondaire</span></td></tr>
+            <tr><td><strong>Ocapiat</strong></td><td>Agriculture, agroalimentaire, forêts, pêche</td><td>ocapiat.fr</td><td><span class="strat-badge badge-cold">Secondaire</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="strat-card">
+        <div class="strat-card-title">📱 Communautés & Canaux digitaux à investir</div>
+        <table class="strat-table">
+          <thead><tr><th>Canal</th><th>Action concrète</th><th>Fréquence</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#C9A84C;font-weight:600;">LinkedIn</td><td>Posts sur reconversion, burn-out, sens au travail. Témoignages clients. Articles longs (5 000 vues minimum si bien ciblés). Cibler les DRH et chargés formation des secteurs banque/santé/conseil</td><td>3×/semaine</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Mon Compte Formation</td><td>Fiche formation à jour, 5 avis minimum, répondre aux demandes sous 24h. Taux de réponse = critère de classement MCF</td><td>Quotidien</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Google (SEO Wix)</td><td>"Bilan compétences distanciel", "bilan compétences CPF en ligne", "coach certifiée ICI Paris" — pages optimisées</td><td>Mensuel (audit)</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Groupes Facebook</td><td>"Reconversion professionnelle France" (180K membres), "TDAH adultes France" (45K), "Burn-out et reconversion" (62K)</td><td>2×/semaine</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Réseau Lconnect</td><td>Offre préférentielle membres, ateliers gratuits découverte, témoignages croisés</td><td>Événements mensuels</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">Podcasts invitée</td><td>"Génération Do It Yourself", "Transfert" (Slate), "Les couilles sur la table", "Passeport Entreprise" — pitcher sa présence comme experte reconversion</td><td>2-3 candidatures/mois</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-label">Mes actions veille cette semaine</div>
+      <textarea class="strat-ta" id="strat-bdc-veille-notes" placeholder="Ex : Contacter le référent PDP de la CPAM Paris, envoyer mail à ACMS, publier post LinkedIn sur burn-out bancaire..." rows="3" onchange="stratSave('bdc_veille_notes',this.value)"></textarea>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ PRIX & OPCO ══ -->
+    <div class="strat-panel" id="strat-bdc-financement">
+      <div class="strat-grid">
+        <div class="strat-kpi"><div class="strat-kpi-val">1 600 €</div><div class="strat-kpi-lbl">Prix catalogue TTC</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">102 €</div><div class="strat-kpi-lbl">Reste à charge CPF 2025</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">30/35/35</div><div class="strat-kpi-lbl">Échéancier perso</div></div>
+        <div class="strat-kpi"><div class="strat-kpi-val">ANFH</div><div class="strat-kpi-lbl">Hospitaliers — 100% pris en charge</div></div>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">💶 Tableau des financements — 2025</div>
+        <table class="strat-table">
+          <thead><tr><th>Dispositif</th><th>Qui ?</th><th>Montant</th><th>Reste à charge</th><th>Démarche</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>CPF</strong></td>
+              <td>Tout actif (salarié, indépendant, demandeur emploi)</td>
+              <td>Jusqu'à 1 600 €</td>
+              <td style="color:#FB923C;font-weight:600;">102,23 € (obligatoire depuis mai 2024)</td>
+              <td>moncompteformation.gouv.fr — délai rétractation 11 jours</td>
+            </tr>
+            <tr>
+              <td><strong>CPF + Abondement OPCO</strong></td>
+              <td>Salariés dont l'OPCO accepte de prendre les 102€</td>
+              <td>1 600 €</td>
+              <td style="color:#4ADE80;font-weight:600;">0 € — OPCO couvre le reste</td>
+              <td>Demande via employeur à l'OPCO — Atlas, OPCO Santé, OPCO 2i plus généreux</td>
+            </tr>
+            <tr>
+              <td><strong>Plan de développement des compétences</strong></td>
+              <td>Salariés (entreprise décide)</td>
+              <td>1 600 € (négociable)</td>
+              <td style="color:#4ADE80;font-weight:600;">0 €</td>
+              <td>Employeur finance via OPCO — nécessite accord du manager + RH</td>
+            </tr>
+            <tr>
+              <td><strong>France Travail (AIF)</strong></td>
+              <td>Demandeurs d'emploi avec projet défini</td>
+              <td>Variable selon dossier</td>
+              <td style="color:#4ADE80;font-weight:600;">0 € si AIF acceptée</td>
+              <td>Dossier AIF avec conseiller FT — présenter projet reconversion crédible</td>
+            </tr>
+            <tr>
+              <td><strong>ANFH</strong></td>
+              <td>Personnel hospitalier public (AP-HP, CHU, EHPAD publics)</td>
+              <td>100% pris en charge</td>
+              <td style="color:#4ADE80;font-weight:600;">0 €</td>
+              <td>Via DRH de l'établissement hospitalier — anfh.fr</td>
+            </tr>
+            <tr>
+              <td><strong>CPAM / Prévention désinsertion</strong></td>
+              <td>Salariés en arrêt longue durée (>90 jours)</td>
+              <td>Variable</td>
+              <td style="color:#4ADE80;font-weight:600;">0 €</td>
+              <td>Prescription médecin-conseil CPAM ou cellule PDP — délai 3-6 semaines</td>
+            </tr>
+            <tr>
+              <td><strong>Financement personnel</strong></td>
+              <td>Tous profils (fallback si CPF insuffisant)</td>
+              <td>1 600 €</td>
+              <td style="color:#FB923C;font-weight:600;">1 600 € — 3 fois sans frais</td>
+              <td>Devis + contrat + acompte 30% · S5 35% · S9 35%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">📋 Script MCF — Accompagner un client CPF pas à pas</div>
+        <div class="strat-hl">
+          <strong>Étape 1</strong> — Client vérifie son solde sur moncompteformation.gouv.fr (compte personnel)<br>
+          <strong>Étape 2</strong> — Cherche "Wanda Laurent" ou votre numéro de formation · Sélectionne et valide le panier<br>
+          <strong>Étape 3</strong> — Délai de rétractation obligatoire : <strong>11 jours ouvrés</strong> après validation (prévu par la loi)<br>
+          <strong>Étape 4</strong> — Wanda reçoit notification MCF → envoie convention de formation signée<br>
+          <strong>Étape 5</strong> — Réception du bon de commande MCF → démarrage S1 possible<br>
+          <strong>Paiement</strong> — MCF verse directement à Wanda après attestation de présence de chaque séance
+        </div>
+      </div>
+      <div class="strat-label">Mes objectifs CA — BDC</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin:.5rem 0 .9rem;">
+        <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.9rem;text-align:center;">
+          <div style="font-size:.68rem;color:rgba(240,237,232,.4);margin-bottom:.35rem;">Objectif mensuel</div>
+          <textarea class="strat-ta" id="strat-bdc-obj-mois" placeholder="Ex : 2 clients = 3 200 €" rows="2" style="text-align:center;min-height:44px;" onchange="stratSave('bdc_obj_mois',this.value)"></textarea>
+        </div>
+        <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.9rem;text-align:center;">
+          <div style="font-size:.68rem;color:rgba(240,237,232,.4);margin-bottom:.35rem;">Objectif trimestriel</div>
+          <textarea class="strat-ta" id="strat-bdc-obj-trim" placeholder="Ex : 6 clients = 9 600 €" rows="2" style="text-align:center;min-height:44px;" onchange="stratSave('bdc_obj_trim',this.value)"></textarea>
+        </div>
+        <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:10px;padding:.9rem;text-align:center;">
+          <div style="font-size:.68rem;color:rgba(240,237,232,.4);margin-bottom:.35rem;">Objectif annuel</div>
+          <textarea class="strat-ta" id="strat-bdc-obj-an" placeholder="Ex : 20 clients = 32 000 €" rows="2" style="text-align:center;min-height:44px;" onchange="stratSave('bdc_obj_an',this.value)"></textarea>
+        </div>
+      </div>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ ARGUMENTS & OBJECTIONS ══ -->
+    <div class="strat-panel" id="strat-bdc-arguments">
+      <div class="strat-card">
+        <div class="strat-card-title">💬 Les 6 arguments de vente irrésistibles</div>
+        <table class="strat-table">
+          <tbody>
+            <tr><td style="width:35%;color:#C9A84C;font-weight:600;">1. Zéro risque financier</td><td>Finançable à 100% par le CPF — seul reste à charge : 102,23 € (moins d'une consultation psy). Votre employeur ou OPCO peut même le payer à votre place.</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">2. Certifiée Qualiopi</td><td>C'est la certification d'État obligatoire. Elle garantit la qualité de la méthode, contrôlée par un audit externe. Tous les organismes ne l'ont pas.</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">3. Outils scientifiques</td><td>MBTI, DISC, Driving Forces (TTI SI) — vous repartez avec une connaissance profonde et objectivée de vous-même, basée sur des instruments validés, pas des intuitions.</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">4. 100% distanciel + flexible</td><td>Pas de déplacement, séances le soir ou le week-end possibles. Adapté aux actifs qui ne peuvent pas s'absenter du travail.</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">5. Double expertise rare</td><td>Wanda est coach certifiée ICI ET ex-cadre BNP Paribas ET fondatrice de réseau. Elle connaît les contraintes du monde salarial ET la liberté entrepreneuriale de l'intérieur.</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:600;">6. Plateforme + IA incluse</td><td>Espace client interactif, synthèse IA personnalisée, suivi des séances en ligne. Aucun concurrent indépendant ne propose cela.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">🛡️ Réponses aux 7 objections les plus fréquentes</div>
+        <table class="strat-table">
+          <thead><tr><th>Objection</th><th>Réponse clé</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#FCA5A5;">"C'est trop cher"</td><td>Le CPF finance jusqu'à 1 600 € — vous ne sortez que 102 €. Vérifiez votre solde sur moncompteformation.gouv.fr. Si votre solde est insuffisant, je vous aide à trouver un abondement OPCO.</td></tr>
+            <tr><td style="color:#FCA5A5;">"J'ai déjà une idée de reconversion"</td><td>Parfait ! Le bilan va confirmer (ou affiner) votre projet, identifier vos compétences transférables et évaluer la faisabilité. Il sécurise votre décision plutôt que de vous faire regretter après.</td></tr>
+            <tr><td style="color:#FCA5A5;">"Je n'ai pas le temps"</td><td>9 séances sur 3 mois = une séance toutes les 2 semaines d'environ 1h. Exercices courts entre les séances. Tout se fait en ligne, sans déplacement. C'est conçu pour les actifs surchargés.</td></tr>
+            <tr><td style="color:#FCA5A5;">"Je préfère quelqu'un en présentiel"</td><td>Le distanciel offre souvent plus d'authenticité — vous êtes dans votre environnement, sans la pression du face-à-face. Mes clients témoignent d'une qualité identique ou supérieure au présentiel.</td></tr>
+            <tr><td style="color:#FCA5A5;">"Je peux réfléchir seul(e)"</td><td>Bien sûr. Mais la majorité des personnes qui tentent seules tournent en rond pendant des mois. La valeur du coaching, c'est justement le miroir extérieur — vous voir avec des yeux neufs et bienveillants.</td></tr>
+            <tr><td style="color:#FCA5A5;">"Je dois en parler à mon employeur"</td><td>Vous n'avez aucune obligation de prévenir votre employeur si vous utilisez votre CPF. Le bilan est confidentiel. Les résultats ne lui sont pas communiqués.</td></tr>
+            <tr><td style="color:#FCA5A5;">"Je dois y réfléchir"</td><td>Absolument. Je vous propose une séance découverte gratuite de 30 min, sans engagement, pour que vous puissiez poser toutes vos questions. Quand êtes-vous disponible cette semaine ?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-label">Nouvelles objections rencontrées — Notes</div>
+      <textarea class="strat-ta" id="strat-bdc-objnotes" placeholder="Notez les objections inhabituelles et vos meilleures réponses..." rows="3" onchange="stratSave('bdc_objnotes',this.value)"></textarea>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ PIPELINE ══ -->
+    <div class="strat-panel" id="strat-bdc-pipeline">
+      <div class="strat-card">
+        <div class="strat-card-title">🔄 Pipeline commercial BDC — De la prise de contact à l'onboarding</div>
+        <table class="strat-table">
+          <thead><tr><th>#</th><th>Étape</th><th>Action Wanda</th><th>Délai cible</th><th>Outil</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#C9A84C;font-weight:700;">1</td><td><strong>Lead entrant</strong></td><td>Répondre dans les 24h — email ou LinkedIn · Qualifier : CPF ou perso ? Secteur ?</td><td>J+0 à J+1</td><td>Email / LinkedIn</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:700;">2</td><td><strong>Appel découverte</strong></td><td>30 min gratuit · Écouter la douleur · Présenter les 3 phases · Valider le financement CPF</td><td>J+2 à J+5</td><td>Zoom / Téléphone</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:700;">3</td><td><strong>Envoi devis</strong></td><td>Devis personnalisé + options financement sous 48h · Relance à J+5 si silence</td><td>J+1 après appel</td><td>Devis PDF</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:700;">4</td><td><strong>Signature</strong></td><td>Convention + contrat signé + acompte 30% reçu</td><td>Dès accord</td><td>HelloSign / DocuSign</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:700;">5</td><td><strong>Onboarding</strong></td><td>Email de bienvenue + lien plateforme + livret PDF + RDV S1 fixé</td><td>J+1 après signature</td><td>Email + plateforme</td></tr>
+            <tr><td style="color:#C9A84C;font-weight:700;">6</td><td><strong>Suivi</strong></td><td>Check-in entre S3 et S4 · Relance douce si délai entre séances > 3 semaines</td><td>Continu</td><td>Plateforme + email</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="strat-card">
+        <div class="strat-card-title">📊 Mes prospects BDC en cours</div>
+        <div id="bdc-prospect-list" style="margin-bottom:1rem;"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.5rem;align-items:end;">
+          <div><div class="strat-label" style="margin-top:0;">Prénom Nom</div><input id="bdc-pros-nom" class="strat-ta" placeholder="Marie Dupont" style="min-height:36px;padding:.4rem .8rem;" /></div>
+          <div><div class="strat-label" style="margin-top:0;">Étape pipeline</div><input id="bdc-pros-statut" class="strat-ta" placeholder="Ex: Appel découverte prévu" style="min-height:36px;padding:.4rem .8rem;" /></div>
+          <div><div class="strat-label" style="margin-top:0;">Date de suivi</div><input id="bdc-pros-date" class="strat-ta" placeholder="Ex: 25/04/2026" style="min-height:36px;padding:.4rem .8rem;" /></div>
+          <button onclick="bdcAddProspect()" style="background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.4);color:#C9A84C;border-radius:8px;padding:.42rem .9rem;cursor:pointer;font-size:.82rem;white-space:nowrap;height:36px;">+ Ajouter</button>
+        </div>
+      </div>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+    <!-- ══ NOTES ══ -->
+    <div class="strat-panel" id="strat-bdc-notes">
+      <div class="strat-card">
+        <div class="strat-card-title">📝 Mes notes stratégiques BDC</div>
+        <span class="strat-label">Idées de contenu LinkedIn (posts à rédiger)</span>
+        <textarea class="strat-ta" id="strat-bdc-linkedin" placeholder="Ex : Post sur 'les 5 signes que vous avez besoin d'un bilan de compétences', témoignage Sophie Martin, article sur le burn-out bancaire..." rows="4" onchange="stratSave('bdc_linkedin',this.value)"></textarea>
+        <span class="strat-label">Partenariats à développer — Contacts identifiés</span>
+        <textarea class="strat-ta" id="strat-bdc-partenaires" placeholder="Ex : Contacter Dr Lemaire (médecin du travail ACMS), écrire à la CPAM Paris PDP, DRH BNP Paribas via ancien collègue..." rows="4" onchange="stratSave('bdc_partenaires',this.value)"></textarea>
+        <span class="strat-label">3 actions prioritaires cette semaine</span>
+        <textarea class="strat-ta" id="strat-bdc-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="stratSave('bdc_actions',this.value)"></textarea>
+        <span class="strat-label">Retour d'expérience — Ce qui fonctionne / ce qui ne fonctionne pas</span>
+        <textarea class="strat-ta" id="strat-bdc-retro" placeholder="Canal LinkedIn : bon engagement mais peu de conversions directes. MCF : 2 demandes cette semaine. Objection récurrente : délai de rétractation 11 jours semble long..." rows="3" onchange="stratSave('bdc_retro',this.value)"></textarea>
+      </div>
+      <button class="strat-save-btn" onclick="stratSaveAll('bdc')">💾 Sauvegarder</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function stratTab(prog,tab,btn){
+  document.querySelectorAll('#strat-overlay-'+prog+' .strat-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('#strat-overlay-'+prog+' .strat-tab-btn').forEach(function(b){b.classList.remove('active');});
+  var panel=document.getElementById('strat-'+prog+'-'+tab);
+  if(panel)panel.classList.add('active');
+  if(btn)btn.classList.add('active');
+}
+var _stratData={};
+function stratLoad(){
+  try{_stratData=JSON.parse(localStorage.getItem('wlc_strat')||'{}');}catch(e){_stratData={};}
+  document.querySelectorAll('.strat-ta[id]').forEach(function(ta){if(_stratData[ta.id])ta.value=_stratData[ta.id];});
+  bdcRenderProspects();
+}
+function stratSave(key,val){_stratData[key]=val;}
+function stratSaveAll(prog){
+  document.querySelectorAll('#strat-overlay-'+prog+' .strat-ta[id]').forEach(function(ta){_stratData[ta.id]=ta.value;});
+  try{localStorage.setItem('wlc_strat',JSON.stringify(_stratData));}catch(e){}
+  if(typeof showDashToast==='function')showDashToast('✅ Stratégie sauvegardée');
+}
+function bdcAddProspect(){
+  var nom=document.getElementById('bdc-pros-nom').value.trim();
+  var statut=document.getElementById('bdc-pros-statut').value.trim();
+  var date=document.getElementById('bdc-pros-date').value.trim();
+  if(!nom)return;
+  var pros=JSON.parse(_stratData['bdc_prospects']||'[]');
+  pros.push({nom:nom,statut:statut,date:date,id:Date.now()});
+  _stratData['bdc_prospects']=JSON.stringify(pros);
+  try{localStorage.setItem('wlc_strat',JSON.stringify(_stratData));}catch(e){}
+  document.getElementById('bdc-pros-nom').value='';
+  document.getElementById('bdc-pros-statut').value='';
+  document.getElementById('bdc-pros-date').value='';
+  bdcRenderProspects();
+}
+function bdcDeleteProspect(id){
+  var pros=JSON.parse(_stratData['bdc_prospects']||'[]');
+  _stratData['bdc_prospects']=JSON.stringify(pros.filter(function(p){return p.id!==id;}));
+  try{localStorage.setItem('wlc_strat',JSON.stringify(_stratData));}catch(e){}
+  bdcRenderProspects();
+}
+function bdcRenderProspects(){
+  var el=document.getElementById('bdc-prospect-list');
+  if(!el)return;
+  var pros=JSON.parse(_stratData['bdc_prospects']||'[]');
+  if(!pros.length){el.innerHTML='<div style="font-size:.82rem;color:rgba(240,237,232,.3);font-style:italic;padding:.4rem 0;">Aucun prospect enregistré.</div>';return;}
+  el.innerHTML='<table class="strat-table"><thead><tr><th>Prospect</th><th>Étape</th><th>Suivi le</th><th></th></tr></thead><tbody>'+
+    pros.map(function(p){return'<tr><td style="font-weight:600;">'+p.nom+'</td><td>'+(p.statut||'—')+'</td><td style="color:rgba(240,237,232,.45);">'+(p.date||'-')+'</td><td><button onclick="bdcDeleteProspect('+p.id+')" style="background:none;border:none;color:#F87171;cursor:pointer;font-size:.82rem;">✕</button></td></tr>';}).join('')+
+    '</tbody></table>';
+}
+document.addEventListener('DOMContentLoaded',function(){stratLoad();});
+</script>
+<!-- ══ FIN STRATÉGIE BDC ══ -->
 </div><!-- /main-content -->
 
 <!-- =========================================================
@@ -6851,6 +7366,128 @@ function scrollToSection(id) {
 }
 
 /* ═══ DASHBOARD RENDER ═══ */
+function hcOffer(offer, btn) {
+  document.querySelectorAll('#tab-com .hc-offer-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('#tab-com .hc-offer-btn').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('hc-'+offer);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+function hcNet(offer, net, btn) {
+  var offerEl = document.getElementById('hc-'+offer);
+  if(!offerEl) return;
+  offerEl.querySelectorAll('.hc-panel').forEach(function(p){p.classList.remove('active');});
+  offerEl.querySelectorAll('.hc-net-btn').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('hcn-'+offer+'-'+net);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+var _hcData = {};
+function hcLoad() {
+  try { _hcData = JSON.parse(localStorage.getItem('wlc_hc') || '{}'); } catch(e) { _hcData = {}; }
+  document.querySelectorAll('#tab-com .hc-ta[id]').forEach(function(ta) {
+    if(_hcData[ta.id]) ta.value = _hcData[ta.id];
+  });
+}
+function hcSave(key, val) { _hcData[key] = val; }
+function hcSaveAll(offer) {
+  var panel = document.getElementById('hc-'+offer);
+  if(panel) panel.querySelectorAll('.hc-ta[id]').forEach(function(ta){ _hcData[ta.id] = ta.value; });
+  try { localStorage.setItem('wlc_hc', JSON.stringify(_hcData)); } catch(e) {}
+  if(typeof showDashToast === 'function') showDashToast('✅ Com '+offer.toUpperCase()+' sauvegardée');
+}
+function hcCopy(btn) {
+  var text = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var orig = btn.textContent;
+    btn.textContent = 'Copié !';
+    btn.style.color = '#4ADE80';
+    setTimeout(function(){ btn.textContent = orig; btn.style.color = ''; }, 1500);
+  }).catch(function(){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var orig = btn.textContent;
+    btn.textContent = 'Copié !';
+    setTimeout(function(){ btn.textContent = orig; }, 1500);
+  });
+}
+function hsOffer(offer, btn) {
+  document.querySelectorAll('#tab-strategie .hs-offer-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('#tab-strategie .hs-offer-btn').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('hs-'+offer);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+function hsSection(offer, section, btn) {
+  var offerEl = document.getElementById('hs-'+offer);
+  if(!offerEl) return;
+  offerEl.querySelectorAll('.hs-panel').forEach(function(p){p.classList.remove('active');});
+  offerEl.querySelectorAll('.hs-section-btn').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('hs-'+offer+'-'+section);
+  if(panel) panel.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+var _hsData = {};
+function hsLoad() {
+  try { _hsData = JSON.parse(localStorage.getItem('wlc_hs') || '{}'); } catch(e) { _hsData = {}; }
+  document.querySelectorAll('#tab-strategie .hs-ta[id]').forEach(function(ta) {
+    if(_hsData[ta.id]) ta.value = _hsData[ta.id];
+  });
+  ['bdc','psp','neuro','grand'].forEach(function(o){ hsRenderProspects(o); });
+}
+function hsSave(key, val) { _hsData[key] = val; }
+function hsSaveAll(offer) {
+  var panel = document.getElementById('hs-'+offer);
+  if(panel) panel.querySelectorAll('.hs-ta[id]').forEach(function(ta){ _hsData[ta.id] = ta.value; });
+  try { localStorage.setItem('wlc_hs', JSON.stringify(_hsData)); } catch(e) {}
+  if(typeof showDashToast === 'function') showDashToast('✅ Stratégie '+offer.toUpperCase()+' sauvegardée');
+}
+function hsAddProspect(offer) {
+  var nom = document.getElementById('hs-'+offer+'-pros-nom').value.trim();
+  var statut = document.getElementById('hs-'+offer+'-pros-statut').value.trim();
+  var date = document.getElementById('hs-'+offer+'-pros-date').value.trim();
+  if(!nom) return;
+  var key = 'hs_pros_'+offer;
+  var pros = JSON.parse(_hsData[key] || '[]');
+  pros.push({nom:nom, statut:statut, date:date, id:Date.now()});
+  _hsData[key] = JSON.stringify(pros);
+  try { localStorage.setItem('wlc_hs', JSON.stringify(_hsData)); } catch(e) {}
+  document.getElementById('hs-'+offer+'-pros-nom').value = '';
+  document.getElementById('hs-'+offer+'-pros-statut').value = '';
+  document.getElementById('hs-'+offer+'-pros-date').value = '';
+  hsRenderProspects(offer);
+}
+function hsDeleteProspect(offer, id) {
+  var key = 'hs_pros_'+offer;
+  var pros = JSON.parse(_hsData[key] || '[]');
+  _hsData[key] = JSON.stringify(pros.filter(function(p){ return p.id !== id; }));
+  try { localStorage.setItem('wlc_hs', JSON.stringify(_hsData)); } catch(e) {}
+  hsRenderProspects(offer);
+}
+function hsRenderProspects(offer) {
+  var el = document.getElementById('hs-' + offer + '-prospect-list');
+  if (!el) return;
+  var pros;
+  try { pros = JSON.parse(_hsData['hs_pros_' + offer] || '[]'); } catch(e2) { pros = []; }
+  if (!pros.length) {
+    el.innerHTML = '<div style="font-size:.78rem;color:rgba(255,255,255,.25);padding:.3rem 0;">Aucun prospect.</div>';
+    return;
+  }
+  var colorMap = {'bdc':'C9A84C','psp':'00C9A7','neuro':'A78BFA','grand':'E8B550'};
+  var col = '#' + (colorMap[offer] || 'C9A84C');
+  var rows = '';
+  for (var ri = 0; ri < pros.length; ri++) {
+    var pr = pros[ri];
+    var delBtn = '<button onclick="hsDeleteProspect(\'' + offer + '\',' + pr.id + ')" style="background:none;border:none;color:#F87171;cursor:pointer;font-size:.8rem;">x</button>';
+    rows += '<tr><td style="font-weight:600;color:' + col + ';">' + (pr.nom||'') + '</td><td>' + (pr.statut||'') + '</td><td style="color:rgba(255,255,255,.35);">' + (pr.date||'') + '</td><td>' + delBtn + '</td></tr>';
+  }
+  el.innerHTML = '<table class="hs-table"><thead><tr><th>Prospect</th><th>Etape</th><th>Date</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
 function showDashTab(tabId, navEl) {
   document.querySelectorAll('.dash-tab').forEach(function(t){ t.classList.remove('active'); });
   document.getElementById(tabId).classList.add('active');
@@ -6878,6 +7515,8 @@ function renderDashboard() {
   renderSynthesesSelector();
   renderFiches();
   renderNotesClientList();
+  hsLoad();
+  hcLoad();
 }
 
 function clientName(c) { return c.prenom + ' ' + c.nom; }
@@ -10644,6 +11283,13 @@ html{scroll-behavior:smooth}
         <div class="dash-nav-item" onclick="showDashTab('tab-memos',this)">
           <span class="nav-icon">📋</span><span>Mémos onboarding</span>
         </div>
+        <div class="dash-nav-section">Stratégie</div>
+        <div class="dash-nav-item" onclick="showDashTab('tab-strategie',this)">
+          <span class="nav-icon">📊</span><span>Hub Stratégie</span>
+        </div>
+        <div class="dash-nav-item" onclick="showDashTab('tab-com',this)">
+          <span class="nav-icon">📣</span><span>Hub Com</span>
+        </div>
       </nav>
       <div class="dash-footer-nav">
         <div class="dash-logout" onclick="logoutCoach()">
@@ -10984,6 +11630,1299 @@ html{scroll-behavior:smooth}
         </div>
       </div>
 
+
+
+
+      <!-- TAB: HUB STRATÉGIE -->
+      <div class="dash-tab" id="tab-strategie">
+        <style>
+        .hs-header{background:linear-gradient(135deg,#1A2744 0%,#2D7B7E 100%);border-radius:16px;padding:1.8rem 2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+        .hs-header h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:white;}
+        .hs-header h2 em{font-style:italic;color:#C9A84C;}
+        .hs-header p{font-size:.82rem;color:rgba(255,255,255,.55);margin-top:.25rem;}
+        .hs-offer-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+        .hs-offer-btn{padding:.45rem 1.1rem;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.5);font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+        .hs-offer-btn.active{color:white;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);}
+        .hs-offer-btn.bdc-btn.active{background:rgba(201,168,76,.2);border-color:#C9A84C;color:#C9A84C;}
+        .hs-offer-btn.psp-btn.active{background:rgba(0,201,167,.15);border-color:#00C9A7;color:#00C9A7;}
+        .hs-offer-btn.neuro-btn.active{background:rgba(139,92,246,.15);border-color:#A78BFA;color:#A78BFA;}
+        .hs-offer-btn.grand-btn.active{background:rgba(201,168,76,.15);border-color:#E8B550;color:#E8B550;}
+        .hs-offer-panel{display:none;}.hs-offer-panel.active{display:block;}
+        .hs-section-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.07);}
+        .hs-section-btn{padding:.38rem .9rem;border-radius:50px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.45);font-size:.74rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+        .hs-section-btn.active,.hs-section-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.85);}
+        .hs-panel{display:none;}.hs-panel.active{display:block;}
+        .hs-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.4rem;margin-bottom:1rem;}
+        .hs-card-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem;}
+        .hs-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.1rem;}
+        .hs-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:1rem;text-align:center;}
+        .hs-kpi-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;}
+        .hs-kpi-lbl{font-size:.7rem;color:rgba(255,255,255,.4);margin-top:.2rem;}
+        .hs-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.4rem;display:block;margin-top:.85rem;}
+        .hs-ta{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:rgba(255,255,255,.8);font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.65;padding:.68rem .92rem;resize:vertical;min-height:72px;}
+        .hs-ta:focus{outline:none;border-color:rgba(255,255,255,.3);}
+        .hs-ta::placeholder{color:rgba(255,255,255,.2);}
+        .hs-table{width:100%;border-collapse:collapse;font-size:.81rem;}
+        .hs-table th{background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);font-weight:700;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;padding:.52rem .82rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);}
+        .hs-table td{padding:.58rem .82rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;line-height:1.55;color:rgba(255,255,255,.7);}
+        .hs-table tr:last-child td{border-bottom:none;}
+        .hs-pill{display:inline-block;padding:.22rem .75rem;border-radius:50px;font-size:.71rem;font-weight:600;margin:.18rem;}
+        .hs-pill-gold{background:rgba(201,168,76,.14);color:#C9A84C;border:1px solid rgba(201,168,76,.28);}
+        .hs-pill-teal{background:rgba(0,201,167,.1);color:#00C9A7;border:1px solid rgba(0,201,167,.25);}
+        .hs-pill-violet{background:rgba(139,92,246,.12);color:#A78BFA;border:1px solid rgba(139,92,246,.25);}
+        .hs-pill-amber{background:rgba(232,181,80,.12);color:#E8B550;border:1px solid rgba(232,181,80,.25);}
+        .hs-pill-red{background:rgba(239,68,68,.1);color:#F87171;border:1px solid rgba(239,68,68,.2);}
+        .hs-pill-green{background:rgba(22,163,74,.1);color:#4ADE80;border:1px solid rgba(22,163,74,.22);}
+        .hs-badge-hot{display:inline-flex;align-items:center;font-size:.69rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;background:rgba(239,68,68,.12);color:#F87171;border:1px solid rgba(239,68,68,.22);}
+        .hs-badge-warm{display:inline-flex;align-items:center;font-size:.69rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;background:rgba(251,146,60,.12);color:#FB923C;border:1px solid rgba(251,146,60,.22);}
+        .hs-badge-cold{display:inline-flex;align-items:center;font-size:.69rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;background:rgba(148,163,184,.08);color:#94A3B8;border:1px solid rgba(148,163,184,.18);}
+        .hs-hl{background:rgba(255,255,255,.03);border-left:3px solid rgba(255,255,255,.2);border-radius:0 10px 10px 0;padding:.82rem 1rem;margin:.7rem 0;font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.7;}
+        .hs-save-btn{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#1A2744;font-weight:700;font-size:.8rem;border:none;border-radius:50px;padding:.58rem 1.3rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:.85rem;}
+        .hs-save-btn:hover{transform:scale(1.02);}
+        .hs-progress-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+        .hs-progress-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:1.1rem;cursor:pointer;transition:all .2s;}
+        .hs-progress-card:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.05);}
+        </style>
+
+        <div class="hs-header">
+          <div>
+            <h2>Hub Stratégie <em>Commerciale</em></h2>
+            <p>Positionnement · Cibles · Veille marché · Prix · Arguments · Pipeline — Les 4 offres</p>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <span class="hs-pill hs-pill-gold">BDC</span>
+            <span class="hs-pill hs-pill-teal">PSP</span>
+            <span class="hs-pill hs-pill-violet">Neuro</span>
+            <span class="hs-pill hs-pill-amber">Grand+</span>
+          </div>
+        </div>
+
+        <!-- VUE GLOBALE KPIs -->
+        <div class="hs-kpis" style="margin-bottom:1.5rem;">
+          <div class="hs-kpi"><div class="hs-kpi-val" style="color:#C9A84C;">1 600 €</div><div class="hs-kpi-lbl">BDC · 9 séances · Qualiopi CPF</div></div>
+          <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">650 €</div><div class="hs-kpi-lbl">PSP · 6 séances · B2C familles</div></div>
+          <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">1 600 €</div><div class="hs-kpi-lbl">Neuro · 8 séances × 45 min · CPF</div></div>
+          <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">1 800 €</div><div class="hs-kpi-lbl">Grand+ · 9 séances · Senior</div></div>
+        </div>
+
+        <!-- OFFRE SELECTOR -->
+        <div class="hs-offer-tabs">
+          <button class="hs-offer-btn bdc-btn active" onclick="hsOffer('bdc',this)">🧭 BDC</button>
+          <button class="hs-offer-btn psp-btn" onclick="hsOffer('psp',this)">🎓 Parcoursup</button>
+          <button class="hs-offer-btn neuro-btn" onclick="hsOffer('neuro',this)">🧠 Neuro-Atypique</button>
+          <button class="hs-offer-btn grand-btn" onclick="hsOffer('grand',this)">⚓ Le Grand +</button>
+        </div>
+
+        <!-- ════════════════ BDC ════════════════ -->
+        <div class="hs-offer-panel active" id="hs-bdc">
+          <div class="hs-section-tabs">
+            <button class="hs-section-btn active" onclick="hsSection('bdc','positionnement',this)">🎯 Positionnement</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','cibles',this)">👥 Personas</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','marche',this)">🔭 Veille marché</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','financement',this)">💶 Prix & OPCO</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','contenu',this)">📱 Stratégie contenu</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','pipeline',this)">🔄 Pipeline</button>
+            <button class="hs-section-btn" onclick="hsSection('bdc','notes',this)">📝 Notes</button>
+          </div>
+
+          <div class="hs-panel active" id="hs-bdc-positionnement">
+            <div class="hs-card">
+              <div class="hs-card-title">🎯 Positionnement BDC</div>
+              <div class="hs-hl">Coach certifiée ICI · Qualiopi · DISC + Driving Forces TTI SI · 100% distanciel · Spécialité neuro-inclusive. Background BNP Paribas + entrepreneur + élue mairie Bordeaux = crédibilité rare.</div>
+              <div style="margin-bottom:.75rem;"><span class="hs-pill hs-pill-gold">Certifiée ICI</span><span class="hs-pill hs-pill-gold">Qualiopi CPF</span><span class="hs-pill hs-pill-gold">DISC certifiée TTI SI</span><span class="hs-pill hs-pill-teal">100% distanciel</span><span class="hs-pill hs-pill-teal">Neuro-inclusive</span><span class="hs-pill hs-pill-gold">Background BNP</span></div>
+              <span class="hs-label">Pitch 30 secondes</span>
+              <textarea class="hs-ta" id="hs-bdc-pitch" placeholder="J'accompagne les adultes en transition professionnelle avec un bilan certifié Qualiopi..." rows="2" onchange="hsSave('bdc_pitch',this.value)"></textarea>
+              <span class="hs-label">Proposition de valeur unique (UVP)</span>
+              <textarea class="hs-ta" id="hs-bdc-uvp" placeholder="Le seul bilan de compétences 100% distanciel avec outils DISC + Driving Forces certifiés TTI SI et approche neuro-inclusive..." rows="2" onchange="hsSave('bdc_uvp',this.value)"></textarea>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">⚡ Concurrents directs BDC</div>
+              <table class="hs-table">
+                <thead><tr><th>Concurrent</th><th>Prix</th><th>Point faible</th><th>Votre avantage</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;">Orientaction</td><td>1 500–2 500 €</td><td>Coachs interchangeables, peu personnalisé</td><td>Suivi direct avec Wanda, plateforme sur-mesure</td></tr>
+                  <tr><td style="color:#C9A84C;">Centres CIBC publics</td><td>Gratuit/subventionné</td><td>Délais 2-6 mois, pas d'outils DISC/TTI</td><td>Démarrage en 2 semaines, outils certifiés</td></tr>
+                  <tr><td style="color:#C9A84C;">APEC</td><td>Gratuit (cadres)</td><td>Réservé cadres demandeurs d'emploi</td><td>Accessible à tous les actifs en poste</td></tr>
+                  <tr><td style="color:#C9A84C;">Coaches LinkedIn indépendants</td><td>800–1 200 €</td><td>Pas Qualiopi → pas CPF</td><td>Qualiopi = 0 € sorti de poche avec CPF</td></tr>
+                  <tr><td style="color:#C9A84C;">Chance.co, Jobteaser</td><td>1 200–1 800 €</td><td>100% digital froid, pas d'humain</td><td>Relation directe coach-client + IA synthèse</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-cibles">
+            <div class="hs-card">
+              <div class="hs-card-title">👥 3 Personas BDC</div>
+              <table class="hs-table">
+                <thead><tr><th>Persona</th><th>Profil</th><th>Douleur principale</th><th>Déclencheur</th><th>Canal</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;font-weight:600;">Le Cadre Épuisé</td><td>35-50 ans · Manager · CDI banque/conseil/industrie</td><td>"Je n'ai plus de sens dans mon travail"</td><td>Arrêt maladie, burn-out, anniversaire 40/50 ans</td><td>LinkedIn, médecin du travail, psy</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">La Reconversion Active</td><td>28-45 ans · CPF alimenté · Projet flou mais envie forte</td><td>"Je veux changer mais je ne sais pas vers quoi"</td><td>Découverte CPF, recommandation ami</td><td>Mon Compte Formation, Google, LinkedIn</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">Le Neuro-Atypique Pro</td><td>25-50 ans · TDAH/bipolaire · Carrière en dents de scie</td><td>"Je ne comprends pas pourquoi je n'y arrive pas malgré mes capacités"</td><td>Diagnostic récent, licenciement, recommandation psy</td><td>Communautés TDAH, LinkedIn neuro, MDPH</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-marche">
+            <div class="hs-card">
+              <div class="hs-card-title">🔭 Marché & Données clés 2025</div>
+              <div class="hs-kpis">
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#C9A84C;">750 M€</div><div class="hs-kpi-lbl">CA coaching France 2024</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#C9A84C;">+10%</div><div class="hs-kpi-lbl">Croissance annuelle</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#C9A84C;">15 000</div><div class="hs-kpi-lbl">Coachs actifs en France</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#C9A84C;">102 €</div><div class="hs-kpi-lbl">Reste à charge CPF 2025</div></div>
+              </div>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">🏢 Prescripteurs & Entreprises cibles</div>
+              <table class="hs-table">
+                <thead><tr><th>Secteur</th><th>Exemples entreprises</th><th>OPCO</th><th>Priorité</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;">Banque & Assurance</td><td>BNP Paribas, SG, Crédit Agricole, AXA, Allianz, Natixis</td><td>Atlas</td><td><span class="hs-badge-hot">🔥 Haute</span></td></tr>
+                  <tr><td style="color:#C9A84C;">Conseil & Audit</td><td>Deloitte, PwC, EY, KPMG, Capgemini, Accenture</td><td>Atlas</td><td><span class="hs-badge-hot">🔥 Haute</span></td></tr>
+                  <tr><td style="color:#C9A84C;">Santé & Médico-social</td><td>AP-HP, Korian, Elsan, Ramsay, Croix-Rouge — ANFH finance 100%</td><td>OPCO Santé + ANFH</td><td><span class="hs-badge-hot">🔥 Haute</span></td></tr>
+                  <tr><td style="color:#C9A84C;">Industrie & Énergie</td><td>TotalEnergies, EDF, Engie, Michelin, Schneider Electric</td><td>OPCO 2i</td><td><span class="hs-badge-warm">⚡ Moyenne</span></td></tr>
+                  <tr><td style="color:#C9A84C;">Tech & Numérique</td><td>Orange, Thales, Doctolib, BlaBlaCar, Criteo</td><td>Afdas / Atlas</td><td><span class="hs-badge-warm">⚡ Moyenne</span></td></tr>
+                  <tr><td style="color:#C9A84C;">Prescripteurs médicaux</td><td>ACMS, CIAMT, Cellules PDP CPAM, MDPH, médecins du travail</td><td>—</td><td><span class="hs-badge-hot">🔥 Haute</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="hs-label">Mes actions veille cette semaine</span>
+            <textarea class="hs-ta" id="hs-bdc-veille" placeholder="Ex : Contacter ACMS, publier post LinkedIn burn-out bancaire, répondre 3 demandes CPF..." rows="2" onchange="hsSave('bdc_veille',this.value)"></textarea>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-financement">
+            <div class="hs-card">
+              <div class="hs-card-title">💶 Financements BDC 2025</div>
+              <table class="hs-table">
+                <thead><tr><th>Dispositif</th><th>Qui</th><th>Montant</th><th>Reste à charge</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;">CPF</td><td>Tout actif</td><td>Jusqu'à 1 600 €</td><td style="color:#FB923C;">102,23 €</td></tr>
+                  <tr><td style="color:#C9A84C;">CPF + Abondement OPCO</td><td>Salariés (OPCO accord)</td><td>1 600 €</td><td style="color:#4ADE80;">0 €</td></tr>
+                  <tr><td style="color:#C9A84C;">Plan de compétences employeur</td><td>Salariés en poste</td><td>1 600 €</td><td style="color:#4ADE80;">0 €</td></tr>
+                  <tr><td style="color:#C9A84C;">France Travail (AIF)</td><td>Demandeurs d'emploi</td><td>Variable</td><td style="color:#4ADE80;">0 € si accordé</td></tr>
+                  <tr><td style="color:#C9A84C;">ANFH</td><td>Hospitaliers publics</td><td>100% pris en charge</td><td style="color:#4ADE80;">0 €</td></tr>
+                  <tr><td style="color:#C9A84C;">CPAM / PDP</td><td>Arrêt longue durée</td><td>Variable</td><td style="color:#4ADE80;">0 €</td></tr>
+                  <tr><td style="color:#C9A84C;">Personnel (fallback)</td><td>Tous</td><td>1 600 €</td><td style="color:#FB923C;">1 600 € — 3× sans frais</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hs-kpis">
+              <div class="hs-kpi"><span class="hs-label" style="margin-top:0;">Objectif mensuel</span><textarea class="hs-ta" id="hs-bdc-obj-mois" placeholder="Ex: 2 clients = 3 200€" rows="2" style="min-height:42px;" onchange="hsSave('bdc_obj_mois',this.value)"></textarea></div>
+              <div class="hs-kpi"><span class="hs-label" style="margin-top:0;">Objectif trimestriel</span><textarea class="hs-ta" id="hs-bdc-obj-trim" placeholder="Ex: 6 clients = 9 600€" rows="2" style="min-height:42px;" onchange="hsSave('bdc_obj_trim',this.value)"></textarea></div>
+              <div class="hs-kpi"><span class="hs-label" style="margin-top:0;">Objectif annuel</span><textarea class="hs-ta" id="hs-bdc-obj-an" placeholder="Ex: 20 clients = 32 000€" rows="2" style="min-height:42px;" onchange="hsSave('bdc_obj_an',this.value)"></textarea></div>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-contenu">
+            <div class="hs-card">
+              <div class="hs-card-title">📱 Stratégie contenu BDC — Framework Live Mentor</div>
+              <table class="hs-table">
+                <thead><tr><th>Module</th><th>Action concrète BDC</th><th>Fréquence</th><th>KPI</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;">Persona & Cible</td><td>Posts LinkedIn ciblés : "Vous êtes cadre et vous ressentez le vide ?" — parler directement à la douleur du Cadre Épuisé</td><td>2×/semaine</td><td>Taux d'engagement, leads entrants</td></tr>
+                  <tr><td style="color:#C9A84C;">Proposition de valeur</td><td>Vidéo Loom 2min : "En quoi mon BDC est différent" — DISC + Driving Forces + plateforme IA</td><td>1×/mois</td><td>Vues, partages</td></tr>
+                  <tr><td style="color:#C9A84C;">Tunnel de vente</td><td>Lead magnet : "Guide CPF 2025 — Financer votre bilan sans débourser" (PDF gratuit en échange email)</td><td>Permanent</td><td>Emails collectés</td></tr>
+                  <tr><td style="color:#C9A84C;">SEO Wix</td><td>Page BDC : mots-clés "bilan compétences distanciel", "bilan CPF en ligne", "coach certifiée ICI" — meta desc optimisées</td><td>Mensuel</td><td>Position Google, trafic organique</td></tr>
+                  <tr><td style="color:#C9A84C;">Témoignages</td><td>Corentin David, Stéphanie Lemor, Patricia Barrière → Carousels LinkedIn, page Témoignages Wix</td><td>2×/mois</td><td>Conversions post-témoignage</td></tr>
+                  <tr><td style="color:#C9A84C;">Événements</td><td>Webinaire gratuit mensuel "Reconversion : par où commencer ?" → tunnel vers séance découverte</td><td>Mensuel</td><td>Inscriptions, conversions</td></tr>
+                  <tr><td style="color:#C9A84C;">Mon Compte Formation</td><td>Répondre sous 24h · Maintenir 5+ avis · Titre accrocheur "Bilan de Compétences en ligne — Certifié Qualiopi"</td><td>Quotidien</td><td>Classement MCF, demandes CPF</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="hs-label">Calendrier éditorial — Idées de posts LinkedIn ce mois</span>
+            <textarea class="hs-ta" id="hs-bdc-content" placeholder="S1: Post burn-out bancaire (lundi) + témoignage Stéphanie (jeudi)&#10;S2: Article 'CPF mode d'emploi 2025' + vidéo présentation BDC&#10;S3: Post 'DISC vs MBTI : lequel est fait pour vous ?' + webinaire annonce..." rows="4" onchange="hsSave('bdc_content',this.value)"></textarea>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-pipeline">
+            <div class="hs-card">
+              <div class="hs-card-title">🔄 Pipeline BDC — 6 étapes</div>
+              <table class="hs-table">
+                <thead><tr><th>#</th><th>Étape</th><th>Action</th><th>Délai</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;">1</td><td>Lead entrant</td><td>Répondre sous 24h · Qualifier CPF/perso/secteur</td><td>J+0→J+1</td></tr>
+                  <tr><td style="color:#C9A84C;">2</td><td>Appel découverte 30 min</td><td>Écouter douleur · Présenter 3 phases · Valider CPF</td><td>J+2→J+5</td></tr>
+                  <tr><td style="color:#C9A84C;">3</td><td>Envoi devis</td><td>Devis + options financement sous 48h · Relance J+5</td><td>J+1 après appel</td></tr>
+                  <tr><td style="color:#C9A84C;">4</td><td>Signature</td><td>Convention + contrat + acompte 30%</td><td>Dès accord</td></tr>
+                  <tr><td style="color:#C9A84C;">5</td><td>Onboarding</td><td>Email bienvenue + lien plateforme + RDV S1</td><td>J+1 après signature</td></tr>
+                  <tr><td style="color:#C9A84C;">6</td><td>Suivi</td><td>Check-in S3→S4 · Relance si délai > 3 semaines</td><td>Continu</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">📊 Prospects BDC en cours</div>
+              <div id="hs-bdc-prospect-list"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.45rem;align-items:end;margin-top:.75rem;">
+                <div><span class="hs-label" style="margin-top:0;">Nom</span><input id="hs-bdc-pros-nom" class="hs-ta" placeholder="Marie D." style="min-height:34px;padding:.38rem .8rem;"/></div>
+                <div><span class="hs-label" style="margin-top:0;">Étape</span><input id="hs-bdc-pros-statut" class="hs-ta" placeholder="Appel prévu" style="min-height:34px;padding:.38rem .8rem;"/></div>
+                <div><span class="hs-label" style="margin-top:0;">Date</span><input id="hs-bdc-pros-date" class="hs-ta" placeholder="25/04" style="min-height:34px;padding:.38rem .8rem;"/></div>
+                <button onclick="hsAddProspect('bdc')" style="background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.35);color:#C9A84C;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.8rem;height:34px;">+</button>
+              </div>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-bdc-notes">
+            <div class="hs-card"><div class="hs-card-title">📝 Notes stratégiques BDC</div>
+              <span class="hs-label">Idées contenu LinkedIn</span>
+              <textarea class="hs-ta" id="hs-bdc-li" placeholder="Posts à rédiger, témoignages à publier..." rows="3" onchange="hsSave('bdc_li',this.value)"></textarea>
+              <span class="hs-label">Partenariats à développer</span>
+              <textarea class="hs-ta" id="hs-bdc-part" placeholder="ACMS, CPAM PDP, DRH BNP via ancien collègue..." rows="3" onchange="hsSave('bdc_part',this.value)"></textarea>
+              <span class="hs-label">3 actions cette semaine</span>
+              <textarea class="hs-ta" id="hs-bdc-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="hsSave('bdc_actions',this.value)"></textarea>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ════════════════ PSP ════════════════ -->
+        <div class="hs-offer-panel" id="hs-psp">
+          <div class="hs-section-tabs">
+            <button class="hs-section-btn active" onclick="hsSection('psp','positionnement',this)">🎯 Positionnement</button>
+            <button class="hs-section-btn" onclick="hsSection('psp','cibles',this)">👥 Personas</button>
+            <button class="hs-section-btn" onclick="hsSection('psp','marche',this)">🔭 Marché</button>
+            <button class="hs-section-btn" onclick="hsSection('psp','contenu',this)">📱 Contenu</button>
+            <button class="hs-section-btn" onclick="hsSection('psp','pipeline',this)">🔄 Pipeline</button>
+            <button class="hs-section-btn" onclick="hsSection('psp','notes',this)">📝 Notes</button>
+          </div>
+
+          <div class="hs-panel active" id="hs-psp-positionnement">
+            <div class="hs-kpis">
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">650 €</div><div class="hs-kpi-lbl">Prix catalogue</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">6</div><div class="hs-kpi-lbl">Séances · ~8h</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">+15%</div><div class="hs-kpi-lbl">Croissance marché/an</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">B2C</div><div class="hs-kpi-lbl">Payé par les parents</div></div>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">🎯 Positionnement PSP</div>
+              <div class="hs-hl">Marché en forte croissance (+15-30%/an) avec 650 000 bacheliers/an sur Parcoursup. Les parents paient 300–1 200 € pour des coachs privés. Wanda propose un accompagnement structuré en 6 séances avec plateforme gamifiée — positionnée entre le service public insuffisant (15 min avec psy-EN) et les coachs premium à 1 200 €+.</div>
+              <div><span class="hs-pill hs-pill-teal">6 séances structurées</span><span class="hs-pill hs-pill-teal">Plateforme gamifiée + RIASEC</span><span class="hs-pill hs-pill-teal">650 € vs 1 200 € concurrents</span><span class="hs-pill hs-pill-teal">100% distanciel</span><span class="hs-pill hs-pill-teal">IA synthèse incluse</span></div>
+              <span class="hs-label">Concurrents directs PSP</span>
+              <table class="hs-table">
+                <thead><tr><th>Concurrent</th><th>Prix</th><th>Faiblesse</th><th>Avantage Wanda</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;">Psy-EN (service public)</td><td>Gratuit</td><td>15 min de RDV, pas de suivi individualisé</td><td>6 séances d'1h + plateforme + outils RIASEC</td></tr>
+                  <tr><td style="color:#00C9A7;">CoachingSup, Cap Orientation</td><td>890–1 200 €</td><td>Cher, peu accessible classes moyennes</td><td>650 € — rapport qualité-prix imbattable</td></tr>
+                  <tr><td style="color:#00C9A7;">Profs particuliers orientation</td><td>50–80 €/h</td><td>Pas de méthode, pas d'outils validés</td><td>Méthode structurée RIASEC + DISC + livrable final</td></tr>
+                  <tr><td style="color:#00C9A7;">Plateformes IA (ChatGPT seul)</td><td>Gratuit</td><td>Pas d'accompagnement humain</td><td>IA + coaching humain = combinaison optimale</td></tr>
+                </tbody>
+              </table>
+              <span class="hs-label">Pitch parents (30 sec)</span>
+              <textarea class="hs-ta" id="hs-psp-pitch" placeholder="En 6 séances, votre enfant identifie ses talents, construit son dossier Parcoursup et sait pitcher son projet. Méthode validée, plateforme interactive, 650 €..." rows="2" onchange="hsSave('psp_pitch',this.value)"></textarea>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-psp-cibles">
+            <div class="hs-card">
+              <div class="hs-card-title">👥 Personas PSP</div>
+              <table class="hs-table">
+                <thead><tr><th>Persona</th><th>Profil</th><th>Douleur</th><th>Déclencheur</th><th>Canal</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;font-weight:600;">Le Parent Anxieux</td><td>40-55 ans · Cadre/profession libérale · Enfant en Terminale · Budget 500-1 500 €</td><td>"Mon enfant ne sait pas quoi faire, Parcoursup arrive et on est perdus"</td><td>Janvier-Mars (ouverture Parcoursup) · Mauvais bulletin · Conseil de classe</td><td>LinkedIn parents · Facebook groupes parents · Bouche à oreille écoles privées</td></tr>
+                  <tr><td style="color:#00C9A7;font-weight:600;">Le Lycéen Perdu</td><td>16-18 ans · Terminale toutes filières · Motivé mais sans direction</td><td>"J'ai zéro idée de ce que je veux faire après le bac"</td><td>Rentrée septembre · TikTok orientation · Recommandation prof principal</td><td>Instagram · TikTok · Bouche à oreille lycée</td></tr>
+                  <tr><td style="color:#00C9A7;font-weight:600;">Le Réorienteur</td><td>18-22 ans · 1ère année universitaire ratée · Besoin de recommencer</td><td>"J'ai raté ma 1ère année, je dois tout reprendre"</td><td>Résultats juin · Réorientation IUT/BTS</td><td>Google · Forums étudiants · France Travail jeunes</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-psp-marche">
+            <div class="hs-card">
+              <div class="hs-card-title">🔭 Marché PSP 2025 — Données réelles</div>
+              <div class="hs-kpis">
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">650 000</div><div class="hs-kpi-lbl">Bacheliers/an sur Parcoursup</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">+30%</div><div class="hs-kpi-lbl">Croissance coaching orientation 2025</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">300–1 200€</div><div class="hs-kpi-lbl">Fourchette marché coaching PSP</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#00C9A7;">13 000€</div><div class="hs-kpi-lbl">Coût public d'un étudiant qui abandonne en L1</div></div>
+              </div>
+              <table class="hs-table">
+                <thead><tr><th>Canal</th><th>Action concrète</th><th>Période clé</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;">Facebook / Instagram parents</td><td>Groupes "Parents lycéens Terminale 2026" (50k+) · Posts ciblés · Publicité Meta</td><td>Sept → Mars</td></tr>
+                  <tr><td style="color:#00C9A7;">Lycées privés</td><td>Partenariats avec lycées privés : présentation aux parents en soirée d'information Parcoursup</td><td>Oct → Jan</td></tr>
+                  <tr><td style="color:#00C9A7;">LinkedIn</td><td>Cibler les parents cadres : "Votre enfant est en Terminale ?" — posts sur angoisse orientation</td><td>Toute l'année</td></tr>
+                  <tr><td style="color:#00C9A7;">Google Ads</td><td>"Coaching Parcoursup 2026 en ligne" · "Coach orientation lycée distanciel" · Budget 200€/mois</td><td>Nov → Avril</td></tr>
+                  <tr><td style="color:#00C9A7;">Prescripteurs lycées</td><td>Conseillers principaux d'éducation (CPE), profs principaux, documentalistes — envoi plaquette</td><td>Rentrée sept</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-psp-contenu">
+            <div class="hs-card">
+              <div class="hs-card-title">📱 Stratégie contenu PSP</div>
+              <table class="hs-table">
+                <thead><tr><th>Format</th><th>Contenu</th><th>Période</th><th>Objectif</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;">Posts LinkedIn parents</td><td>"Votre enfant a reçu ses premiers résultats Parcoursup — voici comment l'aider à choisir"</td><td>Mai-Juin</td><td>Leads parents cadres</td></tr>
+                  <tr><td style="color:#00C9A7;">Carrousels Instagram</td><td>"5 erreurs à éviter sur Parcoursup" · "RIASEC : trouve ton orientation en 5 min"</td><td>Jan-Mars</td><td>Visibilité lycéens</td></tr>
+                  <tr><td style="color:#00C9A7;">Lead magnet</td><td>PDF gratuit "Calendrier Parcoursup 2026 + guide vœux" → email parents</td><td>Permanent</td><td>Base email parents</td></tr>
+                  <tr><td style="color:#00C9A7;">Webinaire</td><td>"Parcoursup 2026 : stratégie, vœux et lettre de motivation" — gratuit pour parents</td><td>Nov + Jan</td><td>Conversion séance découverte</td></tr>
+                  <tr><td style="color:#00C9A7;">Témoignages</td><td>Emma Marshall : résultat, filière choisie, satisfaction — post LinkedIn + Story Instagram</td><td>Juin (résultats)</td><td>Preuve sociale</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="hs-label">Mon calendrier éditorial PSP ce mois</span>
+            <textarea class="hs-ta" id="hs-psp-content" placeholder="Semaine 1: Post LinkedIn 'Parcoursup c'est dans X semaines' + lead magnet calendrier..." rows="3" onchange="hsSave('psp_content',this.value)"></textarea>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-psp-pipeline">
+            <div class="hs-card">
+              <div class="hs-card-title">🔄 Pipeline PSP — Parents & Lycéens</div>
+              <table class="hs-table">
+                <thead><tr><th>Étape</th><th>Action</th><th>Timing</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;">Contact parent</td><td>Répondre sous 12h (marché saisonnier — urgence perçue)</td><td>J+0</td></tr>
+                  <tr><td style="color:#00C9A7;">Appel découverte</td><td>15 min gratuit avec le parent · Comprendre le profil lycéen · Présenter la méthode</td><td>J+1→J+3</td></tr>
+                  <tr><td style="color:#00C9A7;">Devis + paiement</td><td>650 € · 2× ou 3× accepté · Acompte 50% à la signature</td><td>Dès accord</td></tr>
+                  <tr><td style="color:#00C9A7;">S1 en 48h</td><td>Démarrer vite — l'urgence Parcoursup est le moteur d'achat</td><td>J+2 après paiement</td></tr>
+                  <tr><td style="color:#00C9A7;">Suivi hebdo</td><td>CR de séance envoyé au parent (avec accord du lycéen) + prochaine session</td><td>Chaque séance</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">📊 Prospects PSP</div>
+              <div id="hs-psp-prospect-list"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.45rem;margin-top:.6rem;">
+                <input id="hs-psp-pros-nom" class="hs-ta" placeholder="Famille Durand" style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-psp-pros-statut" class="hs-ta" placeholder="Appel prévu" style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-psp-pros-date" class="hs-ta" placeholder="25/04" style="min-height:34px;padding:.38rem .8rem;"/>
+                <button onclick="hsAddProspect('psp')" style="background:rgba(0,201,167,.15);border:1px solid rgba(0,201,167,.3);color:#00C9A7;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.8rem;height:34px;">+</button>
+              </div>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-psp-notes">
+            <div class="hs-card"><div class="hs-card-title">📝 Notes PSP</div>
+              <span class="hs-label">Lycées privés à contacter</span>
+              <textarea class="hs-ta" id="hs-psp-lycees" placeholder="Lycée Sainte-Marie Paris, Cours Molière, lycées privés Bordeaux à contacter pour partenariat..." rows="3" onchange="hsSave('psp_lycees',this.value)"></textarea>
+              <span class="hs-label">3 actions cette semaine</span>
+              <textarea class="hs-ta" id="hs-psp-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="hsSave('psp_actions',this.value)"></textarea>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ════════════════ NEURO ════════════════ -->
+        <div class="hs-offer-panel" id="hs-neuro">
+          <div class="hs-section-tabs">
+            <button class="hs-section-btn active" onclick="hsSection('neuro','positionnement',this)">🎯 Positionnement</button>
+            <button class="hs-section-btn" onclick="hsSection('neuro','cibles',this)">👥 Personas</button>
+            <button class="hs-section-btn" onclick="hsSection('neuro','marche',this)">🔭 Marché</button>
+            <button class="hs-section-btn" onclick="hsSection('neuro','contenu',this)">📱 Contenu</button>
+            <button class="hs-section-btn" onclick="hsSection('neuro','pipeline',this)">🔄 Pipeline</button>
+            <button class="hs-section-btn" onclick="hsSection('neuro','notes',this)">📝 Notes</button>
+          </div>
+
+          <div class="hs-panel active" id="hs-neuro-positionnement">
+            <div class="hs-kpis">
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">1 600 €</div><div class="hs-kpi-lbl">Prix · CPF éligible</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">8 × 45 min</div><div class="hs-kpi-lbl">Format adapté TDAH</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">Niche</div><div class="hs-kpi-lbl">Quasi-aucun concurrent direct</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">5-8%</div><div class="hs-kpi-lbl">Adultes TDAH en France</div></div>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">🎯 Positionnement Neuro — Niche à fort potentiel</div>
+              <div class="hs-hl">Le bilan de compétences neuro-atypique est une niche quasi inexistante en France. 95% des bilans de compétences ne sont pas adaptés aux cerveaux TDAH/bipolaires. Wanda est elle-même concernée (TDAH) — authenticité et empathie uniques. Format 45 min pensé pour les fenêtres d'attention courtes.</div>
+              <div><span class="hs-pill hs-pill-violet">Wanda TDAH — authenticité</span><span class="hs-pill hs-pill-violet">45 min — format cognitif adapté</span><span class="hs-pill hs-pill-violet">CPF éligible</span><span class="hs-pill hs-pill-violet">Quasi-aucun concurrent</span><span class="hs-pill hs-pill-violet">Approche forces (pas déficits)</span></div>
+              <span class="hs-label">Pitch 30 sec Neuro</span>
+              <textarea class="hs-ta" id="hs-neuro-pitch" placeholder="Votre cerveau TDAH n'est pas cassé — il est différent. En 8 séances de 45 min, on identifie vos hyperfocus, vos talents cachés et on construit un projet pro qui respecte votre neurologie." rows="2" onchange="hsSave('neuro_pitch',this.value)"></textarea>
+              <span class="hs-label">Concurrents Neuro</span>
+              <table class="hs-table">
+                <thead><tr><th>Type</th><th>Offre actuelle</th><th>Lacune</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;">Psychologues cliniciens</td><td>Diagnostic + suivi thérapeutique</td><td>Pas de coaching professionnel orienté projet</td></tr>
+                  <tr><td style="color:#A78BFA;">Coachs TDAH généralistes</td><td>Coaching vie quotidienne (organisation, procrastination)</td><td>Pas de bilan de compétences, pas Qualiopi, pas CPF</td></tr>
+                  <tr><td style="color:#A78BFA;">Bilans de compétences classiques</td><td>Format standard 9 séances</td><td>Pas adapté TDAH : format long, pas de stratégies cognitives</td></tr>
+                  <tr><td style="color:#A78BFA;">AGEFIPH / Cap Emploi</td><td>Accompagnement emploi RQTH</td><td>Centré handicap, pas sur les forces/talents</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-neuro-cibles">
+            <div class="hs-card">
+              <div class="hs-card-title">👥 Personas Neuro-Atypique</div>
+              <table class="hs-table">
+                <thead><tr><th>Persona</th><th>Profil</th><th>Douleur</th><th>Déclencheur</th><th>Canal</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;font-weight:600;">Le TDAH Diagnostiqué Récent</td><td>25-45 ans · Diagnostic tardif TDAH · Soulagement puis "et maintenant ?"</td><td>"Je comprends enfin pourquoi ma carrière est en dents de scie — mais je ne sais pas quoi faire"</td><td>Diagnostic TDAH adulte (délai moyen 2-3 mois après diagnostic)</td><td>Psys spécialisés TDAH · HPI France · TDAH France (asso)</td></tr>
+                  <tr><td style="color:#A78BFA;font-weight:600;">Le Bipolaire Stabilisé</td><td>28-50 ans · Bipolaire type 1 ou 2 · Suivi psy · Veut travailler</td><td>"Je suis stabilisé mais ma carrière est en morceaux — je dois reconstruire"</td><td>Sortie d'épisode · Recommandation psychiatre · LinkedIn</td><td>Psychiatres libéraux · Associations bipolaires · UNAFAM</td></tr>
+                  <tr><td style="color:#A78BFA;font-weight:600;">Le Non-Diagnostiqué Suspecté</td><td>30-55 ans · Se reconnaît dans les descriptions TDAH · Pas encore de diagnostic</td><td>"Tous ces traits me ressemblent — je n'ai jamais compris pourquoi j'étais 'difficile'"</td><td>Vidéo TikTok/YouTube TDAH · Test en ligne · Article LinkedIn</td><td>TikTok TDAH · YouTube · Groupes Facebook neuro</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-neuro-marche">
+            <div class="hs-card">
+              <div class="hs-card-title">🔭 Marché Neuro 2025</div>
+              <div class="hs-kpis">
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">3,5 M</div><div class="hs-kpi-lbl">Adultes TDAH en France (5-8%)</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">+54%</div><div class="hs-kpi-lbl">Croissance coaching 2019-2024</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">Quasi 0</div><div class="hs-kpi-lbl">Concurrents directs certifiés</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#A78BFA;">CPF</div><div class="hs-kpi-lbl">Financement bilan Qualiopi</div></div>
+              </div>
+              <table class="hs-table">
+                <thead><tr><th>Prescripteur</th><th>Structure</th><th>Action</th><th>Priorité</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;">Psychiatres libéraux</td><td>Spécialistes TDAH/bipolaire adulte</td><td>Email + plaquette · Présenter comme complément au suivi médical</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#A78BFA;">Psys spécialisés TDAH</td><td>Neuropsychologues, psychologues cliniciens</td><td>Partenariat formel · Convention prescription</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#A78BFA;">HPI France / TDAH France</td><td>Associations nationales</td><td>Partenariat communication · Annuaire des pros recommandés</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#A78BFA;">AGEFIPH / Cap Emploi</td><td>Accompagnement RQTH</td><td>Référencement comme organisme partenaire</td><td><span class="hs-badge-warm">⚡</span></td></tr>
+                  <tr><td style="color:#A78BFA;">MDPH</td><td>Maisons Départ. Personnes Handicapées</td><td>Convention partenariat · Clientèle RQTH TDAH</td><td><span class="hs-badge-warm">⚡</span></td></tr>
+                  <tr><td style="color:#A78BFA;">Communautés en ligne</td><td>TDAH France (FB 45k) · HPI France · Reddit r/TDAH</td><td>Présence régulière · Posts témoignages · Articles</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-neuro-contenu">
+            <div class="hs-card">
+              <div class="hs-card-title">📱 Stratégie contenu Neuro</div>
+              <table class="hs-table">
+                <thead><tr><th>Format</th><th>Contenu</th><th>Canal</th><th>Objectif</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;">Témoignage personnel</td><td>Post LinkedIn : "Je suis coach et j'ai le TDAH — voici ce que ça m'a appris sur les talents cachés" (divulgation stratégique)</td><td>LinkedIn</td><td>Viralité, confiance, leads TDAH</td></tr>
+                  <tr><td style="color:#A78BFA;">Série éducative</td><td>"TDAH au travail : les 5 superpowers que personne ne vous dit" — carrousel LinkedIn 5 slides</td><td>LinkedIn + Instagram</td><td>Engagement communauté neuro</td></tr>
+                  <tr><td style="color:#A78BFA;">Vidéo courte</td><td>"Hyperfocus : comment transformer votre 'défaut' en avantage compétitif" — Reel 60 sec</td><td>Instagram + TikTok</td><td>Notoriété profils non-diagnostiqués</td></tr>
+                  <tr><td style="color:#A78BFA;">Article LinkedIn long</td><td>"Pourquoi les cerveaux TDAH font d'excellents entrepreneurs" — avec stats et témoignages</td><td>LinkedIn</td><td>SEO LinkedIn, crédibilité</td></tr>
+                  <tr><td style="color:#A78BFA;">Lead magnet</td><td>PDF "Test : Votre profil cognitif TDAH au travail" + 5 stratégies adaptées</td><td>Landing page</td><td>Base email communauté neuro</td></tr>
+                  <tr><td style="color:#A78BFA;">Partenariat psys</td><td>Article co-signé avec psychiatre : "Après le diagnostic TDAH, le coaching professionnel"</td><td>LinkedIn + blogs psy</td><td>Crédibilité médicale, prescriptions</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="hs-label">Calendrier éditorial Neuro</span>
+            <textarea class="hs-ta" id="hs-neuro-content" placeholder="S1 : Post divulgation TDAH personnel (lundi) + lead magnet test cognitif (jeudi)..." rows="3" onchange="hsSave('neuro_content',this.value)"></textarea>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-neuro-pipeline">
+            <div class="hs-card">
+              <div class="hs-card-title">🔄 Pipeline Neuro — Spécificités</div>
+              <div class="hs-hl">⚠️ Le client Neuro a besoin de plus de temps avant de décider. Éviter la pression de vente — l'authenticité et la sécurité sont prioritaires. Répondre avec douceur et sans jargon médical.</div>
+              <table class="hs-table">
+                <thead><tr><th>Étape</th><th>Spécificité Neuro</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;">Premier contact</td><td>Souvent via psy prescripteur ou communauté en ligne</td><td>Répondre chaleureusement · Pas de pitch commercial direct</td></tr>
+                  <tr><td style="color:#A78BFA;">Appel découverte</td><td>45 min (pas 30) — le client Neuro a besoin de plus d'espace pour s'exprimer</td><td>Écoute active · Valider l'expérience · Expliquer le format 45 min</td></tr>
+                  <tr><td style="color:#A78BFA;">Devis</td><td>CPF souvent disponible · Insister sur le 0 € sorti de poche</td><td>Envoyer devis simplifié + guide CPF en PDF</td></tr>
+                  <tr><td style="color:#A78BFA;">Onboarding S1</td><td>Livret neuro spécifique · Rappel avertissement médical (pas psychiatre)</td><td>Email bienvenue + livret + point pratique sur le format 45 min</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">📊 Prospects Neuro</div>
+              <div id="hs-neuro-prospect-list"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.45rem;margin-top:.6rem;">
+                <input id="hs-neuro-pros-nom" class="hs-ta" placeholder="Thomas L." style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-neuro-pros-statut" class="hs-ta" placeholder="Via psy Dr Moreau" style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-neuro-pros-date" class="hs-ta" placeholder="28/04" style="min-height:34px;padding:.38rem .8rem;"/>
+                <button onclick="hsAddProspect('neuro')" style="background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);color:#A78BFA;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.8rem;height:34px;">+</button>
+              </div>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-neuro-notes">
+            <div class="hs-card"><div class="hs-card-title">📝 Notes Neuro</div>
+              <span class="hs-label">Psychiatres / Psys à contacter</span>
+              <textarea class="hs-ta" id="hs-neuro-psys" placeholder="Dr Martin (TDAH adulte Paris 15e), Dr Leblanc (bipolaire Bordeaux), Association TDAH France contact..." rows="3" onchange="hsSave('neuro_psys',this.value)"></textarea>
+              <span class="hs-label">3 actions cette semaine</span>
+              <textarea class="hs-ta" id="hs-neuro-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="hsSave('neuro_actions',this.value)"></textarea>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ════════════════ GRAND+ ════════════════ -->
+        <div class="hs-offer-panel" id="hs-grand">
+          <div class="hs-section-tabs">
+            <button class="hs-section-btn active" onclick="hsSection('grand','positionnement',this)">🎯 Positionnement</button>
+            <button class="hs-section-btn" onclick="hsSection('grand','cibles',this)">👥 Personas</button>
+            <button class="hs-section-btn" onclick="hsSection('grand','marche',this)">🔭 Marché</button>
+            <button class="hs-section-btn" onclick="hsSection('grand','contenu',this)">📱 Contenu</button>
+            <button class="hs-section-btn" onclick="hsSection('grand','pipeline',this)">🔄 Pipeline</button>
+            <button class="hs-section-btn" onclick="hsSection('grand','notes',this)">📝 Notes</button>
+          </div>
+
+          <div class="hs-panel active" id="hs-grand-positionnement">
+            <div class="hs-kpis">
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">1 800 €</div><div class="hs-kpi-lbl">Prix · 9 séances</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">800 000</div><div class="hs-kpi-lbl">Départs en retraite/an en France</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">Niche</div><div class="hs-kpi-lbl">Offre quasi-inexistante</div></div>
+              <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">B2C</div><div class="hs-kpi-lbl">+ B2B entreprises (plan social)</div></div>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">🎯 Positionnement Le Grand +</div>
+              <div class="hs-hl">Le coaching de préparation à la retraite est un marché quasi-inexistant en France mais à fort potentiel : 800 000 départs/an, une génération de seniors digitalisés, et une demande croissante de sens. Wanda est pionnière sur ce segment avec une approche IKIGAI de Transmission unique.</div>
+              <div><span class="hs-pill hs-pill-amber">800 000 départs retraite/an</span><span class="hs-pill hs-pill-amber">IKIGAI de Transmission unique</span><span class="hs-pill hs-pill-amber">Approche bilan de vie</span><span class="hs-pill hs-pill-amber">B2C + B2B plans sociaux</span><span class="hs-pill hs-pill-amber">Niche — premier entrant</span></div>
+              <span class="hs-label">Pitch 30 sec Le Grand +</span>
+              <textarea class="hs-ta" id="hs-grand-pitch" placeholder="La retraite n'est pas une fin — c'est votre plus grand défi de sens. En 9 séances, vous construisez votre projet de vie post-carrière, identifiez ce que vous voulez transmettre, et entrez dans cette nouvelle phase avec clarté et élan." rows="2" onchange="hsSave('grand_pitch',this.value)"></textarea>
+              <span class="hs-label">Concurrents Le Grand +</span>
+              <table class="hs-table">
+                <thead><tr><th>Concurrent</th><th>Offre</th><th>Lacune</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;">Cabinets RH outplacement</td><td>Accompagnement reclassement (licenciement)</td><td>Centré emploi, pas sur le sens et la transmission</td></tr>
+                  <tr><td style="color:#E8B550;">Retraite.com, services CARSAT</td><td>Informations administratives retraite</td><td>Pas d'accompagnement humain sur le projet de vie</td></tr>
+                  <tr><td style="color:#E8B550;">Coachs de vie généralistes</td><td>Coaching personnel vague</td><td>Pas de méthode structurée bilan de vie + IKIGAI</td></tr>
+                  <tr><td style="color:#E8B550;">Associations seniors</td><td>Ateliers collectifs bénévoles</td><td>Pas de suivi individuel, pas de livrable personnel</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-grand-cibles">
+            <div class="hs-card">
+              <div class="hs-card-title">👥 Personas Le Grand +</div>
+              <table class="hs-table">
+                <thead><tr><th>Persona</th><th>Profil</th><th>Douleur</th><th>Déclencheur</th><th>Canal</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;font-weight:600;">Le Senior Actif Anticipateur</td><td>55-62 ans · Cadre supérieur · Retraite dans 2-5 ans · Fort besoin de sens</td><td>"Je sens que ma carrière touche à sa fin mais je ne sais pas qui je suis sans mon travail"</td><td>Anniversaire 55/60 ans · Réduction activité · Premier entretien retraite RH</td><td>LinkedIn cadres seniors · Conférences ANDRH · Bouche à oreille</td></tr>
+                  <tr><td style="color:#E8B550;font-weight:600;">Le Retraité Récent Désœuvré</td><td>60-70 ans · Retraité depuis 6-18 mois · Sentiment de vide</td><td>"Je croyais que j'allais adorer la retraite mais je ne sais plus qui je suis"</td><td>6 mois de retraite · Dépression légère · Recommandation médecin/psy</td><td>Médecin généraliste · Clubs seniors · LinkedIn · Conjoint prescripteur</td></tr>
+                  <tr><td style="color:#E8B550;font-weight:600;">Le Dirigeant en Transmission</td><td>55-70 ans · Chef d'entreprise · Transmission ou cession prévue</td><td>"Je dois transmettre mon entreprise mais je ne sais pas ce que je suis en dehors d'elle"</td><td>Processus de cession · Approche repreneur · Anniversaire entreprise</td><td>CCI · Experts comptables · Notaires · BPI France · CRA (Cédants Repreneurs)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-grand-marche">
+            <div class="hs-card">
+              <div class="hs-card-title">🔭 Marché Le Grand + — Opportunité pionnière</div>
+              <div class="hs-kpis">
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">800 000</div><div class="hs-kpi-lbl">Départs retraite/an France</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">16 M</div><div class="hs-kpi-lbl">Retraités en France (2025)</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">+60%</div><div class="hs-kpi-lbl">Seniors connectés depuis 2020</div></div>
+                <div class="hs-kpi"><div class="hs-kpi-val" style="color:#E8B550;">1 800 €</div><div class="hs-kpi-lbl">Prix vs 0 offre structurée directe</div></div>
+              </div>
+              <table class="hs-table">
+                <thead><tr><th>Canal B2C</th><th>Action</th><th>Priorité</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;">LinkedIn seniors 55+</td><td>Posts sur sens, transmission, identité post-travail. Cibler DRH + cadres 55+ directs</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#E8B550;">Médecins généralistes</td><td>Prescripteurs naturels pour "vide de la retraite" — envoyer plaquette + présenter offre</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#E8B550;">B2B Plans sociaux / DRH</td><td>Grandes entreprises restructurant (départs volontaires, préretraites) — offre groupe</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#E8B550;">CRA (Cédants Repreneurs)</td><td>Réseau national de dirigeants en transmission — partenariat recommandation</td><td><span class="hs-badge-warm">⚡</span></td></tr>
+                  <tr><td style="color:#E8B550;">CCI & Chambres consulaires</td><td>Ateliers transmission d'entreprise — proposer Le Grand + en complément</td><td><span class="hs-badge-warm">⚡</span></td></tr>
+                  <tr><td style="color:#E8B550;">ANDRH</td><td>Réseau DRH — présenter Le Grand + comme outil de gestion des fins de carrière</td><td><span class="hs-badge-warm">⚡</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-grand-contenu">
+            <div class="hs-card">
+              <div class="hs-card-title">📱 Stratégie contenu Le Grand +</div>
+              <table class="hs-table">
+                <thead><tr><th>Format</th><th>Contenu</th><th>Canal</th><th>Objectif</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;">Article LinkedIn long</td><td>"La retraite m'a brisé : témoignage d'un cadre qui a reconstruit son identité" — récit émotionnel</td><td>LinkedIn</td><td>Viralité auprès 55+ et DRH</td></tr>
+                  <tr><td style="color:#E8B550;">Série "IKIGAI de Transmission"</td><td>Carrousel 4 slides : "4 questions pour trouver votre raison d'être post-carrière"</td><td>LinkedIn</td><td>Notoriété concept + leads</td></tr>
+                  <tr><td style="color:#E8B550;">Webinaire</td><td>"Préparer sa retraite autrement — bilan de vie et projet de transmission" — gratuit DRH + particuliers</td><td>LinkedIn + Eventbrite</td><td>Leads qualifiés B2C + B2B</td></tr>
+                  <tr><td style="color:#E8B550;">Lead magnet</td><td>PDF "10 questions pour commencer votre bilan de vie" — simple, accessible seniors</td><td>Landing page + LinkedIn</td><td>Base email 55+</td></tr>
+                  <tr><td style="color:#E8B550;">Partenariat CCI / CRA</td><td>Article dans newsletter CRA : "Et après la cession, qui êtes-vous ?"</td><td>Newsletter CRA + LinkedIn</td><td>Leads dirigeants en transmission</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <span class="hs-label">Calendrier éditorial Le Grand +</span>
+            <textarea class="hs-ta" id="hs-grand-content" placeholder="S1 : Article 'Qui suis-je sans mon travail ?' LinkedIn + lead magnet 10 questions bilan de vie..." rows="3" onchange="hsSave('grand_content',this.value)"></textarea>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-grand-pipeline">
+            <div class="hs-card">
+              <div class="hs-card-title">🔄 Pipeline Le Grand + — B2C + B2B</div>
+              <table class="hs-table">
+                <thead><tr><th>Étape</th><th>B2C (particulier)</th><th>B2B (entreprise DRH)</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;">Contact</td><td>Répondre avec chaleur · Ce public est moins à l'aise avec le digital</td><td>Email formel + plaquette PDF + proposition de démo</td></tr>
+                  <tr><td style="color:#E8B550;">Découverte</td><td>45 min · Explorer la douleur identitaire · Pas de pitch direct</td><td>Présentation 30 min Zoom · Chiffrer le coût humain des départs non préparés</td></tr>
+                  <tr><td style="color:#E8B550;">Devis</td><td>1 800 € · 3× sans frais · Paiement personnel ou OPCO retraite</td><td>Offre groupe (5-10 personnes) · Tarif dégressif · Convention entreprise</td></tr>
+                  <tr><td style="color:#E8B550;">Démarrage</td><td>Livret Grand+ · Premier bilan de vie · Rythme 2 semaines entre séances</td><td>Calendrier groupé ou individuel · Reporting DRH anonymisé</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hs-card">
+              <div class="hs-card-title">📊 Prospects Le Grand +</div>
+              <div id="hs-grand-prospect-list"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.45rem;margin-top:.6rem;">
+                <input id="hs-grand-pros-nom" class="hs-ta" placeholder="Pierre M." style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-grand-pros-statut" class="hs-ta" placeholder="Retraite dans 2 ans" style="min-height:34px;padding:.38rem .8rem;"/>
+                <input id="hs-grand-pros-date" class="hs-ta" placeholder="30/04" style="min-height:34px;padding:.38rem .8rem;"/>
+                <button onclick="hsAddProspect('grand')" style="background:rgba(232,181,80,.15);border:1px solid rgba(232,181,80,.3);color:#E8B550;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.8rem;height:34px;">+</button>
+              </div>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hs-panel" id="hs-grand-notes">
+            <div class="hs-card"><div class="hs-card-title">📝 Notes Le Grand +</div>
+              <span class="hs-label">Entreprises & DRH à contacter</span>
+              <textarea class="hs-ta" id="hs-grand-drh" placeholder="BNP Paribas (via réseau), SNCF DRH (plans départs volontaires), Orange senior digital, CRA Paris contact..." rows="3" onchange="hsSave('grand_drh',this.value)"></textarea>
+              <span class="hs-label">3 actions cette semaine</span>
+              <textarea class="hs-ta" id="hs-grand-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="hsSave('grand_actions',this.value)"></textarea>
+            </div>
+            <button class="hs-save-btn" onclick="hsSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- TAB: HUB COM -->
+      <div class="dash-tab" id="tab-com">
+        <style>
+        .hc-header{background:linear-gradient(135deg,#0F172A 0%,#1E3A5F 50%,#2D7B7E 100%);border-radius:16px;padding:1.8rem 2rem;margin-bottom:1.5rem;}
+        .hc-header h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:white;margin-bottom:.3rem;}
+        .hc-header h2 em{font-style:italic;color:#C9A84C;}
+        .hc-header p{font-size:.82rem;color:rgba(255,255,255,.5);}
+        .hc-offer-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+        .hc-offer-btn{padding:.45rem 1.1rem;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.5);font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+        .hc-offer-btn.active{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4);color:white;}
+        .hc-offer-btn.bdc.active{background:rgba(201,168,76,.2);border-color:#C9A84C;color:#C9A84C;}
+        .hc-offer-btn.psp.active{background:rgba(0,201,167,.15);border-color:#00C9A7;color:#00C9A7;}
+        .hc-offer-btn.neuro.active{background:rgba(139,92,246,.15);border-color:#A78BFA;color:#A78BFA;}
+        .hc-offer-btn.grand.active{background:rgba(232,181,80,.15);border-color:#E8B550;color:#E8B550;}
+        .hc-offer-panel{display:none;}.hc-offer-panel.active{display:block;}
+        .hc-net-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.07);}
+        .hc-net-btn{padding:.38rem .9rem;border-radius:50px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);font-size:.75rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+        .hc-net-btn.active,.hc-net-btn:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.85);}
+        .hc-panel{display:none;}.hc-panel.active{display:block;}
+        .hc-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.4rem;margin-bottom:1rem;}
+        .hc-card-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:.85rem;}
+        .hc-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.4rem;display:block;margin-top:.85rem;}
+        .hc-ta{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:9px;color:rgba(255,255,255,.8);font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.65;padding:.68rem .92rem;resize:vertical;min-height:72px;}
+        .hc-ta:focus{outline:none;border-color:rgba(255,255,255,.3);}
+        .hc-ta::placeholder{color:rgba(255,255,255,.2);}
+        .hc-table{width:100%;border-collapse:collapse;font-size:.81rem;}
+        .hc-table th{background:rgba(255,255,255,.05);color:rgba(255,255,255,.45);font-weight:700;font-size:.67rem;text-transform:uppercase;letter-spacing:.07em;padding:.52rem .82rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);}
+        .hc-table td{padding:.58rem .82rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;line-height:1.55;color:rgba(255,255,255,.7);}
+        .hc-table tr:last-child td{border-bottom:none;}
+        .hc-pill{display:inline-block;padding:.22rem .75rem;border-radius:50px;font-size:.71rem;font-weight:600;margin:.18rem;}
+        .hc-pill-li{background:rgba(10,102,194,.2);color:#5BA4E8;border:1px solid rgba(10,102,194,.3);}
+        .hc-pill-ig{background:rgba(225,48,108,.15);color:#E1306C;border:1px solid rgba(225,48,108,.25);}
+        .hc-pill-fb{background:rgba(24,119,242,.15);color:#1877F2;border:1px solid rgba(24,119,242,.25);}
+        .hc-pill-tt{background:rgba(0,0,0,.3);color:#E8E8E8;border:1px solid rgba(255,255,255,.15);}
+        .hc-save-btn{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#1A2744;font-weight:700;font-size:.8rem;border:none;border-radius:50px;padding:.58rem 1.3rem;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:.85rem;}
+        .hc-save-btn:hover{transform:scale(1.02);}
+        .hc-hl{background:rgba(255,255,255,.03);border-left:3px solid rgba(255,255,255,.2);border-radius:0 10px 10px 0;padding:.82rem 1rem;margin:.7rem 0;font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.7;}
+        .hc-template{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem;margin-bottom:.75rem;position:relative;}
+        .hc-template-tag{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.5rem;display:block;}
+        .hc-template-text{font-size:.83rem;color:rgba(255,255,255,.75);line-height:1.7;white-space:pre-wrap;}
+        .hc-copy-btn{position:absolute;top:.7rem;right:.7rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.7rem;border-radius:6px;padding:.2rem .6rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+        .hc-copy-btn:hover{background:rgba(255,255,255,.12);color:white;}
+        .hc-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin-bottom:1rem;}
+        .hc-cal-head{font-size:.65rem;font-weight:700;text-align:center;color:rgba(255,255,255,.35);text-transform:uppercase;padding:.3rem 0;}
+        .hc-cal-cell{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:.5rem .3rem;min-height:70px;font-size:.7rem;color:rgba(255,255,255,.5);cursor:pointer;transition:background .2s;}
+        .hc-cal-cell:hover{background:rgba(255,255,255,.06);}
+        .hc-cal-cell.has-post{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.05);}
+        .hc-cal-dot{width:6px;height:6px;border-radius:50%;margin:.2rem auto;display:block;}
+        .hc-timing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1rem;}
+        .hc-timing-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1rem;text-align:center;}
+        .hc-timing-net{font-size:1.2rem;margin-bottom:.35rem;}
+        .hc-timing-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:white;margin-bottom:.2rem;}
+        .hc-timing-lbl{font-size:.7rem;color:rgba(255,255,255,.4);}
+        </style>
+
+        <div class="hc-header">
+          <h2>Hub Com <em>Sociale</em></h2>
+          <p>LinkedIn · Instagram · Facebook · TikTok — Calendrier · Templates · Accroches · Timing · Les 4 offres</p>
+        </div>
+
+        <!-- Timing global -->
+        <div class="hc-card" style="margin-bottom:1.5rem;">
+          <div class="hc-card-title">⏰ Meilleurs créneaux de publication 2025 — Données Sprout Social / Buffer / Metricool</div>
+          <div class="hc-timing-grid">
+            <div class="hc-timing-card">
+              <div class="hc-timing-net">💼</div>
+              <div class="hc-timing-val" style="color:#5BA4E8;">LinkedIn</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin:.3rem 0;font-weight:600;">Mar · Mer · Jeu</div>
+              <div class="hc-timing-lbl">7h–9h et 17h–19h</div>
+              <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.3rem;">Pic : jeudi 10h · Eviter dimanche</div>
+            </div>
+            <div class="hc-timing-card">
+              <div class="hc-timing-net">📸</div>
+              <div class="hc-timing-val" style="color:#E1306C;">Instagram</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin:.3rem 0;font-weight:600;">Lun · Mar · Mer</div>
+              <div class="hc-timing-lbl">11h–13h et 15h–18h</div>
+              <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.3rem;">Pic : lundi 11h · Week-end ok Stories</div>
+            </div>
+            <div class="hc-timing-card">
+              <div class="hc-timing-net">👥</div>
+              <div class="hc-timing-val" style="color:#1877F2;">Facebook</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin:.3rem 0;font-weight:600;">Mer · Jeu · Ven</div>
+              <div class="hc-timing-lbl">9h–13h (matinées)</div>
+              <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.3rem;">Pic : mercredi 9h · Eviter dimanche</div>
+            </div>
+            <div class="hc-timing-card">
+              <div class="hc-timing-net">🎵</div>
+              <div class="hc-timing-val" style="color:#E8E8E8;">TikTok</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.6);margin:.3rem 0;font-weight:600;">Lun–Ven soir + Week-end</div>
+              <div class="hc-timing-lbl">12h–14h et 19h–22h</div>
+              <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.3rem;">Pic : jeudi 19h · Lancer tendance à 6h</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OFFER SELECTOR -->
+        <div class="hc-offer-tabs">
+          <button class="hc-offer-btn bdc active" onclick="hcOffer('bdc',this)">🧭 BDC</button>
+          <button class="hc-offer-btn psp" onclick="hcOffer('psp',this)">🎓 Parcoursup</button>
+          <button class="hc-offer-btn neuro" onclick="hcOffer('neuro',this)">🧠 Neuro-Atypique</button>
+          <button class="hc-offer-btn grand" onclick="hcOffer('grand',this)">⚓ Le Grand +</button>
+        </div>
+
+        <!-- ═══ BDC ═══ -->
+        <div class="hc-offer-panel active" id="hc-bdc">
+          <div class="hc-net-tabs">
+            <button class="hc-net-btn active" onclick="hcNet('bdc','linkedin',this)">💼 LinkedIn</button>
+            <button class="hc-net-btn" onclick="hcNet('bdc','instagram',this)">📸 Instagram</button>
+            <button class="hc-net-btn" onclick="hcNet('bdc','facebook',this)">👥 Facebook</button>
+            <button class="hc-net-btn" onclick="hcNet('bdc','tiktok',this)">🎵 TikTok</button>
+            <button class="hc-net-btn" onclick="hcNet('bdc','calendrier',this)">📅 Calendrier</button>
+          </div>
+
+          <div class="hc-panel active" id="hcn-bdc-linkedin">
+            <div class="hc-card">
+              <div class="hc-card-title">💼 BDC — Stratégie LinkedIn</div>
+              <div class="hc-hl"><strong style="color:#C9A84C;">Audience :</strong> Cadres 30-55 ans en poste · Managers burn-out · RH et DRH · Profils neuro · Reconversions actives<br><strong style="color:#C9A84C;">Fréquence :</strong> 3 posts/semaine · Mar+Jeu 8h · Mer 17h<br><strong style="color:#C9A84C;">Formats performants :</strong> Carrousels (meilleur reach) · Posts texte longs avec breaks · Sondages · Articles</div>
+              <div class="hc-card-title" style="margin-top:1rem;">📝 Banque d'accroches BDC — LinkedIn</div>
+              <div class="hc-template"><span class="hc-template-tag">🔥 Accroche émotion — Burn-out</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Il y a 3 ans, j'ai réalisé que je ne me reconnaissais plus dans mon travail.
+
+Pas de burn-out clinique. Juste... du vide.
+
+Ce sentiment que vous avez peut-être en ce moment : se lever le matin en sachant exactement ce qui va se passer. Et ne plus en vouloir.
+
+Un bilan de compétences ne règle pas tout.
+Mais il répond à une question que vous évitez peut-être :
+
+👉 "Et si je pouvais vraiment choisir ?"
+
+Finançable à 100% par le CPF (reste à charge : 102€).
+Lien en commentaire.</div></div>
+              <div class="hc-template"><span class="hc-template-tag">💡 Accroche éducative — CPF</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Vous avez des droits CPF qui dorment sur votre compte.
+
+Saviez-vous qu'un bilan de compétences coûte 102€ avec le CPF (et pas 1 600€) ?
+
+Voici pourquoi la plupart des actifs ne le font pas :
+→ Ils pensent que c'est réservé aux gens "vraiment en crise"
+→ Ils ne savent pas que ça se fait à 100% en ligne
+→ Ils ont peur de "déranger" leur employeur
+
+La vérité :
+✅ Vous n'avez pas à prévenir votre employeur
+✅ Ça se passe pendant votre temps libre
+✅ Les résultats vous appartiennent
+
+Curieux(se) ? Je réponds en DM.</div></div>
+              <div class="hc-template"><span class="hc-template-tag">🎯 Carrousel — 5 slides</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">SLIDE 1 : "5 signes que vous avez besoin d'un bilan de compétences (maintenant)"
+SLIDE 2 : "Vous avez du mal à expliquer ce que vous voulez vraiment"
+SLIDE 3 : "Vous enviez les collègues qui 'ont trouvé leur voie'"
+SLIDE 4 : "Vous repoussez la décision depuis plus de 6 mois"
+SLIDE 5 : "Vous vous demandez ce que vous feriez si l'argent n'était pas un problème"
+SLIDE 6 : "La bonne nouvelle : il existe un cadre pour répondre à tout ça. →"</div></div>
+              <div class="hc-template"><span class="hc-template-tag">🤝 Témoignage client</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">"Je pensais savoir ce que je voulais. Le bilan m'a montré que j'avais raison — mais pour de mauvaises raisons."
+
+C'est ce que m'a dit [Prénom] à la fin de notre S9.
+
+En 3 mois, elle a :
+✅ Identifié ses 5 valeurs fondamentales
+✅ Découvert un profil DISC qu'elle ne soupçonnait pas
+✅ Décidé de sa reconversion (formation + timing)
+
+Le tout financé à 100% par son CPF.
+
+Si vous voulez en savoir plus → commentaire ou DM.</div></div>
+              <div class="hc-card-title" style="margin-top:1rem;">🔑 Mots-clés hashtags BDC LinkedIn</div>
+              <div><span class="hc-pill hc-pill-li">#BilanDeCompétences</span><span class="hc-pill hc-pill-li">#Reconversion</span><span class="hc-pill hc-pill-li">#CPF</span><span class="hc-pill hc-pill-li">#Coaching</span><span class="hc-pill hc-pill-li">#TransitionPro</span><span class="hc-pill hc-pill-li">#BurnOut</span><span class="hc-pill hc-pill-li">#DISC</span><span class="hc-pill hc-pill-li">#SensAuTravail</span><span class="hc-pill hc-pill-li">#CoachCertifiée</span><span class="hc-pill hc-pill-li">#Qualiopi</span></div>
+            </div>
+            <div class="hc-card">
+              <div class="hc-card-title">✏️ Mes idées de posts LinkedIn BDC</div>
+              <textarea class="hc-ta" id="hc-bdc-li-ideas" placeholder="Post du lundi : Mon histoire avec le vide professionnel...&#10;Jeudi : Carrousel '5 signes...'&#10;Samedi : Témoignage Sophie..." rows="4" onchange="hcSave('bdc_li_ideas',this.value)"></textarea>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hc-panel" id="hcn-bdc-instagram">
+            <div class="hc-card">
+              <div class="hc-card-title">📸 BDC — Stratégie Instagram</div>
+              <div class="hc-hl"><strong style="color:#E1306C;">Audience :</strong> 28-45 ans · Reconversions · Profils créatifs · Femmes cadres · TDAH non diagnostiqués<br><strong style="color:#E1306C;">Fréquence :</strong> 4-5 posts/semaine · Reels 3×/sem · Stories quotidiennes<br><strong style="color:#E1306C;">Formats :</strong> Reels (viral) · Carrousels (sauvegardés) · Stories (lien en bio) · Citations visuelles</div>
+              <div class="hc-card-title" style="margin-top:1rem;">📝 Templates Instagram BDC</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Reel — Hook 3 secondes</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">HOOK (à l'écran) : "POV : Tu réalises que ton job ne te correspond plus"
+
+SCRIPT :
+"Si tu regardes l'heure 47 fois par jour au travail...
+Si tu rêves de dimanche soir le lundi matin...
+Si tu passes ton temps à te demander 'c'est ça, la vie ?'
+
+→ Tu as peut-être besoin d'un bilan de compétences.
+
+Et non, ce n'est pas que pour les gens en crise.
+C'est pour ceux qui veulent choisir, vraiment choisir, leur vie pro.
+
+CPF = 102€ max. Lien en bio."</div></div>
+              <div class="hc-template"><span class="hc-template-tag">📊 Carrousel Instagram — Quote</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">SLIDE 1 : "Le bilan de compétences, c'est pas pour les gens en crise 🧭"
+SLIDE 2 : "C'est pour ceux qui veulent arrêter de subir"
+SLIDE 3 : "9 séances · 3 mois · 102€ avec le CPF"
+SLIDE 4 : "Tu repars avec : tes valeurs · tes talents · ton projet"
+SLIDE 5 : "Lien en bio pour une séance découverte gratuite →"</div></div>
+              <div><span class="hc-pill hc-pill-ig">#reconversionpro</span><span class="hc-pill hc-pill-ig">#bilandecompetences</span><span class="hc-pill hc-pill-ig">#cpf2025</span><span class="hc-pill hc-pill-ig">#coaching</span><span class="hc-pill hc-pill-ig">#transitionprofessionnelle</span><span class="hc-pill hc-pill-ig">#changementdevie</span><span class="hc-pill hc-pill-ig">#burnout</span><span class="hc-pill hc-pill-ig">#coachingpro</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hc-panel" id="hcn-bdc-facebook">
+            <div class="hc-card">
+              <div class="hc-card-title">👥 BDC — Stratégie Facebook</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Audience :</strong> 35-55 ans · Parents actifs · Cadres intermédiaires · Groupes reconversion<br><strong style="color:#1877F2;">Groupes cibles :</strong> "Reconversion professionnelle France" (180k+) · "Burn-out et reconversion" (62k) · "CPF et formation professionnelle" (45k+)<br><strong style="color:#1877F2;">Fréquence :</strong> 3 posts/semaine · Mer-Jeu 9h · Partage dans groupes 2×/semaine</div>
+              <div class="hc-card-title" style="margin-top:1rem;">📝 Templates Facebook BDC</div>
+              <div class="hc-template"><span class="hc-template-tag">👥 Post groupe reconversion</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous 👋
+
+Je vois beaucoup de questions sur le bilan de compétences ici, alors je me permets de partager quelques infos concrètes :
+
+✅ Depuis mai 2024, le CPF finance jusqu'à 1 600€ — reste à charge 102€ (obligatoire)
+✅ Vous n'avez PAS besoin de prévenir votre employeur
+✅ Tout se fait en ligne — aucun déplacement
+
+Je suis coach certifiée Qualiopi et ICI, spécialisée BDC distanciel. J'accompagne des adultes en reconversion depuis [X] ans.
+
+Si vous avez des questions, posez-les en commentaires — je réponds à tout le monde 🙂
+
+(Modération : si ce partage n'est pas approprié ici, faites-le moi savoir !)</div></div>
+              <div><span class="hc-pill hc-pill-fb">#BilanCompétences</span><span class="hc-pill hc-pill-fb">#CPF</span><span class="hc-pill hc-pill-fb">#Reconversion</span><span class="hc-pill hc-pill-fb">#CoachingPro</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hc-panel" id="hcn-bdc-tiktok">
+            <div class="hc-card">
+              <div class="hc-card-title">🎵 BDC — Stratégie TikTok</div>
+              <div class="hc-hl"><strong style="color:#E8E8E8;">Audience :</strong> 25-40 ans · Millenials en questionnement · TDAH non diagnostiqués · "Quiet quitters"<br><strong style="color:#E8E8E8;">Fréquence :</strong> 1 vidéo/jour idéalement · Lun-Ven 19h-21h<br><strong style="color:#E8E8E8;">Formats :</strong> Témoignage face caméra · "POV" · "Ce que personne ne vous dit sur..." · Réponse à commentaire</div>
+              <div class="hc-card-title" style="margin-top:1rem;">📝 Scripts TikTok BDC</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Script TikTok — 45 secondes</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">TEXT ÉCRAN : "Ce que personne ne vous dit sur le bilan de compétences"
+
+SCRIPT :
+"Vous pensez que le bilan de compétences c'est pour les gens qui se font licencier ?
+
+Faux.
+
+C'est pour les gens qui sont encore EN poste et qui réalisent que leur job actuel ne les rend plus heureux.
+
+En 9 séances sur 3 mois, vous découvrez :
+- Vos vraies valeurs (pas celles que vous croyez avoir)
+- Vos talents naturels (souvent différents de votre métier)
+- Et surtout : ce que vous voulez faire vraiment
+
+Et le meilleur ? Ça coûte 102€ avec le CPF.
+
+Commentez 'BILAN' et je vous envoie le lien."
+
+HASHTAGS : #bilandecompetences #reconversion #cpf #coachingpro #travail #carrierechange</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+
+          <div class="hc-panel" id="hcn-bdc-calendrier">
+            <div class="hc-card">
+              <div class="hc-card-title">📅 Calendrier éditorial BDC — Ce mois</div>
+              <div class="hc-hl">Rythme recommandé : <strong>LinkedIn</strong> 3×/sem (Mar/Mer/Jeu) · <strong>Instagram</strong> 4×/sem + Stories · <strong>Facebook</strong> 3×/sem + groupes · <strong>TikTok</strong> 5×/sem soir</div>
+              <table class="hc-table">
+                <thead><tr><th>Semaine</th><th>LinkedIn</th><th>Instagram</th><th>Facebook</th><th>TikTok</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#C9A84C;font-weight:600;">S1</td><td>Post émotion : vide professionnel (Mar 8h)</td><td>Reel : POV burnout (Mer 11h)</td><td>Post groupe reconversion (Mer 9h)</td><td>Script : "Ce que personne ne dit sur le BDC" (Lun 19h)</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">S2</td><td>Carrousel : 5 signes BDC (Jeu 8h)</td><td>Carrousel : CPF mode d'emploi (Lun 11h)</td><td>Article CPF partagé (Jeu 9h)</td><td>Réponse commentaire + FAQ CPF (Mar 20h)</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">S3</td><td>Témoignage client (Mar 8h)</td><td>Story : avant/après BDC (quotidien)</td><td>Live Q&A reconversion (Mer 12h)</td><td>Mon histoire : pourquoi je suis coach (Jeu 19h)</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">S4</td><td>Article LinkedIn long : DISC vs MBTI (Mer 17h)</td><td>Reel : DISC en 60 sec (Ven 15h)</td><td>Post : "Vous avez des CPF qui dorment" (Mar 9h)</td><td>POV : séance de coaching (Lun 21h)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="hc-card">
+              <div class="hc-card-title">✏️ Mon calendrier personnalisé BDC</div>
+              <textarea class="hc-ta" id="hc-bdc-cal" placeholder="Notez vos idées de posts pour ce mois, avec date et réseau..." rows="6" onchange="hcSave('bdc_cal',this.value)"></textarea>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('bdc')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ═══ PSP ═══ -->
+        <div class="hc-offer-panel" id="hc-psp">
+          <div class="hc-net-tabs">
+            <button class="hc-net-btn active" onclick="hcNet('psp','linkedin',this)">💼 LinkedIn</button>
+            <button class="hc-net-btn" onclick="hcNet('psp','instagram',this)">📸 Instagram</button>
+            <button class="hc-net-btn" onclick="hcNet('psp','facebook',this)">👥 Facebook</button>
+            <button class="hc-net-btn" onclick="hcNet('psp','tiktok',this)">🎵 TikTok</button>
+            <button class="hc-net-btn" onclick="hcNet('psp','calendrier',this)">📅 Calendrier</button>
+          </div>
+          <div class="hc-panel active" id="hcn-psp-linkedin">
+            <div class="hc-card">
+              <div class="hc-card-title">💼 PSP — Stratégie LinkedIn</div>
+              <div class="hc-hl"><strong style="color:#00C9A7;">Audience :</strong> Parents cadres 38-55 ans · Professions libérales · DRH avec enfants · Chefs d'entreprise<br><strong style="color:#00C9A7;">Angle :</strong> Parler aux PARENTS, pas aux lycéens · Angle "investissement pour l'avenir de mon enfant"<br><strong style="color:#00C9A7;">Saisonnalité :</strong> Sept–Mars (avant Parcoursup) = peak · Juin (résultats) = témoignages</div>
+              <div class="hc-template"><span class="hc-template-tag">👨‍👩‍👧 Accroche parents LinkedIn</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Mon enfant est en Terminale et ne sait pas quoi faire après le bac.
+
+C'est la phrase que j'entends le plus souvent chez les parents de cadres.
+
+La vérité : Parcoursup n'est pas seulement une plateforme d'inscription. C'est une prise de décision qui peut impacter 5 ans de vie.
+
+En 6 séances de coaching, votre enfant :
+→ Identifie ses vrais talents (test RIASEC + DISC)
+→ Comprend quelles filières lui correspondent vraiment
+→ Rédige une lettre de motivation percutante
+→ Construit une stratégie de vœux cohérente
+
+650€ · 100% en ligne · Résultats garantis avant la deadline PSP
+
+Vous voulez en savoir plus ? Je réponds en DM.</div></div>
+              <div><span class="hc-pill hc-pill-li">#Parcoursup</span><span class="hc-pill hc-pill-li">#Orientation</span><span class="hc-pill hc-pill-li">#Lycéens</span><span class="hc-pill hc-pill-li">#CoachingOrientation</span><span class="hc-pill hc-pill-li">#Parents</span><span class="hc-pill hc-pill-li">#Terminale</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-psp-instagram">
+            <div class="hc-card">
+              <div class="hc-card-title">📸 PSP — Stratégie Instagram</div>
+              <div class="hc-hl"><strong style="color:#E1306C;">Audience principale :</strong> Les LYCÉENS eux-mêmes (16-20 ans) + Parents sur Instagram<br><strong style="color:#E1306C;">Ton :</strong> Jeune, direct, sans condescendance · Humour bienveillant<br><strong style="color:#E1306C;">Formats stars :</strong> Reels fun et informatifs · Stories interactives (sondages, questions) · Quiz orientation</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Reel lycéen Instagram</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">HOOK : "Parcoursup dans X jours et tu sais pas quoi mettre 😰"
+
+SCRIPT :
+"Si tu as ouvert Parcoursup, regardé la liste des formations, et refermé l'onglet parce que c'est l'angoisse totale...
+
+C'est normal. Mais tu n'as pas à faire ça seul(e).
+
+En 6 séances, tu découvres :
+→ Ce que tu aimes VRAIMENT (pas ce que tes parents veulent)
+→ Dans quoi tu es naturellement bon(ne)
+→ Quelles filières te correspondent
+
+Et t'as plus à faire semblant de savoir ce que tu veux.
+
+Lien en bio 🔗"
+
+HASHTAGS : #parcoursup2026 #orientation #lycéen #terminale #aprèslebac</div></div>
+              <div><span class="hc-pill hc-pill-ig">#parcoursup2026</span><span class="hc-pill hc-pill-ig">#orientation</span><span class="hc-pill hc-pill-ig">#apreslebac</span><span class="hc-pill hc-pill-ig">#lyceen</span><span class="hc-pill hc-pill-ig">#terminale2026</span><span class="hc-pill hc-pill-ig">#coachorientation</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-psp-facebook">
+            <div class="hc-card">
+              <div class="hc-card-title">👥 PSP — Stratégie Facebook</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Groupes cibles :</strong> "Parents lycéens Terminale 2026" (50k+) · "Parcoursup 2026 entraide" · "Parents d'ados France"<br><strong style="color:#1877F2;">Angle :</strong> Apporter de la valeur AVANT de vendre · Répondre aux questions · Se positionner comme experte</div>
+              <div class="hc-template"><span class="hc-template-tag">👥 Post groupe parents Facebook</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous les parents de Terminale 👋
+
+Je vois beaucoup d'inquiétudes sur Parcoursup ici, et je voulais partager 3 erreurs fréquentes que j'observe (après avoir accompagné [X] lycéens) :
+
+❌ Erreur 1 : Faire la liste des vœux en fonction des "débouchés" (sans tenir compte des intérêts de l'enfant)
+❌ Erreur 2 : Mettre 10 vœux "au cas où" sans stratégie
+❌ Erreur 3 : Sous-estimer l'importance de la lettre de motivation
+
+La bonne nouvelle : tout ça s'apprend. Et ça se prépare.
+
+Je suis coach orientation certifiée. Si vous avez des questions sur Parcoursup, posez-les en commentaires — je réponds à tout le monde gratuitement 🙂</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-psp-tiktok">
+            <div class="hc-card">
+              <div class="hc-card-title">🎵 PSP — Stratégie TikTok</div>
+              <div class="hc-hl"><strong style="color:#E8E8E8;">Audience :</strong> Lycéens 15-20 ans · La plateforme où ils passent 2h/jour<br><strong style="color:#E8E8E8;">Ton :</strong> Ultra-direct · Humour · "Mon pote coach" · Pas de jargon<br><strong style="color:#E8E8E8;">Peak :</strong> Sept–Nov (rentrée angoisse PSP) · Jan–Mars (deadlines)</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Script TikTok lycéen</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">TEXT ÉCRAN : "Parcoursup dans [X] jours... 🫠"
+
+SCRIPT :
+"Sérieusement, qui a eu la brillante idée de demander à des ados de 17 ans de décider de leur vie entière en janvier ?
+
+Bonne nouvelle : tu n'as pas à décider de ta VIE entière.
+Tu as juste à trouver ce qui t'intéresse MAINTENANT.
+
+Le test RIASEC prend 8 minutes et te donne une vraie direction.
+6 séances de coaching + une lettre de motivation béton.
+
+Parce que 'j'aime les gens et la nature' c'est pas une réponse sur Parcoursup 😅
+
+Commentez 'PSP' si vous voulez le lien du test gratuit."
+
+HASHTAGS : #parcoursup2026 #lyceen #orientationscolaire #terminale #bac2026</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-psp-calendrier">
+            <div class="hc-card">
+              <div class="hc-card-title">📅 Calendrier éditorial PSP — Saisonnier</div>
+              <table class="hc-table">
+                <thead><tr><th>Période</th><th>LinkedIn (Parents)</th><th>Instagram (Lycéens)</th><th>TikTok (Lycéens)</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#00C9A7;">Sept–Oct</td><td>"Votre enfant en Terminale a besoin d'une stratégie PSP"</td><td>Reel : "La rentrée de Terminale c'est maintenant que ça se joue"</td><td>"Ce que tu dois faire MAINTENANT en Terminale"</td></tr>
+                  <tr><td style="color:#00C9A7;">Nov–Déc</td><td>Carrousel : "5 erreurs PSP que font les parents"</td><td>Story sondage : "Tu sais ce que tu veux faire ?" + guide</td><td>"Parcoursup dans 6 semaines : ton plan d'action"</td></tr>
+                  <tr><td style="color:#00C9A7;">Jan–Mars</td><td>Urgence : "Il reste X jours pour Parcoursup"</td><td>Reel : Script lettre de motivation en 3 étapes</td><td>"J'ai aidé [X] lycéens cette année — voici ce qui marche"</td></tr>
+                  <tr><td style="color:#00C9A7;">Juin (résultats)</td><td>Témoignages : Emma, Léa... admise en [filière]</td><td>Before/After : avant coaching → après coaching</td><td>"Mon client a été admis à [école] — voici comment"</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <textarea class="hc-ta" id="hc-psp-cal" placeholder="Mon calendrier PSP personnalisé..." rows="4" onchange="hcSave('psp_cal',this.value)"></textarea>
+            <button class="hc-save-btn" onclick="hcSaveAll('psp')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ═══ NEURO ═══ -->
+        <div class="hc-offer-panel" id="hc-neuro">
+          <div class="hc-net-tabs">
+            <button class="hc-net-btn active" onclick="hcNet('neuro','linkedin',this)">💼 LinkedIn</button>
+            <button class="hc-net-btn" onclick="hcNet('neuro','instagram',this)">📸 Instagram</button>
+            <button class="hc-net-btn" onclick="hcNet('neuro','facebook',this)">👥 Facebook</button>
+            <button class="hc-net-btn" onclick="hcNet('neuro','tiktok',this)">🎵 TikTok</button>
+            <button class="hc-net-btn" onclick="hcNet('neuro','calendrier',this)">📅 Calendrier</button>
+          </div>
+          <div class="hc-panel active" id="hcn-neuro-linkedin">
+            <div class="hc-card">
+              <div class="hc-card-title">💼 Neuro — Stratégie LinkedIn</div>
+              <div class="hc-hl"><strong style="color:#A78BFA;">Angle unique :</strong> Divulgation personnelle de Wanda (TDAH) = différenciateur majeur · Authenticité > perfectionnisme<br><strong style="color:#A78BFA;">Audience :</strong> Profils TDAH en poste · Managers "atypiques" · DRH sensibles au handicap invisible · Psys prescripteurs</div>
+              <div class="hc-template"><span class="hc-template-tag">💜 Post divulgation personnelle</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Je suis coach. Et j'ai le TDAH.
+
+Ce n'est pas quelque chose que je dis souvent. Mais c'est important.
+
+Parce que quand j'accompagne un client TDAH, je ne lis pas un manuel.
+Je me souviens.
+
+Je me souviens des 47 onglets ouverts en même temps.
+Des projets abandonnés à 80%.
+Du sentiment d'être "trop" et "pas assez" en même temps.
+
+Et surtout : je me souviens du jour où j'ai compris que mon cerveau n'était pas cassé.
+Il était juste... différent.
+
+C'est pourquoi j'ai créé le Bilan Talents Neuro-Atypique.
+8 séances de 45 min (format adapté TDAH).
+Pour transformer ce que vous pensez être des défauts en superpowers professionnels.
+
+Finançable CPF. Lien en commentaire.</div></div>
+              <div class="hc-template"><span class="hc-template-tag">⚡ Carrousel : Hyperfocus = superpouvoir</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">SLIDE 1 : "L'hyperfocus TDAH : défaut ou superpouvoir ?"
+SLIDE 2 : "Quand ça devient un problème : perte de temps, isolement, oublis"
+SLIDE 3 : "Quand ça devient un atout : créativité intense, expertise ultra-rapide, solutions innovantes"
+SLIDE 4 : "La clé : identifier VOS zones d'hyperfocus + créer des conditions optimales"
+SLIDE 5 : "C'est exactement ce qu'on fait en séance 2 de mon bilan Neuro-Atypique"
+SLIDE 6 : "8 séances · 45 min · CPF · Lien en bio →"</div></div>
+              <div><span class="hc-pill hc-pill-li">#TDAH</span><span class="hc-pill hc-pill-li">#NeuroAtypique</span><span class="hc-pill hc-pill-li">#TDAHAdulte</span><span class="hc-pill hc-pill-li">#Hyperfocus</span><span class="hc-pill hc-pill-li">#HandicapInvisible</span><span class="hc-pill hc-pill-li">#BipolairePro</span><span class="hc-pill hc-pill-li">#Neurodiversité</span><span class="hc-pill hc-pill-li">#CoachingTDAH</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-neuro-instagram">
+            <div class="hc-card">
+              <div class="hc-card-title">📸 Neuro — Stratégie Instagram</div>
+              <div class="hc-hl"><strong style="color:#E1306C;">Audience :</strong> 20-40 ans TDAH · Non-diagnostiqués qui se reconnaissent · Communauté neuro très active sur Instagram<br><strong style="color:#E1306C;">Hashtags neuro Instagram :</strong> Forte communauté, forte solidarité · Posts "je me reconnais" très partagés</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Reel Neuro — Identification</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">HOOK : "Les cerveaux TDAH au travail (selon les autres vs la réalité)"
+
+SCRIPT :
+"Selon les autres : 'tu manques de rigueur'
+La réalité : tu travailles en mode tout-ou-rien parce que ton cerveau CHERCHE la dopamine
+
+Selon les autres : 'tu es imprévisible'  
+La réalité : tu as des cycles d'énergie que personne ne t'a appris à gérer
+
+Selon les autres : 'tu pourrais faire tant si tu voulais'
+La réalité : tu veux. Mais ton cerveau a besoin d'un cadre différent.
+
+Et si tu arrêtais de te battre contre toi-même ?
+Et si tu construisais un projet pro qui respecte ton neurotype ?
+
+C'est ce qu'on fait ensemble. 8 séances de 45 min. Lien en bio."
+
+HASHTAGS : #tdah #tdahadulte #neurodiversite #neuroatypique #tdahfrance #hyperfocus</div></div>
+              <div><span class="hc-pill hc-pill-ig">#tdah</span><span class="hc-pill hc-pill-ig">#tdahadulte</span><span class="hc-pill hc-pill-ig">#neurodiversite</span><span class="hc-pill hc-pill-ig">#neuroatypique</span><span class="hc-pill hc-pill-ig">#hyperfocus</span><span class="hc-pill hc-pill-ig">#bipolaire</span><span class="hc-pill hc-pill-ig">#hpifranco</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-neuro-facebook">
+            <div class="hc-card">
+              <div class="hc-card-title">👥 Neuro — Stratégie Facebook</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Groupes clés :</strong> "TDAH adultes France" (45k+) · "HPI / TDAH / TSA adultes" · "Bipolaires et entourage" · "Neuroatypiques au travail"<br><strong style="color:#1877F2;">Approche :</strong> Très douce · Apporter de la valeur · Jamais de pub directe dans les groupes</div>
+              <div class="hc-template"><span class="hc-template-tag">👥 Post groupe TDAH Facebook</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous 💜
+
+Une question pour la communauté : est-ce que l'un(e) d'entre vous a déjà fait un bilan de compétences adapté au TDAH ?
+
+Je pose la question parce que je suis en train de développer un accompagnement spécifique pour les profils neuro-atypiques (TDAH, bipolaire) — avec des séances de 45 min (pour respecter nos fenêtres d'attention) et des outils pensés pour nos cerveaux.
+
+Je serais curieuse de savoir ce qui vous a manqué dans les accompagnements classiques.
+
+Pas de lien, pas de pub — juste une vraie question de ma part 🙂</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-neuro-tiktok">
+            <div class="hc-card">
+              <div class="hc-card-title">🎵 Neuro — Stratégie TikTok</div>
+              <div class="hc-hl"><strong style="color:#E8E8E8;">Note :</strong> La communauté TDAH sur TikTok est massive (#tdah = 2Md+ vues) · Contenu authentique > contenu poli · "TDAH Tax" viral<br><strong style="color:#E8E8E8;">Angle :</strong> Témoignage perso de Wanda · Humour bienveillant · "Ce que c'est vraiment de travailler avec un cerveau TDAH"</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Script TikTok TDAH — Viral</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">TEXT ÉCRAN : "POV : coaching avec un cerveau TDAH"
+
+SCRIPT :
+"Séance 1 de mon bilan Neuro-Atypique... 45 minutes.
+
+Pas 1h30 comme un BDC classique. Parce que moi aussi j'ai le TDAH, et je SAIS ce qui se passe à la minute 47.
+
+Les 45 premières : on est dans le flow, on creuse, on découvre des trucs incroyables.
+Minute 47 : le cerveau déconnecte. Et tout ce qu'on a construit s'évapore.
+
+Donc on fait 45 min. Et c'est suffisant pour avancer vraiment.
+
+Si toi aussi tu passes d'hyperfocus intense à cerveau de poisson rouge...
+Tu n'es pas paresseux(se). Tu as juste besoin d'un cadre différent.
+
+#tdah #tdahadulte #coaching #neurodiversite #tdahfrancophone"</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-neuro-calendrier">
+            <div class="hc-card">
+              <div class="hc-card-title">📅 Calendrier éditorial Neuro</div>
+              <table class="hc-table">
+                <thead><tr><th>Semaine</th><th>LinkedIn</th><th>Instagram</th><th>TikTok</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#A78BFA;">S1</td><td>Post divulgation TDAH perso (Mar 8h)</td><td>Reel : TDAH au travail réalité vs perception (Mer 11h)</td><td>"POV coaching cerveau TDAH" (Lun 19h)</td></tr>
+                  <tr><td style="color:#A78BFA;">S2</td><td>Carrousel hyperfocus superpouvoir (Jeu 8h)</td><td>Stories : sondage "Tu te reconnais ?" (quotidien)</td><td>"Ce que le TDAH m'a appris sur ma carrière" (Mar 20h)</td></tr>
+                  <tr><td style="color:#A78BFA;">S3</td><td>Article : "TDAH et reconversion pro" (Mer 17h)</td><td>Post : cycles d'énergie infographie (Lun 11h)</td><td>"TDAH tax au travail" — format humour (Jeu 19h)</td></tr>
+                  <tr><td style="color:#A78BFA;">S4</td><td>Témoignage client neuro (Mar 8h)</td><td>Reel : "Mon profil cognitif expliqué" (Ven 15h)</td><td>"Minute 47 : ce qui se passe dans mon cerveau" (Mer 21h)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <textarea class="hc-ta" id="hc-neuro-cal" placeholder="Mon calendrier Neuro personnalisé..." rows="4" onchange="hcSave('neuro_cal',this.value)"></textarea>
+            <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+        <!-- ═══ GRAND+ ═══ -->
+        <div class="hc-offer-panel" id="hc-grand">
+          <div class="hc-net-tabs">
+            <button class="hc-net-btn active" onclick="hcNet('grand','linkedin',this)">💼 LinkedIn</button>
+            <button class="hc-net-btn" onclick="hcNet('grand','instagram',this)">📸 Instagram</button>
+            <button class="hc-net-btn" onclick="hcNet('grand','facebook',this)">👥 Facebook</button>
+            <button class="hc-net-btn" onclick="hcNet('grand','tiktok',this)">🎵 TikTok</button>
+            <button class="hc-net-btn" onclick="hcNet('grand','calendrier',this)">📅 Calendrier</button>
+          </div>
+          <div class="hc-panel active" id="hcn-grand-linkedin">
+            <div class="hc-card">
+              <div class="hc-card-title">💼 Le Grand + — Stratégie LinkedIn</div>
+              <div class="hc-hl"><strong style="color:#E8B550;">Audience :</strong> Cadres 50-65 ans · DRH · Dirigeants · Professions libérales en fin de carrière<br><strong style="color:#E8B550;">Angle :</strong> Identité post-travail · Transmission · Sens · Héritage · Pas "retraite = fin"<br><strong style="color:#E8B550;">LinkedIn senior :</strong> Audience 55+ sur LinkedIn sous-exploitée par les concurrents — Blue Ocean</div>
+              <div class="hc-template"><span class="hc-template-tag">⚓ Accroche identité post-carrière</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Un DRH m'a dit il y a 6 mois :
+"Je pars en retraite dans 2 ans. Et je ne sais pas qui je suis en dehors de ce job."
+
+30 ans de carrière. Des centaines de personnes managées.
+Une entreprise transformée.
+
+Et pourtant : qui est-il, lui, sans le titre sur sa carte de visite ?
+
+C'est la question que personne n'ose poser.
+Et c'est exactement ce qu'on explore dans Le Grand +.
+
+9 séances pour préparer votre retraite autrement :
+→ Bilan de vie complet
+→ IKIGAI de transmission
+→ Projet post-carrière concret
+
+Parce que votre retraite mérite autant de préparation que votre carrière.
+
+Vous êtes à moins de 5 ans de la retraite ? Je serais ravie d'échanger.</div></div>
+              <div class="hc-template"><span class="hc-template-tag">🌊 Carrousel : IKIGAI de transmission</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">SLIDE 1 : "Vous avez 40 ans d'expérience. Qu'est-ce que vous allez en faire ?"
+SLIDE 2 : "Ce n'est pas une question de retraite. C'est une question de transmission."
+SLIDE 3 : "IKIGAI de transmission : ce que vous aimez + ce dont le monde a besoin"
+SLIDE 4 : "Mentoring · Bénévolat · Création · Écriture · Transmission famille"
+SLIDE 5 : "C'est votre héritage. Il mérite d'être pensé."
+SLIDE 6 : "Le Grand + — 9 séances · Lien en commentaire →"</div></div>
+              <div><span class="hc-pill hc-pill-li">#Retraite</span><span class="hc-pill hc-pill-li">#Transmission</span><span class="hc-pill hc-pill-li">#SeniorActif</span><span class="hc-pill hc-pill-li">#FinDeCarrière</span><span class="hc-pill hc-pill-li">#IKIGAI</span><span class="hc-pill hc-pill-li">#BilanDeVie</span><span class="hc-pill hc-pill-li">#ProjetDeVie</span><span class="hc-pill hc-pill-li">#LeadershipSenior</span></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-grand-instagram">
+            <div class="hc-card">
+              <div class="hc-card-title">📸 Le Grand + — Stratégie Instagram</div>
+              <div class="hc-hl"><strong style="color:#E1306C;">Audience :</strong> 50-65 ans connectés · Conjoints prescripteurs (55-60 ans très présents sur Instagram)<br><strong style="color:#E1306C;">Esthétique :</strong> Élégante · Dorée · Photographique · Pas de codes jeunes<br><strong style="color:#E1306C;">Formats :</strong> Citations inspirantes · Carrousels bilan de vie · Reels courts et posés · Témoignages</div>
+              <div class="hc-template"><span class="hc-template-tag">✨ Post citation Le Grand +</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">VISUEL : Photo nature apaisante + texte doré
+
+"La retraite n'est pas la fin du voyage.
+C'est le début du plus beau chapitre —
+si vous prenez le temps de l'écrire."
+
+— Wanda Laurent
+
+Vous préparez votre retraite ? Quelle est votre plus grande crainte ou votre plus grand espoir ? Racontez-moi en commentaire 💛
+
+#retraite #retraiteactive #transmissiondevie #seniorsactifs #bilandevie #projetdevie</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-grand-facebook">
+            <div class="hc-card">
+              <div class="hc-card-title">👥 Le Grand + — Stratégie Facebook</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Audience :</strong> 55-70 ans — Facebook reste leur réseau principal<br><strong style="color:#1877F2;">Groupes :</strong> "Retraite active et épanouie" · "Seniors connectés" · "Préparation retraite France" · "Boomers en transition"<br><strong style="color:#1877F2;">Ton :</strong> Chaleureux · Rassurant · Valorisant · Pas condescendant</div>
+              <div class="hc-template"><span class="hc-template-tag">👥 Post Facebook seniors</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous 👋
+
+Une question sincère : est-ce que vous vous souvenez du premier jour où vous vous êtes dit "ma retraite approche" ?
+
+Pour beaucoup de personnes que j'accompagne, c'est un mélange de soulagement et de... quelque chose de plus difficile à nommer. Une petite voix qui demande : "Et maintenant, je suis qui ?"
+
+C'est complètement normal. Et c'est exactement pour ça que j'ai créé Le Grand +.
+
+Ce n'est pas un coaching "anti-vieillissement". C'est un accompagnement pour construire votre projet de vie post-carrière — avec tout ce que vous avez appris, vécu et transmis.
+
+Si vous êtes à moins de 5 ans de la retraite et que ce message vous parle, je serais heureuse d'en discuter avec vous 💛</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-grand-tiktok">
+            <div class="hc-card">
+              <div class="hc-card-title">🎵 Le Grand + — Stratégie TikTok</div>
+              <div class="hc-hl"><strong style="color:#E8E8E8;">Surprise :</strong> Les 50-65 ans sont de plus en plus présents sur TikTok ("GrandpasTok") · Format inattendu pour ce public = fort impact<br><strong style="color:#E8E8E8;">Angle :</strong> Surprise · "Un coach de retraite sur TikTok ?" · Authenticité · Témoignages touchants</div>
+              <div class="hc-template"><span class="hc-template-tag">🎬 Script TikTok Le Grand +</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">TEXT ÉCRAN : "Ce que personne ne vous dit sur la retraite"
+
+SCRIPT :
+"On vous prépare à la retraite administrative.
+Les papiers, la CARSAT, la mutuelle.
+
+Personne ne vous prépare à la question du lundi matin.
+
+Vous savez, ce lundi où vous vous réveillez et où il n'y a... rien.
+Pas de réunion. Pas d'urgence. Pas de raison de vous lever.
+
+Ce n'est pas un problème de vieillissement.
+C'est un problème d'identité.
+
+Et c'est exactement ce qu'on travaille dans Le Grand +.
+Parce que votre retraite mérite autant de préparation que votre dernière promotion.
+
+#retraite #seniorsconnectes #retraiteactive #projetdevie #ikigai"</div></div>
+            </div>
+            <button class="hc-save-btn" onclick="hcSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+          <div class="hc-panel" id="hcn-grand-calendrier">
+            <div class="hc-card">
+              <div class="hc-card-title">📅 Calendrier éditorial Le Grand +</div>
+              <table class="hc-table">
+                <thead><tr><th>Semaine</th><th>LinkedIn</th><th>Instagram</th><th>Facebook</th></tr></thead>
+                <tbody>
+                  <tr><td style="color:#E8B550;">S1</td><td>Post identité post-travail (Mar 8h)</td><td>Citation inspirante dorée (Lun 11h)</td><td>Post "premier jour sans réunion" (Mer 9h)</td></tr>
+                  <tr><td style="color:#E8B550;">S2</td><td>Carrousel IKIGAI de transmission (Jeu 8h)</td><td>Reel bilan de vie en 3 questions (Mer 11h)</td><td>Témoignage senior accompagné (Jeu 9h)</td></tr>
+                  <tr><td style="color:#E8B550;">S3</td><td>Article : "Qui êtes-vous sans votre titre ?" (Mer 17h)</td><td>Before/After projet post-retraite (Lun 11h)</td><td>Live Q&A : "Vos questions sur la retraite" (Mer 12h)</td></tr>
+                  <tr><td style="color:#E8B550;">S4</td><td>Post DRH : "Offrez Le Grand + à vos seniors" (Mar 8h)</td><td>Story : "Qu'est-ce que vous voulez transmettre ?" (quotidien)</td><td>Post groupes seniors : "Et vous, vous avez préparé votre retraite ?" (Mar 9h)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <textarea class="hc-ta" id="hc-grand-cal" placeholder="Mon calendrier Le Grand + personnalisé..." rows="4" onchange="hcSave('grand_cal',this.value)"></textarea>
+            <button class="hc-save-btn" onclick="hcSaveAll('grand')">💾 Sauvegarder</button>
+          </div>
+        </div>
+
+      </div>
 
     </main>
   </div>

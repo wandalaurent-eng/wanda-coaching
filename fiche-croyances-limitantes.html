@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Croyances limitantes & bénéfiques — Wanda Laurent Coaching</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --navy: #1A2744;
+    --teal: #2A7F7F;
+    --gold: #C8A84B;
+    --cream: #F5F0E8;
+    --coral-bg: #FAECE7;
+    --coral-border: #F0997B;
+    --coral-text: #993C1D;
+    --green-bg: #E1F5EE;
+    --green-border: #5DCAA5;
+    --green-text: #085041;
+    --gray-text: #5F5E5A;
+    --border: #DDD8CF;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--cream);
+    color: #2D2D2D;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--navy);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .site-header .brand { color: #fff; font-size: 15px; font-weight: bold; }
+  .site-header .sub { color: var(--gold); font-size: 12px; margin-top: 2px; }
+  .back-link { color: var(--gold); font-size: 13px; text-decoration: none; border: 1px solid var(--gold); padding: 5px 12px; border-radius: var(--radius-sm); }
+  .back-link:hover { background: var(--gold); color: var(--navy); }
+
+  /* MAIN */
+  .main { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .tool-title { font-size: 22px; font-weight: bold; color: var(--navy); margin-bottom: 6px; }
+  .tool-sub { font-size: 14px; color: var(--gray-text); margin-bottom: 24px; line-height: 1.5; }
+
+  /* PROGRESS */
+  .pbar { display: flex; align-items: center; gap: 5px; margin-bottom: 24px; flex-wrap: wrap; }
+  .sdot {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: bold; color: var(--gray-text);
+    cursor: pointer; background: #fff; transition: all .15s; flex-shrink: 0;
+  }
+  .sdot.active { background: var(--green-bg); border-color: #1D9E75; color: var(--green-text); }
+  .sdot.done { background: #1D9E75; border-color: #1D9E75; color: #fff; }
+  .scon { flex: 1; height: 1px; background: var(--border); min-width: 8px; }
+
+  /* CARD */
+  .scard {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .shead { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .snum {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--green-bg); color: var(--green-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: bold; flex-shrink: 0;
+  }
+  .stitle { font-size: 16px; font-weight: bold; color: var(--navy); }
+  .sdesc { font-size: 13px; color: var(--gray-text); line-height: 1.65; margin-bottom: 12px; }
+  .slbl { font-size: 11px; font-weight: bold; color: var(--gray-text); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  textarea {
+    width: 100%; min-height: 70px; font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 12px; resize: vertical; line-height: 1.5; color: #2D2D2D;
+    background: var(--cream);
+  }
+  textarea:focus { outline: none; border-color: var(--teal); background: #fff; }
+  .hints { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .hint {
+    font-size: 12px; padding: 4px 10px;
+    border-radius: 20px; background: #F5F0E8;
+    border: 1px solid var(--border); color: var(--gray-text);
+    cursor: pointer; transition: background .1s;
+  }
+  .hint:hover { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
+
+  /* NAV */
+  .navrow { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+  .sp { flex: 1; }
+  button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px; font-weight: bold; padding: 9px 18px;
+    border-radius: var(--radius-sm); cursor: pointer;
+    border: 1.5px solid var(--navy); color: var(--navy); background: #fff;
+    transition: all .15s;
+  }
+  button:hover { background: var(--navy); color: #fff; }
+  button.primary { background: var(--navy); color: #fff; }
+  button.primary:hover { background: #0f1a33; }
+  button.teal-btn { border-color: var(--teal); color: var(--teal); }
+  button.teal-btn:hover { background: var(--teal); color: #fff; }
+  button.gold-btn { border-color: var(--gold); color: #7a6020; }
+  button.gold-btn:hover { background: var(--gold); color: var(--navy); }
+
+  /* SUMMARY */
+  .sumcard {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 22px; margin-bottom: 16px;
+  }
+  .sumrow { display: grid; grid-template-columns: 1fr 30px 1fr; gap: 10px; align-items: start; margin-bottom: 16px; }
+  .sbox { border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; line-height: 1.55; }
+  .sl { background: var(--coral-bg); color: var(--coral-text); border: 1px solid var(--coral-border); }
+  .sb { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+  .sarr { display: flex; align-items: center; justify-content: center; padding-top: 10px; color: var(--gray-text); font-size: 18px; }
+  .tagb { display: inline-block; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 20px; background: var(--green-bg); color: var(--green-text); margin-bottom: 5px; }
+  .sitem { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .sitem:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sitemlbl { font-size: 11px; font-weight: bold; color: var(--gray-text); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+  .sitemval { font-size: 13px; color: #2D2D2D; line-height: 1.55; }
+
+  /* SUCCESS */
+  .success-banner {
+    background: var(--green-bg); border: 1px solid var(--green-border);
+    border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px;
+    font-size: 13px; color: var(--green-text); line-height: 1.5;
+  }
+  .success-banner strong { font-weight: bold; }
+
+  /* FOOTER */
+  .site-footer {
+    background: var(--navy); color: #aab4c8; font-size: 12px;
+    text-align: center; padding: 16px 20px;
+    position: fixed; bottom: 0; left: 0; right: 0;
+  }
+  .site-footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 500px) {
+    .sumrow { grid-template-columns: 1fr; }
+    .sarr { transform: rotate(90deg); }
+    .navrow { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="brand">Wanda Laurent Coaching</div>
+    <div class="sub">Passerelle des Talents</div>
+  </div>
+  <a href="/" class="back-link">← Retour</a>
+</header>
+
+<main class="main">
+  <h1 class="tool-title">Transformer une croyance limitante</h1>
+  <p class="tool-sub">Un parcours guidé en 7 étapes pour identifier, questionner et remplacer une croyance limitante par une croyance bénéfique. Complète chaque étape à ton rythme, puis exporte ton bilan.</p>
+
+  <div class="pbar" id="pbar"></div>
+  <div id="scont"></div>
+  <div class="navrow" id="navrow">
+    <button id="btnp" onclick="prev()" style="display:none">← Précédent</button>
+    <div class="sp"></div>
+    <button class="primary" id="btnn" onclick="next()">Étape suivante →</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  Wanda Laurent Coaching | Passerelle des Talents &nbsp;|&nbsp;
+  <a href="mailto:wanda.laurent@gmail.com">wanda.laurent@gmail.com</a> &nbsp;|&nbsp;
+  <a href="https://www.wandalaurentcoaching.com" target="_blank">www.wandalaurentcoaching.com</a>
+</footer>
+
+<script>
+const steps = [
+  {
+    ico: '🔍', title: 'Identifier et nommer',
+    desc: "Formuler clairement la croyance sans jugement. La simple mise en mots crée déjà une prise de distance et permet de l'observer plutôt que de la subir.",
+    lbl: 'Quelle est la croyance limitante à transformer ?',
+    ph: 'Ex. : « Je ne suis pas légitime pour évoluer professionnellement. »',
+    hints: ['Je ne suis pas capable de changer.', 'Je dois tout réussir pour avoir de la valeur.', 'Je ne mérite pas de réussir.', 'Les autres y arrivent mieux que moi.']
+  },
+  {
+    ico: '❓', title: 'Questionner la croyance',
+    desc: "Explorer son origine (d'où vient-elle, depuis quand ?), sa véracité (est-ce vrai dans 100% des cas ?) et son utilité (à quoi sert-elle encore aujourd'hui ?).",
+    lbl: 'Que découvres-tu en la questionnant ?',
+    ph: "Ex. : Elle vient de mes parents. Elle n'est pas toujours vraie — j'ai déjà réussi des projets difficiles.",
+    hints: ["Elle remonte à mon enfance / mes études.", "Elle n'est pas vraie dans tous les contextes.", "Elle me protège d'une prise de risque.", "Elle a été renforcée par un échec passé."]
+  },
+  {
+    ico: '🔎', title: 'Chercher les contre-exemples',
+    desc: "Trouver des moments, même petits, où la croyance s'est révélée fausse. Un seul contre-exemple suffit à fissurer la certitude et à ouvrir un espace de doute bénéfique.",
+    lbl: "Quand cette croyance ne s'est-elle pas vérifiée ?",
+    ph: "Ex. : J'ai réussi à changer d'emploi à 40 ans. J'ai appris à coder seul·e en 6 mois.",
+    hints: ["J'ai surmonté une situation difficile.", "J'ai appris quelque chose de nouveau récemment.", "Quelqu'un m'a reconnu pour mes compétences.", "J'ai réussi un projet malgré mes doutes."]
+  },
+  {
+    ico: '📊', title: "Mesurer l'impact",
+    desc: "Prendre conscience de ce que la croyance coûte concrètement : énergie, opportunités manquées, estime de soi. Rendre le coût visible renforce la motivation à changer.",
+    lbl: 'Que te coûte cette croyance au quotidien ?',
+    ph: "Ex. : Je ne postule pas à des offres qui m'intéressent. Je minimise mes réussites face aux autres.",
+    hints: ["Des opportunités professionnelles manquées.", "De l'énergie et de la confiance perdues.", "Des relations appauvries.", "Une image de moi diminuée."]
+  },
+  {
+    ico: '✏️', title: 'Formuler la croyance alternative',
+    desc: "Co-construire une nouvelle formulation à la première personne, au présent, positive et crédible. Elle ne doit pas être trop ambitieuse : elle doit être crue, pas juste souhaitée.",
+    lbl: 'Quelle est ta nouvelle croyance bénéfique ?',
+    ph: 'Ex. : « Je possède des compétences réelles et je suis en mesure de les développer encore. »',
+    hints: ["J'ai le droit de prendre de la place.", "Mes expériences passées sont des ressources.", "Je peux apprendre et évoluer à mon rythme.", "Mon fonctionnement est une force à valoriser."]
+  },
+  {
+    ico: '⚓', title: 'Ancrer la nouvelle croyance',
+    desc: "Trouver des preuves existantes qui soutiennent cette croyance. Créer des rituels, des affirmations ou des micro-actions qui la renforcent dans le quotidien.",
+    lbl: 'Quelles preuves et quels rituels pour ancrer cette croyance ?',
+    ph: 'Ex. : Relire mes retours positifs chaque matin. Tenir un journal de mes réussites hebdomadaires.',
+    hints: ["Tenir un carnet de réussites.", "Relire des retours positifs reçus.", "Une affirmation quotidienne au réveil.", "Partager mes avancées à une personne de confiance."]
+  },
+  {
+    ico: '🚀', title: 'Expérimenter en sécurité',
+    desc: "Se fixer un petit défi concret avant la prochaine séance pour mettre la nouvelle croyance à l'épreuve du réel, sans pression de résultat. L'expérimentation ancre mieux que la réflexion seule.",
+    lbl: 'Quel défi vas-tu relever cette semaine ?',
+    ph: "Ex. : Postuler à une offre qui m'attire même si je ne coche pas 100% des critères.",
+    hints: ["Exprimer mon avis en réunion.", "Postuler à une offre ambitieuse.", "Partager une réussite sur LinkedIn.", "Dire non à une demande non prioritaire."]
+  }
+];
+
+let cur = 0;
+const ans = new Array(steps.length).fill('');
+
+function renderPbar() {
+  const b = document.getElementById('pbar');
+  b.innerHTML = '';
+  steps.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'sdot' + (i === cur ? ' active' : '') + (ans[i] && i !== cur ? ' done' : '');
+    d.textContent = ans[i] && i !== cur ? '✓' : (i + 1);
+    d.title = s.title;
+    d.onclick = () => { save(); cur = i; render(); };
+    b.appendChild(d);
+    if (i < steps.length - 1) {
+      const c = document.createElement('div');
+      c.className = 'scon';
+      b.appendChild(c);
+    }
+  });
+}
+
+function renderStep() {
+  const s = steps[cur];
+  document.getElementById('scont').innerHTML = `
+    <div class="scard">
+      <div class="shead">
+        <div class="snum">${s.ico}</div>
+        <div class="stitle">${cur + 1}. ${s.title}</div>
+      </div>
+      <div class="sdesc">${s.desc}</div>
+      <div class="slbl">${s.lbl}</div>
+      <textarea id="sa" placeholder="${s.ph}">${ans[cur]}</textarea>
+      <div class="hints">${s.hints.map(h => `<span class="hint" onclick="hint(this)">${h}</span>`).join('')}</div>
+    </div>`;
+  document.getElementById('btnp').style.display = cur === 0 ? 'none' : 'inline-block';
+  document.getElementById('btnn').textContent = cur === steps.length - 1 ? 'Voir mon bilan ✓' : 'Étape suivante →';
+  document.getElementById('navrow').style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderSummary() {
+  const labels = ["Ce que cette croyance m'a coûté", "Mes contre-exemples clés", "Mon ancrage quotidien", "Mon défi concret cette semaine"];
+  const idxs = [3, 2, 5, 6];
+  const items = idxs.map((idx, i) => `
+    <div class="sitem">
+      <div class="sitemlbl">${labels[i]}</div>
+      <div class="sitemval">${ans[idx] || '—'}</div>
+    </div>`).join('');
+  document.getElementById('scont').innerHTML = `
+    <div class="success-banner">
+      <strong>Bravo !</strong> Tu as complété les 7 étapes de ton parcours de transformation. Voici ton bilan synthétique.
+    </div>
+    <div class="sumcard">
+      <div class="sumrow">
+        <div class="sbox sl">« ${ans[0] || '—'} »</div>
+        <div class="sarr">→</div>
+        <div class="sbox sb"><span class="tagb">Nouvelle croyance</span><br>« ${ans[4] || '—'} »</div>
+      </div>
+      ${items}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:80px">
+      <button class="teal-btn" onclick="exportPDF()">⬇ Exporter mon bilan PDF</button>
+      <button onclick="resetAll()">Recommencer</button>
+    </div>`;
+  document.getElementById('navrow').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function render() { renderPbar(); cur < steps.length ? renderStep() : renderSummary(); }
+function save() { if (cur < steps.length) { const el = document.getElementById('sa'); if (el) ans[cur] = el.value.trim(); } }
+function next() { if (cur >= steps.length) { ans.fill(''); cur = 0; render(); return; } save(); cur++; render(); }
+function prev() { save(); if (cur > 0) { cur--; render(); } }
+function hint(el) { const t = document.getElementById('sa'); if (t) { t.value = t.value ? t.value + ' ' + el.textContent : el.textContent; t.focus(); } }
+function resetAll() { ans.fill(''); cur = 0; render(); }
+
+function hexRGB(h) {
+  h = h.replace('#', '');
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, margin = 18, cw = W - margin * 2;
+  let y = margin;
+
+  // En-tête
+  doc.setFillColor(...hexRGB('#1A2744'));
+  doc.rect(0, 0, W, 30, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(255, 255, 255);
+  doc.text('Bilan de transformation — Croyance limitante', margin, 13);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(...hexRGB('#C8A84B'));
+  doc.text('Wanda Laurent Coaching | Passerelle des Talents', margin, 22);
+  y = 38;
+
+  function section(label, value, bgHex, textHex) {
+    if (y > 262) { doc.addPage(); y = margin; }
+    doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexRGB('#5F5E5A'));
+    doc.text(label.toUpperCase(), margin, y); y += 5;
+    const lines = doc.splitTextToSize(value || '—', cw - 8);
+    const h = lines.length * 5.5 + 8;
+    doc.setFillColor(...hexRGB(bgHex));
+    doc.roundedRect(margin, y, cw, h, 2, 2, 'F');
+    doc.setFillColor(...hexRGB(bgHex.replace('EE', 'D4').replace('F5', 'CB')));
+    doc.roundedRect(margin, y, cw, h, 2, 2, 'S');
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+    doc.setTextColor(...hexRGB(textHex));
+    lines.forEach((l, i) => doc.text(l, margin + 4, y + 6 + i * 5.5));
+    y += h + 7;
+  }
+
+  section('Croyance limitante identifiée', `« ${ans[0] || '—'} »`, '#FAECE7', '#993C1D');
+  section('Remise en question', ans[1] || '—', '#F5F0E8', '#5F5E5A');
+  section('Contre-exemples trouvés', ans[2] || '—', '#F5F0E8', '#5F5E5A');
+  section('Ce que cette croyance me coûte', ans[3] || '—', '#FAECE7', '#993C1D');
+
+  if (y > 235) { doc.addPage(); y = margin; }
+  doc.setFontSize(8); doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...hexRGB('#5F5E5A'));
+  doc.text('MA NOUVELLE CROYANCE BÉNÉFIQUE', margin, y); y += 5;
+  const bl = doc.splitTextToSize(`« ${ans[4] || '—'} »`, cw - 8);
+  const bh = bl.length * 5.5 + 10;
+  doc.setFillColor(...hexRGB('#1A2744'));
+  doc.roundedRect(margin, y, cw, bh, 2, 2, 'F');
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+  doc.setTextColor(255, 255, 255);
+  bl.forEach((l, i) => doc.text(l, margin + 4, y + 8 + i * 5.5));
+  y += bh + 7;
+
+  section('Mon ancrage quotidien', ans[5] || '—', '#E1F5EE', '#085041');
+  section('Mon défi concret cette semaine', ans[6] || '—', '#E1F5EE', '#085041');
+
+  const today = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...hexRGB('#888780'));
+  doc.text(`Document généré le ${today}`, margin, 287);
+  doc.text('wanda.laurent@gmail.com | www.wandalaurentcoaching.com', W - margin, 287, { align: 'right' });
+
+  doc.save('bilan-croyance-limitante.pdf');
+}
+
+render();
+</script>
+</body>
+</html>

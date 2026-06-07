@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memoires - Projet de vie</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0d0a;--surface:#1a1712;--card:#221e18;--border:rgba(200,165,90,0.15);--gold:#c8a55a;--cream:#f0e8d5;--muted:rgba(240,232,213,0.4);--dim:rgba(240,232,213,0.6);--rust:#b85a30;--c-wife:#c878b0;--c-child:#5aaa78;--c-spouse:#7898c8;--c-sibling:#c8784a;--c-friend:#a878c8}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden}
+.vw{display:none}.vw.on{display:block}
+.btn{background:none;border:1px solid rgba(200,165,90,0.3);color:var(--dim);font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;padding:6px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.btn:hover{color:var(--cream);border-color:var(--gold)}
+.tag{font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);opacity:.75;margin-bottom:14px;display:block}
+.serif{font-family:'Playfair Display',serif}
+.navrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.ptab{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;padding:5px 12px;border-radius:4px;cursor:pointer;transition:all .2s}
+.ptab.on,.ptab:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.pp{display:none}.pp.on{display:block}
+.qrow{display:flex;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:6px;transition:border-color .2s}
+.qrow:hover{border-color:rgba(200,165,90,0.3)}
+.qnum{font-family:'Playfair Display',serif;font-size:12px;color:var(--gold);opacity:.45;flex-shrink:0;width:16px;text-align:right;padding-top:2px}
+.qtxt{font-size:14px;line-height:1.65;color:var(--dim)}
+.thm{margin-bottom:22px}
+.thd{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tlbl{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.65}
+.trl{flex:1;height:1px;background:var(--border)}
+.dnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.dbtn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;padding:5px 10px;border-radius:4px;cursor:pointer;transition:all .2s}
+.dbtn.on,.dbtn:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.dp{display:none}.dp.on{display:block}
+.dhd{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.dyear{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--gold);opacity:.45;line-height:1;flex-shrink:0}
+.dage{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:3px}
+.dtitle{font-family:'Playfair Display',serif;font-size:16px;color:var(--cream);margin-bottom:4px}
+.dctx{font-size:12px;color:var(--muted);font-style:italic;line-height:1.5}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 18px;cursor:pointer;text-align:left;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+.pcard:hover{transform:translateY(-2px)}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s}
+.pcard:hover::before{opacity:1}
+.cd::before{background:var(--gold)}.cd:hover{border-color:rgba(200,165,90,.4)}
+.cf::before{background:var(--rust)}.cf:hover{border-color:rgba(184,90,48,.4)}
+.cico{font-size:22px;margin-bottom:10px;display:block}
+.crole{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.cname{font-family:'Playfair Display',serif;font-size:16px;margin-bottom:7px;color:var(--cream);line-height:1.2}
+.cdesc{font-size:12px;color:var(--muted);line-height:1.5}
+.pgrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:20px 0}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;position:relative;overflow:hidden;transition:transform .2s}
+.pc:hover{transform:translateY(-2px)}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s}
+.pc:hover::after{opacity:1}
+.pcico{font-size:18px;margin-bottom:8px;display:block}
+.pcname{font-family:'Playfair Display',serif;font-size:14px;margin-bottom:4px}
+.pcdesc{font-size:12px;color:var(--muted);line-height:1.45}
+.pyear{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--gold);opacity:.5;line-height:1;margin-bottom:3px}
+.ptitle{font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--cream);margin-bottom:5px}
+.pctx{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:16px}
+.tipbox{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:18px;font-size:13px;color:var(--dim);line-height:1.6}
+.tipbox b{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+</style>
+</head>
+<body>
+
+<div id="v0" class="vw on" style="max-width:720px;margin:0 auto;padding:3rem 1.5rem">
+  <span class="tag">Memoires de Nicolas - 1948 - 2026</span>
+  <h1 class="serif" style="font-size:clamp(2rem,5vw,3rem);font-weight:400;line-height:1.15;margin-bottom:.8rem">Les memoires de <em style="font-style:italic;color:var(--gold)">Nicolas</em></h1>
+  <p style="font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:2rem">Bienvenue, Nicolas. Choisissez votre entree.</p>
+  <div class="pgrid">
+    <div class="pcard cd" id="btn0">
+      <span class="cico">&#9997;&#65039;</span>
+      <div class="crole">Entree fille</div>
+      <div class="cname">J'interroge Nicolas</div>
+      <div class="cdesc">Questions sur sa vie, de l'enfance a aujourd'hui.</div>
+    </div>
+    <div class="pcard cf" id="btn1">
+      <span class="cico">&#127908;</span>
+      <div class="crole">Entree pere</div>
+      <div class="cname">Nicolas interroge ses temoins</div>
+      <div class="cdesc">Guide par profil — femme, enfants, conjoints, famille, amis.</div>
+    </div>
+  </div>
+  <div style="margin-top:14px">
+    <div class="pcard" id="btn4" style="border-color:rgba(232,160,48,0.35)">
+      <span class="cico">&#10084;&#65039;</span>
+      <div class="crole" style="color:#e8a030">Entretien special</div>
+      <div class="cname" style="color:#e8c878">Nicolas et ses filles</div>
+      <div class="cdesc">Un guide individuel pour chacune des 5 filles &mdash; ce qu&#39;il a vecu en vous regardant grandir, ce que vous vous transmettez.</div>
+    </div>
+  </div>
+</div>
+
+<div id="v4" class="vw" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem">
+  <div class="navrow">
+    <button class="btn" id="bk4">&#8592; Retour</button>
+    <span style="font-size:13px;color:#e8a030;font-style:italic">&#10084;&#65039; Nicolas et ses filles &mdash; entretien individuel</span>
+  </div>
+  <!-- Sélecteur de fille -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem">Choisissez la fille qui mene cet entretien</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem" id="filleTabs">
+      <button class="ptab on" onclick="switchFille(0,this)">Wanda</button>
+      <button class="ptab" onclick="switchFille(1,this)">Raphae&#776;lle</button>
+      <button class="ptab" onclick="switchFille(2,this)">E&#769;le&#769;onore</button>
+      <button class="ptab" onclick="switchFille(3,this)">Anai&#776;s</button>
+      <button class="ptab" onclick="switchFille(4,this)">Marie</button>
+    </div>
+    <div style="background:rgba(232,160,48,0.08);border-left:2px solid #e8a030;border-radius:0 6px 6px 0;padding:.7rem 1rem;margin-bottom:1.2rem">
+      <div style="font-size:.8rem;color:var(--muted);font-style:italic">Chaque fille conduit son propre entretien avec son pere &mdash; seule, a son rythme. Les questions sont les memes, mais chaque conversation sera unique.</div>
+    </div>
+  </div>
+
+  <!-- Tabs periodes -->
+  <div class="tabs" id="fdTabs"></div>
+  <div id="fdPanels"></div>
+</div>
+
+<div id="v5" class="vw" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem">
+  <div class="navrow">
+    <button class="btn" id="bk5">&#8592; Retour</button>
+    <span style="font-size:13px;color:#c8a55a;font-style:italic">&#128218; Guide du projet</span>
+  </div>
+
+  <!-- INTRO -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">Bienvenue</div>
+    <div style="font-family:Georgia,serif;font-size:1.2rem;color:var(--cream);margin-bottom:.5rem">Bienvenue, Nicolas</div>
+    <div style="font-size:.88rem;color:var(--muted);line-height:1.7">Ce document explique comment nous allons travailler ensemble pour reconstituer votre vie, vos epoques, vos souvenirs. Vous n&#39;avez rien de technique a faire, Nicolas &mdash; juste parler.</div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">1. L&#39;application</div>
+    <div style="font-size:.88rem;color:var(--dim);line-height:1.7;margin-bottom:.8rem">Cette application a ete creee specialement pour ce projet. Elle contient trois sections&nbsp;:</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:.8rem">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;gap:.8rem;align-items:flex-start">
+        <span style="font-size:1.1rem;flex-shrink:0">&#9997;&#65039;</span>
+        <div><div style="font-size:.82rem;font-weight:600;color:var(--cream);margin-bottom:.2rem">Votre fille vous interroge</div><div style="font-size:.8rem;color:var(--muted)">Questions par decennie, de l&#39;enfance a aujourd&#39;hui.</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;gap:.8rem;align-items:flex-start">
+        <span style="font-size:1.1rem;flex-shrink:0">&#127908;</span>
+        <div><div style="font-size:.82rem;font-weight:600;color:var(--cream);margin-bottom:.2rem">Vous interrogez vos temoins</div><div style="font-size:.8rem;color:var(--muted)">Guide adapte pour chaque profil : E&#769;lisabeth, enfants, conjoints, freres et soeurs, amis, 12 petits-enfants.</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;gap:.8rem;align-items:flex-start">
+        <span style="font-size:1.1rem;flex-shrink:0">&#10084;&#65039;</span>
+        <div><div style="font-size:.82rem;font-weight:600;color:var(--cream);margin-bottom:.2rem">Nicolas et ses filles</div><div style="font-size:.8rem;color:var(--muted)">Un entretien individuel pour chacune des 5 filles &mdash; votre lien avec chacune d&#39;elle.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">2. Comment se deroulent les entretiens</div>
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--cream);margin-bottom:.35rem">&#127908; Materiel</div>
+        <div style="font-size:.83rem;color:var(--dim);line-height:1.65">Un telephone suffit &mdash; appli Voice Memos (iPhone) ou Enregistreur (Android). Posez-le a plat sur la table entre vous deux, a 50 cm environ. Votre fille nommera chaque fichier juste apres : exemple <em style="color:var(--gold)">2026-06-Enfance</em> ou <em style="color:var(--gold)">2026-07-Maman</em>.</div>
+      </div>
+      <div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--cream);margin-bottom:.35rem">&#9200; Duree et rythme</div>
+        <div style="font-size:.83rem;color:var(--dim);line-height:1.65"><strong style="color:var(--cream)">45 minutes maximum</strong> par session. Une session toutes les 2 a 3 semaines &mdash; pour laisser les souvenirs remonter entre deux entretiens. Une seule periode ou un seul profil par session.</div>
+      </div>
+      <div style="background:rgba(200,165,90,0.07);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;padding:.7rem 1rem">
+        <div style="font-size:.8rem;color:var(--muted);font-style:italic">Si un souvenir vous revient entre deux sessions, notez-le ou envoyez un message vocal a votre fille. Ces eclats spontanes sont souvent les plus precieux.</div>
+      </div>
+      <div>
+        <div style="font-size:.8rem;font-weight:600;color:var(--cream);margin-bottom:.35rem">&#128172; Pendant l&#39;entretien</div>
+        <div style="font-size:.83rem;color:var(--dim);line-height:1.65">Parlez librement &mdash; pas besoin de suivre les questions dans l&#39;ordre. Si un souvenir vous entraine ailleurs, suivez-le. Les silences sont normaux. Vous pouvez passer une question si elle vous semble trop personnelle.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">3. Ou sont conserves les audios</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:.8rem">
+      <div style="display:flex;gap:.7rem;align-items:center;font-size:.83rem;color:var(--dim)"><span style="color:var(--gold)">&#9679;</span> Google Drive (dossier partage) &mdash; accessible depuis n&#39;importe quel appareil.</div>
+      <div style="display:flex;gap:.7rem;align-items:center;font-size:.83rem;color:var(--dim)"><span style="color:var(--gold)">&#9679;</span> Disque dur externe chez votre fille &mdash; sauvegarde physique.</div>
+      <div style="display:flex;gap:.7rem;align-items:center;font-size:.83rem;color:var(--dim)"><span style="color:var(--gold)">&#9679;</span> Votre telephone &mdash; jusqu&#39;a la prochaine synchronisation.</div>
+    </div>
+    <div style="background:rgba(200,165,90,0.07);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;padding:.7rem 1rem">
+      <div style="font-size:.8rem;color:var(--muted);font-style:italic">Vous n&#39;avez rien a faire pour le stockage &mdash; votre fille s&#39;en charge apres chaque session.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">4. La retranscription</div>
+    <div style="font-size:.83rem;color:var(--dim);line-height:1.7;margin-bottom:.8rem">Apres chaque entretien, votre fille envoie l&#39;audio a Claude (l&#39;intelligence artificielle qui gere ce projet). Claude transcrit l&#39;audio en texte propre, identifie les moments forts, et aide a mettre en forme les passages pour le livre final.</div>
+    <div style="background:rgba(200,165,90,0.07);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;padding:.7rem 1rem">
+      <div style="font-size:.8rem;color:var(--muted);font-style:italic">Vous n&#39;avez rien a faire pour la transcription. Parlez, on s&#39;occupe du reste.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 — CALENDRIER -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">5. Le calendrier</div>
+    <div style="display:flex;flex-direction:column;gap:.4rem">
+      <div style="display:grid;grid-template-columns:2fr 1fr 2fr;gap:1px;background:var(--border);border-radius:8px;overflow:hidden">
+        <div style="background:#2a2520;padding:.6rem .8rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--gold)">Phase</div>
+        <div style="background:#2a2520;padding:.6rem .8rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--gold)">Duree</div>
+        <div style="background:#2a2520;padding:.6rem .8rem;font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--gold)">Ce qu&#39;on fait</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Entretiens decennies</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--muted)">3 mois</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">8 sessions avec votre fille</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Entretiens temoins</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--muted)">3 mois</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">E&#769;lisabeth, enfants, amis, petits-enfants...</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Entretien pere-fille</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--muted)">1 session</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Le plus important &mdash; garde pour la fin</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Transcription & mise en forme</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--muted)">2 mois</div>
+        <div style="background:var(--surface);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Avec l&#39;aide de Claude</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">Relecture & livre</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--muted)">2 mois</div>
+        <div style="background:var(--card);padding:.55rem .8rem;font-size:.8rem;color:var(--dim)">PDF familial ou livre imprime</div>
+      </div>
+    </div>
+    <div style="font-size:.83rem;color:var(--cream);font-weight:600;margin-top:.8rem">Total estime : 10 a 12 mois pour un projet complet.</div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div style="margin-bottom:1.5rem">
+    <div style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)">6. Ce qu&#39;on attend de vous</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:.8rem">
+      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.83rem;color:var(--dim);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#9679;</span>Etre disponible 45 minutes toutes les 2 a 3 semaines.</div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.83rem;color:var(--dim);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#9679;</span>Parler librement, sans vous censurer &mdash; il n&#39;y a pas de mauvaises reponses.</div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.83rem;color:var(--dim);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#9679;</span>Prevenir votre fille si un souvenir vous revient entre deux sessions.</div>
+      <div style="display:flex;gap:.7rem;align-items:flex-start;font-size:.83rem;color:var(--dim);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#9679;</span>Accepter que certaines questions soient profondes &mdash; et avoir le droit de ne pas repondre.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem;margin-top:.5rem;text-align:center">
+      <div style="font-family:Georgia,serif;font-size:1rem;font-style:italic;color:var(--dim);line-height:1.7">"Ce projet n&#39;a pas pour but de dresser un portrait parfait.<br>Il s&#39;agit de garder vivante une voix, une facon d&#39;etre,<br>un regard sur un siecle."</div>
+    </div>
+  </div>
+
+</div>
+
+<div id="v1" class="vw" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem">
+  <div class="navrow">
+    <button class="btn" id="bk1">&#8592; Retour</button>
+    <span style="font-size:13px;color:var(--muted);font-style:italic">J'interroge Nicolas — par decennie</span>
+    <button class="btn" id="guide1" style="font-size:11px;padding:4px 10px;color:var(--gold);border-color:rgba(200,165,90,0.3)">&#128218; Guide</button>
+  </div>
+  <div class="dnav" id="decNav"></div>
+  <div id="decPanels"></div>
+</div>
+
+<div id="v2" class="vw" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem">
+  <div class="navrow">
+    <button class="btn" id="bk2">&#8592; Retour</button>
+    <span style="font-size:13px;color:var(--muted);font-style:italic">Nicolas interroge — Choisir un profil</span>
+    <button class="btn" id="guide2" style="font-size:11px;padding:4px 10px;color:var(--gold);border-color:rgba(200,165,90,0.3)">&#128218; Guide</button>
+  </div>
+  <div class="pgrid2" id="profilGrid"></div>
+</div>
+
+<div id="v3" class="vw" style="max-width:720px;margin:0 auto;padding:2rem 1.5rem">
+  <div class="navrow">
+    <button class="btn" id="bk3">&#8592; Profils</button>
+    <span style="font-size:13px;color:var(--muted)">Il interroge : <span id="qWho" style="color:var(--cream)"></span></span>
+  </div>
+  <div class="tabs" id="qTabs"></div>
+  <div id="qPanels"></div>
+</div>
+
+<script>
+var DEC = [];
+DEC.push({id:"d0",tab:"Enfance",year:"1948",age:"0-12 ans",title:"L'enfance d'apres-guerre",ctx:"La reconstruction, les jeux dans la rue, l'ecole, les odeurs du foyer.",themes:[
+  {ico:"&#127968;",name:"Le foyer",qs:["Decris-moi la maison ou tu as grandi — les pieces, les odeurs, les sons.","Dormais-tu seul ou avec tes freres et soeurs ? Un detail de cette chambre ?","Un objet qui comptait dans la famille — une radio, un meuble ?","Parlait-on de la guerre a la maison ? Qu'en disait-on — ou qu'on n'en disait pas ?"]},
+  {ico:"&#127860;",name:"Le quotidien",qs:["Qu'est-ce qu'on mangeait ? Le repas du dimanche, c'etait quoi ?","Des aliments rares qu'on attendait avec impatience ?","Comment faisait-on les courses — le marche, les petits commerces ?"]},
+  {ico:"&#127918;",name:"Jeux et loisirs",qs:["A quoi jouais-tu ? Avec qui, et ou ?","Ton jouet prefere, ou celui que tu revais d'avoir ?","Allais-tu au cinema ? Qu'est-ce que tu regardais ?","Les vacances existaient-elles ? Vous partiez ou ?"]},
+  {ico:"&#128218;",name:"L'ecole",qs:["Decris-moi ta premiere ecole — le maitre, la salle, l'odeur de la craie.","Qu'aimais-tu apprendre ? Et ce que tu detestais ?","Une punition ou une recompense qui t'a marque ?"]}
+]});
+DEC.push({id:"d1",tab:"Annees 60",year:"1960",age:"12-20 ans",title:"L'adolescence",ctx:"Les premiers jeans, les bals, Salut les Copains.",themes:[
+  {ico:"&#127926;",name:"Musique",qs:["La musique de tes 15 ans — qu'ecoutais-tu, comment ?","Un chanteur qui comptait vraiment pour toi ?","Allais-tu danser ? Ou — des bals, des soirees ?","Tu lisais quoi — journaux, romans, BD ?"]},
+  {ico:"&#128248;",name:"Habillement",qs:["Comment tu t'habillais a 15-18 ans ? Une tenue dont tu etais fier ?","Le code a l'epoque — les cheveux, les chaussures ?","Ou achetait-on les vetements, et avec quel argent ?"]},
+  {ico:"&#128101;",name:"Amis et amours",qs:["Tes amis proches a l'adolescence — qui, qu'est-ce que vous faisiez ?","Les premieres amours — comment ca se passait ?","Un souvenir de ta premiere grande emotion amoureuse ?"]},
+  {ico:"&#127757;",name:"Le monde",qs:["La guerre d'Algerie — en entendais-tu parler ? Ca t'inquietait ?","De Gaulle — quelle image tu avais de lui ?","Le premier evenement mondial qui t'a vraiment touche ?"]}
+]});
+DEC.push({id:"d2",tab:"Mai 68",year:"1968",age:"20-30 ans",title:"Mai 68, la formation",ctx:"L'explosion de Mai 68, le service militaire, les premiers choix de vie.",themes:[
+  {ico:"&#9994;",name:"Mai 68",qs:["Tu avais 20 ans en Mai 68. Ou tu etais ? De pres ou de loin ?","Qu'est-ce que tu en as retenu — une image, une phrase, une emotion ?","Ca a change ta facon de voir l'autorite, la famille, le travail ?","Dans ton entourage, ca a divise les gens ?"]},
+  {ico:"&#127891;",name:"Etudes et travail",qs:["Tu as fait des etudes ? Ou tu es entre directement dans le travail ?","Ton premier vrai travail — c'etait quoi, ou, comment tu l'as trouve ?","Un metier dont tu revais ? L'as-tu fait — ou pas, et pourquoi ?"]},
+  {ico:"&#129422;",name:"Service militaire",qs:["Tu as fait ton service militaire ? Ou, dans quelle arme ?","Comment tu l'as vecu — contrainte, aventure, rupture ?","Un moment marquant — drole ou difficile ?"]},
+  {ico:"&#128141;",name:"Vie de couple",qs:["Comment as-tu rencontre ta femme ? Tu te souviens de la premiere fois ?","Le mariage — grande ceremonie ou plus simple ?","Votre premier chez-vous — ou c'etait, comment c'etait meuble ?"]}
+]});
+DEC.push({id:"d3",tab:"Annees 70",year:"1978",age:"30-40 ans",title:"La famille qui grandit",ctx:"Les chocs petroliers, Mitterrand, les enfants, la premiere voiture.",themes:[
+  {ico:"&#128106;",name:"Famille",qs:["Comment tu vivais la paternite a cette epoque ?","Un souvenir fort avec tes enfants petits — une premiere, un moment drole ?","Un rituel familial dont tu te souviens bien ?"]},
+  {ico:"&#128188;",name:"Travail et argent",qs:["Ta situation a 30-35 ans — bonne dynamique ou difficile ?","Les crises des annees 70 — tu les as senties dans ta vie ?","Comment gerait-on l'argent en famille ?"]},
+  {ico:"&#128250;",name:"Culture",qs:["La television — qu'est-ce que vous regardiez en famille ?","Tes loisirs a 30 ans — sport, sorties, un hobby ?","L'election de Mitterrand en 1981 — ca representait quoi pour toi ?"]}
+]});
+DEC.push({id:"d4",tab:"Annees 80",year:"1988",age:"40-50 ans",title:"La maturite",ctx:"La chute du mur de Berlin, les enfants qui grandissent.",themes:[
+  {ico:"&#127757;",name:"Le monde",qs:["La chute du mur de Berlin en 1989 — ou tu etais, qu'est-ce que tu as ressenti ?","L'Europe qui se construisait — tu y croyais ?","Tu t'es interesse a la politique differemment passe 40 ans ?"]},
+  {ico:"&#128104;&#8205;&#128105;&#8205;&#128103;",name:"Les enfants grandissent",qs:["Quand tes enfants ont quitte la maison — comment tu as vecu ca ?","Ta relation avec eux a change quand ils sont devenus adultes ?","Un moment de fierte particulier en les regardant grandir ?"]},
+  {ico:"&#128161;",name:"Vie professionnelle",qs:["A 40-45 ans — accomplissement ou remise en question ?","Un collegue dont tu gardes un souvenir fort ?","Un moment de doute sur ton chemin professionnel ?"]}
+]});
+DEC.push({id:"d5",tab:"Annees 90",year:"1998",age:"50-60 ans",title:"L'euro, internet, les 50 ans",ctx:"L'euro remplace le franc, internet arrive, le 11 septembre.",themes:[
+  {ico:"&#128182;",name:"L'euro",qs:["Le passage au franc a l'euro — tu avais l'impression de perdre quelque chose ?","Tu te souviens des prix d'avant — le pain en francs, le ticket de metro ?"]},
+  {ico:"&#127760;",name:"Internet",qs:["Comment internet est entre dans ta vie ?","Ton rapport au telephone portable — tu as resiste ou suivi ?","Le 11 septembre 2001 — ou tu etais quand tu l'as appris ?"]},
+  {ico:"&#128116;",name:"Bilan a 50 ans",qs:["Passer 50 ans — etape symbolique ou tu t'en fichais ?","As-tu commence a regarder en arriere — des regrets, des fiertes ?","Les petits-enfants sont-ils arrives ? Comment as-tu vecu la grand-paternite ?"]}
+]});
+DEC.push({id:"d6",tab:"Retraite",year:"2008",age:"60-75 ans",title:"La retraite, le Covid",ctx:"La retraite, les reseaux sociaux, le confinement.",themes:[
+  {ico:"&#127958;",name:"La retraite",qs:["Le jour de ta retraite — tu l'attendais ou tu ne voulais pas en entendre parler ?","Les premiers mois — soulagement, vide, liberte ?","Qu'est-ce que tu as fait de ce temps retrouve ?"]},
+  {ico:"&#128567;",name:"Le Covid",qs:["Le confinement — comment tu l'as vecu ?","Est-ce que ca t'a fait peur — pour toi, pour tes proches ?","Qu'as-tu decouvert ou redecouvert pendant cette periode ?"]},
+  {ico:"&#128241;",name:"Le numerique",qs:["Les reseaux sociaux — tu y es, tu les regardes de loin, tu t'en mefies ?","Tu as l'impression que le monde va trop vite ? Ce qui te manque d'avant ?","Ce que le monde d'aujourd'hui t'offre que tu n'aurais pas imagine ?"]}
+]});
+DEC.push({id:"d7",tab:"Aujourd'hui",year:"2026",age:"78 ans",title:"Le legs",ctx:"Ce qu'on transmet, ce qu'on a appris, ce a quoi on croit encore.",themes:[
+  {ico:"&#129710;",name:"Le bilan",qs:["Si tu devais resumer ta vie en une phrase — juste pour toi ?","La decision dont tu es le plus fier ?","Un regret, ou quelque chose que tu ferais differemment ?","Ce que la vie t'a appris qui ne t'avait pas ete enseigne ?"]},
+  {ico:"&#128140;",name:"Ce qu'on transmet",qs:["Ce que tu voudrais que tes enfants et petits-enfants retiennent de toi ?","Des valeurs qu'on t'a transmises et que tu as transmises a ton tour ?","Une histoire de famille qu'on ne devrait jamais oublier ?"]},
+  {ico:"&#10024;",name:"Ce qui compte encore",qs:["Ce qui te rend encore heureux aujourd'hui ?","A quoi tu crois encore — une idee, une valeur ?","Si tu pouvais parler a toi a 20 ans, qu'est-ce que tu lui dirais ?","A tes enfants et petits-enfants — qu'est-ce que tu voudrais leur dire maintenant ?"]}
+]});
+
+var PROFILS = {};
+PROFILS["wife"] = {label:"E&#769;lisabeth",color:"#c878b0",tip:"Laissez-la parler librement. Ne corrigez pas ses souvenirs — c'est son regard qui compte.",icon:"&#128156;",nom:"E&#769;lisabeth",desc:"La vie commune, les hauts et les bas.",periods:[
+  {id:"w1",tab:"La rencontre",year:"Debut",title:"Les premiers temps",ctx:"Ce qu'elle a vu de vous au depart.",qs:["Quand tu m'as rencontre, quelle impression je t'ai faite ?","Tu te souviens de notre premiere vraie conversation ?","Qu'est-ce qui t'a fait penser que ca valait la peine de construire quelque chose avec moi ?","Dans nos premieres annees, qu'as-tu decouvert de moi que tu n'avais pas vu ?","Il y avait quelque chose dans ma facon d'etre qui t'agacait au debut ?"]},
+  {id:"w2",tab:"La vie commune",year:"Annees",title:"Ce qu'on a traverse ensemble",ctx:"Les enfants, les difficultes, les joies.",qs:["Comment tu me voyais comme pere — present, exigeant, tendre, pudique ?","Un moment ou j'ai ete un bon pere dont tu te souviens ?","Et un moment ou tu aurais voulu que je fasse autrement ?","Quelle periode a ete la plus dure pour nous ?","Un souvenir de nous deux que tu gardes precieusement ?"]},
+  {id:"w3",tab:"Aujourd'hui",year:"Maintenant",title:"L'homme que je suis devenu",ctx:"Son regard aujourd'hui.",qs:["Est-ce que j'ai change depuis qu'on s'est rencontres ?","Qu'est-ce que tu admires en moi aujourd'hui que tu ne voyais pas au debut ?","Si tu devais me decrire a quelqu'un qui ne m'a jamais rencontre ?","Il y a quelque chose que tu voudrais me dire et que tu n'as jamais dit ?"]}
+]};
+PROFILS["child"] = {label:"un de ses enfants",color:"#5aaa78",tip:"Ses enfants ont grandi en l'observant. Accueillez ce qu'ils disent sans vous defendre.",icon:"&#127807;",nom:"Ses enfants",desc:"Le pere au quotidien, ce qu'il a transmis.",periods:[
+  {id:"c1",tab:"Leur enfance",year:"Enfance",title:"Le pere au quotidien",ctx:"Ce qu'ils ont vu quand ils grandissaient.",qs:["Quel est ton souvenir le plus ancien de moi ?","Comment je te semblais, petit — grand, rassurant, severe, drole ?","Un rituel qu'on avait ensemble — quelque chose qu'on faisait regulierement ?","Quelque chose que je faisais qui t'agacait ou te faisait honte ?","Est-ce que tu sentais que j'etais fier de toi ? Comment je te le montrais ?"]},
+  {id:"c2",tab:"Leur adolescence",year:"Ado",title:"La relation pere-ado",ctx:"Souvent une periode de friction — et de revelations.",qs:["Quel souvenir tu as de moi a ton adolescence ?","Un moment de tension entre nous dont tu te souviens ?","Des sujets dont tu n'osais pas me parler ? Pourquoi ?","Quelque chose que tu m'as vu faire et que tu fais toi-meme aujourd'hui ?","Qu'est-ce que tu as appris de moi en me regardant vivre ?"]},
+  {id:"c3",tab:"Aujourd'hui",year:"Adulte",title:"La relation adulte a adulte",ctx:"Comment la relation a evolue.",qs:["Comment notre relation a change depuis que tu es adulte ?","Quelque chose que tu comprends mieux chez moi maintenant ?","Ce que tu aurais voulu qu'on fasse ensemble et qu'on n'a pas encore fait ?","Ce que tu voudrais que mes petits-enfants sachent de moi ?"]}
+]};
+PROFILS["spouse"] = {label:"un conjoint des enfants",color:"#7898c8",tip:"Les conjoints ont un regard exterieur precieux — ils voient l'homme sans le filtre de l'histoire familiale.",icon:"&#128153;",nom:"Conjoints des enfants",desc:"Un regard exterieur bienveillant.",periods:[
+  {id:"sp1",tab:"La premiere impression",year:"Debut",title:"Quand on s'est connus",ctx:"Comment ils vous ont decouvert.",qs:["Quand tu m'as rencontre, quelle impression je t'ai faite ?","Comment m'avait-on decrit avant — ca correspondait ?","Qu'est-ce qui t'a surpris chez moi ?"]},
+  {id:"sp2",tab:"Le beau-pere",year:"Famille",title:"Moi comme beau-pere",ctx:"Leur regard sur la relation familiale.",qs:["Comment je suis comme beau-pere — accueillant, discret, present ?","Est-ce que tu te sens a l'aise dans cette famille ?","Un souvenir d'un moment familial qui te revient bien ?","Quelque chose que j'aurais pu faire differemment pour t'accueillir mieux ?"]},
+  {id:"sp3",tab:"Portrait",year:"★",title:"Ton regard sur moi",ctx:"Sans filtre.",qs:["En dehors du role de beau-pere — comment tu decrirais l'homme que je suis ?","Qu'est-ce que tu admires chez moi ?","Quelque chose que tu aurais voulu me dire et que tu n'as jamais dit ?"]}
+]};
+PROFILS["sibling"] = {label:"un frere, une soeur ou un cousin",color:"#c8784a",tip:"Ils vous connaissent depuis le debut — avant les roles, avant les responsabilites.",icon:"&#128293;",nom:"Freres, soeurs et cousins",desc:"L'enfant avant les roles.",periods:[
+  {id:"sb1",tab:"L'enfance commune",year:"1948",title:"L'enfant qu'on etait",ctx:"Les premieres annees, la maison, les betises.",qs:["Comment j'etais, enfant — un mot qui te revient spontanement ?","Tu te souviens d'une betise qu'on a faite ensemble ?","Quel role je jouais dans la fratrie — le sage, le farceur, le rebelle ?","Comment tu decrirais l'ambiance a la maison quand on grandissait ?","Un souvenir d'une fete de famille ou d'un ete collectif ?"]},
+  {id:"sb2",tab:"La jeunesse",year:"1965",title:"L'adolescence",ctx:"Les premiers choix vus par quelqu'un qui etait la.",qs:["Comment j'etais a l'adolescence — seduit, studieux, rebelle, discret ?","Un moment fort qu'on a partage a cette epoque ?","Tu pensais que j'allais reussir ce que je voulais faire ?"]},
+  {id:"sb3",tab:"Nos vies en parallele",year:"1980",title:"L'evolution vue de loin",ctx:"Quand les chemins se separent mais on reste proches.",qs:["Est-ce que tu m'as vu changer au fil des annees ?","Il y a eu une periode ou tu t'es dit : il est vraiment heureux ?","Et une periode ou tu t'es inquiete pour moi ?","Quelque chose que tu aurais voulu me dire depuis longtemps ?"]}
+]};
+PROFILS["friend"] = {label:"un ami",color:"#a878c8",tip:"Les amis vous voient sans les roles, sans l'histoire familiale. Leur regard est souvent le plus libre.",icon:"&#11088;",nom:"Amis",desc:"L'homme en dehors de la famille.",periods:[
+  {id:"fr1",tab:"Comment on s'est connus",year:"Debut",title:"Le debut de l'amitie",ctx:"La rencontre, les premieres impressions.",qs:["Comment on s'est connus — tu te souviens de la premiere fois ?","Quelle impression je t'ai faite au depart ?","Qu'est-ce qui a fait qu'on est devenus amis ?","Un souvenir marquant de nos debuts ensemble ?"]},
+  {id:"fr2",tab:"L'ami que je suis",year:"Amitie",title:"Moi comme ami",ctx:"Comment ils vous voient en dehors des roles.",qs:["Comment je suis comme ami — fidele, drole, discret, present dans les moments difficiles ?","Il y a eu une periode ou notre amitie s'est renforcee — pourquoi ?","Un moment ou tu t'es dit : c'est vraiment mon ami ?","Quelque chose que je fais qui t'agace parfois ?"]},
+  {id:"fr3",tab:"Portrait",year:"★",title:"Ton regard sur moi",ctx:"Sans filtre.",qs:["Si tu devais me decrire a quelqu'un qui ne me connait pas ?","La qualite en moi que tu admires le plus ?","Ce que tu voudrais que mes enfants sachent de moi ?","Quelque chose que tu voulais me dire depuis longtemps ?"]}
+]};
+PROFILS["grandchild"] = {label:"un petit-enfant (Valentine, Capucine, E&#769;lie, Gaspard, Aure&#768;le, Maxime, Arthur, Alix, Solal, Andre&#769;a, Axel ou Paola)",color:"#e8a030",tip:"Les petits-enfants ont un regard pur et direct — sans les enjeux des parents. Adaptez le ton selon leur age. Pour les plus jeunes, simplifiez les questions.",icon:"&#127774;",nom:"Petits-enfants",desc:"Valentine, Capucine, E&#769;lie, Gaspard, Aure&#768;le, Maxime, Arthur, Alix, Solal, Andre&#769;a, Axel, Paola.",periods:[
+  {id:"gc1",tab:"Mes souvenirs de toi",year:"Debut",title:"Les premieres images de papy",ctx:"Ce qu'ils ont retenu des premiers moments passes avec vous — les gestes, les habitudes, les jeux.",qs:["Quel est ton premier souvenir de moi — une image, un moment ?","Qu'est-ce qu'on faisait ensemble quand tu etais petit ?","Est-ce que j'avais une expression, un geste, une habitude que tu imitais ou qui te faisait rire ?","Tu te souviens d'un cadeau ou d'une surprise que je t'ai fait ?","Il y avait quelque chose chez moi qui te faisait un peu peur ou que tu ne comprenais pas, enfant ?"]},
+  {id:"gc2",tab:"Papy aujourd'hui",year:"Maintenant",title:"Le papy que je suis",ctx:"Comment ils vous voient maintenant — ce qu'ils apprennent de vous, ce qu'ils aiment.",qs:["Comment tu decrirais papy a quelqu'un qui ne me connait pas ?","Qu'est-ce que tu aimes faire avec moi ?","Est-ce qu'il y a quelque chose que tu m'as vu faire et que tu fais toi aussi ?","Qu'est-ce que tu as appris de moi — une histoire, un savoir-faire, une facon de voir les choses ?","Qu'est-ce que tu aimes le plus chez moi ?"]},
+  {id:"gc3",tab:"Ce que tu gardes",year:"★",title:"Ce qui restera",ctx:"Les mots qu'ils voudraient lui dire — et ce qu'ils veulent transmettre a leur tour.",qs:["Il y a quelque chose que tu voudrais me dire et que tu n'as jamais dit ?","Qu'est-ce que tu voudrais que tes propres enfants sachent de leur arriere-grand-pere ?","Si tu devais garder un seul souvenir de nous deux, ce serait lequel ?","Qu'est-ce que tu es fier de faire ou d'etre, et que je n'ai peut-etre pas encore remarque ?"]}
+]};
+
+function goTo(id) {
+  var all = document.querySelectorAll(".vw");
+  for (var i=0;i<all.length;i++) all[i].classList.remove("on");
+  document.getElementById(id).classList.add("on");
+  window.scrollTo(0,0);
+}
+
+function switchEl(allSel, targetId) {
+  var all = document.querySelectorAll(allSel);
+  for (var i=0;i<all.length;i++) all[i].classList.remove("on");
+  document.getElementById(targetId).classList.add("on");
+}
+
+var FD_PERIODS = [];
+FD_PERIODS.push({id:"fd1",tab:"Moi enfant",year:"1970",title:"La fille que j'etais",ctx:"Ses souvenirs de vous petite — ce qu il observait, ce qui le touchait, ce qui l inquietait.",qs:[
+  "Quel est ton premier souvenir de moi — une image precise, un moment ?",
+  "Comment j etais, enfant ? Un mot ou une scene qui te revient spontanement.",
+  "Est-ce qu il y avait quelque chose chez moi qui te rendait fier — meme tres tot ?",
+  "Et quelque chose qui t inquietait ou te depassait ?",
+  "Tu te souviens d un moment ou tu as eu peur pour moi ?",
+  "Est-ce qu il y avait un rituel entre nous quand j etais petite — quelque chose qu on faisait juste toi et moi ?"
+]});
+FD_PERIODS.push({id:"fd2",tab:"Mon adolescence",year:"1985",title:"L adolescente que j etais",ctx:"Une periode souvent difficile entre peres et filles — ce qu il a vu, ce qu il n a pas vu.",qs:[
+  "Comment tu as vecu mon adolescence — tu t y attendais, tu as ete surpris, depasse ?",
+  "Est-ce qu il y avait des choses dont je ne te parlais pas et que tu sentais quand meme ?",
+  "Un moment de friction entre nous dont tu te souviens — et comment tu l as vecu de ton cote ?",
+  "Est-ce qu il y avait quelque chose que tu aurais voulu me dire a l epoque et que tu n as pas dit ?",
+  "Comment tu decrirais la jeune femme que je devenais — ce que tu voyais en moi ?"
+]});
+FD_PERIODS.push({id:"fd3",tab:"Ma vie adulte",year:"2000",title:"La femme que je suis devenue",ctx:"Votre relation quand les roles evoluent — comment il vous voit aujourd hui.",qs:[
+  "Est-ce que tu reconnais dans la femme que je suis aujourd hui l enfant que j etais ?",
+  "Qu est-ce que tu admires en moi — quelque chose que tu n as peut-etre jamais dit ?",
+  "Y a-t-il un choix que j ai fait dans ma vie dont tu es particulierement fier ?",
+  "Et quelque chose que tu n as pas compris sur le moment, mais que tu comprends mieux maintenant ?",
+  "Comment notre relation a-t-elle change depuis que je suis adulte — est-ce qu on se parle autrement ?",
+  "Est-ce qu il y a quelque chose que tu voudrais qu on fasse ensemble et qu on n a pas encore fait ?"
+]});
+FD_PERIODS.push({id:"fd4",tab:"Ce qu on se transmet",year:"Aujourd hui",title:"Notre lien, notre legs",ctx:"Les questions qu on ne pose jamais — et qu il faut poser avant qu il soit trop tard.",qs:[
+  "Qu est-ce que tu esperes m avoir transmis — une valeur, une facon d etre, un regard sur les choses ?",
+  "Est-ce qu il y a quelque chose que tu regrettes de ne pas m avoir dit ou montre ?",
+  "Qu est-ce que tu voudrais que mes enfants sachent de toi — de nous deux ?",
+  "Y a-t-il une chose que tu m as vue faire qui t a fait realiser que tu avais reussi quelque chose comme pere ?",
+  "Si tu pouvais me dire une seule chose aujourd hui — une chose vraiment importante — ce serait quoi ?",
+  "Et moi, est-ce qu il y a quelque chose que tu aimerais me demander ?"
+]});
+
+function switchFille(idx, btn) {
+  var bs = document.querySelectorAll("#filleTabs .ptab");
+  for (var b=0;b<bs.length;b++) bs[b].classList.remove("on");
+  btn.classList.add("on");
+  // Questions identiques pour toutes — juste le contexte change
+  // On pourrait personaliser les prénoms si souhaité
+}
+
+function buildFD() {
+  var tabs = document.getElementById("fdTabs");
+  var panels = document.getElementById("fdPanels");
+  for (var i=0;i<FD_PERIODS.length;i++) {
+    (function(period, idx){
+      var btn = document.createElement("button");
+      btn.className = "ptab" + (idx===0?" on":"");
+      btn.textContent = period.tab;
+      btn.onclick = function(){
+        var bs = document.querySelectorAll("#fdTabs .ptab");
+        for(var b=0;b<bs.length;b++) bs[b].classList.remove("on");
+        btn.classList.add("on");
+        var ps = document.querySelectorAll("#fdPanels .pp");
+        for(var p=0;p<ps.length;p++) ps[p].classList.remove("on");
+        document.getElementById(period.id).classList.add("on");
+      };
+      tabs.appendChild(btn);
+      var div = document.createElement("div");
+      div.className = "pp" + (idx===0?" on":"");
+      div.id = period.id;
+      var html = '<div class="pyear" style="color:#e8a030">'+period.year+'</div>';
+      html += '<div class="ptitle">'+period.title+'</div>';
+      html += '<div class="pctx">'+period.ctx+'</div>';
+      html += '<div class="tipbox" style="border-left-color:#e8a030"><b style="color:#e8a030">Conseil</b>Laissez les silences exister. Ces questions peuvent toucher des choses profondes — ne remplissez pas les blancs trop vite. Enregistrez si possible.</div>';
+      for (var q=0;q<period.qs.length;q++) {
+        html += '<div class="qrow"><span class="qnum" style="color:#e8a030">'+(q+1)+'</span><span class="qtxt">'+period.qs[q]+'</span></div>';
+      }
+      div.innerHTML = html;
+      panels.appendChild(div);
+    })(FD_PERIODS[i], i);
+  }
+}
+
+function buildDec() {
+  var nav = document.getElementById("decNav");
+  var panels = document.getElementById("decPanels");
+  for (var i=0;i<DEC.length;i++) {
+    (function(d,idx){
+      var btn = document.createElement("button");
+      btn.className = "dbtn" + (idx===0?" on":"");
+      btn.textContent = d.tab;
+      btn.setAttribute("data-target", d.id);
+      btn.onclick = function(){
+        var bs = document.querySelectorAll(".dbtn");
+        for(var b=0;b<bs.length;b++) bs[b].classList.remove("on");
+        btn.classList.add("on");
+        switchEl(".dp", d.id);
+      };
+      nav.appendChild(btn);
+
+      var div = document.createElement("div");
+      div.className = "dp" + (idx===0?" on":"");
+      div.id = d.id;
+      var html = '<div class="dhd"><div class="dyear">'+d.year+'</div><div><div class="dage">'+d.age+'</div><div class="dtitle">'+d.title+'</div><div class="dctx">'+d.ctx+'</div></div></div>';
+      for (var t=0;t<d.themes.length;t++) {
+        var th = d.themes[t];
+        html += '<div class="thm"><div class="thd"><span>'+th.ico+'</span><span class="tlbl">'+th.name+'</span><span class="trl"></span></div><div>';
+        for (var q=0;q<th.qs.length;q++) {
+          html += '<div class="qrow"><span class="qnum">'+(q+1)+'</span><span class="qtxt">'+th.qs[q]+'</span></div>';
+        }
+        html += '</div></div>';
+      }
+      div.innerHTML = html;
+      panels.appendChild(div);
+    })(DEC[i], i);
+  }
+}
+
+function buildProfils() {
+  var grid = document.getElementById("profilGrid");
+  var keys = ["wife","child","spouse","sibling","friend","grandchild"];
+  for (var i=0;i<keys.length;i++) {
+    (function(key){
+      var pr = PROFILS[key];
+      var div = document.createElement("div");
+      div.className = "pc";
+      div.style.borderColor = "var(--border)";
+      div.innerHTML = '<span class="pcico">'+pr.icon+'</span><div class="pcname" style="color:'+pr.color+'">'+pr.nom+'</div><div class="pcdesc">'+pr.desc+'</div>';
+      div.style.setProperty("--after-color", pr.color);
+      div.onmouseover = function(){ this.style.borderColor = pr.color.replace(")", ",0.4)").replace("rgb","rgba") || pr.color; };
+      div.onmouseout = function(){ this.style.borderColor = "rgba(200,165,90,0.15)"; };
+      div.onclick = function(){ openProfil(key); };
+      grid.appendChild(div);
+    })(keys[i]);
+  }
+}
+
+function openProfil(key) {
+  var pr = PROFILS[key];
+  document.getElementById("qWho").textContent = pr.label;
+  var tabs = document.getElementById("qTabs");
+  var panels = document.getElementById("qPanels");
+  tabs.innerHTML = "";
+  panels.innerHTML = "";
+  for (var i=0;i<pr.periods.length;i++) {
+    (function(period, idx){
+      var btn = document.createElement("button");
+      btn.className = "ptab" + (idx===0?" on":"");
+      btn.textContent = period.tab;
+      btn.onclick = function(){
+        var bs = document.querySelectorAll(".ptab");
+        for(var b=0;b<bs.length;b++) bs[b].classList.remove("on");
+        btn.classList.add("on");
+        switchEl(".pp", period.id);
+      };
+      tabs.appendChild(btn);
+
+      var div = document.createElement("div");
+      div.className = "pp" + (idx===0?" on":"");
+      div.id = period.id;
+      var html = '<div class="pyear">'+period.year+'</div><div class="ptitle">'+period.title+'</div><div class="pctx">'+period.ctx+'</div>';
+      html += '<div class="tipbox"><b>Conseil</b>'+pr.tip+'</div>';
+      for (var q=0;q<period.qs.length;q++) {
+        html += '<div class="qrow"><span class="qnum">'+(q+1)+'</span><span class="qtxt">'+period.qs[q]+'</span></div>';
+      }
+      div.innerHTML = html;
+      panels.appendChild(div);
+    })(pr.periods[i], i);
+  }
+  goTo("v3");
+}
+
+document.getElementById("btn0").onclick = function(){ goTo("v1"); };
+document.getElementById("btn1").onclick = function(){ goTo("v2"); };
+document.getElementById("btn4").onclick = function(){ goTo("v4"); };
+document.getElementById("bk1").onclick = function(){ goTo("v0"); };
+document.getElementById("bk2").onclick = function(){ goTo("v0"); };
+document.getElementById("bk3").onclick = function(){ goTo("v2"); };
+document.getElementById("bk4").onclick = function(){ goTo("v0"); };
+document.getElementById("bk5").onclick = function(){ goTo("v0"); };
+document.getElementById("guide1").onclick = function(){ goTo("v5"); };
+document.getElementById("guide2").onclick = function(){ goTo("v5"); };
+
+buildDec();
+buildProfils();
+buildFD();
+</script>
+</body>
+</html>

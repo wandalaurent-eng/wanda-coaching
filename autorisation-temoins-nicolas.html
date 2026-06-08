@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autorisation temoin — Memoires de Nicolas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f9f5ef;--card:#ffffff;--ink:#1c1712;--warm:#8b5e3c;--gold:#c8a55a;--gold-light:#f0e6cc;--muted:#6b5d50;--border:rgba(139,94,60,0.18);--shadow:rgba(28,23,18,0.07)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.wrap{max-width:680px;margin:0 auto;padding:3rem 1.5rem 5rem}
+
+/* HEADER */
+.header{background:var(--ink);padding:3rem 2rem 2.5rem;text-align:center;margin-bottom:2.5rem;border-radius:0 0 12px 12px}
+.header-tag{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);opacity:.8;display:block;margin-bottom:1rem}
+.header-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;color:#f0e8d5;line-height:1.15;margin-bottom:.4rem}
+.header-title em{font-style:italic;color:var(--gold)}
+.header-sub{font-size:.88rem;color:rgba(240,232,213,.55);font-weight:300;line-height:1.6}
+
+/* SECTIONS */
+.section{margin-bottom:2rem}
+.section-hd{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);display:block}
+.section-intro{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+
+/* FORM FIELDS */
+.field{margin-bottom:.9rem}
+label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.05em;color:var(--warm);margin-bottom:.3rem}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  width:100%;background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:.65rem .9rem;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--ink);
+  transition:border-color .2s;outline:none
+}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:80px}
+
+/* CHECKBOXES */
+.check-item{display:flex;gap:.9rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem;margin-bottom:.6rem;cursor:pointer;transition:border-color .2s,background .2s}
+.check-item:hover{border-color:var(--gold);background:#fffdf8}
+.check-item.checked{border-color:var(--gold);background:var(--gold-light)}
+.check-item input[type=checkbox]{flex-shrink:0;width:18px;height:18px;margin-top:2px;accent-color:var(--gold);cursor:pointer}
+.check-label{font-size:.88rem;line-height:1.6;color:var(--ink)}
+.check-label strong{color:var(--warm);display:block;margin-bottom:.15rem;font-size:.82rem}
+
+/* TIP BOX */
+.tip{background:var(--gold-light);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.8rem 0;font-size:.83rem;color:var(--muted);line-height:1.65;font-style:italic}
+
+/* RADIO */
+.radio-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.radio-btn{display:flex;align-items:center;gap:.5rem;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.4rem 1rem;cursor:pointer;font-size:.82rem;color:var(--muted);transition:all .2s}
+.radio-btn input{accent-color:var(--gold)}
+.radio-btn:has(input:checked){background:var(--gold-light);border-color:var(--gold);color:var(--ink)}
+
+/* SUBMIT */
+.submit-zone{background:var(--ink);border-radius:12px;padding:2rem;text-align:center;margin-top:2.5rem}
+.submit-note{font-size:.82rem;color:rgba(240,232,213,.55);margin-bottom:1.2rem;line-height:1.6}
+.submit-btn{background:var(--gold);color:var(--ink);border:none;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.06em;padding:.9rem 2.5rem;border-radius:6px;cursor:pointer;transition:opacity .2s,transform .2s}
+.submit-btn:hover{opacity:.88;transform:translateY(-1px)}
+
+/* SUCCESS */
+.success{display:none;background:var(--card);border:1px solid var(--border);border-top:3px solid var(--gold);border-radius:0 0 12px 12px;padding:2.5rem;text-align:center;margin-top:1rem}
+.success-icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+.success-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;margin-bottom:.6rem}
+.success-title em{font-style:italic;color:var(--gold)}
+.success-text{font-size:.88rem;color:var(--muted);line-height:1.7}
+
+/* PRINT */
+@media print{
+  body{background:white}
+  .submit-zone,.submit-btn{display:none}
+  .check-item{break-inside:avoid}
+}
+
+/* FOOTER */
+.footer{text-align:center;font-size:.75rem;color:var(--muted);margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-tag">Projet Memoires &mdash; Nicolas, ne en 1948</span>
+  <h1 class="header-title">Autorisation<br><em>temoin</em></h1>
+  <p class="header-sub">Participation a l&#39;entretien &amp; diffusion des propos</p>
+</div>
+
+<div class="wrap">
+<form id="consentForm">
+
+  <!-- SECTION 1 — IDENTITE -->
+  <div class="section">
+    <span class="section-hd">1. Votre identite</span>
+    <div class="field">
+      <label>Nom et prenom *</label>
+      <input type="text" name="nom" required placeholder="Votre nom complet">
+    </div>
+    <div class="field">
+      <label>Votre lien avec Nicolas *</label>
+      <select name="lien" required>
+        <option value="">-- Choisir --</option>
+        <option>Epouse (Elisabeth)</option>
+        <option>Fille (Wanda)</option>
+        <option>Fille (Raphaelle)</option>
+        <option>Fille (Eleonore)</option>
+        <option>Fille (Anais)</option>
+        <option>Fille (Marie)</option>
+        <option>Gendre / Belle-fille</option>
+        <option>Petit-enfant</option>
+        <option>Frere / Soeur / Cousin(e)</option>
+        <option>Ami(e)</option>
+        <option>Autre</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Adresse e-mail *</label>
+      <input type="email" name="email" required placeholder="votre@email.com">
+    </div>
+    <div class="field">
+      <label>Telephone</label>
+      <input type="tel" name="tel" placeholder="06 XX XX XX XX">
+    </div>
+  </div>
+
+  <!-- SECTION 2 — ACCORD ENTRETIEN -->
+  <div class="section">
+    <span class="section-hd">2. Accord pour la participation a l&#39;entretien</span>
+    <p class="section-intro">Je soussigne(e) accepte librement de participer a un entretien enregistre dans le cadre du projet de memoires de Nicolas. Je confirme les points suivants :</p>
+
+    <label class="check-item" id="ci1">
+      <input type="checkbox" name="accord1" required onchange="toggleCheck('ci1')">
+      <span class="check-label"><strong>Participation volontaire</strong>Je participe librement et peux interrompre ma participation a tout moment, sans avoir a me justifier.</span>
+    </label>
+    <label class="check-item" id="ci2">
+      <input type="checkbox" name="accord2" required onchange="toggleCheck('ci2')">
+      <span class="check-label"><strong>Information prealable</strong>J&#39;ai ete informe(e) des themes qui seront abordes lors de l&#39;entretien.</span>
+    </label>
+    <label class="check-item" id="ci3">
+      <input type="checkbox" name="accord3" required onchange="toggleCheck('ci3')">
+      <span class="check-label"><strong>Enregistrement audio</strong>Je comprends que l&#39;entretien sera enregistre et potentiellement retranscrit par intelligence artificielle.</span>
+    </label>
+    <label class="check-item" id="ci4">
+      <input type="checkbox" name="accord4" required onchange="toggleCheck('ci4')">
+      <span class="check-label"><strong>Droit d&#39;exclusion</strong>Je peux demander a tout moment qu&#39;un passage ne soit pas utilise, sans avoir a me justifier.</span>
+    </label>
+  </div>
+
+  <!-- SECTION 3 — DIFFUSION -->
+  <div class="section">
+    <span class="section-hd">3. Accord pour la diffusion de mes propos</span>
+    <p class="section-intro">J&#39;autorise l&#39;utilisation de mes propos, citations et temoignages dans les formes suivantes. Cochez toutes les cases qui correspondent a votre accord :</p>
+
+    <label class="check-item" id="cd1">
+      <input type="checkbox" name="diff1" onchange="toggleCheck('cd1')">
+      <span class="check-label"><strong>Livre de memoires familial</strong>Usage strictement prive, distribue uniquement aux membres de la famille de Nicolas.</span>
+    </label>
+    <label class="check-item" id="cd2">
+      <input type="checkbox" name="diff2" onchange="toggleCheck('cd2')">
+      <span class="check-label"><strong>Partage numerique familial</strong>PDF ou site prive, accessible uniquement sur invitation aux proches.</span>
+    </label>
+    <label class="check-item" id="cd3">
+      <input type="checkbox" name="diff3" onchange="toggleCheck('cd3')">
+      <span class="check-label"><strong>Diffusion publique elargie</strong>Publication, exposition ou diffusion numerique ouverte au public (presse, reseaux, edition).</span>
+    </label>
+
+    <div class="tip">Dans tous les cas, mes propos ne seront pas modifies sans mon accord prealable. Je serai contacte(e) avant toute publication.</div>
+  </div>
+
+  <!-- SECTION 4 — ANONYMAT -->
+  <div class="section">
+    <span class="section-hd">4. Preference d&#39;anonymat (optionnel)</span>
+    <p class="section-intro">Par defaut, votre nom complet pourra apparaitre. Si vous preferez une autre option :</p>
+
+    <div class="radio-row">
+      <label class="radio-btn">
+        <input type="radio" name="anonymat" value="nom_complet" checked> Mon nom complet
+      </label>
+      <label class="radio-btn">
+        <input type="radio" name="anonymat" value="prenom"> Mon prenom uniquement
+      </label>
+      <label class="radio-btn">
+        <input type="radio" name="anonymat" value="pseudo"> Un pseudonyme
+      </label>
+    </div>
+    <div class="field" style="margin-top:.8rem" id="pseudoField" style="display:none">
+      <label>Mon pseudonyme</label>
+      <input type="text" name="pseudo" placeholder="Le nom que vous souhaitez voir apparaitre">
+    </div>
+  </div>
+
+  <!-- SECTION 5 — DROIT DE RETRAIT -->
+  <div class="section">
+    <span class="section-hd">5. Droit de retrait</span>
+    <p class="section-intro">Conformement au RGPD, vous pouvez a tout moment :</p>
+    <div style="display:flex;flex-direction:column;gap:.4rem;margin-bottom:.8rem">
+      <div style="display:flex;gap:.7rem;font-size:.85rem;color:var(--muted);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#8594;</span>Demander la suppression de tout ou partie de votre temoignage.</div>
+      <div style="display:flex;gap:.7rem;font-size:.85rem;color:var(--muted);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#8594;</span>Demander a relire et corriger la retranscription avant utilisation.</div>
+      <div style="display:flex;gap:.7rem;font-size:.85rem;color:var(--muted);line-height:1.55"><span style="color:var(--gold);flex-shrink:0">&#8594;</span>Retirer votre autorisation de diffusion, tant que l&#39;ouvrage n&#39;est pas publie.</div>
+    </div>
+    <div style="font-size:.85rem;color:var(--ink)">Contact : <strong>wanda.laurent@gmail.com</strong></div>
+  </div>
+
+  <!-- SECTION 6 — SIGNATURE -->
+  <div class="section">
+    <span class="section-hd">6. Confirmation et signature</span>
+    <p class="section-intro">En cochant cette case et en validant ce formulaire, je confirme avoir lu et compris l&#39;ensemble des conditions ci-dessus et donne mon accord en toute connaissance de cause.</p>
+
+    <label class="check-item" id="csign">
+      <input type="checkbox" name="signature" required onchange="toggleCheck('csign')">
+      <span class="check-label"><strong>Je confirme mon accord</strong>Lu et accepte. Je suis conscient(e) de la nature et de la portee de cette autorisation.</span>
+    </label>
+
+    <div class="field" style="margin-top:1rem">
+      <label>Date *</label>
+      <input type="text" name="date" id="dateField" placeholder="JJ/MM/AAAA">
+    </div>
+    <div class="field">
+      <label>Commentaire libre (optionnel)</label>
+      <textarea name="commentaire" placeholder="Une precision, une restriction particuliere, un souhait..."></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-zone">
+    <p class="submit-note">En cliquant sur Valider, vous confirmez votre accord. Un recapitulatif vous sera envoye par e-mail. Ce formulaire tient lieu d&#39;autorisation signee.</p>
+    <button type="submit" class="submit-btn">Valider mon autorisation &#8594;</button>
+  </div>
+
+</form>
+
+<!-- SUCCESS MESSAGE -->
+<div class="success" id="successMsg">
+  <span class="success-icon">&#10003;</span>
+  <h2 class="success-title">Merci pour votre <em>confiance</em></h2>
+  <p class="success-text">Votre autorisation a bien ete enregistree. Un recapitulatif a ete envoye a votre adresse e-mail.<br><br>Votre temoignage est une piece irremplacable de l&#39;histoire de Nicolas. Merci d&#39;y prendre part.</p>
+</div>
+
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <div class="footer">
+    Wanda Laurent Coaching &nbsp;|&nbsp; Passerelle des Talents &nbsp;|&nbsp; wanda.laurent@gmail.com &nbsp;|&nbsp; www.wandalaurentcoaching.com
+  </div>
+</div>
+
+<script>
+// Set today's date
+var today = new Date();
+var dd = String(today.getDate()).padStart(2,'0');
+var mm = String(today.getMonth()+1).padStart(2,'0');
+var yyyy = today.getFullYear();
+document.getElementById('dateField').value = dd+'/'+mm+'/'+yyyy;
+
+function toggleCheck(id) {
+  var el = document.getElementById(id);
+  var cb = el.querySelector('input[type=checkbox]');
+  if (cb.checked) {
+    el.classList.add('checked');
+  } else {
+    el.classList.remove('checked');
+  }
+}
+
+// Show/hide pseudo field
+document.querySelectorAll('input[name=anonymat]').forEach(function(r){
+  r.addEventListener('change', function(){
+    var pf = document.getElementById('pseudoField');
+    pf.style.display = this.value === 'pseudo' ? 'block' : 'none';
+  });
+});
+
+// Form submit
+document.getElementById('consentForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  // Collect data
+  var data = {};
+  var fd = new FormData(this);
+  fd.forEach(function(v,k){ data[k]=v; });
+  console.log('Form data:', data);
+  // Show success
+  this.style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+
+</body>
+</html>

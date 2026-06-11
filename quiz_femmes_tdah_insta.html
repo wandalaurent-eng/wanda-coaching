@@ -23,357 +23,108 @@
     --white:        #FFFFFF;
   }
 
-  html, body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text-dark);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
+  html, body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-  .screen {
-    display: none;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 0 0 40px;
-    animation: fadeIn 0.35s ease;
-  }
+  .screen { display: none; flex-direction: column; min-height: 100vh; padding: 0 0 40px; animation: fadeIn 0.35s ease; }
   .screen.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  .quiz-header { background: linear-gradient(135deg, var(--violet-bg) 0%, var(--mint-bg) 100%); padding: 36px 24px 28px; text-align: center; }
+  .quiz-header .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint); display: block; margin-bottom: 10px; }
+  .quiz-header h1 { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 10px; }
+  .quiz-header h1 em { font-style: italic; color: var(--mint); }
+  .quiz-header p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; max-width: 340px; margin: 0 auto 20px; }
 
-  /* ── HEADER ── */
-  .quiz-header {
-    background: linear-gradient(135deg, var(--violet-bg) 0%, var(--mint-bg) 100%);
-    padding: 36px 24px 28px;
-    text-align: center;
-  }
-  .quiz-header .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mint);
-    display: block;
-    margin-bottom: 10px;
-  }
-  .quiz-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.65rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-  .quiz-header h1 em {
-    font-style: italic;
-    color: var(--mint);
-  }
-  .quiz-header p {
-    font-size: 0.9rem;
-    color: var(--text-mid);
-    line-height: 1.6;
-    max-width: 340px;
-    margin: 0 auto 20px;
-  }
+  .progress-bar-wrap { background: var(--violet-bg); padding: 14px 24px 0; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-soft); margin-bottom: 8px; }
+  .progress-track { height: 5px; background: rgba(123,94,167,0.15); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--violet), var(--mint)); transition: width 0.4s ease; }
 
-  /* ── PROGRESS ── */
-  .progress-bar-wrap {
-    background: var(--violet-bg);
-    padding: 14px 24px 0;
-  }
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--text-soft);
-    margin-bottom: 8px;
-  }
-  .progress-track {
-    height: 5px;
-    background: rgba(123,94,167,0.15);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 14px;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(90deg, var(--violet), var(--mint));
-    transition: width 0.4s ease;
-  }
+  .question-block { padding: 24px 22px 12px; flex: 1; }
+  .question-label { display: inline-block; background: var(--violet-bg); color: var(--violet); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-radius: 30px; margin-bottom: 14px; }
+  .question-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); line-height: 1.4; margin-bottom: 8px; }
+  .question-sub { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 22px; font-style: italic; }
 
-  /* ── QUESTION ── */
-  .question-block {
-    padding: 24px 22px 12px;
-    flex: 1;
-  }
-  .question-label {
-    display: inline-block;
-    background: var(--violet-bg);
-    color: var(--violet);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 30px;
-    margin-bottom: 14px;
-  }
-  .question-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-  .question-sub {
-    font-size: 0.85rem;
-    color: var(--text-soft);
-    margin-bottom: 22px;
-    font-style: italic;
-  }
-
-  /* ── OPTIONS ── */
-  .options-list {
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-    padding: 0 22px 24px;
-  }
-  .option-btn {
-    background: var(--white);
-    border: 1.5px solid rgba(184,157,212,0.4);
-    border-radius: 14px;
-    padding: 15px 18px;
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    gap: 13px;
-    transition: all 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .option-btn:active {
-    transform: scale(0.98);
-  }
-  .option-btn.selected {
-    border-color: var(--violet);
-    background: var(--violet-bg);
-  }
+  .options-list { display: flex; flex-direction: column; gap: 11px; padding: 0 22px 24px; }
+  .option-btn { background: var(--white); border: 1.5px solid rgba(184,157,212,0.4); border-radius: 14px; padding: 15px 18px; text-align: left; cursor: pointer; display: flex; align-items: flex-start; gap: 13px; transition: all 0.2s ease; -webkit-tap-highlight-color: transparent; }
+  .option-btn:active { transform: scale(0.98); }
+  .option-btn.selected { border-color: var(--violet); background: var(--violet-bg); }
   .option-btn.selected .opt-icon { background: var(--violet); color: white; }
-  .opt-icon {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: rgba(184,157,212,0.2);
-    color: var(--violet);
-    font-size: 0.8rem;
-    font-weight: 500;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-  }
+  .opt-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(184,157,212,0.2); color: var(--violet); font-size: 0.8rem; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s ease; }
   .opt-text { font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; padding-top: 5px; }
   .opt-text strong { font-weight: 500; display: block; margin-bottom: 2px; }
   .opt-text span { color: var(--text-soft); font-size: 0.82rem; }
 
-  /* ── NEXT / CTA ── */
-  .btn-row {
-    padding: 0 22px;
-    margin-top: 8px;
-  }
-  .btn-next {
-    width: 100%;
-    padding: 16px;
-    background: var(--violet);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  .btn-next.ready {
-    opacity: 1;
-    pointer-events: all;
-  }
+  .btn-row { padding: 0 22px; margin-top: 8px; }
+  .btn-next { width: 100%; padding: 16px; background: var(--violet); color: white; border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s ease, transform 0.15s ease; opacity: 0.4; pointer-events: none; }
+  .btn-next.ready { opacity: 1; pointer-events: all; }
   .btn-next.ready:active { transform: scale(0.98); }
 
-  /* ── INTRO SCREEN ── */
-  .intro-body {
-    padding: 28px 22px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .intro-card {
-    background: white;
-    border-radius: 16px;
-    padding: 18px 20px;
-    border: 1px solid rgba(184,157,212,0.3);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .intro-icon {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    background: var(--violet-bg);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-  }
+  /* INTRO */
+  .intro-body { padding: 28px 22px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .intro-card { background: white; border-radius: 16px; padding: 18px 20px; border: 1px solid rgba(184,157,212,0.3); display: flex; align-items: center; gap: 14px; }
+  .intro-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--violet-bg); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
   .intro-card p { font-size: 0.87rem; color: var(--text-mid); line-height: 1.5; }
   .intro-card strong { color: var(--text-dark); font-weight: 500; }
-  .btn-start {
-    margin: 16px 22px 0;
-    width: calc(100% - 44px);
-    padding: 17px;
-    background: var(--violet);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.01em;
-    transition: background 0.2s;
-  }
+  .btn-start { margin: 16px 22px 0; width: calc(100% - 44px); padding: 17px; background: var(--violet); color: white; border: none; border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
   .btn-start:active { background: #6A4D92; }
 
-  /* ── RESULT ── */
-  .result-hero {
-    background: linear-gradient(135deg, var(--violet-bg), var(--mint-bg));
-    padding: 36px 24px 28px;
-    text-align: center;
-  }
-  .result-badge {
-    display: inline-block;
-    background: var(--violet);
-    color: white;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 30px;
-    margin-bottom: 14px;
-  }
-  .result-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.3;
-    margin-bottom: 10px;
-  }
+  /* RÉSULTAT */
+  .result-hero { background: linear-gradient(135deg, var(--violet-bg), var(--mint-bg)); padding: 36px 24px 28px; text-align: center; }
+  .result-badge { display: inline-block; background: var(--violet); color: white; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 16px; border-radius: 30px; margin-bottom: 14px; }
+  .result-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; margin-bottom: 10px; }
   .result-title em { color: var(--mint); font-style: italic; }
-  .result-desc {
-    font-size: 0.9rem;
-    color: var(--text-mid);
-    line-height: 1.65;
-    max-width: 340px;
-    margin: 0 auto;
-  }
+  .result-desc { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; max-width: 340px; margin: 0 auto; }
 
   .result-body { padding: 24px 22px; }
 
-  .result-needs {
-    background: white;
-    border-radius: 18px;
-    border: 1px solid rgba(184,157,212,0.3);
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-  .result-need-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 18px;
-    border-bottom: 1px solid rgba(184,157,212,0.18);
-  }
+  /* SCORING BARS */
+  .score-section { margin-bottom: 24px; }
+  .score-section-label { font-size: 0.78rem; color: var(--text-soft); text-align: center; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .score-card { background: white; border-radius: 16px; border: 1px solid rgba(184,157,212,0.25); padding: 18px 20px; margin-bottom: 10px; }
+  .score-row-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .score-axis-name { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); }
+  .score-value { font-size: 0.82rem; font-weight: 500; color: var(--violet); }
+  .score-track { height: 8px; background: rgba(184,157,212,0.2); border-radius: 10px; overflow: hidden; }
+  .score-bar { height: 100%; border-radius: 10px; transition: width 1s ease; }
+  .score-bar.clarté    { background: linear-gradient(90deg, #B89DD4, #7B5EA7); }
+  .score-bar.energie   { background: linear-gradient(90deg, #A8E6D8, #5CBFAA); }
+  .score-bar.confiance { background: linear-gradient(90deg, #B89DD4, #5CBFAA); }
+  .score-bar.action    { background: linear-gradient(90deg, #5CBFAA, #7B5EA7); }
+  .score-hint { font-size: 0.78rem; color: var(--text-soft); margin-top: 6px; font-style: italic; }
+
+  /* NEEDS */
+  .result-needs { background: white; border-radius: 18px; border: 1px solid rgba(184,157,212,0.3); overflow: hidden; margin-bottom: 20px; }
+  .result-need-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; border-bottom: 1px solid rgba(184,157,212,0.18); }
   .result-need-item:last-child { border-bottom: none; }
-  .need-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--violet-light);
-    margin-top: 5px;
-    flex-shrink: 0;
-  }
+  .need-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--violet-light); margin-top: 5px; flex-shrink: 0; }
   .result-need-item:nth-child(even) .need-dot { background: var(--mint); }
   .need-content strong { font-size: 0.88rem; font-weight: 500; color: var(--text-dark); display: block; margin-bottom: 3px; }
   .need-content span { font-size: 0.82rem; color: var(--text-soft); line-height: 1.5; }
 
-  .result-cta {
-    background: linear-gradient(135deg, var(--violet-bg), var(--mint-bg));
-    border-radius: 18px;
-    padding: 24px 20px;
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .result-cta p {
-    font-size: 0.88rem;
-    color: var(--text-mid);
-    margin-bottom: 14px;
-    line-height: 1.55;
-  }
-  .result-cta p strong { color: var(--text-dark); font-weight: 500; }
-  .btn-cta {
-    display: inline-block;
-    background: var(--mint);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .btn-cta:active { background: #4DADA0; }
-  .btn-restart {
-    width: 100%;
-    padding: 13px;
-    background: transparent;
-    border: 1.5px solid rgba(184,157,212,0.5);
-    color: var(--text-soft);
-    border-radius: 50px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
+  /* CTA ZONE */
+  .cta-zone { background: linear-gradient(135deg, var(--violet-bg), var(--mint-bg)); border-radius: 18px; padding: 24px 20px; text-align: center; margin-bottom: 14px; }
+  .cta-zone p { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 16px; line-height: 1.55; }
+  .cta-zone p strong { color: var(--text-dark); font-weight: 500; }
+  .btn-cta-primary { display: block; width: 100%; background: var(--violet); color: white; padding: 16px 20px; border-radius: 50px; font-size: 0.92rem; font-weight: 500; text-decoration: none; margin-bottom: 10px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+  .btn-cta-primary:active { background: #6A4D92; }
+  .btn-cta-secondary { display: block; width: 100%; background: white; color: var(--violet); padding: 15px 20px; border-radius: 50px; font-size: 0.88rem; font-weight: 500; text-decoration: none; border: 1.5px solid var(--violet-light); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .btn-cta-secondary:active { background: var(--violet-bg); }
 
-  /* ── FOOTER ── */
-  .quiz-footer {
-    text-align: center;
-    padding: 20px 22px 0;
-    font-size: 0.72rem;
-    color: var(--text-soft);
-    line-height: 1.6;
-  }
+  .btn-restart { width: 100%; padding: 13px; background: transparent; border: 1.5px solid rgba(184,157,212,0.5); color: var(--text-soft); border-radius: 50px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; margin-top: 4px; }
+
+  .quiz-footer { text-align: center; padding: 20px 22px 0; font-size: 0.72rem; color: var(--text-soft); line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-     SCREEN 0 — INTRO
-════════════════════════════════ -->
+<!-- INTRO -->
 <div id="s-intro" class="screen active">
   <div class="quiz-header">
     <span class="eyebrow">Quiz · 5 questions</span>
     <h1>Femmes TDAH :<br>de quoi avez-vous <em>vraiment</em> besoin ?</h1>
     <p>Pas un diagnostic. Pas un jugement. Juste une vraie question — et des réponses qui vous ressemblent.</p>
   </div>
-
   <div class="intro-body">
     <div class="intro-card">
       <div class="intro-icon">⚡</div>
@@ -385,17 +136,14 @@
     </div>
     <div class="intro-card">
       <div class="intro-icon">◈</div>
-      <p><strong>Un point de départ</strong><br>À la fin, une piste concrète adaptée à là où vous en êtes.</p>
+      <p><strong>Un score sur 4 axes</strong><br>À la fin, votre profil détaillé + la possibilité de l'analyser ensemble.</p>
     </div>
   </div>
-
   <button class="btn-start" onclick="goTo('s-q1')">Commencer →</button>
   <div class="quiz-footer">Wanda Laurent Coaching | Passerelle des Talents<br>wanda.laurent@gmail.com · www.wandalaurentcoaching.com</div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN Q1
-════════════════════════════════ -->
+<!-- Q1 -->
 <div id="s-q1" class="screen">
   <div class="progress-bar-wrap">
     <div class="progress-meta"><span>Question 1 sur 5</span><span>20 %</span></div>
@@ -427,9 +175,7 @@
   <div class="btn-row"><button class="btn-next" id="next-q1" onclick="goTo('s-q2')">Suivant →</button></div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN Q2
-════════════════════════════════ -->
+<!-- Q2 -->
 <div id="s-q2" class="screen">
   <div class="progress-bar-wrap">
     <div class="progress-meta"><span>Question 2 sur 5</span><span>40 %</span></div>
@@ -461,9 +207,7 @@
   <div class="btn-row"><button class="btn-next" id="next-q2" onclick="goTo('s-q3')">Suivant →</button></div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN Q3
-════════════════════════════════ -->
+<!-- Q3 -->
 <div id="s-q3" class="screen">
   <div class="progress-bar-wrap">
     <div class="progress-meta"><span>Question 3 sur 5</span><span>60 %</span></div>
@@ -495,9 +239,7 @@
   <div class="btn-row"><button class="btn-next" id="next-q3" onclick="goTo('s-q4')">Suivant →</button></div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN Q4
-════════════════════════════════ -->
+<!-- Q4 -->
 <div id="s-q4" class="screen">
   <div class="progress-bar-wrap">
     <div class="progress-meta"><span>Question 4 sur 5</span><span>80 %</span></div>
@@ -529,9 +271,7 @@
   <div class="btn-row"><button class="btn-next" id="next-q4" onclick="goTo('s-q5')">Suivant →</button></div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN Q5
-════════════════════════════════ -->
+<!-- Q5 -->
 <div id="s-q5" class="screen">
   <div class="progress-bar-wrap">
     <div class="progress-meta"><span>Question 5 sur 5</span><span>95 %</span></div>
@@ -563,33 +303,70 @@
   <div class="btn-row"><button class="btn-next" id="next-q5" onclick="showResult()">Voir mes résultats →</button></div>
 </div>
 
-<!-- ═══════════════════════════════
-     SCREEN RÉSULTAT
-════════════════════════════════ -->
+<!-- RÉSULTAT -->
 <div id="s-result" class="screen">
   <div class="result-hero">
     <span class="result-badge">Votre profil</span>
-    <p class="result-title" id="result-title">Titre du profil</p>
-    <p class="result-desc" id="result-desc">Description du profil.</p>
+    <p class="result-title" id="result-title"></p>
+    <p class="result-desc" id="result-desc"></p>
   </div>
 
   <div class="result-body">
-    <p style="font-size:0.8rem; color:var(--text-soft); text-align:center; margin-bottom:16px; letter-spacing:0.05em; text-transform:uppercase;">Ce dont vous avez besoin</p>
+
+    <!-- SCORES -->
+    <div class="score-section">
+      <p class="score-section-label">Votre score sur 4 axes</p>
+      <div id="score-bars"></div>
+    </div>
+
+    <!-- BESOINS -->
+    <p style="font-size:0.78rem;color:var(--text-soft);text-align:center;margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;">Ce dont vous avez besoin</p>
     <div class="result-needs" id="result-needs"></div>
 
-    <div class="result-cta">
-      <p>Le <strong>Bilan Talents Neuro-Atypique</strong> est fait pour ça — comprendre votre fonctionnement et trouver le contexte où vous vous épanouissez vraiment.</p>
-      <a href="https://www.wandalaurentcoaching.com" class="btn-cta">En savoir plus →</a>
+    <!-- CTA -->
+    <div class="cta-zone">
+      <p>Envie d'aller plus loin ? <strong>Wanda analyse votre profil avec vous</strong> lors d'un échange gratuit de 30 minutes.</p>
+      <button class="btn-cta-primary" id="btn-email">✉️ Envoyer mes résultats à Wanda</button>
+      <a href="https://calendly.com/wanda-laurent" class="btn-cta-secondary" id="btn-calendly">📅 Réserver mon appel découverte gratuit</a>
     </div>
 
     <button class="btn-restart" onclick="restart()">↩ Recommencer le quiz</button>
-
     <div class="quiz-footer" style="margin-top:20px;">Wanda Laurent Coaching | Passerelle des Talents<br>wanda.laurent@gmail.com · www.wandalaurentcoaching.com</div>
   </div>
 </div>
 
 <script>
 const answers = {};
+
+// Scoring : chaque réponse contribue à 1 ou 2 axes sur 4
+// Axes : clarté (0), energie (1), confiance (2), action (3)
+// Score max par axe : dépend des questions qui l'alimentent
+// On normalise sur 100 à la fin
+
+const scoring = {
+  q1: { A: [0,0,0,0,3,0,1,0], B: [3,0,0,0,0,0,0,0], C: [0,0,0,0,0,0,3,1], D: [0,0,2,0,0,1,0,0] },
+  q2: { A: [2,0,0,1,0,0,0,0], B: [0,0,0,0,2,0,0,1], C: [0,0,3,0,0,0,0,0], D: [3,0,0,0,0,0,0,0] },
+  q3: { A: [0,0,0,3,0,0,0,0], B: [0,0,0,2,0,0,0,1], C: [0,0,3,0,0,0,0,0], D: [0,0,0,0,0,0,0,3] },
+  q4: { A: [0,0,0,2,0,2,0,0], B: [3,0,0,0,0,0,0,1], C: [0,0,2,0,0,1,0,0], D: [0,0,3,0,0,0,0,0] },
+  q5: { A: [0,0,0,0,3,1,0,0], B: [2,0,0,0,0,0,1,0], C: [0,0,0,0,0,0,0,3], D: [0,0,0,0,0,0,0,3] }
+};
+// axes 0=clarté, 4=energie, 2=confiance, 7=action  (indices dans le vecteur de 8)
+const axeIdx = { clarte: 0, energie: 4, confiance: 2, action: 7 };
+const axeMax = { clarte: 11, energie: 9, confiance: 11, action: 11 };
+
+function computeScores() {
+  const raw = [0,0,0,0,0,0,0,0];
+  for (const [q, val] of Object.entries(answers)) {
+    const vec = scoring[q][val];
+    vec.forEach((v,i) => raw[i] += v);
+  }
+  return {
+    clarte:    Math.round(raw[axeIdx.clarte]    / axeMax.clarte    * 100),
+    energie:   Math.round(raw[axeIdx.energie]   / axeMax.energie   * 100),
+    confiance: Math.round(raw[axeIdx.confiance] / axeMax.confiance * 100),
+    action:    Math.round(raw[axeIdx.action]    / axeMax.action    * 100),
+  };
+}
 
 function select(btn, qid, val) {
   document.querySelectorAll('#opts-' + qid + ' .option-btn').forEach(b => b.classList.remove('selected'));
@@ -605,68 +382,127 @@ function goTo(id) {
   window.scrollTo(0, 0);
 }
 
-function showResult() {
-  const profile = computeProfile();
-  document.getElementById('result-title').innerHTML = profile.title;
-  document.getElementById('result-desc').textContent = profile.desc;
-  const needsEl = document.getElementById('result-needs');
-  needsEl.innerHTML = profile.needs.map((n, i) =>
-    `<div class="result-need-item">
-      <div class="need-dot"></div>
-      <div class="need-content"><strong>${n.title}</strong><span>${n.text}</span></div>
-    </div>`
-  ).join('');
-  goTo('s-result');
+const axeLabels = {
+  clarte:    { label: "Clarté professionnelle", cls: "clarté",    hints: ["Encore floue","En construction","Assez claire","Bien définie"] },
+  energie:   { label: "Énergie & gestion de soi", cls: "energie",  hints: ["À bout de souffle","Fatigable","En reprise","Ressourcée"] },
+  confiance: { label: "Confiance en ses forces", cls: "confiance", hints: ["Fragile","Qui cherche","Qui sent","Bien ancrée"] },
+  action:    { label: "Prête à agir", cls: "action",    hints: ["Pas encore","En train d'y penser","Presque","Fin prête"] },
+};
+
+function hintFor(score, hints) {
+  if (score < 25) return hints[0];
+  if (score < 50) return hints[1];
+  if (score < 75) return hints[2];
+  return hints[3];
 }
 
-function computeProfile() {
-  const a = answers;
-  const burnout  = [a.q1 === 'A', a.q5 === 'A', a.q4 === 'A'].filter(Boolean).length;
-  const explore  = [a.q1 === 'B', a.q2 === 'D', a.q5 === 'B'].filter(Boolean).length;
-  const ready    = [a.q5 === 'C', a.q5 === 'D', a.q3 === 'D'].filter(Boolean).length;
-  const recog    = [a.q1 === 'D', a.q2 === 'C', a.q3 === 'C'].filter(Boolean).length;
+function renderScoreBars(scores) {
+  const el = document.getElementById('score-bars');
+  el.innerHTML = Object.entries(scores).map(([key, val]) => {
+    const ax = axeLabels[key];
+    return `<div class="score-card">
+      <div class="score-row-top">
+        <span class="score-axis-name">${ax.label}</span>
+        <span class="score-value">${val} %</span>
+      </div>
+      <div class="score-track"><div class="score-bar ${ax.cls}" style="width:0%" data-target="${val}"></div></div>
+      <p class="score-hint">${hintFor(val, ax.hints)}</p>
+    </div>`;
+  }).join('');
+  // Animate bars after paint
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar').forEach(bar => {
+      bar.style.width = bar.dataset.target + '%';
+    });
+  }, 80);
+}
 
-  const max = Math.max(burnout, explore, ready, recog);
+function computeProfile(scores) {
+  const { clarte, energie, confiance, action } = scores;
+  // Dominant axis drives profile
+  const dominant = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
 
-  if (max === burnout || (burnout >= 2)) return {
-    title: `La femme qui <em>tient</em> — et qui mérite de souffler`,
-    desc: `Vous compensez depuis longtemps. Vous tenez. Mais votre énergie n'est pas infinie, et vous le savez.`,
-    needs: [
-      { title: "Comprendre votre fonctionnement", text: "Pas pour vous excuser — pour arrêter de vous battre contre vous-même." },
-      { title: "Un espace rien que pour vous", text: "Un endroit où poser les masques. Sans avoir à performer." },
-      { title: "Reconnaître ce que ça vous coûte", text: "Et commencer à construire différemment — avec vous, pas contre vous." }
-    ]
+  const profiles = {
+    energie: {
+      title: `La femme qui <em>tient</em> — et qui mérite de souffler`,
+      desc: `Vous compensez depuis longtemps. Vous tenez. Mais votre énergie n'est pas infinie, et vous le savez.`,
+      needs: [
+        { title: "Comprendre votre fonctionnement", text: "Pas pour vous excuser — pour arrêter de vous battre contre vous-même." },
+        { title: "Un espace rien que pour vous", text: "Un endroit où poser les masques, sans avoir à performer." },
+        { title: "Construire différemment", text: "Avec vous, pas contre vous. En respectant votre rythme." }
+      ]
+    },
+    clarte: {
+      title: `La femme qui <em>cherche</em> — et qui a raison de chercher`,
+      desc: `Vous savez que quelque chose ne colle pas. Vous ne savez pas encore quoi. Mais cette intuition est précieuse.`,
+      needs: [
+        { title: "Un espace pour explorer sans pression", text: "Poser les questions que vous n'osez pas poser ailleurs." },
+        { title: "Identifier ce qui vous anime vraiment", text: "Pas ce qu'on attend de vous. Ce qui allume quelque chose en vous." },
+        { title: "Un cap professionnel qui vous ressemble", text: "Adapté à votre façon d'être au monde — pas à un modèle standard." }
+      ]
+    },
+    confiance: {
+      title: `La femme qui <em>voit</em> ses forces — mais attend qu'on les voie`,
+      desc: `Vous savez que vous avez des talents. Rares. Précieux. Mais ils ne trouvent pas encore leur place.`,
+      needs: [
+        { title: "Nommer ce que vous savez faire", text: "Avec des mots clairs, qui parlent à ceux qui recrutent ou collaborent." },
+        { title: "Trouver le contexte qui vous valorise", text: "Vos talents ne manquent pas — c'est le contexte qui fait la différence." },
+        { title: "Oser vous positionner", text: "Assumer qui vous êtes professionnellement, sans vous diminuer." }
+      ]
+    },
+    action: {
+      title: `La femme <em>prête</em> — qui n'attend plus que le déclic`,
+      desc: `Vous sentez que quelque chose est possible. L'envie est là. Il vous faut un cadre et un accompagnement pour agir.`,
+      needs: [
+        { title: "Passer de l'intention à l'action", text: "Transformer ce que vous ressentez en un projet concret et réaliste." },
+        { title: "Un accompagnement sur mesure", text: "Quelqu'un qui comprend votre fonctionnement — sans que vous ayez à tout expliquer." },
+        { title: "Le bon contexte pour s'épanouir", text: "L'environnement où votre cerveau atypique devient votre meilleur atout." }
+      ]
+    }
+  };
+  return profiles[dominant] || profiles.clarte;
+}
+
+function buildEmailBody(profile, scores) {
+  const titre = profile.title.replace(/<[^>]+>/g, '');
+  return `Bonjour Wanda,
+
+Je viens de faire votre quiz "Femmes TDAH : de quoi avez-vous besoin ?" et voici mes résultats :
+
+PROFIL : ${titre}
+
+MON SCORE SUR 4 AXES :
+• Clarté professionnelle : ${scores.clarte} %
+• Énergie & gestion de soi : ${scores.energie} %
+• Confiance en ses forces : ${scores.confiance} %
+• Prête à agir : ${scores.action} %
+
+Je serais ravie d'échanger avec vous pour analyser ces résultats ensemble.
+
+À bientôt,`;
+}
+
+function showResult() {
+  const scores = computeScores();
+  const profile = computeProfile(scores);
+
+  document.getElementById('result-title').innerHTML = profile.title;
+  document.getElementById('result-desc').textContent = profile.desc;
+
+  renderScoreBars(scores);
+
+  document.getElementById('result-needs').innerHTML = profile.needs.map(n =>
+    `<div class="result-need-item"><div class="need-dot"></div><div class="need-content"><strong>${n.title}</strong><span>${n.text}</span></div></div>`
+  ).join('');
+
+  // Email button
+  const subject = encodeURIComponent('Mes résultats quiz — Femmes TDAH');
+  const body = encodeURIComponent(buildEmailBody(profile, scores));
+  document.getElementById('btn-email').onclick = () => {
+    window.location.href = `mailto:wanda.laurent@gmail.com?subject=${subject}&body=${body}`;
   };
 
-  if (max === explore) return {
-    title: `La femme qui <em>cherche</em> — et qui a raison de chercher`,
-    desc: `Vous savez que quelque chose ne colle pas. Vous ne savez pas encore quoi. Mais cette intuition est précieuse.`,
-    needs: [
-      { title: "Un espace pour explorer sans pression", text: "Poser les questions que vous n'osez pas poser ailleurs." },
-      { title: "Identifier ce qui vous anime vraiment", text: "Pas ce qu'on attend de vous. Ce qui allume quelque chose en vous." },
-      { title: "Un cap professionnel qui vous ressemble", text: "Adapté à votre façon d'être au monde — pas à un modèle standard." }
-    ]
-  };
-
-  if (max === recog) return {
-    title: `La femme qui <em>voit</em> ses forces — mais attend qu'on les voie`,
-    desc: `Vous savez que vous avez des talents. Rares. Précieux. Mais ils ne trouvent pas encore leur place.`,
-    needs: [
-      { title: "Nommer ce que vous savez faire", text: "Avec des mots clairs, qui parlent à ceux qui recrutent ou collaborent." },
-      { title: "Trouver le contexte qui vous valorise", text: "Vos talents ne manquent pas — c'est le contexte qui fait la différence." },
-      { title: "Oser vous positionner", text: "Assumer qui vous êtes professionnellement, sans vous diminuer." }
-    ]
-  };
-
-  return {
-    title: `La femme <em>prête</em> — qui n'attend plus que le déclic`,
-    desc: `Vous sentez que quelque chose est possible. L'envie est là. Il vous faut un cadre, un accompagnement, un espace pour agir.`,
-    needs: [
-      { title: "Passer de l'intention à l'action", text: "Transformer ce que vous ressentez en un projet concret et réaliste." },
-      { title: "Un accompagnement sur mesure", text: "Quelqu'un qui comprend votre fonctionnement — sans que vous ayez à tout expliquer." },
-      { title: "Le bon contexte pour s'épanouir", text: "L'environnement où votre cerveau atypique devient votre meilleur atout." }
-    ]
-  };
+  goTo('s-result');
 }
 
 function restart() {

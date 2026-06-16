@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Espace Professionnel — Wanda Laurent Coaching</title>
-<meta name="description" content="Plateforme de coaching Wanda Laurent - Bilan de compétences, Orientation Parcoursup, Bilan Neuro-Atypique, Le Grand Plus. Certifiée ICI, Qualiopi, CPF éligible.">
-<meta name="keywords" content="bilan de compétences, coaching orientation, TDAH adulte, HPI, Parcoursup, reconversion professionnelle, retraite transmission, Paris, 100% en ligne">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Sora:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
@@ -7459,8 +7457,16 @@ var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 9, grandplus: 9 };
 /* ─── STORAGE HELPERS ─── */
 /* ── Stockage avec fallback mémoire (Firefox file://) ── */
 var _wlcMem = {};
-function _storGet(k) { try { return localStorage.getItem(k); } catch(e) { return _wlcMem[k]||null; } }
-function _storSet(k,v) { try { localStorage.setItem(k,v); } catch(e) { _wlcMem[k]=v; } }
+function _storGet(k) {
+  // Mémoire JS toujours prioritaire (survit aux re-renders, pas aux F5)
+  if (_wlcMem[k] !== undefined) return _wlcMem[k];
+  try { var v = localStorage.getItem(k); if (v !== null) { _wlcMem[k]=v; return v; } } catch(e) {}
+  return null;
+}
+function _storSet(k,v) {
+  _wlcMem[k] = v; // Toujours en mémoire
+  try { localStorage.setItem(k,v); } catch(e) {} // Bonus si dispo
+}
 
 function loadData() {
   try { return JSON.parse(_storGet('wlc_data') || '{}'); } catch(e) { return {}; }
@@ -7469,7 +7475,8 @@ function saveDataStore(d) {
   _storSet('wlc_data', JSON.stringify(d));
 }
 var CLIENTS_PERMANENTS = [
-  {id:'c_emma',prenom:'Emma',nom:'Marshall',ddn:'23/12/2003',programme:'psp',statut:'active',email:'emt.marshall@outlook.com',tel:'07 49 87 85 59',debut:'2026-04-02',financement:'Personnel',notes:''}
+  {id:'c_emma',prenom:'Emma',nom:'Marshall',ddn:'23/12/2003',programme:'psp',statut:'active',email:'emt.marshall@outlook.com',tel:'07 49 87 85 59',debut:'2026-04-02',financement:'Personnel',notes:''},
+  {id:'c_maud',prenom:'Maud',nom:'Bénichou',ddn:'23/12/1992',programme:'neuro',statut:'active',email:'maud.benichou@ik.me',tel:'0614621859',debut:'2026-05-05',financement:'Personnel',notes:'BDC offert'}
 ];
 function getClients() {
   var d = loadData();
@@ -9315,19 +9322,15 @@ priorisation: `
 </div>`,
 
 ikigai: `
-<div class="modal-header" style="background:#1A1510;border-bottom:1px solid rgba(201,168,76,.2);">
+<div class="modal-header">
   <div>
-    <h2 style="color:#F5EFD8;">☯ Mon IKIGAI</h2>
-    <p style="color:rgba(245,239,216,.6);">Votre raison d'être à la convergence de 4 dimensions</p>
+    <h2>☯ Mon IKIGAI</h2>
+    <p>Votre raison d'être à la convergence de 4 dimensions</p>
   </div>
-  <button class="modal-close" onclick="bdcCloseModal()" style="color:rgba(245,239,216,.6);">✕</button>
+  <button class="modal-close" onclick="bdcCloseModal()">✕</button>
 </div>
-<div class="modal-body" style="background:#1A1510;padding:1.5rem;">
+<div class="modal-body">
   <!-- DIAGRAMME IKIGAI SVG identique Grand+ -->
-  <div style="text-align:center;margin-bottom:1.5rem;">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:#F5EFD8;margin-bottom:.2rem;">Mon <em style="font-style:italic;color:#E8C96A;">IKIGAI</em></div>
-    <div style="font-size:.78rem;color:rgba(245,239,216,.5);font-style:italic;">À la convergence de ce que vous aimez, savez faire, dont le monde a besoin et pour quoi on vous paie</div>
-  </div>
   <div style="display:flex;justify-content:center;margin-bottom:2rem;">
     <div style="position:relative;width:300px;height:300px;flex-shrink:0;">
       <svg width="300" height="300" viewBox="0 0 340 340" style="position:absolute;top:0;left:0;">
@@ -9340,64 +9343,64 @@ ikigai: `
       <div style="position:absolute;bottom:12px;right:4px;font-size:.68rem;font-weight:700;color:#6A9FD8;text-align:center;">💡 Ce pour quoi<br>je suis fait(e)</div>
       <div style="position:absolute;bottom:12px;left:4px;font-size:.68rem;font-weight:700;color:#70C470;text-align:center;">🌍 Ce dont le<br>monde a besoin</div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);text-align:center;pointer-events:none;">
-        <div style="font-size:.62rem;font-weight:700;color:#E8C96A;letter-spacing:.08em;text-transform:uppercase;">☯ IKIGAI</div>
-        <div style="font-size:.58rem;color:#E8C96A;margin-top:.15rem;">Ma mission</div>
+        <div style="font-size:.62rem;font-weight:700;color:#C9A84C;letter-spacing:.08em;text-transform:uppercase;">☯ IKIGAI</div>
+        <div style="font-size:.58rem;color:#C9A84C;margin-top:.15rem;">Ma raison d'être</div>
       </div>
     </div>
   </div>
-  <!-- 4 champs colorés style Grand+ -->
+  <!-- 4 champs colorés -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem;">
-    <div style="background:#231E15;border:1px solid rgba(224,112,112,0.35);border-radius:12px;padding:.95rem;">
-      <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#E07070;margin-bottom:.5rem;">❤️ Ce que j'aime profondément</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.85);font-size:.82rem;font-family:inherit;resize:vertical;min-height:80px;outline:none;" placeholder="Activités, sujets, personnes qui m'animent encore..."></textarea>
+    <div style="background:var(--cream);border:1px solid rgba(224,112,112,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#E07070;margin-bottom:.4rem;">❤️ Ce que j'aime faire</div>
+      <textarea class="textarea-field" placeholder="Activités, sujets, missions qui vous passionnent…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
     </div>
-    <div style="background:#231E15;border:1px solid rgba(106,159,216,0.35);border-radius:12px;padding:.95rem;">
-      <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6A9FD8;margin-bottom:.5rem;">💡 Ce pour quoi je suis fait(e)</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.85);font-size:.82rem;font-family:inherit;resize:vertical;min-height:80px;outline:none;" placeholder="Mes talents naturels, ce qui coule de source..."></textarea>
+    <div style="background:var(--cream);border:1px solid rgba(106,159,216,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#6A9FD8;margin-bottom:.4rem;">💡 Ce pour quoi je suis fait·e</div>
+      <textarea class="textarea-field" placeholder="Compétences naturelles, talents, expertises…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
     </div>
-    <div style="background:#231E15;border:1px solid rgba(112,196,112,0.35);border-radius:12px;padding:.95rem;">
-      <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#70C470;margin-bottom:.5rem;">🌍 Ce dont le monde a besoin</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.85);font-size:.82rem;font-family:inherit;resize:vertical;min-height:80px;outline:none;" placeholder="Besoins de ma famille, communauté, territoire..."></textarea>
+    <div style="background:var(--cream);border:1px solid rgba(112,196,112,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#4a9a4a;margin-bottom:.4rem;">🌍 Ce dont le monde a besoin</div>
+      <textarea class="textarea-field" placeholder="Problèmes à résoudre, besoins à satisfaire…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
     </div>
-    <div style="background:#231E15;border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:.95rem;">
-      <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#E8C96A;margin-bottom:.5rem;">🤝 Ce que je peux donner & transmettre</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.85);font-size:.82rem;font-family:inherit;resize:vertical;min-height:80px;outline:none;" placeholder="Savoirs, expérience, réseau, temps, présence..."></textarea>
+    <div style="background:var(--cream);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#9a7820;margin-bottom:.4rem;">💶 Ce pour quoi on peut me payer</div>
+      <textarea class="textarea-field" placeholder="Compétences monétisables, services à offrir…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
     </div>
   </div>
   <!-- IKIGAI central -->
-  <div style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:2px solid rgba(201,168,76,.45);border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;">
-    <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#E8C96A;margin-bottom:.6rem;">⭐ Mon IKIGAI — Ma raison d'être</div>
-    <textarea style="width:100%;background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:.8rem;color:rgba(245,239,216,.9);font-size:.88rem;font-family:inherit;resize:vertical;min-height:90px;outline:none;" placeholder="À l'intersection de ces 4 dimensions : quelle est ma mission ? En 1 à 3 phrases, courtes et fortes."></textarea>
+  <div style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:2px solid rgba(201,168,76,.45);border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:.6rem;">⭐ Mon IKIGAI — Ma raison d'être</div>
+    <textarea class="textarea-field" placeholder="À l'intersection de ces 4 dimensions : quelle est votre raison d'être professionnelle ? En 1 à 3 phrases, courtes et fortes." style="min-height:90px;background:rgba(255,255,255,0.7);"></textarea>
   </div>
   <!-- Les autres piliers -->
-  <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,239,216,.4);margin-bottom:1rem;">Les autres piliers de votre synthèse</div>
+  <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:.8rem;">Les autres piliers de votre synthèse</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.6rem;">
-    <div style="background:#1E1A12;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem;">
-      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#E8C96A;margin-bottom:.4rem;">💎 Mes 5 valeurs</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.8);font-size:.78rem;font-family:inherit;resize:vertical;min-height:70px;outline:none;" placeholder="1. Liberté&#10;2. Loyauté&#10;..."></textarea>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">💎 Mes 5 valeurs</div>
+      <textarea class="textarea-field" placeholder="1. …&#10;2. …&#10;3. …" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
     </div>
-    <div style="background:#1E1A12;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem;">
-      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#E8C96A;margin-bottom:.4rem;">✦ Mes 5 talents</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.8);font-size:.78rem;font-family:inherit;resize:vertical;min-height:70px;outline:none;" placeholder="Ce que je fais mieux que la plupart..."></textarea>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">✦ Mes 5 talents</div>
+      <textarea class="textarea-field" placeholder="Ce que je fais mieux que la plupart…" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
     </div>
-    <div style="background:#1E1A12;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem;">
-      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#E8C96A;margin-bottom:.4rem;">🎯 Mon projet principal</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.8);font-size:.78rem;font-family:inherit;resize:vertical;min-height:70px;outline:none;" placeholder="Le projet qui m'anime le plus..."></textarea>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.5rem;">
-    <div style="background:#1E1A12;border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1rem;">
-      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#E8C96A;margin-bottom:.4rem;">⚓ Mon pacte</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.8);font-size:.78rem;font-family:inherit;resize:vertical;min-height:65px;outline:none;" placeholder="Mes 3 engagements concrets..."></textarea>
-    </div>
-    <div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:1rem;">
-      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:#E8C96A;margin-bottom:.4rem;">🎯 Mon cap en une phrase</div>
-      <textarea style="width:100%;background:transparent;border:none;color:rgba(245,239,216,.8);font-size:.78rem;font-family:inherit;resize:vertical;min-height:65px;outline:none;" placeholder="Une phrase courte, forte, la vôtre."></textarea>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">🎯 Mon projet principal</div>
+      <textarea class="textarea-field" placeholder="Le projet qui m'anime le plus…" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
     </div>
   </div>
-  <div style="display:flex;gap:.8rem;justify-content:flex-end;">
-    <button onclick="bdcCloseModal()" style="background:linear-gradient(135deg,#C9A84C,#E8C96A);color:#1A1510;border:none;border-radius:50px;padding:.7rem 1.6rem;font-weight:700;font-size:.85rem;cursor:pointer;">💾 Enregistrer mon IKIGAI</button>
-    <button onclick="bdcCloseModal()" style="background:transparent;color:rgba(245,239,216,.6);border:1px solid rgba(245,239,216,.2);border-radius:50px;padding:.7rem 1.4rem;font-size:.85rem;cursor:pointer;">Fermer</button>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem;">
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">⚓ Mon pacte</div>
+      <textarea class="textarea-field" placeholder="Mes 3 engagements concrets…" style="min-height:55px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">🎯 Mon cap en une phrase</div>
+      <textarea class="textarea-field" placeholder="Une phrase courte, forte, la vôtre." style="min-height:55px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-gold" onclick="bdcCloseModal()">💾 Enregistrer mon IKIGAI</button>
+    <button class="btn btn-outline" onclick="bdcCloseModal()">Fermer</button>
   </div>
 </div>`,
 

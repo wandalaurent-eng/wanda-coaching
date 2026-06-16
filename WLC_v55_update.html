@@ -8062,7 +8062,61 @@ function onSynthClientChange() {
     typeEl.onchange = function() {
       var cozone = document.getElementById('synth-coecrite-zone');
       if (cozone) cozone.style.display = (this.value === 'co-ecrite') ? 'block' : 'none';
+      var nzone = document.getElementById('synth-neuro-zone');
+      if (nzone) nzone.style.display = (this.value === 'neuro') ? 'block' : 'none';
+      if (this.value === 'neuro') loadNeuroClientData();
     };
+  }
+}
+
+function loadNeuroClientData() {
+  var container = document.getElementById('neuro-client-responses');
+  if (!container) return;
+  try {
+    var raw = localStorage.getItem('wlc_neuro_coach_data');
+    if (!raw) {
+      container.innerHTML = '<div style="color:rgba(255,255,255,.4);font-style:italic;">Aucune donnée reçue — la cliente n\'a pas encore envoyé ses réponses.</div>';
+      return;
+    }
+    var data = JSON.parse(raw);
+    var ts = data.timestamp ? new Date(data.timestamp).toLocaleString('fr-FR') : 'Date inconnue';
+    var labels = {
+      s1_r1:'S1 · Réussite 1', s1_r2:'S1 · Réussite 2', s1_r3:'S1 · Réussite 3',
+      s1_r4:'S1 · Réussite 4', s1_r5:'S1 · Réussite 5',
+      s2_biais_note:'S2 · Mon biais principal',
+      s2_biais_reframe:'S2 · Reformulation',
+      s3_pdc:'S3 · Croyance à transformer',
+      s3_exemple:'S3 · Exemple concret',
+      s3_synthese:'S3 · Synthèse croyances',
+      s4_brainstorm:'S4 · Brainstorm créativité',
+      s5_plan_pos:'S5 · Plan positif',
+      s5_plan_neg:'S5 · Plan négatif',
+      s5_date_pos:'S5 · Date engagement +',
+      s5_date_neg:'S5 · Date engagement -',
+      s6_chips:'S6 · Qualités sélectionnées',
+      s7_piste_0:'S7 · Piste professionnelle 1',
+      s7_piste_1:'S7 · Piste professionnelle 2',
+      s7_piste_2:'S7 · Piste professionnelle 3',
+      s8_carte_ia:'S8 · Carte de talents (IA)',
+      bonus_journal:'Bonus · Journal',
+      expr_mood:'Bonus · Humeur'
+    };
+    var html = '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:1rem;">Dernière mise à jour : '+ts+'</div>';
+    var hasData = false;
+    Object.keys(data.seances || {}).forEach(function(k) {
+      var val = data.seances[k];
+      if (!val) return;
+      hasData = true;
+      var label = labels[k] || k;
+      html += '<div style="margin-bottom:.75rem;padding:.75rem;background:rgba(255,255,255,.04);border-radius:8px;border-left:3px solid #8B5CF6;">';
+      html += '<div style="font-size:11px;font-weight:600;color:#C4B5FD;margin-bottom:4px;">'+label+'</div>';
+      html += '<div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;">'+val.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>';
+      html += '</div>';
+    });
+    if (!hasData) html += '<div style="color:rgba(255,255,255,.4);font-style:italic;">Aucune réponse encore remplie par la cliente.</div>';
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = '<div style="color:#FCA5A5;">Erreur de chargement : '+e.message+'</div>';
   }
 }
 
@@ -8119,6 +8173,26 @@ async function generateSynthIA() {
       + 'Notes disponibles :\n' + notesText + '\n'
       + 'Notes initiales : ' + clientInfo.notesInitiales + '\n'
       + 'Structure la réponse en : 1) Exercices complétés avec résultats clés 2) Outils de connaissance de soi utilisés 3) Points forts révélés par les exercices 4) Exercices restants recommandés. Sois précis et factuel.',
+
+    'neuro': (function() {
+      var neuroRaw = '';
+      try {
+        var nd = JSON.parse(localStorage.getItem('wlc_neuro_coach_data') || '{}');
+        var labels = {s1_r1:'Réussite 1',s1_r2:'Réussite 2',s1_r3:'Réussite 3',s1_r4:'Réussite 4',s1_r5:'Réussite 5',s2_biais_note:'Biais cognitif principal',s2_biais_reframe:'Reformulation du biais',s3_pdc:'Croyance à transformer',s3_exemple:'Exemple concret',s3_synthese:'Synthèse croyances',s4_brainstorm:'Brainstorm créativité',s5_plan_pos:'Plan émotionnel positif',s5_plan_neg:'Plan émotionnel négatif',s6_chips:'Qualités identifiées',s7_piste_0:'Piste pro 1',s7_piste_1:'Piste pro 2',s7_piste_2:'Piste pro 3',s8_carte_ia:'Carte de talents IA'};
+        Object.keys(nd.seances || {}).forEach(function(k){if(nd.seances[k]) neuroRaw += (labels[k]||k)+' : '+nd.seances[k]+'\n';});
+      } catch(e) {}
+      return 'Tu es Wanda Laurent, coach ICI certifiée, spécialisée en profils neuro-atypiques (TDAH, hypersensibles, bipolaires). '
+      + 'Génère la synthèse finale du Bilan Talents Neuro-Atypique de ' + clientInfo.nom + '.\n'
+      + 'DONNÉES CLIENT (exercices complétés par la cliente) :\n' + (neuroRaw || 'Non disponibles') + '\n'
+      + 'NOTES DE SÉANCES COACH :\n' + notesText + '\n'
+      + 'Génère une synthèse structurée en 5 parties : '
+      + '1) Profil neuro-atypique et forces singulières '
+      + '2) Croyances transformées et nouvelles postures '
+      + '3) Talents et compétences clés identifiés '
+      + '4) Pistes professionnelles retenues et pourquoi '
+      + '5) Message de clôture personnalisé et encourageant. '
+      + 'Ton : chaleureux, expert, ancré dans l\'authenticité du parcours. Tutoiement bienveillant.';
+    })(),
   };
 
   var prompt = promptMap[type] || promptMap['auto-ia'];
@@ -8630,46 +8704,7 @@ function toggleAbandon(el) {
   setClients(clients);
   renderDashboard();
 }
-function editClient(id) {
-  var clients = getClients();
-  var c = clients.find(function(x){ return x.id === id; });
-  if (!c) return;
-  document.getElementById('ec-id').value = c.id;
-  document.getElementById('ec-prenom').value = c.prenom || '';
-  document.getElementById('ec-nom').value = c.nom || '';
-  document.getElementById('ec-ddn').value = c.ddn || '';
-  document.getElementById('ec-email').value = c.email || '';
-  document.getElementById('ec-tel').value = c.tel || '';
-  document.getElementById('ec-debut').value = c.debut || '';
-  document.getElementById('ec-notes').value = c.notes || '';
-  var progSel = document.getElementById('ec-programme');
-  progSel.value = c.programme || 'bdc';
-  var finSel = document.getElementById('ec-financement');
-  finSel.value = c.financement || 'CPF';
-  var statSel = document.getElementById('ec-statut');
-  statSel.value = c.statut || 'active';
-  document.getElementById('modal-edit-client').classList.add('open');
-}
-function saveEditClient() {
-  var id = document.getElementById('ec-id').value;
-  var clients = getClients();
-  var idx = clients.findIndex(function(x){ return x.id === id; });
-  if (idx === -1) return;
-  clients[idx].prenom = document.getElementById('ec-prenom').value.trim();
-  clients[idx].nom = document.getElementById('ec-nom').value.trim();
-  clients[idx].ddn = document.getElementById('ec-ddn').value.trim();
-  clients[idx].email = document.getElementById('ec-email').value.trim();
-  clients[idx].tel = document.getElementById('ec-tel').value.trim();
-  clients[idx].debut = document.getElementById('ec-debut').value;
-  clients[idx].financement = document.getElementById('ec-financement').value;
-  clients[idx].statut = document.getElementById('ec-statut').value;
-  clients[idx].notes = document.getElementById('ec-notes').value.trim();
-  clients[idx].programme = document.getElementById('ec-programme').value;
-  setClients(clients);
-  closeModal('modal-edit-client');
-  renderDashboard();
-  showToast('✅ Client mis à jour !');
-}
+function editClient(el) { var id = el.dataset ? el.dataset.id : el; showToast('✏️ Édition client — bientôt disponible'); }
 
 function openAddSeance() {
   var sel = document.getElementById('ns-client');
@@ -11917,7 +11952,17 @@ html{scroll-behavior:smooth}
                   <option value="exercices">📋 Résumé des exercices</option>
                   <option value="bdc">📑 Synthèse BDC complète</option>
                   <option value="psp">🎓 Synthèse Parcoursup</option>
+                  <option value="neuro">🧠 Synthèse Neuro-Atypique (données client)</option>
                 </select>
+              </div>
+            </div>
+            <div id="synth-neuro-zone" style="display:none;margin-bottom:1.5rem;">
+              <div style="background:linear-gradient(135deg,#1E1A34,#2D2052);border:1px solid #8B5CF6;border-radius:12px;padding:1.25rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                  <div style="font-size:13px;font-weight:600;color:#C4B5FD;">🧠 Réponses client — Bilan Neuro-Atypique</div>
+                  <button onclick="loadNeuroClientData()" style="background:#8B5CF6;color:white;border:none;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;">🔄 Actualiser</button>
+                </div>
+                <div id="neuro-client-responses" style="font-size:13px;color:rgba(255,255,255,.6);font-style:italic;">Cliquez sur Actualiser pour charger les réponses de la cliente.</div>
               </div>
             </div>
             <div id="synth-coecrite-zone" style="display:none;margin-bottom:1.5rem;">
@@ -16301,51 +16346,5 @@ openSession = function(id){
 })();
 </script>
 
-
-<!-- MODAL: EDIT CLIENT -->
-<div class="modal-backdrop" id="modal-edit-client">
-  <div class="modal-box">
-    <div class="modal-title">✏️ Modifier le client</div>
-    <input type="hidden" id="ec-id">
-    <div class="form-grid">
-      <div class="form-row"><label class="form-label">Prénom *</label><input class="form-input" id="ec-prenom"></div>
-      <div class="form-row"><label class="form-label">Nom *</label><input class="form-input" id="ec-nom"></div>
-      <div class="form-row"><label class="form-label">Date de naissance *</label><input class="form-input" id="ec-ddn" placeholder="ex: 15/03/1985"></div>
-      <div class="form-row"><label class="form-label">Programme *</label>
-        <select class="form-input" id="ec-programme">
-          <option value="bdc">Bilan de Compétences (9 séances)</option>
-          <option value="psp">Orientation Parcoursup (6 séances)</option>
-          <option value="neuro">Bilan Talents Neuro-Atypique (8 séances)</option>
-          <option value="grandplus">Le Grand + (9 séances)</option>
-        </select>
-      </div>
-      <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="ec-email" type="email"></div>
-      <div class="form-row"><label class="form-label">Téléphone</label><input class="form-input" id="ec-tel"></div>
-      <div class="form-row"><label class="form-label">Date de début</label><input class="form-input" id="ec-debut" type="date"></div>
-      <div class="form-row"><label class="form-label">Financement</label>
-        <select class="form-input" id="ec-financement">
-          <option value="CPF">CPF</option>
-          <option value="Perso">Personnel</option>
-          <option value="Personnel">Personnel</option>
-          <option value="Employeur">Employeur</option>
-          <option value="Pôle Emploi">Pôle Emploi</option>
-        </select>
-      </div>
-      <div class="form-row"><label class="form-label">Statut</label>
-        <select class="form-input" id="ec-statut">
-          <option value="active">Actif</option>
-          <option value="pause">En pause</option>
-          <option value="termine">Terminé</option>
-          <option value="abandonne">Abandonné</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row"><label class="form-label">Notes</label><textarea class="form-input" id="ec-notes" rows="2" placeholder="Contexte, objectifs, points d'attention..."></textarea></div>
-    <div class="modal-actions">
-      <button class="dash-btn-sm outline" onclick="closeModal('modal-edit-client')">Annuler</button>
-      <button class="dash-btn-sm gold" onclick="saveEditClient()">Enregistrer</button>
-    </div>
-  </div>
-</div>
 </body>
 </html>

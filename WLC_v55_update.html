@@ -8630,7 +8630,46 @@ function toggleAbandon(el) {
   setClients(clients);
   renderDashboard();
 }
-function editClient(el) { var id = el.dataset ? el.dataset.id : el; showToast('✏️ Édition client — bientôt disponible'); }
+function editClient(id) {
+  var clients = getClients();
+  var c = clients.find(function(x){ return x.id === id; });
+  if (!c) return;
+  document.getElementById('ec-id').value = c.id;
+  document.getElementById('ec-prenom').value = c.prenom || '';
+  document.getElementById('ec-nom').value = c.nom || '';
+  document.getElementById('ec-ddn').value = c.ddn || '';
+  document.getElementById('ec-email').value = c.email || '';
+  document.getElementById('ec-tel').value = c.tel || '';
+  document.getElementById('ec-debut').value = c.debut || '';
+  document.getElementById('ec-notes').value = c.notes || '';
+  var progSel = document.getElementById('ec-programme');
+  progSel.value = c.programme || 'bdc';
+  var finSel = document.getElementById('ec-financement');
+  finSel.value = c.financement || 'CPF';
+  var statSel = document.getElementById('ec-statut');
+  statSel.value = c.statut || 'active';
+  document.getElementById('modal-edit-client').classList.add('open');
+}
+function saveEditClient() {
+  var id = document.getElementById('ec-id').value;
+  var clients = getClients();
+  var idx = clients.findIndex(function(x){ return x.id === id; });
+  if (idx === -1) return;
+  clients[idx].prenom = document.getElementById('ec-prenom').value.trim();
+  clients[idx].nom = document.getElementById('ec-nom').value.trim();
+  clients[idx].ddn = document.getElementById('ec-ddn').value.trim();
+  clients[idx].email = document.getElementById('ec-email').value.trim();
+  clients[idx].tel = document.getElementById('ec-tel').value.trim();
+  clients[idx].debut = document.getElementById('ec-debut').value;
+  clients[idx].financement = document.getElementById('ec-financement').value;
+  clients[idx].statut = document.getElementById('ec-statut').value;
+  clients[idx].notes = document.getElementById('ec-notes').value.trim();
+  clients[idx].programme = document.getElementById('ec-programme').value;
+  setClients(clients);
+  closeModal('modal-edit-client');
+  renderDashboard();
+  showToast('✅ Client mis à jour !');
+}
 
 function openAddSeance() {
   var sel = document.getElementById('ns-client');
@@ -16262,5 +16301,51 @@ openSession = function(id){
 })();
 </script>
 
+
+<!-- MODAL: EDIT CLIENT -->
+<div class="modal-backdrop" id="modal-edit-client">
+  <div class="modal-box">
+    <div class="modal-title">✏️ Modifier le client</div>
+    <input type="hidden" id="ec-id">
+    <div class="form-grid">
+      <div class="form-row"><label class="form-label">Prénom *</label><input class="form-input" id="ec-prenom"></div>
+      <div class="form-row"><label class="form-label">Nom *</label><input class="form-input" id="ec-nom"></div>
+      <div class="form-row"><label class="form-label">Date de naissance *</label><input class="form-input" id="ec-ddn" placeholder="ex: 15/03/1985"></div>
+      <div class="form-row"><label class="form-label">Programme *</label>
+        <select class="form-input" id="ec-programme">
+          <option value="bdc">Bilan de Compétences (9 séances)</option>
+          <option value="psp">Orientation Parcoursup (6 séances)</option>
+          <option value="neuro">Bilan Talents Neuro-Atypique (8 séances)</option>
+          <option value="grandplus">Le Grand + (9 séances)</option>
+        </select>
+      </div>
+      <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="ec-email" type="email"></div>
+      <div class="form-row"><label class="form-label">Téléphone</label><input class="form-input" id="ec-tel"></div>
+      <div class="form-row"><label class="form-label">Date de début</label><input class="form-input" id="ec-debut" type="date"></div>
+      <div class="form-row"><label class="form-label">Financement</label>
+        <select class="form-input" id="ec-financement">
+          <option value="CPF">CPF</option>
+          <option value="Perso">Personnel</option>
+          <option value="Personnel">Personnel</option>
+          <option value="Employeur">Employeur</option>
+          <option value="Pôle Emploi">Pôle Emploi</option>
+        </select>
+      </div>
+      <div class="form-row"><label class="form-label">Statut</label>
+        <select class="form-input" id="ec-statut">
+          <option value="active">Actif</option>
+          <option value="pause">En pause</option>
+          <option value="termine">Terminé</option>
+          <option value="abandonne">Abandonné</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row"><label class="form-label">Notes</label><textarea class="form-input" id="ec-notes" rows="2" placeholder="Contexte, objectifs, points d'attention..."></textarea></div>
+    <div class="modal-actions">
+      <button class="dash-btn-sm outline" onclick="closeModal('modal-edit-client')">Annuler</button>
+      <button class="dash-btn-sm gold" onclick="saveEditClient()">Enregistrer</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Générateur de synthèse — 1er RDV</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/9.0.2/docx.umd.js"></script>
+<style>
+  :root{
+    --navy:#1A2744; --teal:#2A7F7F; --gold:#C8A84B; --cream:#F5F0E8;
+    --violet-dark:#2D1B4E; --violet:#7B5EA7; --violet-light:#B89DD4;
+    --mint:#5CBFAA; --mint-light:#A8E6D8; --cream2:#FAF8FF;
+    --bg:#ffffff; --panel:#f7f6f3; --border:#ddd8cc; --text:#222;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'DM Sans', Arial, sans-serif; margin:0; padding:24px;
+    background:var(--bg); color:var(--text); max-width:760px;
+  }
+  h1{font-family:'Cormorant Garamond', Georgia, serif; font-size:26px; margin:0 0 4px;}
+  .sub{color:#777; font-size:14px; margin-bottom:24px;}
+  fieldset{
+    border:1px solid var(--border); border-radius:10px; padding:16px 18px;
+    margin-bottom:18px; background:var(--panel);
+  }
+  legend{font-weight:600; font-size:14px; padding:0 6px; color:var(--navy);}
+  label{display:block; font-size:13px; font-weight:600; margin:10px 0 4px; color:#333;}
+  label.opt{font-weight:400; color:#666;}
+  input[type=text], input[type=number], select, textarea{
+    width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px;
+    font-family:inherit; font-size:14px; background:#fff;
+  }
+  textarea{min-height:64px; resize:vertical;}
+  .row{display:flex; gap:12px;}
+  .row > div{flex:1;}
+  .bullets-box{display:flex; flex-direction:column; gap:6px;}
+  .bullets-box input{margin-bottom:0;}
+  .add-bullet{
+    margin-top:6px; font-size:12px; padding:6px 10px; border:1px dashed var(--border);
+    background:#fff; border-radius:6px; cursor:pointer; color:#555;
+  }
+  .add-bullet:hover{background:#eee;}
+  .palette-preview{display:flex; gap:6px; margin-top:6px;}
+  .swatch{width:22px; height:22px; border-radius:4px; border:1px solid #0001;}
+  button#generate{
+    width:100%; padding:14px; font-size:15px; font-weight:600; color:#fff;
+    background:var(--navy); border:none; border-radius:8px; cursor:pointer; margin-top:6px;
+  }
+  button#generate:hover{opacity:0.9;}
+  .hint{font-size:12px; color:#888; margin-top:2px;}
+  .status{margin-top:10px; font-size:13px; min-height:18px;}
+  .status.ok{color:#2A7F7F;}
+  .status.err{color:#b3261e;}
+</style>
+</head>
+<body>
+
+<h1>Synthèse 1er RDV — générateur automatique</h1>
+<div class="sub">Remplis tes notes après l'entretien découverte, choisis le programme, et télécharge le récapitulatif en .docx prêt à envoyer.</div>
+
+<fieldset>
+  <legend>Prospect(e) &amp; programme</legend>
+  <label>Prénom de la prospecte / du prospect</label>
+  <input type="text" id="prenom" placeholder="Caroline">
+
+  <label>Programme</label>
+  <select id="programme">
+    <option value="neuro">Bilan Talents Neuro-Atypique — 1 600€ (CPF)</option>
+    <option value="bdc">Bilan de Compétences — 1 600€ (CPF)</option>
+    <option value="parcoursup">Orientation Parcoursup — 650€</option>
+    <option value="grandplus">Le Grand + (transition retraite) — 1 800€</option>
+  </select>
+  <div class="palette-preview" id="palettePreview"></div>
+  <div class="hint">La palette du document s'adapte automatiquement au programme choisi.</div>
+</fieldset>
+
+<fieldset>
+  <legend>Phrase d'accroche (l'objectif principal exprimé par la personne)</legend>
+  <label>Ce qu'elle/il a dit chercher avant tout</label>
+  <textarea id="accroche" placeholder="ex: savoir ce qui lui correspond vraiment"></textarea>
+  <div class="hint">Sera intégrée ainsi : « Vous m'avez dit chercher avant tout à [...] — c'est exactement ce que propose [le programme]. »</div>
+</fieldset>
+
+<fieldset>
+  <legend>Besoin identifié (3 à 5 points)</legend>
+  <div class="bullets-box" id="besoinsBox"></div>
+  <button type="button" class="add-bullet" data-target="besoinsBox">+ ajouter un point</button>
+</fieldset>
+
+<fieldset>
+  <legend>Ma méthode (étapes numérotées)</legend>
+  <div class="bullets-box" id="methodeBox"></div>
+  <button type="button" class="add-bullet" data-target="methodeBox">+ ajouter une étape</button>
+</fieldset>
+
+<fieldset>
+  <legend>Encart différenciant <label class="opt" style="display:inline;font-weight:400;">(optionnel)</label></legend>
+  <label class="opt">Laisser vide pour ne pas l'inclure</label>
+  <textarea id="encart" placeholder="ex: Je suis moi-même TDA et hypersensible, et j'ai construit ce programme spécifiquement pour les profils neuro-atypiques..."></textarea>
+</fieldset>
+
+<fieldset>
+  <legend>Détails pratiques</legend>
+  <div class="row">
+    <div>
+      <label>Format</label>
+      <input type="text" id="format" placeholder="Plusieurs séances individuelles, à distance">
+    </div>
+    <div>
+      <label>Tarif</label>
+      <input type="text" id="tarif" placeholder="1 600 €">
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <label>Financement</label>
+      <input type="text" id="financement" placeholder="Éligible au CPF">
+    </div>
+    <div>
+      <label>Certification</label>
+      <input type="text" id="certification" placeholder="Qualiopi">
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Phrase de clôture</legend>
+  <textarea id="cloture">Je comprends que vous souhaitiez comparer plusieurs offres avant de vous décider, c'est tout à fait légitime. Je reste disponible pour répondre à toute question complémentaire.</textarea>
+</fieldset>
+
+<button id="generate">Générer le document Word</button>
+<div class="status" id="status"></div>
+
+<script>
+const PALETTES = {
+  neuro: {
+    titleFont: "Cormorant Garamond", dark:"2D1B4E", accent:"7B5EA7", accentLight:"B89DD4",
+    mint:"5CBFAA", mintLight:"A8E6D8", cream:"FAF8FF",
+    titleLabel:"Bilan Talents Neuro-Atypique", swatches:["7B5EA7","5CBFAA","B89DD4"]
+  },
+  bdc: {
+    titleFont: "Cormorant Garamond", dark:"1A2744", accent:"2A7F7F", accentLight:"6FB3B3",
+    mint:"C8A84B", mintLight:"E6D6A8", cream:"F5F0E8",
+    titleLabel:"Bilan de Compétences", swatches:["1A2744","2A7F7F","C8A84B"]
+  },
+  parcoursup: {
+    titleFont: "Cormorant Garamond", dark:"1A2744", accent:"2A7F7F", accentLight:"6FB3B3",
+    mint:"C8A84B", mintLight:"E6D6A8", cream:"F5F0E8",
+    titleLabel:"Orientation Parcoursup", swatches:["1A2744","2A7F7F","C8A84B"]
+  },
+  grandplus: {
+    titleFont: "Cormorant Garamond", dark:"1A2744", accent:"C8A84B", accentLight:"E6D6A8",
+    mint:"2A7F7F", mintLight:"6FB3B3", cream:"F5F0E8",
+    titleLabel:"Le Grand +", swatches:["1A2744","C8A84B","2A7F7F"]
+  }
+};
+
+function renderPalettePreview(){
+  const p = PALETTES[document.getElementById('programme').value];
+  const box = document.getElementById('palettePreview');
+  box.innerHTML = p.swatches.map(c => `<div class="swatch" style="background:#${c}"></div>`).join('');
+}
+document.getElementById('programme').addEventListener('change', renderPalettePreview);
+renderPalettePreview();
+
+function addBulletRow(container, placeholder){
+  const wrap = document.createElement('div');
+  wrap.style.display='flex'; wrap.style.gap='6px';
+  const input = document.createElement('input');
+  input.type='text'; input.placeholder=placeholder||'';
+  input.style.flex='1';
+  const del = document.createElement('button');
+  del.type='button'; del.textContent='✕';
+  del.style.cssText='border:none;background:none;color:#999;cursor:pointer;font-size:13px;width:24px;';
+  del.onclick = () => wrap.remove();
+  wrap.appendChild(input); wrap.appendChild(del);
+  container.appendChild(wrap);
+}
+
+const besoinsBox = document.getElementById('besoinsBox');
+['Savoir ce qui lui correspond vraiment sur le plan professionnel',
+ 'Mieux comprendre et utiliser son fonctionnement neuro-atypique',
+ 'Rééquilibrer son bien-être et reconnecter avec ce qui la fait vibrer'
+].forEach(t => addBulletRow(besoinsBox, t));
+
+const methodeBox = document.getElementById('methodeBox');
+['Comprendre le fonctionnement neuro-atypique et ses spécificités',
+ 'Explorer des pistes professionnelles alignées avec ce qui fait vibrer',
+ "Construire un plan d'action réaliste et tenable"
+].forEach(t => addBulletRow(methodeBox, t));
+
+document.querySelectorAll('.add-bullet').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    addBulletRow(target, '');
+  });
+});
+
+function getBullets(containerId){
+  return Array.from(document.querySelectorAll('#'+containerId+' input'))
+    .map(i => i.value.trim()).filter(v => v.length>0);
+}
+
+async function generateDoc(){
+  const statusEl = document.getElementById('status');
+  statusEl.className='status'; statusEl.textContent='Génération en cours...';
+  try{
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+            Header, Footer, AlignmentType, LevelFormat, BorderStyle, WidthType,
+            ShadingType } = docx;
+
+    const prog = document.getElementById('programme').value;
+    const pal = PALETTES[prog];
+    const prenom = document.getElementById('prenom').value.trim() || 'vous';
+    const accroche = document.getElementById('accroche').value.trim();
+    const besoins = getBullets('besoinsBox');
+    const methode = getBullets('methodeBox');
+    const encart = document.getElementById('encart').value.trim();
+    const format = document.getElementById('format').value.trim() || '—';
+    const tarif = document.getElementById('tarif').value.trim() || '—';
+    const financement = document.getElementById('financement').value.trim() || '—';
+    const certification = document.getElementById('certification').value.trim() || '—';
+    const cloture = document.getElementById('cloture').value.trim();
+
+    const FONT_TITLE = pal.titleFont;
+    const FONT_BODY = "DM Sans";
+    const PAGE_WIDTH = 12240, PAGE_HEIGHT = 15840, MARGIN = 1080;
+    const CONTENT_WIDTH = PAGE_WIDTH - MARGIN*2;
+
+    function bodyText(text, opts={}){
+      return new TextRun(Object.assign({text, font:FONT_BODY, size:22, color:pal.dark}, opts));
+    }
+    function bulletPara(text){
+      return new Paragraph({
+        numbering:{reference:"bullets", level:0}, spacing:{after:140},
+        children:[bodyText(text)]
+      });
+    }
+
+    const children = [];
+
+    children.push(new Paragraph({spacing:{after:40}, children:[
+      new TextRun({text:"RÉCAPITULATIF DE NOTRE ÉCHANGE", font:FONT_BODY, size:16, color:pal.mint, bold:true, characterSpacing:20})
+    ]}));
+    children.push(new Paragraph({spacing:{after:60}, children:[
+      new TextRun({text:pal.titleLabel, font:FONT_TITLE, size:44, color:pal.dark, bold:true})
+    ]}));
+    children.push(new Paragraph({spacing:{after:200}, children:[
+      new TextRun({text:"Préparé pour "+prenom, font:FONT_TITLE, size:24, color:pal.accent, italics:true})
+    ]}));
+
+    if(accroche){
+      children.push(new Paragraph({
+        spacing:{after:220},
+        shading:{fill:pal.cream, type:ShadingType.CLEAR},
+        border:{left:{style:BorderStyle.SINGLE, size:18, color:pal.mint, space:8}},
+        indent:{left:80},
+        children:[
+          new TextRun({text:"Vous m'avez dit chercher avant tout à "+accroche+" ", font:FONT_BODY, size:22, color:pal.dark, italics:true}),
+          new TextRun({text:"— c'est exactement ce que propose le "+pal.titleLabel+".", font:FONT_BODY, size:22, color:pal.mint, italics:true, bold:true})
+        ]
+      }));
+    }
+
+    if(besoins.length){
+      children.push(new Paragraph({spacing:{before:60, after:120}, children:[
+        new TextRun({text:"Votre besoin identifié", font:FONT_TITLE, size:28, color:pal.accent, bold:true})
+      ]}));
+      besoins.forEach(b => children.push(bulletPara(b)));
+    }
+
+    children.push(new Paragraph({spacing:{before:160, after:120}, children:[
+      new TextRun({text:"Le programme proposé", font:FONT_TITLE, size:28, color:pal.accent, bold:true})
+    ]}));
+
+    const labelW = 2800, valueW = CONTENT_WIDTH - 2800;
+    const border = {style:BorderStyle.SINGLE, size:2, color:pal.accentLight};
+    const borders = {top:border, bottom:border, left:border, right:border};
+    function row(label, value, shaded){
+      return new TableRow({children:[
+        new TableCell({
+          borders, width:{size:labelW, type:WidthType.DXA},
+          shading:{fill: shaded ? pal.mintLight : pal.cream, type:ShadingType.CLEAR},
+          margins:{top:120, bottom:120, left:160, right:120},
+          children:[new Paragraph({children:[new TextRun({text:label, font:FONT_BODY, size:22, bold:true, color:pal.dark})]})]
+        }),
+        new TableCell({
+          borders, width:{size:valueW, type:WidthType.DXA},
+          margins:{top:120, bottom:120, left:160, right:120},
+          children:[new Paragraph({children:[new TextRun({text:value, font:FONT_BODY, size:22, color:pal.dark})]})]
+        })
+      ]});
+    }
+    children.push(new Table({
+      width:{size:CONTENT_WIDTH, type:WidthType.DXA},
+      columnWidths:[labelW, valueW],
+      rows:[
+        row("Format", format, true),
+        row("Tarif", tarif, false),
+        row("Financement", financement, true),
+        row("Certification", certification, false)
+      ]
+    }));
+
+    if(methode.length){
+      children.push(new Paragraph({spacing:{before:220, after:120}, children:[
+        new TextRun({text:"Ma méthode", font:FONT_TITLE, size:28, color:pal.accent, bold:true})
+      ]}));
+      children.push(new Paragraph({numbering:{reference:"numbers", level:0}, spacing:{after:0}, children:[new TextRun({text:"", size:2})]}));
+      children.pop();
+      methode.forEach((m,i) => {
+        children.push(new Paragraph({
+          numbering:{reference:"numbers", level:0},
+          spacing:{after: i===methode.length-1 ? 160 : 100},
+          children:[bodyText(m)]
+        }));
+      });
+    }
+
+    if(encart){
+      children.push(new Paragraph({
+        spacing:{before:100, after:200},
+        shading:{fill:pal.cream, type:ShadingType.CLEAR},
+        border:{left:{style:BorderStyle.SINGLE, size:18, color:pal.accent, space:8}},
+        indent:{left:80},
+        children:[
+          new TextRun({text:"Ce qui distingue cet accompagnement : ", font:FONT_BODY, size:20, bold:true, color:pal.accent}),
+          new TextRun({text:encart, font:FONT_BODY, size:20, color:pal.dark})
+        ]
+      }));
+    }
+
+    if(cloture){
+      children.push(new Paragraph({
+        spacing:{after:0},
+        children:[bodyText(cloture, {italics:true, size:20})]
+      }));
+    }
+
+    const docDef = new Document({
+      styles:{ default:{document:{run:{font:FONT_BODY, size:22, color:pal.dark}}} },
+      numbering:{
+        config:[
+          {reference:"bullets", levels:[{level:0, format:LevelFormat.BULLET, text:"•", alignment:AlignmentType.LEFT,
+            style:{run:{color:pal.mint}, paragraph:{indent:{left:460, hanging:280}}}}]},
+          {reference:"numbers", levels:[{level:0, format:LevelFormat.DECIMAL, text:"%1.", alignment:AlignmentType.LEFT,
+            style:{run:{bold:true, color:pal.accent}, paragraph:{indent:{left:460, hanging:280}}}}]}
+        ]
+      },
+      sections:[{
+        properties:{page:{size:{width:PAGE_WIDTH, height:PAGE_HEIGHT}, margin:{top:1080, right:MARGIN, bottom:1080, left:MARGIN}}},
+        headers:{default:new Header({children:[
+          new Paragraph({
+            border:{bottom:{style:BorderStyle.SINGLE, size:6, color:pal.mintLight, space:4}},
+            children:[new TextRun({text:"WANDA LAURENT COACHING", font:FONT_BODY, size:16, color:pal.accent, bold:true, characterSpacing:20})]
+          })
+        ]})},
+        footers:{default:new Footer({children:[
+          new Paragraph({
+            border:{top:{style:BorderStyle.SINGLE, size:6, color:pal.mint, space:6}},
+            spacing:{before:60}, alignment:AlignmentType.CENTER,
+            children:[
+              new TextRun({text:"Wanda Laurent Coaching", font:FONT_BODY, size:16, color:pal.dark, bold:true}),
+              new TextRun({text:"  |  Passerelle des Talents", font:FONT_BODY, size:16, color:pal.accent})
+            ]
+          }),
+          new Paragraph({
+            alignment:AlignmentType.CENTER,
+            children:[
+              new TextRun({text:"wanda.laurent@gmail.com", font:FONT_BODY, size:15, color:pal.dark}),
+              new TextRun({text:"   •   ", font:FONT_BODY, size:15, color:pal.mint}),
+              new TextRun({text:"www.wandalaurentcoaching.com", font:FONT_BODY, size:15, color:pal.dark})
+            ]
+          })
+        ]})},
+        children
+      }]
+    });
+
+    const blob = await Packer.toBlob(docDef);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const safeName = prenom.replace(/[^a-zA-Z0-9]/g,'_');
+    a.href = url;
+    a.download = "Synthese_RDV1_"+safeName+".docx";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    statusEl.className='status ok';
+    statusEl.textContent='Document généré et téléchargé ✓';
+  }catch(err){
+    console.error(err);
+    statusEl.className='status err';
+    statusEl.textContent='Erreur : '+err.message;
+  }
+}
+
+document.getElementById('generate').addEventListener('click', generateDoc);
+</script>
+
+</body>
+</html>

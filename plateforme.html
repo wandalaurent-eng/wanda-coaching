@@ -722,24 +722,42 @@ body {
   justify-content: center;
   flex-shrink: 0;
 }
-.s-prelim  { background: linear-gradient(135deg, rgba(201,168,76,.18), rgba(201,168,76,.06)); border-left: 4px solid #C9A84C; }
-.s-investigation { background: linear-gradient(135deg, rgba(45,123,126,.18), rgba(45,123,126,.06)); border-left: 4px solid #2D7B7E; }
-.s-conclusion { background: linear-gradient(135deg, rgba(99,102,241,.18), rgba(99,102,241,.06)); border-left: 4px solid #6366F1; }
-.s-finale { background: linear-gradient(135deg, rgba(201,168,76,.25), rgba(99,102,241,.15)); border-left: 4px solid #C9A84C; }
-.s-investigation .seance-block-num { color: #2D7B7E; background: rgba(45,123,126,.15); }
-.s-conclusion .seance-block-num { color: #818CF8; background: rgba(99,102,241,.15); }
-.s-finale .seance-block-num { color: #C9A84C; background: rgba(201,168,76,.2); }
+.s-prelim  { background: linear-gradient(135deg, rgba(201,168,76,.45), rgba(201,168,76,.25)); border-left: 4px solid #C9A84C; }
+.s-investigation { background: linear-gradient(135deg, rgba(45,123,126,.45), rgba(45,123,126,.25)); border-left: 4px solid #2D7B7E; }
+.s-conclusion { background: linear-gradient(135deg, rgba(99,102,241,.45), rgba(99,102,241,.25)); border-left: 4px solid #6366F1; }
+.s-finale { background: linear-gradient(135deg, rgba(201,168,76,.5), rgba(99,102,241,.35)); border-left: 4px solid #C9A84C; }
+.s-investigation .seance-block-num { color: #1A5557; background: rgba(45,123,126,.25); }
+.s-conclusion .seance-block-num { color: #4F52C8; background: rgba(99,102,241,.25); }
+.s-finale .seance-block-num { color: #8B6A1A; background: rgba(201,168,76,.3); }
+.s-prelim .seance-block-num { color: #8B6A1A; background: rgba(201,168,76,.3); }
+.s-prelim .seance-block-title,
+.s-investigation .seance-block-title,
+.s-conclusion .seance-block-title,
+.s-finale .seance-block-title { color: #1A2744; text-shadow: none; }
+.s-prelim .seance-block-sub,
+.s-investigation .seance-block-sub,
+.s-conclusion .seance-block-sub,
+.s-finale .seance-block-sub { color: rgba(26,39,68,.7); }
+.s-prelim .seance-toggle-icon,
+.s-investigation .seance-toggle-icon,
+.s-conclusion .seance-toggle-icon,
+.s-finale .seance-toggle-icon { color: rgba(26,39,68,.5); }
+.s-prelim .seance-block-badge,
+.s-investigation .seance-block-badge,
+.s-conclusion .seance-block-badge,
+.s-finale .seance-block-badge { background: rgba(26,39,68,.1); color: rgba(26,39,68,.7); }
 
 .seance-block-info { flex: 1; }
 .seance-block-title {
   font-weight: 700;
   font-size: .95rem;
-  color: rgba(255,255,255,.92);
+  color: #ffffff;
   margin-bottom: .2rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
 }
 .seance-block-sub {
   font-size: .75rem;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.75);
 }
 .seance-block-badge {
   font-size: .72rem;
@@ -3831,10 +3849,10 @@ class="hub-cards" style="padding:0;margin-top:0;">
         <button class="card-cta" onclick="openApp('psp', null)">Accéder à mon espace <span class="card-arrow">→</span></button>
       </div>
       <div class="hub-card neuro-card">
-        <span class="card-badge">TDAH · Bipolaire · Neuro-atypique</span>
+        <span class="card-badge">TDAH · Hypersensibilité · Neuro-atypique</span>
         <span class="card-icon">🧠</span>
         <h2>Bilan Talents Neuro-Atypique</h2>
-        <p class="card-tagline">8 séances d'1 heure pensées pour les cerveaux TDAH et bipolaires — hyperfocus, biais cognitifs, confiance, créativité.</p>
+        <p class="card-tagline">8 séances d'1 heure pensées pour les cerveaux TDAH et hypersensibles — hyperfocus, biais cognitifs, confiance, créativité.</p>
         <div class="card-meta">
           <span class="card-pill">⏱ 1h / séance</span>
           <span class="card-pill">💶 1 600 €</span>
@@ -5318,7 +5336,7 @@ class="hub-cards" style="padding:0;margin-top:0;">
       <div class="strat-card">
         <div class="strat-card-title">🎯 Positionnement unique — Ce qui vous distingue</div>
         <div class="strat-hl">
-          Wanda Laurent Coaching propose un Bilan de Compétences <strong>certifié Qualiopi</strong>, 100% distanciel, alliant outils scientifiques (MBTI, DISC, Driving Forces) et coaching ICI certifié. Approche humaine, bienveillante et orientée action — pour les adultes en transition professionnelle qui veulent se réorienter avec clarté et courage. <strong>Spécialité unique :</strong> offre adaptée aux profils neuro-atypiques (TDAH, bipolaire), inexistante chez 95% des concurrents.
+          Wanda Laurent Coaching propose un Bilan de Compétences <strong>certifié Qualiopi</strong>, 100% distanciel, alliant outils scientifiques (MBTI, DISC, Driving Forces) et coaching ICI certifié. Approche humaine, bienveillante et orientée action — pour les adultes en transition professionnelle qui veulent se réorienter avec clarté et courage. <strong>Spécialité unique :</strong> offre adaptée aux profils neuro-atypiques (TDAH, hypersensibilité), inexistante chez 95% des concurrents.
         </div>
         <div class="strat-label">Vos 7 différenciateurs clés</div>
         <div>
@@ -5326,7 +5344,7 @@ class="hub-cards" style="padding:0;margin-top:0;">
           <span class="strat-pill pill-gold">✦ DISC + Driving Forces certifiée TTI SI</span>
           <span class="strat-pill pill-gold">✦ 100% distanciel accessible partout</span>
           <span class="strat-pill pill-gold">✦ CPF éligible — reste à charge 102€</span>
-          <span class="strat-pill pill-teal">✦ Approche neuro-inclusive (TDAH/bipolaire)</span>
+          <span class="strat-pill pill-teal">✦ Approche neuro-inclusive (TDAH/hypersensibilité)</span>
           <span class="strat-pill pill-teal">✦ Background corporate BNP Paribas</span>
           <span class="strat-pill pill-teal">✦ Fondatrice Lconnect — réseau féminin</span>
         </div>
@@ -5381,7 +5399,7 @@ class="hub-cards" style="padding:0;margin-top:0;">
         <div class="strat-card-title">👥 Persona 3 — Le Profil Neuro-Atypique Pro</div>
         <table class="strat-table">
           <tbody>
-            <tr><td style="width:30%;color:#C9A84C;font-weight:600;">Profil</td><td>25-50 ans · TDAH / bipolaire diagnostiqué ou suspecté · Carrière en dents de scie · Sous-performant(e)</td></tr>
+            <tr><td style="width:30%;color:#C9A84C;font-weight:600;">Profil</td><td>25-50 ans · TDAH / hypersensibilité diagnostiqué(e) ou suspecté(e) · Carrière en dents de scie · Sous-performant(e)</td></tr>
             <tr><td style="color:#C9A84C;font-weight:600;">Douleur</td><td>"Je ne comprends pas pourquoi je n'arrive pas à m'en sortir malgré mes capacités" · Sentiment d'échec</td></tr>
             <tr><td style="color:#C9A84C;font-weight:600;">Déclencheur d'achat</td><td>Diagnostic récent, licenciement, recommandation d'un psy ou coach spécialisé</td></tr>
             <tr><td style="color:#C9A84C;font-weight:600;">Argument clé</td><td>Wanda est elle-même concernée (TDAH) — approche empathique, sans jugement, adaptée</td></tr>
@@ -6616,6 +6634,36 @@ async function genNotesIA(prog) {
         <a class="site-chip" href="https://www.alternance.emploi.gouv.fr" target="_blank">🤝 alternance.emploi.gouv.fr — Offres alternance</a>
         <a class="site-chip" href="https://www.laplateforme.io" target="_blank">💻 laplateforme.io — École numérique</a>
         <a class="site-chip" href="https://www.welcome.jobs" target="_blank">🚀 welcome.jobs — Startups & tech</a>
+        <a class="site-chip" href="https://www.16personalities.com/fr" target="_blank">🧩 16personalities.com — Test de personnalité (MBTI) gratuit</a>
+      </div>
+    </div>
+
+    <!-- ── PODCASTS PARCOURSUP & ORIENTATION ── -->
+    <div style="background:#F8F0FF;border:1.5px solid #DDD6FE;border-radius:14px;padding:1rem 1.1rem;margin-bottom:1rem;">
+      <p style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;color:#6D28D9;margin-bottom:.75rem;">🎧 Podcasts pour t'accompagner dans Parcoursup</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;">
+        <a class="site-chip" href="https://podcasts.apple.com/us/podcast/r%C3%A9ussir-son-orientation-le-podcast-parcoursup-orientation/id1656786382" target="_blank">🎓 Réussir son orientation — Conseils Parcoursup, vœux, réorientation</a>
+        <a class="site-chip" href="https://podcasts.apple.com/fr/podcast/flou-le-podcast-sur-parcoursup/id1550259860" target="_blank">🎙️ Flou (CIDJ) — Le vécu d'une lycéenne sur Parcoursup, étape par étape</a>
+        <a class="site-chip" href="https://podcasts.apple.com/fr/podcast/azimut/id1589218168" target="_blank">📻 AZIMUT — Parlons orientation (épisodes courts, du collège à Parcoursup, dont IA & orientation)</a>
+      </div>
+    </div>
+
+    <!-- ── PODCASTS IA, MÉTIERS DE DEMAIN & MONDE À RÉINVENTER ── -->
+    <div style="background:#F0F9FF;border:1.5px solid #BAE6FD;border-radius:14px;padding:1rem 1.1rem;margin-bottom:1rem;">
+      <p style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;color:#0369A1;margin-bottom:.75rem;">🤖 Podcasts — IA, métiers qui vont changer & monde à réinventer</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;">
+        <a class="site-chip" href="https://podcasts.apple.com/cg/podcast/g%C3%A9n%C3%A9ration-ia/id1811120641" target="_blank">🤖 Génération IA — Comprendre l'IA simplement, sans jargon</a>
+        <a class="site-chip" href="https://podcasts.apple.com/sg/podcast/les-m%C3%A9tiers-du-futur/id1550076349" target="_blank">🚀 Les métiers du futur — Rencontres avec ceux qui inventent les métiers de demain</a>
+        <a class="site-chip" href="https://podcasts.apple.com/fr/podcast/r%C3%A9inventer-le-monde/id1511749129" target="_blank">🌍 Réinventer le Monde (AFD) — Fictions sonores sur les grands enjeux d'avenir</a>
+      </div>
+    </div>
+
+    <!-- ── PODCASTS SOFTSKILLS & SANTÉ MENTALE DES JEUNES ── -->
+    <div style="background:#FFF1F2;border:1.5px solid #FECDD3;border-radius:14px;padding:1rem 1.1rem;margin-bottom:1rem;">
+      <p style="font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;color:#BE123C;margin-bottom:.75rem;">💬 Podcasts — Softskills & santé mentale des jeunes</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem;">
+        <a class="site-chip" href="https://podcasts.apple.com/fr/podcast/facteur-x-le-podcast-qui-r%C3%A9veille-vos-soft-skills/id1679231983" target="_blank">⚡ Facteur X — Réveille tes soft skills, conseils actionnables chaque semaine</a>
+        <a class="site-chip" href="https://www.pssmfrance.fr/podcasts/le-lien-le-podcast/" target="_blank">💙 Le lien (PSSM France) — Santé mentale des ados, dont l'anxiété de l'orientation</a>
       </div>
     </div>
 
@@ -7439,8 +7487,16 @@ var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 9, grandplus: 9 };
 /* ─── STORAGE HELPERS ─── */
 /* ── Stockage avec fallback mémoire (Firefox file://) ── */
 var _wlcMem = {};
-function _storGet(k) { try { return localStorage.getItem(k); } catch(e) { return _wlcMem[k]||null; } }
-function _storSet(k,v) { try { localStorage.setItem(k,v); } catch(e) { _wlcMem[k]=v; } }
+function _storGet(k) {
+  // Mémoire JS toujours prioritaire (survit aux re-renders, pas aux F5)
+  if (_wlcMem[k] !== undefined) return _wlcMem[k];
+  try { var v = localStorage.getItem(k); if (v !== null) { _wlcMem[k]=v; return v; } } catch(e) {}
+  return null;
+}
+function _storSet(k,v) {
+  _wlcMem[k] = v; // Toujours en mémoire
+  try { localStorage.setItem(k,v); } catch(e) {} // Bonus si dispo
+}
 
 function loadData() {
   try { return JSON.parse(_storGet('wlc_data') || '{}'); } catch(e) { return {}; }
@@ -7449,8 +7505,7 @@ function saveDataStore(d) {
   _storSet('wlc_data', JSON.stringify(d));
 }
 var CLIENTS_PERMANENTS = [
-  {id:'c_emma',prenom:'Emma',nom:'Marshall',ddn:'23/12/2003',programme:'psp',statut:'active',email:'emt.marshall@outlook.com',tel:'07 49 87 85 59',debut:'2026-04-02',financement:'Personnel',notes:''},
-  {id:'c_maud',prenom:'Maud',nom:'Bénichou',ddn:'23/12/1992',programme:'neuro',statut:'active',email:'maud.benichou@ik.me',tel:'0614621859',debut:'2026-05-05',financement:'Personnel',notes:'BDC offert'}
+  {id:'c_emma',prenom:'Emma',nom:'Marshall',ddn:'23/12/2003',programme:'psp',statut:'active',email:'emt.marshall@outlook.com',tel:'07 49 87 85 59',debut:'2026-04-02',financement:'Personnel',notes:''}
 ];
 function getClients() {
   var d = loadData();
@@ -9299,32 +9354,78 @@ ikigai: `
 <div class="modal-header">
   <div>
     <h2>☯ Mon IKIGAI</h2>
-    <p>Trouvez votre raison d'être à la convergence de 4 dimensions</p>
+    <p>Votre raison d'être à la convergence de 4 dimensions</p>
   </div>
   <button class="modal-close" onclick="bdcCloseModal()">✕</button>
 </div>
 <div class="modal-body">
-  <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;text-align:center;max-width:400px;">
-      <div style="padding:0.6rem;background:#fde;border-radius:12px 12px 0 0;font-size:0.78rem;font-weight:500;color:#c44;">❤️ Ce que j'aime</div>
-      <div style="padding:0.6rem;background:#def;border-radius:12px 12px 0 0;font-size:0.78rem;font-weight:500;color:#44c;">💡 Ce pour quoi je suis fait·e</div>
-      <div style="padding:0.6rem;background:#efe;border-radius:0 0 12px 12px;font-size:0.78rem;font-weight:500;color:#484;">🌍 Ce dont le monde a besoin</div>
-      <div style="padding:0.6rem;background:var(--gold-pale);border-radius:0 0 12px 12px;font-size:0.78rem;font-weight:500;color:var(--teal-dark);">💶 Ce pour quoi on me paie</div>
+  <!-- DIAGRAMME IKIGAI SVG identique Grand+ -->
+  <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+    <div style="position:relative;width:300px;height:300px;flex-shrink:0;">
+      <svg width="300" height="300" viewBox="0 0 340 340" style="position:absolute;top:0;left:0;">
+        <circle cx="170" cy="120" r="100" fill="rgba(224,112,112,0.18)" stroke="rgba(224,112,112,0.5)" stroke-width="1.5"/>
+        <circle cx="230" cy="210" r="100" fill="rgba(106,159,216,0.18)" stroke="rgba(106,159,216,0.5)" stroke-width="1.5"/>
+        <circle cx="110" cy="210" r="100" fill="rgba(112,196,112,0.18)" stroke="rgba(112,196,112,0.5)" stroke-width="1.5"/>
+        <circle cx="170" cy="182" r="38" fill="rgba(201,168,76,0.22)" stroke="rgba(201,168,76,0.7)" stroke-width="2"/>
+      </svg>
+      <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:.68rem;font-weight:700;color:#E07070;text-align:center;white-space:nowrap;">❤️ Ce que j'aime</div>
+      <div style="position:absolute;bottom:12px;right:4px;font-size:.68rem;font-weight:700;color:#6A9FD8;text-align:center;">💡 Ce pour quoi<br>je suis fait(e)</div>
+      <div style="position:absolute;bottom:12px;left:4px;font-size:.68rem;font-weight:700;color:#70C470;text-align:center;">🌍 Ce dont le<br>monde a besoin</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);text-align:center;pointer-events:none;">
+        <div style="font-size:.62rem;font-weight:700;color:#C9A84C;letter-spacing:.08em;text-transform:uppercase;">☯ IKIGAI</div>
+        <div style="font-size:.58rem;color:#C9A84C;margin-top:.15rem;">Ma raison d'être</div>
+      </div>
     </div>
   </div>
-  ${[
-    ['❤️ Ce que j\'aime faire','Activités, sujets, missions qui vous passionnent…'],
-    ['💡 Ce pour quoi je suis fait·e','Compétences naturelles, talents, expertises…'],
-    ['🌍 Ce dont le monde a besoin','Problèmes à résoudre, besoins à satisfaire…'],
-    ['💶 Ce pour quoi on peut me payer','Compétences monétisables, services à offrir…'],
-  ].map(([l,p])=>`
-  <div class="input-group">
-    <label>${l}</label>
-    <textarea class="textarea-field" placeholder="${p}" style="min-height:80px;"></textarea>
-  </div>`).join('')}
-  <div class="input-group" style="background:linear-gradient(135deg,var(--gold-pale),var(--teal-light));border-radius:12px;padding:1rem;">
-    <label style="color:var(--navy);">⭐ Mon IKIGAI — Ma raison d'être</label>
-    <textarea class="textarea-field" placeholder="À l'intersection de ces 4 dimensions : quelle est votre raison d'être professionnelle ?" style="min-height:90px;background:rgba(255,255,255,0.7);"></textarea>
+  <!-- 4 champs colorés -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem;">
+    <div style="background:var(--cream);border:1px solid rgba(224,112,112,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#E07070;margin-bottom:.4rem;">❤️ Ce que j'aime faire</div>
+      <textarea class="textarea-field" placeholder="Activités, sujets, missions qui vous passionnent…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
+    </div>
+    <div style="background:var(--cream);border:1px solid rgba(106,159,216,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#6A9FD8;margin-bottom:.4rem;">💡 Ce pour quoi je suis fait·e</div>
+      <textarea class="textarea-field" placeholder="Compétences naturelles, talents, expertises…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
+    </div>
+    <div style="background:var(--cream);border:1px solid rgba(112,196,112,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#4a9a4a;margin-bottom:.4rem;">🌍 Ce dont le monde a besoin</div>
+      <textarea class="textarea-field" placeholder="Problèmes à résoudre, besoins à satisfaire…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
+    </div>
+    <div style="background:var(--cream);border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:.95rem;">
+      <div style="font-size:.72rem;font-weight:700;color:#9a7820;margin-bottom:.4rem;">💶 Ce pour quoi on peut me payer</div>
+      <textarea class="textarea-field" placeholder="Compétences monétisables, services à offrir…" style="min-height:70px;border:none;background:transparent;padding:0;"></textarea>
+    </div>
+  </div>
+  <!-- IKIGAI central -->
+  <div style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:2px solid rgba(201,168,76,.45);border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.2rem;">
+    <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:.6rem;">⭐ Mon IKIGAI — Ma raison d'être</div>
+    <textarea class="textarea-field" placeholder="À l'intersection de ces 4 dimensions : quelle est votre raison d'être professionnelle ? En 1 à 3 phrases, courtes et fortes." style="min-height:90px;background:rgba(255,255,255,0.7);"></textarea>
+  </div>
+  <!-- Les autres piliers -->
+  <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin-bottom:.8rem;">Les autres piliers de votre synthèse</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.6rem;">
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">💎 Mes 5 valeurs</div>
+      <textarea class="textarea-field" placeholder="1. …&#10;2. …&#10;3. …" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">✦ Mes 5 talents</div>
+      <textarea class="textarea-field" placeholder="Ce que je fais mieux que la plupart…" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">🎯 Mon projet principal</div>
+      <textarea class="textarea-field" placeholder="Le projet qui m'anime le plus…" style="min-height:60px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem;">
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">⚓ Mon pacte</div>
+      <textarea class="textarea-field" placeholder="Mes 3 engagements concrets…" style="min-height:55px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:.85rem;">
+      <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.35rem;">🎯 Mon cap en une phrase</div>
+      <textarea class="textarea-field" placeholder="Une phrase courte, forte, la vôtre." style="min-height:55px;border:none;background:transparent;padding:0;font-size:.8rem;"></textarea>
+    </div>
   </div>
   <div class="btn-row">
     <button class="btn btn-gold" onclick="bdcCloseModal()">💾 Enregistrer mon IKIGAI</button>
@@ -10813,7 +10914,7 @@ planaction:'<div class="g-mh"><div><h2>🗺️ Plan d\'action</h2><p>5 première
     <div class="wl-ob-hero neuro-hero" style="padding:2.5rem 2rem;text-align:center;">
       <div style="font-size:3rem;margin-bottom:.75rem;">🧠</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,4vw,2.3rem);font-weight:300;color:#EDE9F8;line-height:1.15;margin-bottom:.5rem;">Bienvenue dans votre<br><em style="font-style:italic;color:#C4B5FD;">Espace Neuro-Atypique</em></div>
-      <div style="font-size:.82rem;color:rgba(237,233,248,.55);font-style:italic;" id="neuro-ob-sub">Bilan Talents TDAH & Bipolaire · Wanda Laurent Coaching</div>
+      <div style="font-size:.82rem;color:rgba(237,233,248,.55);font-style:italic;" id="neuro-ob-sub">Bilan Talents TDAH & Hypersensibilité · Wanda Laurent Coaching</div>
     </div>
 
     <div style="padding:2rem;">
@@ -10828,7 +10929,7 @@ planaction:'<div class="g-mh"><div><h2>🗺️ Plan d\'action</h2><p>5 première
       <div id="nOb0">
         <p style="font-size:.92rem;color:rgba(237,233,248,.75);line-height:1.75;margin-bottom:1.4rem;">
           Bonjour <strong style="color:#C4B5FD;" id="neuro-ob-prenom">!</strong> Ce parcours a été conçu <em>spécialement</em> pour vous.<br>
-          Le Bilan Talents Neuro-Atypique est un accompagnement de <strong style="color:#EDE9F8;">8 séances d'1hutes</strong> pensé pour les cerveaux TDAH et bipolaires — pas pour les corriger, mais pour <strong style="color:#EDE9F8;">révéler leurs superpououvoirs.</strong>
+          Le Bilan Talents Neuro-Atypique est un accompagnement de <strong style="color:#EDE9F8;">8 séances d'1hutes</strong> pensé pour les cerveaux TDAH et hypersensibles — pas pour les corriger, mais pour <strong style="color:#EDE9F8;">révéler leurs superpououvoirs.</strong>
         </p>
         <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.4rem;">
           <div style="display:flex;align-items:flex-start;gap:.9rem;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.1rem;">
@@ -11377,7 +11478,7 @@ html{scroll-behavior:smooth}
       <div class="nav-mono">WL</div>
       <div>
         <div class="nav-title">Bilan Talents Neuro-Atypique</div>
-        <div class="nav-subtitle">Wanda Laurent Coaching · TDAH & Bipolaire</div>
+        <div class="nav-subtitle">Wanda Laurent Coaching · TDAH & Hypersensibilité</div>
       </div>
     </div>
   </nav>
@@ -11387,7 +11488,7 @@ html{scroll-behavior:smooth}
   <div class="hero">
     <div class="hero-badge">✦ Programme sur-mesure · Cerveau neuro-atypique</div>
     <h1 class="hero-title">Révèle tes talents.<br><em>À ta façon.</em></h1>
-    <p class="hero-sub">Un parcours de 8 séances pensé pour les cerveaux TDAH et bipolaires — qui transforme tes particularités en forces professionnelles.</p>
+    <p class="hero-sub">Un parcours de 8 séances pensé pour les cerveaux TDAH et hypersensibles — qui transforme tes particularités en forces professionnelles.</p>
 
     <div class="energy-check">
       <div class="energy-label">🌡️ Comment est ton énergie aujourd'hui ?</div>
@@ -11541,21 +11642,6 @@ html{scroll-behavior:smooth}
     </div>
   </div>
 
-
-  <!-- ENVOYER AU COACH -->
-  <div style="max-width:1100px;margin:0 auto 2rem;padding:0 2rem;">
-    <div style="background:linear-gradient(135deg,#1E1A34,#2D2052);border:1px solid #8B5CF6;border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#C4B5FD;margin-bottom:4px;">Partager mes réponses avec Wanda</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.5);">Compile toutes tes réponses et les envoie dans l'espace coach pour la synthèse finale.</div>
-      </div>
-      <button onclick="sendToCoach()" style="background:#8B5CF6;color:white;border:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">✉️ Envoyer à mon coach</button>
-    </div>
-    <div id="send-coach-confirm" style="display:none;margin-top:12px;background:#0D2926;border:1px solid #2DD4BF;border-radius:10px;padding:12px 16px;color:#2DD4BF;font-size:13px;">
-      ✅ Tes réponses ont été partagées avec Wanda !
-    </div>
-  </div>
-
   <!-- BONUS -->
   <div class="bonus-section">
     <div class="section-label">Outils bonus</div>
@@ -11564,7 +11650,7 @@ html{scroll-behavior:smooth}
     <div class="bonus-grid">
       <div class="bonus-card" onclick="openBonus('podcasts')">
         <div class="bonus-icon">🎧</div>
-        <div><h3>Podcasts sélectionnés</h3><p>TDAH, bipolaire, neurosciences & travail</p></div>
+        <div><h3>Podcasts sélectionnés</h3><p>TDAH, hypersensibilité, neurosciences & travail</p></div>
       </div>
       <div class="bonus-card" onclick="openBonus('journal')">
         <div class="bonus-icon">📓</div>
@@ -11720,7 +11806,7 @@ html{scroll-behavior:smooth}
             <div style="background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(139,92,246,.03));border:1px solid rgba(139,92,246,.25);border-radius:14px;padding:1.4rem 1.6rem;cursor:pointer;transition:all .2s;" onclick="openApp('neuro',null)" onmouseover="this.style.borderColor='rgba(139,92,246,.7)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(139,92,246,.25)';this.style.transform='translateY(0)'">
               <div style="font-size:1.6rem;margin-bottom:.6rem;">🧠</div>
               <div style="font-weight:700;font-size:.95rem;color:#A78BFA;margin-bottom:.3rem;">Espace Neuro-Atypique</div>
-              <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5;">TDAH & Bipolaire — 8 séances × 1h, hyperfocus, biais cognitifs</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5;">TDAH & Hypersensibilité — 8 séances × 1h, hyperfocus, biais cognitifs</div>
               <div style="margin-top:.9rem;display:inline-block;font-size:.76rem;font-weight:700;color:#A78BFA;letter-spacing:.05em;">Ouvrir l'espace →</div>
             </div>
             <div style="background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:1.4rem 1.6rem;cursor:pointer;transition:all .2s;" onclick="openApp('grandplus',null)" onmouseover="this.style.borderColor='rgba(201,168,76,.7)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(201,168,76,.25)';this.style.transform='translateY(0)'">
@@ -12138,7 +12224,7 @@ html{scroll-behavior:smooth}
                 <tbody>
                   <tr><td style="color:#C9A84C;font-weight:600;">Le Cadre Épuisé</td><td>35-50 ans · Manager · CDI banque/conseil/industrie</td><td>"Je n'ai plus de sens dans mon travail"</td><td>Arrêt maladie, burn-out, anniversaire 40/50 ans</td><td>LinkedIn, médecin du travail, psy</td></tr>
                   <tr><td style="color:#C9A84C;font-weight:600;">La Reconversion Active</td><td>28-45 ans · CPF alimenté · Projet flou mais envie forte</td><td>"Je veux changer mais je ne sais pas vers quoi"</td><td>Découverte CPF, recommandation ami</td><td>Mon Compte Formation, Google, LinkedIn</td></tr>
-                  <tr><td style="color:#C9A84C;font-weight:600;">Le Neuro-Atypique Pro</td><td>25-50 ans · TDAH/bipolaire · Carrière en dents de scie</td><td>"Je ne comprends pas pourquoi je n'y arrive pas malgré mes capacités"</td><td>Diagnostic récent, licenciement, recommandation psy</td><td>Communautés TDAH, LinkedIn neuro, MDPH</td></tr>
+                  <tr><td style="color:#C9A84C;font-weight:600;">Le Neuro-Atypique Pro</td><td>25-50 ans · TDAH/hypersensibilité · Carrière en dents de scie</td><td>"Je ne comprends pas pourquoi je n'y arrive pas malgré mes capacités"</td><td>Diagnostic récent, licenciement, recommandation psy</td><td>Communautés TDAH, LinkedIn neuro, MDPH</td></tr>
                 </tbody>
               </table>
             </div>
@@ -12413,7 +12499,7 @@ html{scroll-behavior:smooth}
             </div>
             <div class="hs-card">
               <div class="hs-card-title">🎯 Positionnement Neuro — Niche à fort potentiel</div>
-              <div class="hs-hl">Le bilan de compétences neuro-atypique est une niche quasi inexistante en France. 95% des bilans de compétences ne sont pas adaptés aux cerveaux TDAH/bipolaires. Wanda est elle-même concernée (TDAH) — authenticité et empathie uniques. Format 1h pensé pour les fenêtres d'attention courtes.</div>
+              <div class="hs-hl">Le bilan de compétences neuro-atypique est une niche quasi inexistante en France. 95% des bilans de compétences ne sont pas adaptés aux cerveaux TDAH/hypersensibles. Wanda est elle-même concernée (TDAH) — authenticité et empathie uniques. Format 1h pensé pour les fenêtres d'attention courtes.</div>
               <div><span class="hs-pill hs-pill-violet">Wanda TDAH — authenticité</span><span class="hs-pill hs-pill-violet">1h — format cognitif adapté</span><span class="hs-pill hs-pill-violet">CPF éligible</span><span class="hs-pill hs-pill-violet">Quasi-aucun concurrent</span><span class="hs-pill hs-pill-violet">Approche forces (pas déficits)</span></div>
               <span class="hs-label">Pitch 30 sec Neuro</span>
               <textarea class="hs-ta" id="hs-neuro-pitch" placeholder="Votre cerveau TDAH n'est pas cassé — il est différent. En 8 séances d'1h, on identifie vos hyperfocus, vos talents cachés et on construit un projet pro qui respecte votre neurologie." rows="2" onchange="hsSave('neuro_pitch',this.value)"></textarea>
@@ -12438,7 +12524,7 @@ html{scroll-behavior:smooth}
                 <thead><tr><th>Persona</th><th>Profil</th><th>Douleur</th><th>Déclencheur</th><th>Canal</th></tr></thead>
                 <tbody>
                   <tr><td style="color:#A78BFA;font-weight:600;">Le TDAH Diagnostiqué Récent</td><td>25-45 ans · Diagnostic tardif TDAH · Soulagement puis "et maintenant ?"</td><td>"Je comprends enfin pourquoi ma carrière est en dents de scie — mais je ne sais pas quoi faire"</td><td>Diagnostic TDAH adulte (délai moyen 2-3 mois après diagnostic)</td><td>Psys spécialisés TDAH · HPI France · TDAH France (asso)</td></tr>
-                  <tr><td style="color:#A78BFA;font-weight:600;">Le Bipolaire Stabilisé</td><td>28-50 ans · Bipolaire type 1 ou 2 · Suivi psy · Veut travailler</td><td>"Je suis stabilisé mais ma carrière est en morceaux — je dois reconstruire"</td><td>Sortie d'épisode · Recommandation psychiatre · LinkedIn</td><td>Psychiatres libéraux · Associations bipolaires · UNAFAM</td></tr>
+                  <tr><td style="color:#A78BFA;font-weight:600;">L'Hypersensible Épuisé(e)</td><td>28-50 ans · Hypersensibilité diagnostiquée ou identifiée · Veut travailler autrement</td><td>"Je ressens tout trop fort, je m'épuise au travail — je dois retrouver un cadre qui me convient"</td><td>Burn-out · Recommandation psy · LinkedIn</td><td>Psychologues libéraux · Communautés hypersensibilité · LinkedIn neuro</td></tr>
                   <tr><td style="color:#A78BFA;font-weight:600;">Le Non-Diagnostiqué Suspecté</td><td>30-55 ans · Se reconnaît dans les descriptions TDAH · Pas encore de diagnostic</td><td>"Tous ces traits me ressemblent — je n'ai jamais compris pourquoi j'étais 'difficile'"</td><td>Vidéo TikTok/YouTube TDAH · Test en ligne · Article LinkedIn</td><td>TikTok TDAH · YouTube · Groupes Facebook neuro</td></tr>
                 </tbody>
               </table>
@@ -12458,7 +12544,7 @@ html{scroll-behavior:smooth}
               <table class="hs-table">
                 <thead><tr><th>Prescripteur</th><th>Structure</th><th>Action</th><th>Priorité</th></tr></thead>
                 <tbody>
-                  <tr><td style="color:#A78BFA;">Psychiatres libéraux</td><td>Spécialistes TDAH/bipolaire adulte</td><td>Email + plaquette · Présenter comme complément au suivi médical</td><td><span class="hs-badge-hot">🔥</span></td></tr>
+                  <tr><td style="color:#A78BFA;">Psychiatres libéraux</td><td>Spécialistes TDAH/hypersensibilité adulte</td><td>Email + plaquette · Présenter comme complément au suivi médical</td><td><span class="hs-badge-hot">🔥</span></td></tr>
                   <tr><td style="color:#A78BFA;">Psys spécialisés TDAH</td><td>Neuropsychologues, psychologues cliniciens</td><td>Partenariat formel · Convention prescription</td><td><span class="hs-badge-hot">🔥</span></td></tr>
                   <tr><td style="color:#A78BFA;">HPI France / TDAH France</td><td>Associations nationales</td><td>Partenariat communication · Annuaire des pros recommandés</td><td><span class="hs-badge-hot">🔥</span></td></tr>
                   <tr><td style="color:#A78BFA;">AGEFIPH / Cap Emploi</td><td>Accompagnement RQTH</td><td>Référencement comme organisme partenaire</td><td><span class="hs-badge-warm">⚡</span></td></tr>
@@ -12520,7 +12606,7 @@ html{scroll-behavior:smooth}
           <div class="hs-panel" id="hs-neuro-notes">
             <div class="hs-card"><div class="hs-card-title">📝 Notes Neuro</div>
               <span class="hs-label">Psychiatres / Psys à contacter</span>
-              <textarea class="hs-ta" id="hs-neuro-psys" placeholder="Dr Martin (TDAH adulte Paris 15e), Dr Leblanc (bipolaire Bordeaux), Association TDAH France contact..." rows="3" onchange="hsSave('neuro_psys',this.value)"></textarea>
+              <textarea class="hs-ta" id="hs-neuro-psys" placeholder="Dr Martin (TDAH adulte Paris 15e), Dr Leblanc (hypersensibilité Bordeaux), Association TDAH France contact..." rows="3" onchange="hsSave('neuro_psys',this.value)"></textarea>
               <span class="hs-label">3 actions cette semaine</span>
               <textarea class="hs-ta" id="hs-neuro-actions" placeholder="1. ...&#10;2. ...&#10;3. ..." rows="3" onchange="hsSave('neuro_actions',this.value)"></textarea>
             </div>
@@ -13093,7 +13179,7 @@ SLIDE 3 : "Quand ça devient un atout : créativité intense, expertise ultra-ra
 SLIDE 4 : "La clé : identifier VOS zones d'hyperfocus + créer des conditions optimales"
 SLIDE 5 : "C'est exactement ce qu'on fait en séance 2 de mon bilan Neuro-Atypique"
 SLIDE 6 : "8 séances · 1h · CPF · Lien en bio →"</div></div>
-              <div><span class="hc-pill hc-pill-li">#TDAH</span><span class="hc-pill hc-pill-li">#NeuroAtypique</span><span class="hc-pill hc-pill-li">#TDAHAdulte</span><span class="hc-pill hc-pill-li">#Hyperfocus</span><span class="hc-pill hc-pill-li">#HandicapInvisible</span><span class="hc-pill hc-pill-li">#BipolairePro</span><span class="hc-pill hc-pill-li">#Neurodiversité</span><span class="hc-pill hc-pill-li">#CoachingTDAH</span></div>
+              <div><span class="hc-pill hc-pill-li">#TDAH</span><span class="hc-pill hc-pill-li">#NeuroAtypique</span><span class="hc-pill hc-pill-li">#TDAHAdulte</span><span class="hc-pill hc-pill-li">#Hyperfocus</span><span class="hc-pill hc-pill-li">#HandicapInvisible</span><span class="hc-pill hc-pill-li">#Hypersensibilité</span><span class="hc-pill hc-pill-li">#Neurodiversité</span><span class="hc-pill hc-pill-li">#CoachingTDAH</span></div>
             </div>
             <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
           </div>
@@ -13119,19 +13205,19 @@ Et si tu construisais un projet pro qui respecte ton neurotype ?
 C'est ce qu'on fait ensemble. 8 séances d'1h. Lien en bio."
 
 HASHTAGS : #tdah #tdahadulte #neurodiversite #neuroatypique #tdahfrance #hyperfocus</div></div>
-              <div><span class="hc-pill hc-pill-ig">#tdah</span><span class="hc-pill hc-pill-ig">#tdahadulte</span><span class="hc-pill hc-pill-ig">#neurodiversite</span><span class="hc-pill hc-pill-ig">#neuroatypique</span><span class="hc-pill hc-pill-ig">#hyperfocus</span><span class="hc-pill hc-pill-ig">#bipolaire</span><span class="hc-pill hc-pill-ig">#hpifranco</span></div>
+              <div><span class="hc-pill hc-pill-ig">#tdah</span><span class="hc-pill hc-pill-ig">#tdahadulte</span><span class="hc-pill hc-pill-ig">#neurodiversite</span><span class="hc-pill hc-pill-ig">#neuroatypique</span><span class="hc-pill hc-pill-ig">#hyperfocus</span><span class="hc-pill hc-pill-ig">#hypersensibilite</span><span class="hc-pill hc-pill-ig">#hpifranco</span></div>
             </div>
             <button class="hc-save-btn" onclick="hcSaveAll('neuro')">💾 Sauvegarder</button>
           </div>
           <div class="hc-panel" id="hcn-neuro-facebook">
             <div class="hc-card">
               <div class="hc-card-title">👥 Neuro — Stratégie Facebook</div>
-              <div class="hc-hl"><strong style="color:#1877F2;">Groupes clés :</strong> "TDAH adultes France" (45k+) · "HPI / TDAH / TSA adultes" · "Bipolaires et entourage" · "Neuroatypiques au travail"<br><strong style="color:#1877F2;">Approche :</strong> Très douce · Apporter de la valeur · Jamais de pub directe dans les groupes</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Groupes clés :</strong> "TDAH adultes France" (45k+) · "HPI / TDAH / TSA adultes" · "Hypersensibles et entourage" · "Neuroatypiques au travail"<br><strong style="color:#1877F2;">Approche :</strong> Très douce · Apporter de la valeur · Jamais de pub directe dans les groupes</div>
               <div class="hc-template"><span class="hc-template-tag">👥 Post groupe TDAH Facebook</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous 💜
 
 Une question pour la communauté : est-ce que l'un(e) d'entre vous a déjà fait un bilan de compétences adapté au TDAH ?
 
-Je pose la question parce que je suis en train de développer un accompagnement spécifique pour les profils neuro-atypiques (TDAH, bipolaire) — avec des séances d'1h (pour respecter nos fenêtres d'attention) et des outils pensés pour nos cerveaux.
+Je pose la question parce que je suis en train de développer un accompagnement spécifique pour les profils neuro-atypiques (TDAH, hypersensibilité) — avec des séances d'1h (pour respecter nos fenêtres d'attention) et des outils pensés pour nos cerveaux.
 
 Je serais curieuse de savoir ce qui vous a manqué dans les accompagnements classiques.
 
@@ -13714,7 +13800,7 @@ function renderS1(c){
   '</div>'+
   energyBar('s1')+
   block('🏅','Mes 5 réussites oubliées','Exercice','badge-exercice',
-    '<p>Le cerveau TDAH/bipolaire tend à effacer les réussites et amplifier les échecs. Contre-attaquons.</p>'+
+    '<p>Le cerveau TDAH/hypersensible tend à effacer les réussites et amplifier les échecs. Contre-attaquons.</p>'+
     '<div id="reussites-list">'+
     [1,2,3,4,5].map(function(i){return '<div style="margin-bottom:.75rem"><label style="font-size:.8rem;color:var(--text-muted);display:block;margin-bottom:.3rem">Réussite '+i+' <span style="color:var(--text-muted);font-weight:400">(grande ou petite — tout compte)</span></label><textarea class="prompt-area" id="reussite-'+i+'" placeholder="Ex : J\'ai tenu un engagement difficile pendant 3 mois..." onchange="saveData(\'s1_r'+i+'\',this.value)" style="min-height:50px">'+loadData('s1_r'+i)+'</textarea></div>'}).join('')+
     '</div>'+
@@ -13730,7 +13816,7 @@ function renderS1(c){
     '</div>'+
     '<button class="save-btn" style="margin-top:1rem" onclick="saveRoue()">💾 Enregistrer</button><div class="save-confirm" id="save-roue">✓ Enregistré !</div>'
   )+
-  neurotip('<strong>Le cerveau bipolaire pendant une phase dépressive</strong> perçoit la confiance en soi comme nulle — même si objectivement tu as réussi des choses formidables. Ce n\'est pas la réalité, c\'est la chimie du moment. Ces réussites écrites restent vraies quel que soit ton état.')+
+  neurotip('<strong>Le cerveau hypersensible dans un moment de saturation émotionnelle</strong> perçoit la confiance en soi comme nulle — même si objectivement tu as réussi des choses formidables. Ce n\'est pas la réalité, c\'est l\'intensité émotionnelle du moment. Ces réussites écrites restent vraies quel que soit ton état.')+
   block('🧪','Tests de connaissance de soi — Neuro & Professionnel','Ressources','badge-module',
     '<div id="neuro-tests-intro"></div>'+
     '<p>6 tests complémentaires : 3 spécifiques à la neuro-atypie, 3 pour l\'orientation professionnelle.</p>'+
@@ -13822,7 +13908,7 @@ function markDone(id){updateProgress(id,100);neuroGoBack();}
 function renderS2(c){
   var biais=[
     {e:'🔍',n:'Biais de confirmation',d:'Tu cherches (sans le faire exprès) les informations qui confirment ce que tu crois déjà.',p:'Pour toi : tu peux surestimer les obstacles car tu cherches des preuves que "ça ne marchera pas".'},
-    {e:'💭',n:'Pensée tout-ou-rien',d:'Tu vois les choses en noir ou blanc — soit parfait, soit raté. Pas de nuance.',p:'Pour toi : fréquent dans les phases bipolaires. Un faux pas = "je suis nul·le". C\'est cognitif, pas réel.'},
+    {e:'💭',n:'Pensée tout-ou-rien',d:'Tu vois les choses en noir ou blanc — soit parfait, soit raté. Pas de nuance.',p:'Pour toi : fréquent dans les moments de surcharge émotionnelle. Un faux pas = "je suis nul·le". C\'est cognitif, pas réel.'},
     {e:'📉',n:'Minimisation',d:'Tu réduises tes succès et amplifies tes échecs automatiquement.',p:'Pour toi : ton cerveau efface les preuves de ta valeur. C\'est pour ça qu\'on les écrit.'},
     {e:'🔮',n:'Catastrophisation',d:'Tu anticipes systématiquement le pire scénario possible.',p:'Pour toi : l\'anxiété TDAH alimente ça. Le pire rarement arrive — mais ton cerveau y croit vraiment.'},
     {e:'🎯',n:'Personnalisation',d:'Tu te sens responsable de choses qui ne dépendent pas de toi.',p:'Pour toi : très courant. Quelqu\'un est de mauvaise humeur ? C\'est forcément ta faute.'},
@@ -13858,7 +13944,7 @@ function renderS2(c){
     '<textarea class="prompt-area" id="biais-reframe" placeholder="À la place, j\'aurais pu me dire..." style="min-height:60px" onchange="saveData(\'s2_biais_reframe\',this.value)">'+loadData('s2_biais_reframe')+'</textarea>'+
     '<button class="save-btn" onclick="saveBiaisExo()">💾 Enregistrer</button><div class="save-confirm" id="save-s2">✓ Enregistré !</div>'
   )+
-  neurotip('<strong>Les biais cognitifs ne sont pas des défauts de caractère.</strong> Ce sont des heuristiques neurologiques — des raccourcis que le cerveau crée pour économiser de l\'énergie. Le cerveau TDAH/bipolaire en développe certains plus intensément à cause de la dysrégulation émotionnelle. Les repérer, c\'est déjà 50% du chemin.')+
+  neurotip('<strong>Les biais cognitifs ne sont pas des défauts de caractère.</strong> Ce sont des heuristiques neurologiques — des raccourcis que le cerveau crée pour économiser de l\'énergie. Le cerveau TDAH et hypersensible en développe certains plus intensément à cause de la dysrégulation émotionnelle. Les repérer, c\'est déjà 50% du chemin.')+
   block('🎧','Podcasts thématiques — Enjeux sectoriels & biais','Podcast','badge-podcast',
     '<div class="podcast-list">'+
     '<a href="https://www.youtube.com/results?search_query=biais+cognitifs+TDAH+cerveau" target="_blank" class="podcast-item"><div class="podcast-play">▶</div><div class="podcast-info"><h4>⚡ Biais cognitifs & TDAH</h4><p>YouTube · Comment le cerveau atypique traite l\'information</p></div><span class="podcast-duration">→</span></a>'+
@@ -14133,14 +14219,14 @@ function renderS5(c){
     {e:'🌟',label:'Enthousiasme',type:'pos',def:'Élan vital, motivation spontanée vers une idée ou un projet.',neuro:'Particulièrement intense chez les profils neuro-atypiques — peut signaler une piste professionnelle réelle.',actions:['Écris ce qui t\'enthousiasme en ce moment','Relie-le à tes moteurs de sens identifiés','Transforme cet élan en une micro-action concrète']},
     {e:'🦋',label:'Confiance',type:'pos',def:'Sentiment de capacité, de légitimité dans ses actions.',neuro:'Ressource rare pour les profils neuro-atypiques. À ancrer et documenter pour les moments de doute.',actions:['Note les moments où tu te sens compétent·e','Construis une liste de preuves de ta valeur','Partage ces moments avec Wanda']},
     {e:'🌊',label:'Calme',type:'pos',def:'État de régulation émotionnelle et de clarté intérieure.',neuro:'État optimal pour le cerveau neuro-atypique. Identifie ce qui le crée pour pouvoir le recréer.',actions:['Identifie les conditions qui t\'apportent le calme','Crée un rituel de retour au calme','Programme des moments de calme avant les décisions importantes']},
-    {e:'💜',label:'Gratitude',type:'pos',def:'Reconnaissance des ressources et soutiens présents.',neuro:'Contre-balance naturelle aux biais négatifs du cerveau TDAH/bipolaire.',actions:['Pratique 3 gratitudes chaque matin','Remercie les personnes qui te soutiennent','Reconnecte-toi à tes réussites passées']},
-    {e:'😤',label:'Colère',type:'neg',def:'Signal d\'une limite franchie, d\'une valeur non respectée.',neuro:'Pour le TDAH : souvent explosive et rapide. Pour le bipolaire : peut signaler une phase hypomaniaque.',actions:['Fais une pause avant de réagir (5 min minimum)','Identifie quelle valeur a été transgressée','Exprime-la en CNV : "Quand... je ressens... parce que j\'ai besoin de..."']},
-    {e:'😰',label:'Anxiété',type:'neg',def:'Anticipation d\'un danger, réel ou imaginaire.',neuro:'Amplifiée par le TDAH (anxiété de performance) et le bipolaire (peut précéder un épisode). Le cerveau croit à la menace même si elle est irréelle.',actions:['Nomme la peur avec précision','Teste la réalité : est-ce probable ou possible ?','Utilise la respiration 4-7-8 (inspire 4s, retiens 7s, expire 8s)']},
+    {e:'💜',label:'Gratitude',type:'pos',def:'Reconnaissance des ressources et soutiens présents.',neuro:'Contre-balance naturelle aux biais négatifs du cerveau TDAH/hypersensible.',actions:['Pratique 3 gratitudes chaque matin','Remercie les personnes qui te soutiennent','Reconnecte-toi à tes réussites passées']},
+    {e:'😤',label:'Colère',type:'neg',def:'Signal d\'une limite franchie, d\'une valeur non respectée.',neuro:'Pour le TDAH : souvent explosive et rapide. Pour l\'hypersensible : peut signaler une accumulation de stimuli non exprimés.',actions:['Fais une pause avant de réagir (5 min minimum)','Identifie quelle valeur a été transgressée','Exprime-la en CNV : "Quand... je ressens... parce que j\'ai besoin de..."']},
+    {e:'😰',label:'Anxiété',type:'neg',def:'Anticipation d\'un danger, réel ou imaginaire.',neuro:'Amplifiée par le TDAH (anxiété de performance) et l\'hypersensibilité (réactivité accrue aux stimuli et aux émotions d\'autrui). Le cerveau croit à la menace même si elle est irréelle.',actions:['Nomme la peur avec précision','Teste la réalité : est-ce probable ou possible ?','Utilise la respiration 4-7-8 (inspire 4s, retiens 7s, expire 8s)']},
     {e:'😞',label:'Tristesse',type:'neg',def:'Signal de perte, de deuil ou d\'aspiration non comblée.',neuro:'Le cerveau TDAH efface les réussites et amplifie les échecs. La tristesse peut être disproportionnée.',actions:['Accueille l\'émotion sans la fuir ni t\'y noyer','Identifie ce que tu as perdu ou espéré','Parle-en à quelqu\'un de confiance ou écris dans le journal']},
     {e:'😔',label:'Honte',type:'neg',def:'Sentiment de ne pas être "assez bien", d\'être défectueux·se.',neuro:'Très fréquente dans les profils neuro-atypiques — des années de messages "tu ne rentres pas dans la case". C\'est une émotion apprise, pas une vérité.',actions:['Reconnais que ce n\'est pas la réalité, c\'est un apprentissage','Rappelle-toi 3 preuves de ta valeur','Utilise la self-compassion : que dirais-tu à un·e ami·e dans cette situation ?']},
     {e:'😑',label:'Ennui',type:'neg',def:'Manque de stimulation, déconnexion du sens.',neuro:'Signal fort pour le cerveau TDAH : tu n\'es pas dans ta zone de sens. L\'ennui chronique peut mener au "brownout".',actions:['Reconnais l\'ennui comme un signal important','Identifie ce qui manque : défi ? créativité ? sens ?','Cherche comment introduire plus de stimulation dans ton quotidien']},
     {e:'😡',label:'Frustration',type:'neg',def:'Obstacle perçu entre soi et un objectif.',neuro:'Très intense chez les profils TDAH — surtout face aux règles perçues comme arbitraires ou aux tâches répétitives.',actions:['Identifie l\'obstacle précis','Distingue ce que tu contrôles de ce que tu ne contrôles pas','Cherche une stratégie de contournement créatif']},
-    {e:'😶',label:'Vide / dissociation',type:'neg',def:'Sentiment de déconnexion émotionnelle, d\'absence à soi.',neuro:'Peut signaler un épisode dépressif bipolaire ou une surcharge cognitive TDAH. Signal à prendre au sérieux.',actions:['Préviens Wanda si cet état dure','Ancrage sensoriel : 5 choses que tu vois, 4 que tu entends...','Active le protocole de pause si nécessaire']},
+    {e:'😶',label:'Vide / dissociation',type:'neg',def:'Sentiment de déconnexion émotionnelle, d\'absence à soi.',neuro:'Peut signaler une saturation sensorielle/émotionnelle chez l\'hypersensible ou une surcharge cognitive TDAH. Signal à prendre au sérieux.',actions:['Préviens Wanda si cet état dure','Ancrage sensoriel : 5 choses que tu vois, 4 que tu entends...','Active le protocole de pause si nécessaire']},
   ];
 
   var posEmotions = emotions.filter(function(e){return e.type==='pos';});
@@ -14584,23 +14670,26 @@ function renderPodcasts(c){
       {t:'Dr Russell Barkley — TDAH adulte & émotions',d:'Neuropsychologue, référence mondiale · Conférences YouTube',url:'https://www.youtube.com/results?search_query=Russell+Barkley+ADHD+adult+emotional',dur:'EN'},
       {t:'Dr Ned Hallowell — Comprendre le TDAH',d:'Psychiatre, auteur de "Driven to Distraction" · YouTube FR/EN',url:'https://www.youtube.com/results?search_query=Ned+Hallowell+TDAH+adulte',dur:'EN/FR'},
       {t:'Dr Thomas Brown — Fonctions exécutives TDAH',d:'Psychologue clinicien · Recherches sur le cerveau TDAH adulte',url:'https://www.youtube.com/results?search_query=Thomas+Brown+ADHD+executive+function',dur:'EN'},
-      {t:'TDAHébdo — Podcast francophone de référence',d:'Par des adultes TDAH pour des adultes TDAH · Apple Podcasts',url:'https://podcasts.apple.com/fr/podcast/tdahebdo/id1516346874',dur:'FR'},
+      {t:'Chacun son TDAH — Podcast francophone de référence',d:'Témoignages d\'adultes TDAH · Apple Podcasts / Spotify',url:'https://podcasts.apple.com/fr/podcast/chacun-son-tdah/id1584821699',dur:'FR'},
     ]},
-    {cat:'💜 Trouble bipolaire & vie professionnelle',items:[
-      {t:'Dr Kay Redfield Jamison — Vivre avec le bipolaire',d:'Psychiatre et patiente · Conférence TED "On bipolar disorder"',url:'https://www.ted.com/talks/kay_redfield_jamison_experiences_with_manic_depressive_illness',dur:'TED'},
-      {t:'Psycom — Trouble bipolaire au travail',d:'Site institutionnel français · Articles et ressources validées',url:'https://www.psycom.org/troubles-psychiatriques/troubles-bipolaires/',dur:'FR'},
-      {t:'UNAFAM — Ressources bipolaire & emploi',d:'Union nationale de familles de malades · Guide emploi',url:'https://www.unafam.org',dur:'FR'},
+    {cat:'📰 Actualité TDAH & neuroatypie — Médias grand public',items:[
+      {t:'France Inter — Comment bien vivre avec son TDAH ?',d:'"Grand bien vous fasse !" · Ali Rebeihi, avec pédopsychiatre et psychologue · Mai 2026',url:'https://www.radiofrance.fr/franceinter/podcasts/grand-bien-vous-fasse',dur:'FR · Récent'},
+      {t:'Micro et Dopamine — Le TDAH de l\'adulte au travail',d:'Podcast dédié au TDAH adulte en entreprise, bilan de compétences, sur-adaptation · Apple Podcasts',url:'https://podcasts.apple.com/sg/podcast/micro-et-dopamine-le-tdah-de-ladulte-au-travail/id1820098242',dur:'FR · Récent'},
+      {t:'RTS — TDAH : entre mythes, controverses et réalités scientifiques',d:'"Dingue" · Témoignages et expertise médicale, controverses du diagnostic',url:'https://podcasts.apple.com/fr/podcast/tdah-entre-mythes-controverses-et-r%C3%A9alit%C3%A9s-scientifiques/id1646587581',dur:'FR'},
+    ]},
+    {cat:'🧩 Neurodiversité au travail — Actualité professionnelle',items:[
+      {t:'Les Atypiques du Cerveau — Mélodie Ardouin',d:'Décrypte la neurodiversité en entreprise (TDAH, HPI, hypersensibilité...) · Apple Podcasts',url:'https://podcasts.apple.com/fr/podcast/les-atypiques-du-cerveau/id1583778507',dur:'FR'},
+      {t:'MIEUX — Le podcast qui interroge le monde du travail',d:'QVT, RPS, absentéisme, inclusion en entreprise · Proposé par Pluxee',url:'https://podcasts.apple.com/fr/podcast/mieux-le-podcast-qui-interroge-le-monde-du-travail/id1556480019',dur:'FR'},
     ]},
     {cat:'🌍 Intelligence émotionnelle & développement',items:[
       {t:'Dr Daniel Goleman — L\'IE au travail',d:'Psychologue Harvard · Auteur de "L\'Intelligence Émotionnelle"',url:'https://www.youtube.com/results?search_query=Daniel+Goleman+intelligence+emotionnelle',dur:'FR/EN'},
       {t:'Dr Kristin Neff — Self-compassion scientifique',d:'Chercheuse Université du Texas · Pionière de la self-compassion',url:'https://www.youtube.com/results?search_query=Kristin+Neff+compassion+pour+soi',dur:'FR'},
-      {t:'Thomas d\'Ansembourg — Émotions & CNV',d:'Psychothérapeute · "Mieux comprendre vos émotions" · En Développement',url:'https://www.youtube.com/watch?v=n9h4fZylo_E',dur:'6 min'},
+      {t:'Thomas d\'Ansembourg — Émotions & CNV',d:'Psychothérapeute · "Mieux comprendre vos émotions" · En Développement',url:'https://www.youtube.com/watch?v=qRi4X8NGGrs',dur:'6 min'},
     ]},
     {cat:'🚀 Futur du travail & grands enjeux sectoriels',items:[
       {t:'Dr Joël de Rosnay — Futur & intelligence artificielle',d:'Biologiste et futurologue · Conférences sur l\'avenir du travail',url:'https://www.youtube.com/results?search_query=Joel+de+Rosnay+futur+travail+IA',dur:'FR'},
-      {t:'France Culture — Le travail, le grand chambardement',d:'Série documentaire scientifique sur les mutations du travail',url:'https://www.radiofrance.fr/franceculture/podcasts/serie-travail-le-grand-chambardement',dur:'FR'},
-      {t:'INRIA — IA & métiers du futur',d:'Institut national de recherche en numérique · Conférences accessibles',url:'https://www.inria.fr/fr/intelligence-artificielle-travail-metiers',dur:'FR'},
-      {t:'ADEME — Métiers de la transition écologique',d:'Agence de la transition écologique · Panorama des métiers verts',url:'https://agirpourlatransition.ademe.fr/particuliers/bureau/travailler-acteur-transition-ecologique',dur:'FR'},
+      {t:'INRIA — IA & métiers du futur',d:'Dossier de l\'institut national de recherche en numérique',url:'https://www.inria.fr/fr/travail-intelligence-artificielle-dossier',dur:'FR'},
+      {t:'ADEME — Métiers de la transition écologique',d:'Agence de la transition écologique · Panorama des métiers verts',url:'https://agirpourlatransition.ademe.fr/particuliers',dur:'FR'},
     ]},
   ];
   c.innerHTML='<div style="padding-top:1rem">'+
@@ -14611,11 +14700,11 @@ function renderPodcasts(c){
     return '<div style="margin-bottom:2rem">'+
     '<div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--violet-light);margin-bottom:.75rem;">'+cat.cat+'</div>'+
     '<div class="podcast-list">'+cat.items.map(function(p){
-      return '<div class="podcast-item" onclick="window.open(\''+p.url+'\',\'_blank\')" style="cursor:pointer;">'+
+      return '<a href="'+p.url+'" target="_blank" rel="noopener" class="podcast-item" style="cursor:pointer;text-decoration:none;">'+
         '<div class="podcast-play">▶</div>'+
         '<div class="podcast-info"><h4>'+p.t+'</h4><p>'+p.d+'</p></div>'+
         '<span class="podcast-duration">'+p.dur+' ↗</span>'+
-      '</div>';
+      '</a>';
     }).join('')+'</div></div>';
   }).join('')+'</div>';
 }
@@ -14652,7 +14741,7 @@ function renderProtocole(c){
 function renderRessources(c){
   var res=[
     {t:'HPI & TDAH France',d:'Association française — accompagnement, groupes de parole',url:'https://www.tdah-france.fr'},
-    {t:'Bipolaire Info Soutien',d:'Association de patients — ressources et forum',url:'https://www.bipolaires.fr'},
+    
     {t:'Réseau Neuro-Psy',d:'Annuaire de professionnels spécialisés neuro-atypiques',url:'https://www.google.com/search?q=neuropsychologue+TDAH+adulte'},
     {t:'HyperSupers TDAH France',d:'Association — adultes, parents, professionnels',url:'https://www.tdah.be'},
     {t:'Dr Thomas Brown — ADHD resources',d:'Ressources anglophones de référence (EN)',url:'https://www.drthomasebrown.com'},
@@ -14852,7 +14941,7 @@ function renderIA(c){
 
   '<div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:14px;padding:1rem 1.2rem">'+
     '<div style="font-size:.8rem;font-weight:700;color:var(--violet-light);margin-bottom:.4rem">🧠 Le neuro-atypique face à l\'IA</div>'+
-    '<div style="font-size:.82rem;color:var(--text-muted);line-height:1.7">Les cerveaux TDAH et bipolaires ont des qualités que l\'IA ne peut pas reproduire : l\'intuition complexe, la pensée latérale, l\'hyperfocus sur des problèmes non-linéaires, l\'empathie profonde, la créativité disruptive. Les métiers du futur récompenseront précisément ce que ton cerveau fait naturellement.</div>'+
+    '<div style="font-size:.82rem;color:var(--text-muted);line-height:1.7">Les cerveaux TDAH et hypersensibles ont des qualités que l\'IA ne peut pas reproduire : l\'intuition complexe, la pensée latérale, l\'hyperfocus sur des problèmes non-linéaires, l\'empathie profonde, la créativité disruptive. Les métiers du futur récompenseront précisément ce que ton cerveau fait naturellement.</div>'+
   '</div></div>';
 }
 
@@ -15987,7 +16076,7 @@ function injectNeuroTestsIntro() {
   if (!el) return;
   el.innerHTML = '<div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1rem;font-size:.8rem;color:#c4b5fd;line-height:1.8;">'
     +'<strong style="color:#A78BFA;font-size:.85rem;">💜 Tu n\'as pas à tous les passer — voici comment choisir :</strong><br><br>'
-    +'<strong style="color:#86EFAC;">✅ Si tu as déjà un diagnostic TDAH/bipolaire :</strong> passe directement les tests d\'orientation (<strong>MBTI + RIASEC + DISC</strong>) pour orienter ton projet pro.<br><br>'
+    +'<strong style="color:#86EFAC;">✅ Si tu as déjà un diagnostic TDAH ou une hypersensibilité identifiée :</strong> passe directement les tests d\'orientation (<strong>MBTI + RIASEC + DISC</strong>) pour orienter ton projet pro.<br><br>'
     +'<strong style="color:#FCD34D;">🔍 Si tu es en questionnement sur ta neuro-atypie :</strong> commence par l\'<strong>ASRS</strong> ou le <strong>NeuroAtypi©</strong>, puis les tests pro.<br><br>'
     +'<strong style="color:#F472B6;">⭐ Minimum recommandé :</strong> 1 test neuro + <strong>RIASEC</strong> pour orienter le parcours dès la séance 1.'
     +'</div>';
@@ -16019,7 +16108,7 @@ document.addEventListener('DOMContentLoaded', function(){
       testBloc.innerHTML = '<div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:.9rem 1.2rem;margin-bottom:1rem;font-size:.8rem;color:#c4b5fd;line-height:1.7;">'
         +'<strong style="color:#A78BFA;">💜 Comment utiliser ces tests ?</strong><br>'
         +'Tu n\'as pas à tous les passer ! Voici le choix selon ton profil :<br>'
-        +'<strong>Si tu as déjà un diagnostic TDAH/bipolaire :</strong> passe directement les tests d\'orientation (MBTI + RIASEC + DISC)<br>'
+        +'<strong>Si tu as déjà un diagnostic TDAH ou une hypersensibilité identifiée :</strong> passe directement les tests d\'orientation (MBTI + RIASEC + DISC)<br>'
         +'<strong>Si tu es en questionnement sur ta neuro-atypie :</strong> commence par l\'ASRS ou le NeuroAtypi©, puis les tests pro<br>'
         +'<strong>Minimum recommandé :</strong> 1 test neuro + RIASEC pour orienter le parcours'
         +'</div>';
@@ -16203,40 +16292,6 @@ openSession = function(id){
     }, 1200);
   });
 })();
-
-function sendToCoach() {
-  var keys = [
-    's1_r1','s1_r2','s1_r3','s1_r4','s1_r5',
-    's2_biais_note','s2_biais_reframe',
-    's3_pdc','s3_exemple','s3_synthese',
-    's4_brainstorm',
-    's5_plan_pos','s5_plan_neg','s5_date_pos','s5_date_neg',
-    's6_chips',
-    's7_piste_0','s7_piste_1','s7_piste_2',
-    's8_carte_ia',
-    'bonus_journal','expr_mood'
-  ];
-  var data = { timestamp: new Date().toISOString(), seances: {} };
-  keys.forEach(function(k) {
-    var val = loadData(k);
-    if (val) data.seances[k] = val;
-  });
-  // Ajouter données impératifs et moteurs
-  try {
-    var imp = localStorage.getItem('wlc_imp_neuro');
-    if (imp) data.imperatifs = JSON.parse(imp);
-    var mot = localStorage.getItem('wlc_mot_neuro');
-    if (mot) data.moteurs = JSON.parse(mot);
-  } catch(e) {}
-  // Sauvegarder pour le coach
-  try {
-    localStorage.setItem('wlc_neuro_coach_data', JSON.stringify(data));
-  } catch(e) {}
-  // Afficher confirmation
-  var confirm = document.getElementById('send-coach-confirm');
-  if (confirm) { confirm.style.display = 'block'; setTimeout(function(){ confirm.style.display='none'; }, 4000); }
-}
-
 </script>
 
 </body>

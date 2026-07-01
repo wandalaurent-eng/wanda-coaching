@@ -85,7 +85,7 @@ body {
   border-radius: 24px; padding: 2.5rem 2rem; cursor: pointer;
   transition: all .3s cubic-bezier(.34,1.2,.64,1); position: relative; overflow: hidden;
 }
-.hub-card::before { content: ''; position: absolute; inset: 0; border-radius: 24px; opacity: 0; transition: opacity .3s; }
+.hub-card::before { content: ''; position: absolute; inset: 0; border-radius: 24px; opacity: 0; transition: opacity .3s; pointer-events: none; }
 .hub-card.bdc-card::before { background: linear-gradient(135deg, rgba(201,168,76,.12), rgba(45,123,126,.08)); }
 .hub-card.psp-card::before { background: linear-gradient(135deg, rgba(0,201,167,.12), rgba(59,130,246,.08)); }
 .hub-card.neuro-card::before { background: linear-gradient(135deg, rgba(139,92,246,.14), rgba(45,212,191,.07)); }
@@ -3821,7 +3821,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
   .pw-content p { font-size: .83rem; color: rgba(255,255,255,.6); line-height: 1.65; }
   </style>
 
-class="hub-cards" style="padding:0;margin-top:0;">
+<div class="hub-cards" style="padding:0;margin-top:0;">
       <div class="hub-card bdc-card">
         <span class="card-badge">Adultes · Certifié Qualiopi</span>
         <span class="card-icon">🧭</span>

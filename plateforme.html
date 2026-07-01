@@ -7659,9 +7659,15 @@ function logoutCoach() {
 }
 
 /* ═══ NAVIGATION ═══ */
+function _hubHomeVisible(show) {
+  ['hub-bg','hub-header','hub-outils','kpi-bar'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.style.display = show ? '' : 'none';
+  });
+}
 function openApp(which, clientData) {
   var fromDashboard = coachLoggedIn;
-  document.getElementById('hub').style.display = 'none';
+  _hubHomeVisible(false);
   document.getElementById('hub-nav').style.display = 'none';
   document.getElementById('app-dashboard').classList.remove('active');
   var backBar = document.getElementById('back-bar');
@@ -7713,7 +7719,7 @@ function openApp(which, clientData) {
 }
 
 function openDashboard() {
-  document.getElementById('hub').style.display = 'none';
+  _hubHomeVisible(false);
   document.getElementById('hub-nav').style.display = 'none';
   document.getElementById('app-bdc').classList.remove('active');
   document.getElementById('app-psp').classList.remove('active');
@@ -7731,7 +7737,7 @@ function openDashboard() {
 }
 
 function goHub() {
-  document.getElementById('hub').style.display = 'block';
+  _hubHomeVisible(true);
   document.getElementById('hub-nav').style.display = 'flex';
   document.getElementById('app-bdc').classList.remove('active');
   document.getElementById('app-psp').classList.remove('active');
@@ -11061,7 +11067,7 @@ planaction:'<div class="g-mh"><div><h2>🗺️ Plan d\'action</h2><p>5 première
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
-#app-neuro-root{
+#app-neuro{
   --bg: #0E0B1A;
   --surface: #16122A;
   --surface2: #1E1A34;

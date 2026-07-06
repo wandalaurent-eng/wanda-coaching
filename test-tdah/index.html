@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de repérage TDAH Adulte | Wanda Laurent Coaching</title>
+<meta name="description" content="10 questions, résultat immédiat : repère tes tendances TDAH (inattentif, hyperactif/impulsif, mixte). Un test informatif, non diagnostique, par Wanda Laurent Coaching.">
+
+<!-- Open Graph (LinkedIn, Facebook...) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Test de repérage TDAH Adulte">
+<meta property="og:description" content="10 questions · résultat immédiat · Découvre ta tendance (inattentive, hyperactive/impulsive, mixte) avec ce test informatif signé Wanda Laurent Coaching.">
+<meta property="og:image" content="og_image_quizz_tdah.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Wanda Laurent Coaching">
+
+<!-- Twitter Card (utilisé par certains autres réseaux) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Test de repérage TDAH Adulte">
+<meta name="twitter:description" content="10 questions · résultat immédiat · Découvre ta tendance TDAH avec ce test informatif signé Wanda Laurent Coaching.">
+<meta name="twitter:image" content="og_image_quizz_tdah.png">
+
+<style>
+  :root{
+    --violet: #7B5EA7;
+    --violet-clair: #B89DD4;
+    --menthe: #5CBFAA;
+    --menthe-claire: #A8E6D8;
+    --blanc: #FFFFFF;
+    --creme: #FAF8FF;
+    --texte: #2D1B4E;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI','Poppins',sans-serif;
+    background: var(--creme);
+    color: var(--texte);
+    display:flex;
+    justify-content:center;
+    padding:40px 16px;
+  }
+  .app{
+    width:100%;
+    max-width:680px;
+    background:var(--blanc);
+    border-radius:20px;
+    box-shadow:0 18px 40px rgba(45,27,78,0.12);
+    overflow:hidden;
+  }
+  .header{
+    background: linear-gradient(135deg,#F0EAFF 0%, #E0F7F2 100%);
+    padding:36px 40px 30px 40px;
+  }
+  .eyebrow{
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--violet);
+    margin-bottom:10px;
+  }
+  h1{
+    font-size:26px;
+    margin:0 0 10px 0;
+    line-height:1.3;
+  }
+  .subtitle{
+    font-size:14.5px;
+    opacity:0.85;
+    line-height:1.5;
+  }
+  .progress-wrap{
+    padding:18px 40px 0 40px;
+  }
+  .progress-track{
+    height:8px;
+    background:var(--menthe-claire);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .progress-bar{
+    height:100%;
+    width:0%;
+    background:var(--menthe);
+    transition:width .35s ease;
+  }
+  .progress-label{
+    font-size:12px;
+    font-weight:600;
+    color:var(--violet);
+    margin-top:8px;
+  }
+  .body{
+    padding:28px 40px 40px 40px;
+  }
+  .disclaimer{
+    background:var(--creme);
+    border-left:4px solid var(--violet-clair);
+    border-radius:10px;
+    padding:16px 18px;
+    font-size:13.5px;
+    line-height:1.55;
+    margin-bottom:26px;
+  }
+  .disclaimer b{color:var(--violet);}
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+  .q-title{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:18px;
+    line-height:1.4;
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .option{
+    border:1.5px solid #E6DEF5;
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:15px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .option:hover{ border-color:var(--violet-clair); background:var(--creme); }
+  .option.selected{
+    border-color:var(--violet);
+    background:#F3EEFC;
+    font-weight:600;
+  }
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    margin-top:28px;
+  }
+  .btn{
+    border:none;
+    border-radius:30px;
+    padding:13px 26px;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn-primary{
+    background:var(--violet);
+    color:var(--blanc);
+  }
+  .btn-primary:disabled{
+    background:#D9CFEE;
+    cursor:not-allowed;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--violet);
+    border:1.5px solid var(--violet-clair);
+  }
+  .intro-btn{
+    margin-top:10px;
+    display:inline-block;
+  }
+  .result-badge{
+    display:inline-block;
+    background:var(--menthe-claire);
+    color:var(--texte);
+    font-size:12.5px;
+    font-weight:700;
+    padding:6px 14px;
+    border-radius:20px;
+    margin-bottom:16px;
+  }
+  .result-title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:14px;
+    line-height:1.35;
+  }
+  .result-text{
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:20px;
+  }
+  .cta-card{
+    background: linear-gradient(135deg, var(--violet) 0%, #6a4f92 100%);
+    color:white;
+    border-radius:16px;
+    padding:24px 26px;
+    margin-top:10px;
+  }
+  .cta-card p{ font-size:14.5px; line-height:1.55; margin:0 0 16px 0; opacity:0.95;}
+  .cta-card .btn-primary{ background:var(--menthe); color:var(--texte); }
+  .source-note{
+    font-size:12px;
+    opacity:0.6;
+    margin-top:22px;
+    line-height:1.5;
+  }
+  .footer{
+    font-size:11px;
+    opacity:0.6;
+    text-align:center;
+    padding:18px 20px 26px 20px;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="eyebrow">Auto-évaluation TDAH Adulte</div>
+    <h1>Ton profil en quelques minutes</h1>
+    <div class="subtitle">10 questions • résultat immédiat • pensé comme un point de départ, pas un diagnostic</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">Introduction</div>
+  </div>
+
+  <div class="body">
+
+    <div class="screen active" id="screen-intro">
+      <div class="disclaimer">
+        <b>Avant de commencer :</b> ce test s'inspire de grands domaines utilisés dans les grilles cliniques de repérage du TDAH chez l'adulte (attention, agitation, impulsivité), dans le même esprit que des outils comme celui de <b>tdahfocus.com</b>. Il ne remplace en aucun cas un diagnostic médical : seul un professionnel de santé (médecin, psychiatre, neuropsychologue) peut poser un diagnostic de TDAH. Ce test t'aide simplement à repérer des tendances et, si besoin, à préparer un échange avec un professionnel — ou avec un coach pour la partie accompagnement au quotidien.
+      </div>
+      <div class="q-title" style="margin-bottom:8px;">Réponds spontanément, sans chercher à "bien répondre" — il n'y a pas de bonne réponse.</div>
+      <button class="btn btn-primary intro-btn" onclick="startQuiz()">Commencer le test →</button>
+    </div>
+
+    <div class="screen" id="screen-quiz">
+      <div class="q-title" id="qTitle"></div>
+      <div class="options" id="qOptions"></div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()">← Précédent</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" disabled>Suivant →</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-badge" id="resultBadge">Ton profil</div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-text" id="resultText"></div>
+
+      <div class="cta-card">
+        <p>Un résultat qui résonne chez toi ? Le <b>Bilan Talents Neuro-Atypique</b> t'aide à transformer ce fonctionnement en véritable projet professionnel — en t'appuyant sur tes forces, pas sur tes difficultés.</p>
+        <button class="btn btn-primary" onclick="window.open('https://wandalaurentcoaching.com','_blank')">Découvrir le Bilan Talents Neuro-Atypique</button>
+      </div>
+
+      <div class="disclaimer" style="margin-top:18px;">
+        <b>Et après ?</b> Ce test n'est qu'un point de départ. Si tu veux aller plus loin — comprendre ton fonctionnement en profondeur, identifier tes vraies forces et construire un parcours professionnel qui te ressemble — c'est exactement l'objet du Bilan Talents Neuro-Atypique, un accompagnement individuel de 16h avec moi. Tu peux m'écrire directement à <b>wanda.laurent@gmail.com</b> pour en discuter, sans engagement.
+      </div>
+
+      <div class="source-note">
+        Test conçu à titre informatif et non diagnostique, inspiré de grilles de repérage reconnues (type DIVA 2.0 / critères DSM-5) — dans l'esprit d'outils comme celui de tdahfocus.com. Si tes résultats t'interpellent, parles-en à un médecin, un psychiatre ou un neuropsychologue.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">Wanda Laurent Coaching | Passerelle des Talents | wanda.laurent@gmail.com | www.wandalaurentcoaching.com</div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "Quand tu dois te concentrer sur une tâche longue ou peu stimulante :",
+    options: [
+      {t:"Ton esprit part facilement ailleurs, tu dois te reconcentrer sans cesse", d:"inattentif"},
+      {t:"Tu ressens le besoin de bouger, de changer de position, de faire une pause", d:"hyperactif"},
+      {t:"Les deux à la fois : tu décroches ET tu t'agites", d:"mixte"},
+      {t:"Tu arrives à tenir sans trop de difficulté", d:"faible"}
+    ]
+  },
+  {
+    q: "Face à une liste de tâches à faire dans la journée :",
+    options: [
+      {t:"Tu oublies ou perds le fil de certaines, même importantes", d:"inattentif"},
+      {t:"Tu passes vite d'une tâche à l'autre sans les terminer", d:"hyperactif"},
+      {t:"Tu oublies des choses ET tu sautes d'une tâche à l'autre", d:"mixte"},
+      {t:"Tu arrives à les dérouler dans l'ordre sans problème majeur", d:"faible"}
+    ]
+  },
+  {
+    q: "En réunion ou lors d'un échange qui dure :",
+    options: [
+      {t:"Tu perds le fil et dois demander qu'on répète", d:"inattentif"},
+      {t:"Tu as du mal à rester assis·e, tu t'agites discrètement", d:"hyperactif"},
+      {t:"Tu décroches ET tu t'agites en même temps", d:"mixte"},
+      {t:"Tu suis sans difficulté particulière", d:"faible"}
+    ]
+  },
+  {
+    q: "Quand quelqu'un te parle, même de quelque chose d'important :",
+    options: [
+      {t:"Tu te surprends à penser à autre chose et dois reconnecter ton attention", d:"inattentif"},
+      {t:"Tu as tendance à couper la parole ou à finir ses phrases", d:"hyperactif"},
+      {t:"Les deux : tu décroches parfois et tu interromps aussi", d:"mixte"},
+      {t:"Tu écoutes de bout en bout sans souci", d:"faible"}
+    ]
+  },
+  {
+    q: "Concernant tes objets du quotidien (clés, téléphone, papiers) :",
+    options: [
+      {t:"Tu les égares ou les oublies régulièrement", d:"inattentif"},
+      {t:"Ce n'est pas vraiment ton souci principal", d:"faible"},
+      {t:"Tu les perds ET tu es aussi plutôt impatient·e / speed", d:"mixte"},
+      {t:"Tu es plutôt du genre agité·e mais organisé·e avec tes affaires", d:"hyperactif"}
+    ]
+  },
+  {
+    q: "Dans une file d'attente ou quand tu dois attendre ton tour :",
+    options: [
+      {t:"Ça te demande un effort d'attention mais ce n'est pas le plus dur", d:"inattentif"},
+      {t:"Tu ressens une impatience physique difficile à contenir", d:"hyperactif"},
+      {t:"Tu es impatient·e ET tu décroches mentalement", d:"mixte"},
+      {t:"Attendre ne te pose pas de problème particulier", d:"faible"}
+    ]
+  },
+  {
+    q: "Quand tu dois organiser un projet avec plusieurs étapes :",
+    options: [
+      {t:"Tu as du mal à structurer, à planifier, à anticiper les étapes", d:"inattentif"},
+      {t:"Tu te lances vite sans forcément tout planifier, quitte à improviser", d:"hyperactif"},
+      {t:"Tu as du mal à structurer ET tu te précipites sans plan", d:"mixte"},
+      {t:"Tu organises sans difficulté notable", d:"faible"}
+    ]
+  },
+  {
+    q: "Sur le plan de la parole et des idées :",
+    options: [
+      {t:"Ce n'est pas ton souci principal, tu parles à un rythme classique", d:"faible"},
+      {t:"Tu parles beaucoup, vite, ou tu as du mal à laisser des silences", d:"hyperactif"},
+      {t:"Tu perds parfois le fil de ce que tu dis en cours de route", d:"inattentif"},
+      {t:"Tu parles vite ET tu perds parfois le fil de ton propos", d:"mixte"}
+    ]
+  },
+  {
+    q: "Concernant les délais et la gestion du temps :",
+    options: [
+      {t:"Tu sous-estimes souvent le temps nécessaire ou oublies des échéances", d:"inattentif"},
+      {t:"Tu te lances au dernier moment, dans l'urgence, presque par besoin d'adrénaline", d:"hyperactif"},
+      {t:"Les deux : tu oublies des échéances ET tu gères tout dans l'urgence", d:"mixte"},
+      {t:"Tu anticipes et gères plutôt bien les délais", d:"faible"}
+    ]
+  },
+  {
+    q: "De manière générale, ton énergie et ton attention au quotidien :",
+    options: [
+      {t:"Ton attention est fluctuante, plus que ton niveau d'énergie physique", d:"inattentif"},
+      {t:"Tu as un besoin presque constant de mouvement ou de stimulation", d:"hyperactif"},
+      {t:"Attention fluctuante ET besoin de mouvement/stimulation", d:"mixte"},
+      {t:"Ton attention et ton énergie sont plutôt stables", d:"faible"}
+    ]
+  }
+];
+
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function startQuiz(){
+  document.getElementById('screen-intro').classList.remove('active');
+  document.getElementById('screen-quiz').classList.add('active');
+  renderQ();
+}
+
+function renderQ(){
+  const q = questions[current];
+  document.getElementById('qTitle').textContent = (current+1) + ". " + q.q;
+  const optWrap = document.getElementById('qOptions');
+  optWrap.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option' + (answers[current] === i ? ' selected' : '');
+    div.textContent = opt.t;
+    div.onclick = () => selectOption(i);
+    optWrap.appendChild(div);
+  });
+  document.getElementById('prevBtn').style.visibility = current === 0 ? 'hidden' : 'visible';
+  document.getElementById('nextBtn').disabled = answers[current] === null;
+  document.getElementById('nextBtn').textContent = current === questions.length - 1 ? "Voir mon résultat →" : "Suivant →";
+  updateProgress();
+}
+
+function selectOption(i){
+  answers[current] = i;
+  renderQ();
+}
+
+function prevQ(){
+  if(current > 0){ current--; renderQ(); }
+}
+
+function nextQ(){
+  if(answers[current] === null) return;
+  if(current < questions.length - 1){
+    current++;
+    renderQ();
+  } else {
+    showResult();
+  }
+}
+
+function updateProgress(){
+  const pct = Math.round(((current) / questions.length) * 100);
+  document.getElementById('progressBar').style.width = pct + "%";
+  document.getElementById('progressLabel').textContent = "Question " + (current+1) + " / " + questions.length;
+}
+
+function showResult(){
+  document.getElementById('screen-quiz').classList.remove('active');
+  document.getElementById('screen-result').classList.add('active');
+  document.getElementById('progressBar').style.width = "100%";
+  document.getElementById('progressLabel').textContent = "Résultat";
+
+  const counts = {inattentif:0, hyperactif:0, mixte:0, faible:0};
+  answers.forEach((idx, qi) => {
+    const d = questions[qi].options[idx].d;
+    counts[d]++;
+  });
+
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const top = sorted[0][0];
+
+  const results = {
+    inattentif: {
+      badge:"Tendance inattentive",
+      title:"Ton profil semble plutôt à dominante inattentive",
+      text:"Tes réponses évoquent surtout des difficultés à maintenir ton attention, à organiser ou à ne pas te laisser distraire — plus que des besoins de mouvement ou d'impulsivité. C'est un fonctionnement fréquent, parfois moins visible de l'extérieur, mais tout aussi impactant au quotidien."
+    },
+    hyperactif: {
+      badge:"Tendance hyperactive / impulsive",
+      title:"Ton profil semble plutôt à dominante hyperactive-impulsive",
+      text:"Tes réponses évoquent surtout un besoin de mouvement, d'action, une certaine impatience ou impulsivité — plus que des soucis de concentration pure. Ce fonctionnement se traduit souvent par un grand besoin de stimulation et d'action concrète."
+    },
+    mixte: {
+      badge:"Profil mixte",
+      title:"Ton profil combine les deux dimensions",
+      text:"Tes réponses évoquent à la fois des difficultés attentionnelles et un besoin de mouvement/impulsivité. C'est le profil le plus fréquemment rencontré chez les adultes concernés par le TDAH."
+    },
+    faible: {
+      badge:"Peu de signes marqués",
+      title:"Tes réponses évoquent peu de signes marqués",
+      text:"Sur la base de tes réponses, peu d'éléments ressortent en faveur d'un fonctionnement TDAH marqué. Si tu te reconnais malgré tout dans certaines situations du quotidien, n'hésite pas à en discuter avec un professionnel : le contexte et le ressenti comptent autant que le score."
+    }
+  };
+
+  const r = results[top];
+  document.getElementById('resultBadge').textContent = r.badge;
+  document.getElementById('resultTitle').textContent = r.title;
+  document.getElementById('resultText').textContent = r.text + " Ce résultat n'a rien d'un diagnostic : il t'appartient d'en parler, si tu le souhaites, à un médecin, un psychiatre ou un neuropsychologue pour une évaluation clinique complète.";
+}
+</script>
+
+</body>
+</html>

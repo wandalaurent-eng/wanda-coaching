@@ -4543,7 +4543,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
           style="width:100%;padding:.5rem .8rem;border:1.5px solid #6EE7B7;border-radius:8px;font-size:.82rem;outline:none;"
           oninput="try{localStorage.setItem('bdc_imp_pas',this.value);}catch(e){}">
       </div>
-      <button onclick="genSyntheseImperatifs('bdc')" style="background:linear-gradient(135deg,#059669,#10B981);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;">🤖 Générer ma synthèse IA</button>
+      <button onclick="genSyntheseImperatifs('bdc')" style="background:linear-gradient(135deg,#059669,#10B981);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;">📝 Voir ma synthèse</button>
       <div id="bdc-imp-ia-synthese" style="margin-top:.8rem;background:rgba(5,150,105,.08);border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#065f46;line-height:1.7;display:none;"></div>
     </div>
   </div>
@@ -5789,7 +5789,7 @@ document.addEventListener('DOMContentLoaded',function(){stratLoad();});
       📋 Compiler toutes mes notes
     </button>
     <button class="ns-btn ns-btn-ia" onclick="genNotesIA('bdc')">
-      🤖 Générer synthèse IA des notes
+      📝 Voir la synthèse des notes
     </button>
   </div>
 
@@ -5883,28 +5883,8 @@ async function genNotesIA(prog) {
     resultDiv.style.display = 'block';
     return;
   }
-  iaContent.textContent = '⏳ Génération en cours...';
+  iaContent.innerHTML = '✍️ Synthèse à rédiger manuellement à partir des notes compilées ci-dessus.';
   resultDiv.style.display = 'block';
-  var progNames = {bdc:'Bilan de Compétences',psp:'Orientation Parcoursup',neuro:'Bilan Neuro-Atypique',grand:'Le Grand +'};
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: "Voici les notes prises séance par séance lors d un "+(progNames[prog]||"coaching")+" avec Wanda Laurent :\n\n"+notes+'\n\nGénère une synthèse structurée et bienveillante de ces notes en 5 parties : 1) Prise de conscience clé, 2) Points forts identifiés, 3) Axes de développement, 4) Décision/projet émergent, 5) Prochaine étape recommandée. En français, ton coach professionnel et chaleureux.'
-        }]
-      })
-    });
-    var data = await resp.json();
-    var text = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : 'Erreur de génération.';
-    iaContent.innerHTML = text.split('\n').join('<br>');
-  } catch(e) {
-    iaContent.textContent = 'Erreur de connexion. Vérifiez votre connexion internet.';
-  }
 }
 </script>
 
@@ -7482,7 +7462,7 @@ async function genNotesIA(prog) {
 var COACH_PASSWORD = 'wanda2026';
 var COACH_PIN = '1234';
 var PRIX = { bdc: 1600, psp: 650, neuro: 1600, grandplus: 1800 };
-var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 9, grandplus: 9 };
+var SEANCES_COUNT = { bdc: 9, psp: 6, neuro: 8, grandplus: 9 };
 
 /* ─── STORAGE HELPERS ─── */
 /* ── Stockage avec fallback mémoire (Firefox file://) ── */
@@ -8164,6 +8144,10 @@ async function generateSynthIA() {
   var loading = document.getElementById('synth-ia-loading');
   var output = document.getElementById('synth-output');
   var preview = document.getElementById('synth-preview');
+  loading.style.display = 'none';
+  output.style.display = 'block';
+  preview.innerHTML = '<div class="ia-output"><p>✍️ Synthèse à rédiger manuellement à partir des notes compilées ci-dessus.</p></div>';
+  return;
   loading.style.display = 'block';
   output.style.display = 'none';
 
@@ -13219,7 +13203,7 @@ HASHTAGS : #tdah #tdahadulte #neurodiversite #neuroatypique #tdahfrance #hyperfo
           <div class="hc-panel" id="hcn-neuro-facebook">
             <div class="hc-card">
               <div class="hc-card-title">👥 Neuro — Stratégie Facebook</div>
-              <div class="hc-hl"><strong style="color:#1877F2;">Groupes clés :</strong> "TDAH adultes France" (45k+) · "HPI / TDAH / TSA adultes" · "Hypersensibles et entourage" · "Neuroatypiques au travail"<br><strong style="color:#1877F2;">Approche :</strong> Très douce · Apporter de la valeur · Jamais de pub directe dans les groupes</div>
+              <div class="hc-hl"><strong style="color:#1877F2;">Groupes clés :</strong> "TDAH adultes France" (45k+) · "Hypersensibles et entourage" · "Neuroatypiques au travail"<br><strong style="color:#1877F2;">Approche :</strong> Très douce · Apporter de la valeur · Jamais de pub directe dans les groupes</div>
               <div class="hc-template"><span class="hc-template-tag">👥 Post groupe TDAH Facebook</span><button class="hc-copy-btn" onclick="hcCopy(this)">Copier</button><div class="hc-template-text">Bonjour à tous 💜
 
 Une question pour la communauté : est-ce que l'un(e) d'entre vous a déjà fait un bilan de compétences adapté au TDAH ?
@@ -13841,7 +13825,7 @@ function renderS1(c){
       '</div>'+
       '<div style="background:rgba(168,85,247,.08);border-radius:10px;padding:.8rem 1rem;border:1px solid rgba(168,85,247,.2);">'+
         '<div style="font-weight:700;font-size:.8rem;color:#D8B4FE;margin-bottom:.3rem;">🌈 NeuroAtypi© — Profil global</div>'+
-        '<div style="font-size:.75rem;color:#E9D5FF;line-height:1.5;margin-bottom:.5rem;">Couvre TSA, TDAH, TDA et DYS. Validé par des psychologues spécialisés. +10 000 participants.</div>'+
+        '<div style="font-size:.75rem;color:#E9D5FF;line-height:1.5;margin-bottom:.5rem;">Cartographie le profil TDAH et TDA. Validé par des psychologues spécialisés. +10 000 participants.</div>'+
         '<a href="https://www.atypikoo.com/tests/neuroatypique/" target="_blank" style="display:inline-block;background:rgba(168,85,247,.15);color:#D8B4FE;padding:.3rem .8rem;border-radius:20px;font-size:.75rem;text-decoration:none;border:1px solid rgba(168,85,247,.25);">↗ Passer NeuroAtypi©</a>'+
       '</div>'+
     '</div>'+
@@ -13984,7 +13968,7 @@ function renderS2(c){
       ' style="width:100%;padding:.5rem .8rem;border:1.5px solid rgba(139,92,246,.4);border-radius:8px;font-size:.82rem;background:rgba(139,92,246,.1);color:#E2D9F3;outline:none;"'+
       ' oninput="saveData(\'neuro_imp_pas\',this.value)">'+
     '</div>'+
-    '<button onclick="genSyntheseImperatifs(\'neuro\')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;">🤖 Générer ma synthèse IA</button>'+
+    '<button onclick="genSyntheseImperatifs(\'neuro\')" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;">📝 Voir ma synthèse</button>'+
     '<div id="neuro-imp-ia-synthese" style="margin-top:.8rem;background:rgba(139,92,246,.08);border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#c4b5fd;line-height:1.7;display:none;"></div>'+
   '</div>'+
   '<div style="text-align:center;margin-top:2rem"><button class="save-btn" onclick="markDone(\'s2\')">✅ Séance terminée</button></div>';
@@ -14075,7 +14059,7 @@ function renderS3(c){
     '</div>'+
     '<div style="margin-bottom:1rem;">'+
       '<label style="font-size:.8rem;color:var(--text-muted);display:block;margin-bottom:.3rem;">Tu veux une synthèse IA de cette séance ?</label>'+
-      '<button class="save-btn" onclick="genSyntheseS3()" style="margin-bottom:.5rem;">🤖 Générer ma synthèse</button>'+
+      '<button class="save-btn" onclick="genSyntheseS3()" style="margin-bottom:.5rem;">📝 Voir ma synthèse</button>'+
       '<div id="s3-synthese" style="background:rgba(139,92,246,.08);border-radius:10px;padding:.8rem;font-size:.8rem;color:var(--text-muted);line-height:1.7;display:none;"></div>'+
     '</div>'+
     '<button class="save-btn" onclick="saveS3Pdc()">💾 Enregistrer ma prise de conscience</button>'+
@@ -14116,15 +14100,7 @@ function genSyntheseS3(){
     '- Prise de conscience : '+(pdc?pdc.value:'non renseigné')+'\n'+
     '- Exemple vécu : '+(exemple?exemple.value:'non renseigné')+'\n'+
     'Termine par une phrase d\'encouragement pour la suite du parcours.';
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){
-    var txt=d.content&&d.content[0]?d.content[0].text:'Synthèse indisponible.';
-    box.innerHTML=txt;
-    saveData('s3_synthese',txt);
-  }).catch(function(){box.innerHTML='Synthèse indisponible pour le moment.';});
+  box.innerHTML='✍️ Ta synthèse se construit avec ta coach lors de la séance. Tes réponses sont enregistrées — Wanda les retrouvera dans ton espace.';
 }
 
 // ── S4 : CREATIVITE ──
@@ -14338,7 +14314,7 @@ function renderS5(c){
       '<input type="text" id="s5-date-neg" placeholder="Avant le..." value="'+loadData('s5_date_neg')+'" '+
       'onchange="saveData(\'s5_date_neg\',this.value)" style="background:transparent;border:none;border-bottom:1px solid rgba(248,113,113,.3);color:#FCA5A5;font-size:.75rem;outline:none;width:150px;"></div>'+
     '</div>'+
-    '<button onclick="genSyntheseS5()" style="background:linear-gradient(135deg,#EC4899,#A855F7);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;width:100%;margin-bottom:.5rem;">🤖 Générer ma synthèse IA</button>'+
+    '<button onclick="genSyntheseS5()" style="background:linear-gradient(135deg,#EC4899,#A855F7);color:white;border:none;border-radius:10px;padding:.6rem 1.2rem;font-weight:700;font-size:.82rem;cursor:pointer;width:100%;margin-bottom:.5rem;">📝 Voir ma synthèse</button>'+
     '<div id="s5-ia-synthese" style="display:none;background:rgba(236,72,153,.08);border-radius:10px;padding:.8rem;font-size:.78rem;color:#c4b5fd;line-height:1.7;"></div>'+
     '<button class="save-btn" style="margin-top:.8rem;" onclick="saveS5IE()">💾 Enregistrer mon plan IE</button><div class="save-confirm" id="save-s5">✓ Enregistré !</div>'
   )+
@@ -14376,11 +14352,7 @@ function genSyntheseS5(){
     +'- Plan positif : '+planPos+'\n'
     +'- Plan régulation : '+planNeg+'\n'
     +'Conclus avec une question de réflexion pour la prochaine séance.';
-  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:450,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){
-    box.innerHTML=d.content&&d.content[0]?d.content[0].text:'Synthèse indisponible.';
-  }).catch(function(){box.innerHTML='Synthèse indisponible.';});
+  box.innerHTML='✍️ Ta synthèse se construit avec ta coach lors de la séance. Tes réponses sont enregistrées — Wanda les retrouvera dans ton espace.';
 }
 
 // ── S6 : AFFIRMATION ──
@@ -14615,7 +14587,7 @@ function renderS8(c){
     }).join('')+
     '</div>'+
     '<div style="margin-top:1rem;text-align:center;">'+
-      '<button onclick="genCarteIdentite()" style="background:linear-gradient(135deg,#8B5CF6,#2DD4BF);color:white;border:none;border-radius:10px;padding:.65rem 1.4rem;font-weight:700;font-size:.85rem;cursor:pointer;">🤖 Générer ma carte d\'identité IA</button>'+
+      '<button onclick="genCarteIdentite()" style="background:linear-gradient(135deg,#8B5CF6,#2DD4BF);color:white;border:none;border-radius:10px;padding:.65rem 1.4rem;font-weight:700;font-size:.85rem;cursor:pointer;">📝 Voir ma carte d\'identité IA</button>'+
       '<div id="s8-carte-ia" style="display:none;margin-top:.8rem;background:rgba(139,92,246,.1);border-radius:12px;padding:1rem;font-size:.85rem;color:var(--cream);line-height:1.8;text-align:left;"></div>'+
     '</div>'+
   '</div>'+
@@ -14659,12 +14631,7 @@ function genCarteIdentite(){
     +'- Projet pro : '+projet+'\n'
     +'- Premier pas : '+pas+'\n'
     +'Termine par une phrase d\'encouragement puissante et personnalisée.';
-  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){
-    box.innerHTML=d.content&&d.content[0]?d.content[0].text:'Indisponible.';
-    saveData('s8_carte_ia',box.innerHTML);
-  }).catch(function(){box.innerHTML='Indisponible pour le moment.';});
+  box.innerHTML='✍️ Ta carte d\\'identité professionnelle se construit avec ta coach lors de la séance 8.';
 }
 
 // ── S9 gardée pour compatibilité (redirige vers S8) ──
@@ -15816,7 +15783,7 @@ function calcPrioTop(prefix) {
   // Bouton synthèse IA
   var isLyceen = prefix.indexOf('lyceen') >= 0;
   html += '<div style="margin-top:.8rem;">'
-    +'<button onclick="genSynthesePrio(\''+prefix+'\')" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6);color:white;border:none;border-radius:8px;padding:.5rem 1rem;font-weight:600;font-size:.78rem;cursor:pointer;width:100%;">🤖 Générer ma synthèse IA</button>'
+    +'<button onclick="genSynthesePrio(\''+prefix+'\')" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6);color:white;border:none;border-radius:8px;padding:.5rem 1rem;font-weight:600;font-size:.78rem;cursor:pointer;width:100%;">📝 Voir ma synthèse</button>'
     +'<div id="'+prefix+'_prio_ia" style="margin-top:.6rem;background:rgba(29,78,216,.06);border-radius:8px;padding:.7rem;font-size:.78rem;color:var(--cream);line-height:1.7;display:none;"></div>'
     +'</div>';
 
@@ -15842,13 +15809,7 @@ function genSynthesePrio(prefix) {
     +'Fais une synthèse personnalisée en 5 phrases des priorités professionnelles suivantes :\n'
     +items.join('\n')
     +'\nConclus avec 2-3 types de postes ou environnements de travail qui correspondent à ce profil.';
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){
-    box.innerHTML = d.content&&d.content[0] ? d.content[0].text : 'Synthèse indisponible.';
-  }).catch(function(){box.innerHTML='Synthèse indisponible pour le moment.';});
+  box.innerHTML='✍️ Ta synthèse se construit avec ta coach lors de la séance. Tes réponses sont enregistrées — Wanda les retrouvera dans ton espace.';
 }
 
 // ── Synthèse automatique des impératifs ──
@@ -15901,15 +15862,7 @@ function genSyntheseImperatifs(prefix) {
     +(pasEl&&pasEl.value?'- Premier pas envisagé : '+pasEl.value+'\n':'')
     +'Conclus avec un encouragement et une question de réflexion pour la prochaine séance.';
 
-  fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:450,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){
-    var txt = d.content&&d.content[0] ? d.content[0].text : 'Synthèse indisponible.';
-    box.innerHTML = txt;
-    saveData(prefix+'_imp_synthese', txt);
-  }).catch(function(){box.innerHTML='Synthèse indisponible pour le moment.';});
+  box.innerHTML='✍️ Ta synthèse se construit avec ta coach lors de la séance. Tes réponses sont enregistrées — Wanda les retrouvera dans ton espace.';
 }
 
 function buildPrioFull(containerId, prefix, isLyceen) {

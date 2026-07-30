@@ -31,7 +31,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-#hub { display: flex; flex-direction: column; min-height: 100vh; }
+#hub { display: flex; flex-direction: column; min-height: 100vh; background: linear-gradient(165deg, #0D1B26 0%, #12232E 55%, #0A1620 100%); }
 #app-bdc, #app-psp { display: none; min-height: 100vh; }
 #app-bdc.active, #app-psp.active { display: block; }
 #app-neuro { display: none; }
@@ -66,14 +66,14 @@ body {
 }
 .hub-brand-text { text-align: left; }
 .hub-brand-text h1 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: white; }
-.hub-brand-text p { font-size: .75rem; color: rgba(255,255,255,.5); margin-top: .1rem; font-style: italic; }
+.hub-brand-text p { font-size: .75rem; color: rgba(255,255,255,.65); margin-top: .1rem; font-style: italic; }
 .hub-headline {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; line-height: 1.15;
   color: white; margin-bottom: 1rem;
 }
 .hub-headline em { font-style: italic; color: var(--hub-gold); }
-.hub-sub { font-size: .95rem; color: rgba(255,255,255,.55); max-width: 480px; margin: 0 auto 3rem; line-height: 1.7; }
+.hub-sub { font-size: .98rem; color: rgba(255,255,255,.72); max-width: 500px; margin: 0 auto 2rem; line-height: 1.7; }
 
 /* ── CARDS ── */
 .hub-cards {
@@ -3661,7 +3661,7 @@ font-size:.71rem;color:var(--muted);font-style:italic;
   </div>
 
   <!-- HERO -->
-  <div class="hub-header" style="padding-top:6rem;">
+  <div class="hub-header" style="padding-top:4rem;">
     <div class="hub-logo">
       <div class="hub-monogram">WL</div>
       <div class="hub-brand-text">
@@ -3947,12 +3947,12 @@ font-size:.71rem;color:var(--muted);font-style:italic;
     </div>
   </div>
   <style>
-  .kpi-bar { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1.2rem 2rem; margin: 1.5rem 1.5rem 2rem; max-width: 860px; margin-left: auto; margin-right: auto; }
-  .kpi-item { text-align: center; padding: .5rem 1.5rem; }
-  .kpi-val { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: #C9A84C; line-height: 1; }
-  .kpi-lbl { font-size: .7rem; color: rgba(255,255,255,.45); margin-top: .3rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
-  .kpi-sep { width: 1px; height: 36px; background: rgba(255,255,255,.1); flex-shrink: 0; }
-  @media(max-width:600px){ .kpi-sep{ display:none; } .kpi-item{ width:50%; } }
+  .kpi-bar { display: flex; align-items: stretch; justify-content: center; gap: 0; flex-wrap: wrap; background: linear-gradient(135deg, rgba(45,123,126,.10), rgba(201,168,76,.06)); border: 1px solid rgba(201,168,76,.20); border-radius: 20px; padding: 1.8rem 2rem; margin: 1rem auto 3rem; max-width: 820px; }
+  .kpi-item { text-align: center; padding: .4rem 2.2rem; }
+  .kpi-val { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600; color: #C9A84C; line-height: 1; letter-spacing: -.01em; }
+  .kpi-lbl { font-size: .7rem; color: rgba(255,255,255,.78); margin-top: .55rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .kpi-sep { width: 1px; background: linear-gradient(180deg, transparent, rgba(201,168,76,.35), transparent); flex-shrink: 0; align-self: center; height: 52px; }
+  @media(max-width:600px){ .kpi-sep{ display:none; } .kpi-item{ width:45%; padding:.8rem 1rem; } .kpi-val{ font-size:2.3rem; } }
   </style>
 
 

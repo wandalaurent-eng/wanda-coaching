@@ -149,8 +149,26 @@ footer{background:var(--navy);padding:3rem 6rem;display:grid;grid-template-colum
 .diff-title{font-weight:600;font-size:14px;color:var(--navy);margin-bottom:.4rem;}
 .diff-text{font-size:13px;color:var(--tm);line-height:1.6;}
 
+.valeurs-section{background:var(--white);}
+.valeurs-tags{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;max-width:820px;}
+.valeur-tag{background:var(--cream);border:1px solid var(--cream-d);color:var(--navy);font-size:14px;font-weight:500;padding:10px 20px;border-radius:32px;display:flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .15s;}
+.valeur-tag:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,39,68,.08);}
+.valeur-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+.talents-section{background:var(--cream);}
+.talents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
+.talent-card{background:var(--white);border-radius:12px;padding:1.5rem 1.6rem;border-top:3px solid var(--teal);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
+.talent-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,39,68,.1);}
+.talent-card:nth-child(2){border-top-color:var(--gold);}
+.talent-card:nth-child(3){border-top-color:var(--navy);}
+.talent-card:nth-child(4){border-top-color:var(--teal-l);}
+.talent-card:nth-child(5){border-top-color:var(--gold);}
+.talent-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;}
+.talent-desc{font-size:13px;color:var(--ts);line-height:1.65;font-style:italic;}
+.talents-source{font-size:12px;color:var(--tm);margin-top:1.6rem;letter-spacing:.3px;}
+
 @media(max-width:900px){
-  .ap-hero,.parcours-grid,.diff-grid{grid-template-columns:1fr;gap:2rem;}
+  .ap-hero,.parcours-grid,.diff-grid,.talents-grid{grid-template-columns:1fr;gap:2rem;}
   .ap-hero{padding:3rem 1.5rem;}
 }
 </style>
@@ -226,6 +244,35 @@ footer{background:var(--navy);padding:3rem 6rem;display:grid;grid-template-colum
   </div>
 </section>
 
+<!-- VALEURS -->
+<section class="valeurs-section">
+  <div class="sl">Ce qui me guide</div>
+  <h2 class="st">Mes <em>valeurs</em></h2>
+  <div class="valeurs-tags">
+    <div class="valeur-tag">Bienveillance</div>
+    <div class="valeur-tag">Authenticité</div>
+    <div class="valeur-tag">Responsabilité</div>
+    <div class="valeur-tag">Liberté</div>
+    <div class="valeur-tag">Engagement</div>
+    <div class="valeur-tag">Esprit d'équipe</div>
+    <div class="valeur-tag">Reconnaissance</div>
+  </div>
+</section>
+
+<!-- TALENTS GALLUP -->
+<section class="talents-section">
+  <div class="sl">Mes forces naturelles</div>
+  <h2 class="st">Mes talents au service <em>des vôtres</em></h2>
+  <div class="talents-grid">
+    <div class="talent-card"><div class="talent-name">Communication</div><div class="talent-desc">Je mets des mots justes sur ce que vous ressentez sans réussir à le formuler.</div></div>
+    <div class="talent-card"><div class="talent-name">Empathie</div><div class="talent-desc">Je ressens ce que vous vivez : un espace sûr, sans jugement, pour avancer.</div></div>
+    <div class="talent-card"><div class="talent-name">Individualisation</div><div class="talent-desc">Vous êtes unique ; j'adapte l'accompagnement à qui vous êtes vraiment.</div></div>
+    <div class="talent-card"><div class="talent-name">Idéation</div><div class="talent-desc">Je vois des chemins et des possibles là où tout semble bloqué.</div></div>
+    <div class="talent-card"><div class="talent-name">Futuriste</div><div class="talent-desc">Je vous aide à projeter et rendre vivant l'avenir que vous voulez construire.</div></div>
+  </div>
+  <p class="talents-source">Talents identifiés via l'évaluation CliftonStrengths® (Gallup).</p>
+</section>
+
 <!-- DIFFÉRENCIATEURS -->
 <section class="diff-section">
   <div class="sl">Ce qui me différencie</div>
@@ -246,11 +293,11 @@ footer{background:var(--navy);padding:3rem 6rem;display:grid;grid-template-colum
     
     <div class="temo-card">
       <div class="temo-stars">★★★★★</div>
-      <p class="temo-text">«&nbsp;Je recommande chaleureusement Wanda, qui est une femme, une leader et une coach engagée, portée par des valeurs humanistes qu'elle incarne pleinement. Wanda offre une écoute, une bienveillance et une énergie au service de l'humain. Elle dit ce qu'elle fait et fait ce qu'elle dit avec audace et détermination. Une consoeur, une leader vertueuse !&nbsp;»</p>
+      <p class="temo-text">«&nbsp;Chaque séance avec elle a été précieuse, elle a su me guider avec dynamisme et bienveillance pour construire mon nouveau projet professionnel sur des bases solides. Ce qui m'a le plus impressionné c'est sa rapidité à cerner mon contexte pro et ma personnalité, ce qui lui a permis d'être très pertinente dès les toutes premières séances.&nbsp;»</p>
       <div class="temo-author">
-        <span class="temo-name">Maël Maisonneuve-Le Brec</span>
-        <span class="temo-role">Coach-Formatrice-Médiatrice | Leadership & Transitions</span>
-        <span class="temo-date">Avril 2022</span>
+        <span class="temo-name">Federica de Bournet</span>
+        <span class="temo-role">New Mobility Solutions | Social & Environmental Impact</span>
+        <span class="temo-date">Février 2023</span>
       </div>
     </div>
     <div class="temo-card">
@@ -264,11 +311,20 @@ footer{background:var(--navy);padding:3rem 6rem;display:grid;grid-template-colum
     </div>
     <div class="temo-card">
       <div class="temo-stars">★★★★★</div>
-      <p class="temo-text">«&nbsp;Wanda dispose de cette faculté de pouvoir associer charisme, pragmatisme et sens de la communication, ce qui fait d'elle une consultante capable de fédérer et motiver des équipes pluridisciplinaires autour des projets structurants.&nbsp;»</p>
+      <p class="temo-text">«&nbsp;Grâce à son accompagnement, j'ai pu clarifier mes aspirations et faire les démarches nécessaires pour avancer sur MA voie. Son écoute, ses conseils et sa capacité à me donner de l'énergie ont été essentiels pour me reconnecter à mes véritables centres d'intérêt. Je vous la recommande vivement !&nbsp;»</p>
       <div class="temo-author">
-        <span class="temo-name">Rítfj Hの</span>
-        <span class="temo-role">CTO — Education Learning | EdTech | AlphabetInc</span>
-        <span class="temo-date">Février 2015</span>
+        <span class="temo-name">Patricia Barrière</span>
+        <span class="temo-role">Management | CX | Change Management</span>
+        <span class="temo-date">Janvier 2025 · Coaching</span>
+      </div>
+    </div>
+    <div class="temo-card">
+      <div class="temo-stars">★★★★★</div>
+      <p class="temo-text">«&nbsp;Grâce à son regard bienveillant sans complaisance et son écoute active, Wanda a su m'aider à mettre des mots sur mes forces et mes aspirations. Elle m'a insufflé son énergie pour garder la motivation pendant mon parcours et croire en mon projet. Ses conseils avisés tirent leur force de son expérience de l'entreprise et du service public. N'hésitez pas à vous engager dans un accompagnement avec Wanda !&nbsp;»</p>
+      <div class="temo-author">
+        <span class="temo-name">Corentin David</span>
+        <span class="temo-role">Chef de projets ENR | Prospecteur</span>
+        <span class="temo-date">Mars 2025 · Bilan de compétences</span>
       </div>
     </div>
   </div>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orientation Parcoursup & coaching TDAH pour lycéens | Passerelles des Talents</title>
+<meta name="description" content="Trouve ta voie, construis ton avenir avec méthode. 6 séances de coaching d'orientation pour lycéens : Parcoursup, RIASEC, plan d'action concret. Séance découverte offerte.">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://www.wandalaurentcoaching.com/orientation">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Orientation Parcoursup & coaching TDAH pour lycéens">
+<meta property="og:description" content="Trouve ta voie. Construis ton avenir. Avec méthode. 6 séances, séance découverte offerte.">
+<meta property="og:locale" content="fr_FR">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Mon enfant n'est pas demandeur. Est-ce que cela peut fonctionner ?","acceptedAnswer":{"@type":"Answer","text":"C'est la situation la plus courante. La séance découverte sert précisément à cela : votre enfant rencontre quelqu'un d'extérieur, sans enjeu, et décide lui-même."}},
+{"@type":"Question","name":"Quelle est la différence avec le conseiller d'orientation du lycée ?","acceptedAnswer":{"@type":"Answer","text":"Les psychologues de l'Éducation nationale font un travail précieux mais disposent rarement de plus d'une heure par élève. Six heures individuelles permettent un vrai travail de fond."}},
+{"@type":"Question","name":"Est-ce que ça se fait à distance ?","acceptedAnswer":{"@type":"Answer","text":"Oui, 100 % en visioconférence, avec une plateforme en ligne dédiée entre les séances."}},
+{"@type":"Question","name":"Combien ça coûte et est-ce finançable ?","acceptedAnswer":{"@type":"Answer","text":"L'accompagnement Orientation n'est pas éligible au CPF. Le tarif et les modalités sont précisés lors de la séance découverte, offerte et sans engagement."}},
+{"@type":"Question","name":"Quand faut-il commencer ?","acceptedAnswer":{"@type":"Answer","text":"Idéalement entre septembre et décembre, avant l'ouverture de Parcoursup, pour explorer sereinement plutôt que choisir dans l'urgence."}}
+]}
+</script>
+<style>
+:root{
+  /* Fil rouge marque */
+  --nuit:#1B3A85; --nuit2:#244AA0; --or:#E3C063; --or-clair:#F5DE95; --or-fonce:#C9A24B;
+  /* Énergie cible jeune (plateforme 2026) */
+  --teal:#12B5A5; --teal-vif:#0FD1BE; --teal-fonce:#0A7D74; --jaune:#FFC93C; --jaune-vif:#FFD75E;
+  --vert:#2EC8A0; --vert-fonce:#1FA085; --bleu-p:#2563EB; --bleu-p-fonce:#1D4ED8;
+  --menthe-fond:#E4F7F3; --lavande:#EEF1FF;
+  --gris:#5A6178; --texte:#0B1437; --blanc:#fff; --bordure:#E6E9F5; --fond:#F7F9FC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#E8ECF7;line-height:1.6;background:var(--nuit)}
+.serif{font-family:Georgia,"Times New Roman",serif}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.12;letter-spacing:-.01em;font-weight:500}
+.brand{font-family:'Playfair Display',serif}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:60;background:var(--nuit);border-bottom:1px solid rgba(227,192,99,.3)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1060px;margin:0 auto}
+.brand{font-weight:600;color:var(--or);text-decoration:none;font-size:1.08rem;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.brand .logo{width:42px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--or),var(--or-clair));display:flex;align-items:center;justify-content:center;color:var(--nuit);font-weight:600;font-size:.82rem;letter-spacing:.02em}
+.brand span{color:var(--or)}
+.nav-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:#C6CCE6;text-decoration:none;font-size:.92rem;font-weight:500}
+.nav-links a:hover{color:var(--or)}
+.nav-cta{background:var(--teal);color:#fff!important;padding:9px 16px;border-radius:10px;font-weight:700}
+.nav-cta:hover{background:var(--teal-fonce)}
+.burger{display:none;background:none;border:0;font-size:1.5rem;cursor:pointer;color:#fff}
+@media(max-width:880px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--nuit);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:14px}.nav-links.open{display:flex}.burger{display:block}}
+
+/* HERO, bleu nuit + or, énergie teal */
+.hero{position:relative;background:radial-gradient(120% 120% at 80% 0%,var(--teal-fonce) 0%,var(--nuit2) 42%,var(--nuit) 100%);color:#fff;padding:70px 0 60px;overflow:hidden}
+.hero::before{content:"";position:absolute;left:-60px;bottom:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(18,181,165,.35),transparent 70%);border-radius:50%}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;margin-top:8px}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+.hero-photo{background:#2EC8A0;border:1px solid rgba(255,255,255,.35);border-radius:22px;padding:22px;text-align:center;box-shadow:0 16px 46px rgba(0,0,0,.3)}
+.photo-slot{width:100%;aspect-ratio:4/5;border-radius:16px;background:rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:8px;margin-bottom:18px;overflow:hidden}
+.photo-slot img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.photo-slot .ph-ico{font-size:2rem;opacity:.8}
+.photo-slot .ph-txt{font-size:.86rem;max-width:180px;line-height:1.4}
+.bio-name{font-family:'Playfair Display',serif;font-weight:600;font-size:1.2rem;color:#06312A;margin-bottom:4px}
+.bio-role{font-size:.84rem;color:#0A4A3F;font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.bio-txt{font-size:.92rem;color:#0C3F37;line-height:1.55}
+/* Ligne infos clés hero */
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.fact{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:9px 16px;font-size:.9rem;font-weight:600;color:#EAF0FF}
+.fact .fi{color:var(--vert)}
+.fact.price{background:var(--vert);border-color:var(--vert);color:#06312A;font-weight:600}
+.badge2026{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--nuit);background:linear-gradient(135deg,var(--or),var(--or-clair));padding:7px 16px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-size:2.9rem;font-weight:600;margin-bottom:16px;line-height:1.12}
+.hero h1 .accent{color:#5CE0B8}
+.hero p.lead{font-size:1.16rem;max-width:560px;color:#C6CCE6;margin-bottom:26px}
+
+/* Switch élève / parent */
+.switch{display:inline-flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:5px;margin-bottom:26px;gap:4px}
+.switch button{background:none;border:0;color:#C6CCE6;font-weight:700;font-size:.95rem;padding:10px 22px;border-radius:999px;cursor:pointer;transition:all .2s}
+#btn-eleve.active{background:var(--vert);color:#fff}
+#btn-parent.active{background:var(--bleu-p);color:#fff}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.cta{display:inline-block;background:var(--vert);color:#fff;font-weight:600;font-size:1.04rem;padding:16px 32px;border-radius:12px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,200,160,.4)}
+.cta:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.cta.teal{background:var(--vert);color:#fff}
+.cta.teal:hover{box-shadow:0 12px 30px rgba(22,181,127,.4)}
+.cta.bleu{background:var(--bleu-p);color:#fff}
+.cta.bleu:hover{box-shadow:0 12px 30px rgba(37,99,235,.4)}
+.link-light{color:#fff;font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:2px}
+
+/* le contenu qui bascule */
+[data-audience]{display:none}
+[data-audience].on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* STATS / XP bar */
+.xp{background:var(--nuit2);border-top:1px solid rgba(217,180,91,.2)}
+.xp-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.xpc{padding:26px 18px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.xpc:last-child{border-right:none}
+.xpc .big{font-size:1.9rem;font-weight:600;color:var(--jaune);display:block;line-height:1}
+.xpc .cap{font-size:.82rem;color:#AEB5D6;margin-top:8px;display:block}
+@media(max-width:760px){.xp-grid{grid-template-columns:1fr 1fr}.xpc{border-bottom:1px solid rgba(255,255,255,.08)}}
+
+section{padding:62px 0}
+.center{text-align:center}
+.eyebrow{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--or-fonce);margin-bottom:12px}
+h2{font-size:1.85rem;font-weight:700;margin-bottom:12px;color:#5CE0B8}
+h2 .it{font-style:italic;color:var(--or-fonce);font-weight:400}
+.sub{color:#AEB6D4;font-size:1.08rem;max-width:620px;margin:0 auto 40px}
+.tint{background:var(--nuit2)}
+.dark{background:var(--nuit);color:#fff}
+.dark h2{color:#fff}.dark .sub{color:#AEB5D6}
+
+/* Cartes gamifiées (style plateforme) */
+.game-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.game-grid{grid-template-columns:1fr}}
+/* Carte récap offre */
+.offer-recap{background:linear-gradient(135deg,rgba(46,200,160,.14),rgba(227,192,99,.12));border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:34px 30px;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
+@media(max-width:760px){.offer-recap{grid-template-columns:1fr;gap:22px}}
+.offer-recap h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:14px}
+.offer-recap ul{list-style:none}
+.offer-recap li{padding:8px 0 8px 30px;position:relative;color:#D4DAEC;font-size:.98rem}
+.offer-recap li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--vert);font-weight:600}
+.price-box{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:26px 22px}
+.price-box .amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:600;color:var(--vert);line-height:1}
+.price-box .cond{color:#C7CBDC;font-size:.94rem;margin-top:6px;display:block}
+.price-box .free{margin-top:14px;font-size:.86rem;color:var(--or);font-weight:700}
+.gc{border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.04);cursor:pointer;transition:box-shadow .2s,transform .2s}
+.gc:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.4);border-color:rgba(47,224,166,.4)}
+.gc-head{padding:26px 24px;display:flex;align-items:flex-start;gap:15px}
+.gc-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;background:rgba(47,224,166,.14)}
+.gc-head h3{font-size:1.2rem;margin-bottom:4px;color:#fff}
+.gc-badge{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--or-fonce);background:#FBF3DD;padding:3px 10px;border-radius:999px;display:inline-block;margin-bottom:8px}
+.gc-head p{color:#AEB6D4;font-size:.96rem}
+.gc-toggle{margin-left:auto;color:var(--teal);font-size:1.6rem;line-height:1;flex-shrink:0;transition:transform .25s}
+.gc.open .gc-toggle{transform:rotate(45deg)}
+.gc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.gc.open .gc-body{max-height:1000px}
+.gc-inner{padding:0 24px 26px}
+.gc-inner p{color:#AEB6D4;margin:14px 0}
+.gc-inner ul{list-style:none}
+.gc-inner li{padding:7px 0 7px 28px;position:relative;font-size:.97rem;color:#D4DAEC}
+.gc-inner li::before{content:"✦";position:absolute;left:0;top:7px;color:var(--teal)}
+.gc-inner .mini{font-weight:700;color:#fff;margin-top:14px}
+
+/* pills soft skills (déco style plateforme) */
+.pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+.pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:9px 18px;font-weight:600;font-size:.92rem;color:#E8ECF7}
+.pill .e{margin-right:7px}
+
+/* Timeline calendrier */
+.tl{max-width:760px;margin:0 auto;text-align:left}
+.tl-item{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.tl-item:last-child{border-bottom:none}
+.tl-when{font-weight:600;color:#2FE0A6}
+.tl-what{color:#AEB6D4}.tl-what b{color:#fff}
+@media(max-width:600px){.tl-item{grid-template-columns:1fr;gap:4px}}
+
+/* Quiz */
+.quiz{background:linear-gradient(135deg,rgba(47,224,166,.12),rgba(37,99,235,.14));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:44px 32px;text-align:center}
+.quiz .q{font-size:1.14rem;font-weight:700;margin:20px 0 18px;color:#fff}
+.quiz-opts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:660px;margin:0 auto}
+.opt{background:rgba(255,255,255,.08);color:#E8ECF7;border:2px solid transparent;border-radius:14px;padding:15px 22px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .15s}
+.opt:hover{border-color:#2FE0A6;background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.quiz-result{margin:26px auto 0;background:rgba(255,255,255,.06);border-radius:16px;padding:26px;max-width:600px;display:none;text-align:left;border:1px solid rgba(255,255,255,.14)}
+.quiz-result.show{display:block;animation:fade .3s ease}
+.quiz-result h3{color:#2FE0A6;margin-bottom:8px}
+.quiz-result p{color:#AEB6D4;margin-bottom:16px}
+
+/* FAQ */
+.faq-wrap{max-width:780px;margin:36px auto 0}
+details{border:1px solid rgba(255,255,255,.12);border-radius:12px;margin-bottom:12px;overflow:hidden;background:rgba(255,255,255,.04)}
+summary{cursor:pointer;padding:18px 22px;font-weight:700;font-size:1.02rem;color:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--teal);font-size:1.5rem;flex-shrink:0}
+details[open] summary::after{content:"–"}
+.answer{padding:0 22px 20px;color:#AEB6D4}
+
+/* Final */
+.final{background:radial-gradient(120% 120% at 20% 0%,var(--teal-fonce) 0%,var(--nuit2) 45%,var(--nuit) 100%);color:#fff;text-align:center}
+.final h2{color:#fff}
+.final p{max-width:520px;margin:0 auto 30px;color:#C6CCE6;font-size:1.1rem}
+
+footer{background:var(--nuit);color:#8890B5;padding:40px 0 26px;border-top:1px solid rgba(217,180,91,.2)}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-bottom:22px}
+.foot-grid a,.foot-grid a:link,.foot-grid a:visited{color:#F0D98A !important;text-decoration:none;display:block;margin-bottom:8px;font-size:.92rem}
+.foot-grid a:hover{color:var(--or-clair)}
+.foot-grid h4{color:var(--or);font-size:.93rem;margin-bottom:12px}
+.foot-legal{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.82rem;text-align:center;color:#5A628C}
+
+@media(max-width:560px){.hero h1{font-size:1.9rem}h2{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
+
+/* Bloc accès accompagnements */
+.access{padding:52px 0}
+.access h2{text-align:center;margin-bottom:8px}
+.access .sub{text-align:center}
+.access-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+@media(max-width:860px){.access-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.access-grid{grid-template-columns:1fr}}
+.acard{display:block;text-decoration:none;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:34px 20px 24px;text-align:center;transition:transform .15s,box-shadow .15s,border-color .15s;position:relative;overflow:hidden}
+.acard::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ac)}
+.acard:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(0,0,0,.35);border-color:var(--ac)}
+.acard .ai{font-size:1.9rem;display:block;margin-bottom:12px}
+.acard .an{font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;color:#fff;margin-bottom:4px}
+.acard .an{display:block;line-height:1.3;margin-bottom:6px}.acard .ad{display:block;font-size:.82rem;line-height:1.4;color:#AEB6D4}
+.acard.current{background:var(--ac);border-color:var(--ac)}
+.acard.current .an,.acard.current .ad{color:#fff}
+.acard.current::after{content:"Vous êtes ici";position:absolute;top:10px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:rgba(255,255,255,.25);color:#fff;padding:3px 8px;border-radius:999px}
+
+.hero-quote{margin-top:18px;padding:18px 22px;border-left:3px solid var(--vert);background:rgba(255,255,255,.04);border-radius:0 12px 12px 0}
+.hero-quote p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:1rem;line-height:1.5;color:var(--qc)}
+.hero-quote .qm{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--vert);line-height:0;vertical-align:-.3em;margin-right:2px}
+
+.hero-manifesto{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:34px 30px}
+.hero-manifesto .slogan{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.3;color:#fff;margin-bottom:16px}
+.hero-manifesto .philo{font-size:1rem;line-height:1.65;color:var(--sub);margin-bottom:20px}
+.hero-manifesto .mq{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;font-size:1.08rem;line-height:1.5;color:var(--mqc);border-left:3px solid var(--vert);padding-left:18px}
+
+.maxime-bande{padding:40px 0;text-align:center}
+.maxime-bande .sep{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 26px;color:var(--or)}
+.maxime-bande .sep::before,.maxime-bande .sep::after{content:"";width:46px;height:1px;background:var(--or);opacity:.55}
+.maxime-bande .sep i{display:inline-block;width:6px;height:6px;transform:rotate(45deg);background:var(--or);opacity:.8}
+.maxime-c{text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--or);line-height:1.4;margin:0}
+.maxime-c-auteur{display:block;font-style:normal;font-family:'Inter',sans-serif;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-top:14px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="logo">WLC</span>Passerelle des Talents</a>
+    <button class="burger" aria-label="Ouvrir le menu" onclick="document.getElementById('m').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="m">
+      <a href="a-propos.html">À propos</a>
+      <a href="orientation.html">Orientation</a>
+      <a href="bilan-competences.html">Bilan de compétences</a>
+      <a href="bilan-neuro-atypique.html">Bilan neuro-atypique</a>
+      <a href="le-grand-plus.html">Le Grand+</a>
+      <a href="#reserver" class="nav-cta">Séance offerte</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge2026">✦ Orientation · Édition 2026</span>
+
+    <!-- Switch -->
+    <div class="switch" role="tablist" aria-label="Choisir le point de vue">
+      <button id="btn-eleve" class="active" onclick="setAud('eleve')" role="tab">🎓 Je suis l'élève</button>
+      <button id="btn-parent" onclick="setAud('parent')" role="tab">👨‍👩‍👧 Je suis parent</button>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <!-- Version ÉLÈVE -->
+        <div data-audience="eleve" class="on">
+          <h1>Trouve ta voie.<br>Construis ton avenir.<br><span class="accent">Avec méthode.</span></h1>
+          <p class="lead">Tu ne sais pas encore où tu vas ? C'est normal, et c'est exactement là que je t'aide. En 6 séances, on transforme le flou en un projet clair, choisi, qui te ressemble vraiment. Pas celui de tes parents, pas celui de tes profs : le tien.</p>
+          <div class="hero-facts">
+            <span class="fact"><span class="fi">✦</span> 6 séances avec moi</span>
+            <span class="fact"><span class="fi">💻</span> 100 % en visio</span>
+            <span class="fact"><span class="fi">🎮</span> Plateforme dédiée</span>
+            <span class="fact price">650 € · en 2 fois</span>
+          </div>
+          <div class="hero-cta">
+            <a href="#reserver" class="cta">Je réserve ma séance offerte</a>
+            <a href="#quiz" class="link-light">Où j'en suis ? →</a>
+          </div>
+        </div>
+
+        <!-- Version PARENT -->
+        <div data-audience="parent">
+          <h1>Aidez votre lycéen vers <span class="accent">un choix qui lui ressemble.</span></h1>
+          <p class="lead">Du flou « je ne sais pas » à un projet clair et un dossier Parcoursup solide. Un accompagnement individuel de 6 séances, dans un espace neutre en dehors du cercle familial, pour l'aider à choisir sereinement, et à défendre son choix avec confiance.</p>
+          <div class="hero-facts">
+            <span class="fact"><span class="fi">✦</span> 6 séances individuelles</span>
+            <span class="fact"><span class="fi">💻</span> 100 % à distance</span>
+            <span class="fact"><span class="fi">📋</span> Suivi jusqu'aux résultats</span>
+            <span class="fact price">650 € · en 2 fois</span>
+          </div>
+          <div class="hero-cta">
+            <a href="#reserver" class="cta bleu">Réserver la séance découverte offerte</a>
+            <a href="#quiz" class="link-light">Où en est mon ado ? →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne photo + bio -->
+      <aside class="hero-manifesto" style="--mqc:#CFE0FF">
+  <p class="slogan">Trouve ta voie. Construis ton avenir.</p>
+  <p class="philo">Écouter sa voix pour choisir sa voie. Passerelle des Talents t'accompagne à mieux te connaître pour décider par toi-même, sans suivre une voie toute tracée.</p>
+  <p class="mq">« L'orientation, ce n'est pas répondre à « quel métier ? », mais « qui suis-je, et qu'est-ce qui me fait vibrer ? »</p>
+</aside>
+    </div>
+  </div>
+</header>
+
+<div class="maxime-bande">
+  <div class="wrap">
+    <div class="sep"><i></i></div>
+    <p class="maxime-c">« Connais-toi toi-même. »<span class="maxime-c-auteur">Socrate</span></p>
+  </div>
+</div>
+
+
+<section class="access">
+<div class="wrap">
+<h2>Explorer les accompagnements</h2>
+<p class="sub">Chaque étape de la vie a sa passerelle. Choisissez la vôtre.</p>
+<div class="access-grid">
+<a href="orientation.html" class="acard current" style="--ac:#2563EB"><span class="ai">🧭</span><span class="an">Orientation</span><span class="ad">Parcoursup & TDAH · Lycéens</span></a>
+<a href="bilan-competences.html" class="acard" style="--ac:#0FA895"><span class="ai">💼</span><span class="an">Bilan de compétences</span><span class="ad">Transition professionnelle</span></a>
+<a href="bilan-neuro-atypique.html" class="acard" style="--ac:#9B84C4"><span class="ai">💜</span><span class="an">Bilan neuro-atypique</span><span class="ad">TDAH & hypersensibilité</span></a>
+<a href="le-grand-plus.html" class="acard" style="--ac:#E8745B"><span class="ai">🌅</span><span class="an">Le Grand+</span><span class="ad">Transition retraite</span></a>
+</div>
+</div>
+</section>
+
+
+<!-- XP / chiffres -->
+<section class="xp" style="padding:0">
+  <div class="xp-grid">
+    <div class="xpc"><span class="big">6</span><span class="cap">séances individuelles en visio</span></div>
+    <div class="xpc"><span class="big">21</span><span class="cap">secteurs &amp; 200+ métiers explorés</span></div>
+    <div class="xpc"><span class="big">100 %</span><span class="cap">à distance · plateforme incluse</span></div>
+    <div class="xpc"><span class="big">Offerte</span><span class="cap">séance découverte, sans engagement</span></div>
+  </div>
+</section>
+
+<!-- Carte récap : l'accompagnement + prix (remontée pour visibilité immédiate) -->
+<section style="padding:40px 0 0">
+  <div class="wrap">
+    <div class="offer-recap">
+      <div>
+        <h3>L'accompagnement en un coup d'œil</h3>
+        <ul>
+          <li>6 séances de coaching individuelles avec moi</li>
+          <li>100 % en distanciel, en visioconférence</li>
+          <li>Une plateforme dédiée avec des exercices pour préparer chaque séance</li>
+          <li>Un suivi personnalisé jusqu'aux résultats Parcoursup</li>
+        </ul>
+      </div>
+      <div class="price-box">
+        <span class="amount">650 €</span>
+        <span class="cond">réglables en 2 fois</span>
+        <span class="free">✦ Séance découverte offerte</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Intro courte -->
+<section class="center">
+  <div class="wrap">
+    <span class="eyebrow">Passerelles des Talents</span>
+    <h2>Choisir à 17 ans, <span class="it">ça s'apprend.</span></h2>
+    <p class="sub" data-audience="eleve" style="display:block">Personne ne t'a appris à explorer, comparer et choisir une formation. C'est exactement ce qu'on va faire ensemble. Clique sur ce qui te parle 👇</p>
+    <p class="sub" data-audience="parent">Le système demande à votre enfant de décider avant de s'être connu. Cet accompagnement lui donne la méthode qui manque. Cliquez sur ce qui vous parle 👇</p>
+  </div>
+</section>
+
+<!-- Cartes gamifiées -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="game-grid">
+
+      <div class="gc" onclick="this.classList.toggle('open')">
+        <div class="gc-head">
+          <div class="gc-ico">🧠</div>
+          <div><span class="gc-badge">Séance 1–2</span><h3>Découvrir qui tu es vraiment</h3><p>Intérêts, valeurs, forces, avec le RIASEC.</p></div>
+          <div class="gc-toggle">+</div>
+        </div>
+        <div class="gc-body"><div class="gc-inner">
+          <p>On part de toi, pas d'une liste de métiers. Grâce à des outils reconnus (RIASEC, questionnaires d'intérêts), on met des mots sur :</p>
+          <ul>
+            <li>Tes intérêts dominants et tes vraies motivations</li>
+            <li>Tes forces et ton mode de fonctionnement</li>
+            <li>L'environnement de travail qui te correspond</li>
+          </ul>
+          <p>Résultat : une connaissance de toi formalisée, pas une simple intuition.</p>
+        </div></div>
+      </div>
+
+      <div class="gc" onclick="this.classList.toggle('open')">
+        <div class="gc-head">
+          <div class="gc-ico">🧭</div>
+          <div><span class="gc-badge">Séance 3–4</span><h3>Explorer &amp; choisir</h3><p>21 secteurs, 200+ métiers, puis une stratégie.</p></div>
+          <div class="gc-toggle">+</div>
+        </div>
+        <div class="gc-body"><div class="gc-inner">
+          <p>On ouvre le champ des possibles au-delà des filières que tu connais déjà, puis on trie :</p>
+          <ul>
+            <li>2 à 4 pistes réalistes explorées à fond (contenu réel, débouchés, admission)</li>
+            <li>L'alternance et l'apprentissage décryptés</li>
+            <li>Une stratégie Parcoursup hiérarchisée : vœux de cœur, réalistes, de sécurité</li>
+          </ul>
+        </div></div>
+      </div>
+
+      <div class="gc" onclick="this.classList.toggle('open')">
+        <div class="gc-head">
+          <div class="gc-ico">🚀</div>
+          <div><span class="gc-badge">Séance 5–6</span><h3>Construire ton dossier</h3><p>Lettres, pitch et plan d'action prêts.</p></div>
+          <div class="gc-toggle">+</div>
+        </div>
+        <div class="gc-body"><div class="gc-inner">
+          <ul>
+            <li>Tes projets de formation motivés rédigés et argumentés</li>
+            <li>Ton pitch et ton dossier de candidature préparés</li>
+            <li>Un plan d'action concret, semaine par semaine</li>
+            <li>La capacité à défendre ton choix, devant un jury, tes parents, et toi-même</li>
+          </ul>
+          <p>Et un suivi jusqu'aux résultats : je reste là pendant la phase de réponses.</p>
+        </div></div>
+      </div>
+
+      <div class="gc" onclick="this.classList.toggle('open')">
+        <div class="gc-head">
+          <div class="gc-ico">💙</div>
+          <div><span class="gc-badge">Sur-mesure</span><h3>Profil atypique ? (TDAH, hypersensibilité)</h3><p>Une approche pensée pour toi.</p></div>
+          <div class="gc-toggle">+</div>
+        </div>
+        <div class="gc-body"><div class="gc-inner">
+          <p>Si tu fonctionnes différemment, TDAH, forte sensibilité, l'orientation ne se vit pas comme pour les autres : difficulté à se projeter, charge émotionnelle des décisions, fatigue face aux démarches.</p>
+          <p>Je suis moi-même concernée. J'ai construit ma pratique en conséquence : format de séance adapté, supports structurés, rythme ajusté, étapes décomposées.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Livrable concret : pills -->
+<section class="tint center">
+  <div class="wrap">
+    <span class="eyebrow">Ce que tu repars avec</span>
+    <h2>Un livrable concret, <span class="it">pas juste des conseils.</span></h2>
+    <div class="pills">
+      <span class="pill"><span class="e">🪪</span>Ta carte d'identité orientation</span>
+      <span class="pill"><span class="e">✉️</span>Tes lettres de motivation</span>
+      <span class="pill"><span class="e">🎤</span>Ton pitch de candidature</span>
+      <span class="pill"><span class="e">🗳️</span>Ta liste de vœux hiérarchisée</span>
+      <span class="pill"><span class="e">📅</span>Ton plan d'action semaine par semaine</span>
+      <span class="pill"><span class="e">🔒</span>Données 100 % privées</span>
+    </div>
+  </div>
+</section>
+
+<!-- Quiz -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="quiz">
+      <h2 data-audience="eleve" style="display:block">Où tu en es, là, maintenant ?</h2>
+      <h2 data-audience="parent">Où en est votre ado, là, maintenant ?</h2>
+      <p class="sub" style="margin-bottom:0">Un clic, je te dis par quoi commencer.</p>
+      <p class="q">Ce qui bloque le plus, c'est…</p>
+      <div class="quiz-opts">
+        <button class="opt" onclick="quiz('choix')">Je ne sais pas quoi choisir</button>
+        <button class="opt" onclick="quiz('method')">Je n'arrive pas à m'organiser</button>
+        <button class="opt" onclick="quiz('conf')">Je me décourage</button>
+        <button class="opt" onclick="quiz('fam')">À la maison, c'est tendu</button>
+      </div>
+      <div class="quiz-result" id="res">
+        <h3 id="rtitle"></h3>
+        <p id="rtext"></p>
+        <a href="#reserver" class="cta teal">En parler lors de la séance offerte</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendrier -->
+<section class="tint">
+  <div class="wrap center">
+    <span class="eyebrow">Le bon timing</span>
+    <h2>Quand commencer ?</h2>
+    <p class="sub">Plus tôt on démarre, plus le choix est réfléchi. Repères selon la classe :</p>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-when">2de &amp; 1re</div><div class="tl-what"><b>Choix des spécialités.</b> Elles conditionnent l'accès à de nombreuses formations : démarrer tôt évite les impasses.</div></div>
+      <div class="tl-item"><div class="tl-when">Terminale, avant nov.</div><div class="tl-what"><b>La période idéale.</b> Le travail de fond est mené avant l'ouverture de la plateforme.</div></div>
+      <div class="tl-item"><div class="tl-when">Janvier → mars</div><div class="tl-what"><b>Formulation des vœux.</b> Un démarrage à ce stade se concentre sur la stratégie et la rédaction.</div></div>
+      <div class="tl-item"><div class="tl-when">À partir de juin</div><div class="tl-what"><b>Phase de réponses.</b> Période délicate : on rebondit sans précipitation.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <h2 class="center">Questions fréquentes</h2>
+    <div class="faq-wrap">
+      <details><summary>Mon enfant n'est pas demandeur. Ça peut marcher ?</summary><div class="answer">C'est la situation la plus courante. La séance découverte sert précisément à cela : il rencontre quelqu'un d'extérieur, sans enjeu, et décide lui-même. Un accompagnement choisi change tout.</div></details>
+      <details><summary>Quelle différence avec le conseiller d'orientation du lycée ?</summary><div class="answer">Les psychologues de l'Éducation nationale font un travail précieux, mais disposent rarement de plus d'une heure par élève. Six heures individuelles permettent un vrai travail de fond.</div></details>
+      <details><summary>Est-ce que ça se fait à distance ? Ça marche avec un ado ?</summary><div class="answer">Oui, 100 % en visio. C'est souvent plus confortable pour les jeunes : ils sont dans leur environnement, sans la solennité d'un bureau.</div></details>
+      <details><summary>Combien ça coûte et est-ce finançable ?</summary><div class="answer">L'Orientation n'est pas éligible au CPF (qui concerne les personnes déjà entrées dans la vie active). Le tarif et les modalités sont précisés lors de la séance découverte, offerte et sans engagement.</div></details>
+      <details><summary>Et si mon enfant change d'avis en cours de route ?</summary><div class="answer">C'est plutôt bon signe : cela veut dire qu'il explore vraiment. La méthode est faite pour tester des hypothèses, pas pour verrouiller un choix dès la première séance.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="reserver">
+  <div class="wrap">
+    <h2 data-audience="eleve" style="display:block">Prêt·e à trouver ta voie ?</h2>
+    <h2 data-audience="parent">Prêt(e) à débloquer la situation ?</h2>
+    <p>Une séance découverte offerte, sans engagement, pour voir si cet accompagnement est le bon.</p>
+    <a href="mailto:wanda.laurent@gmail.com?subject=Séance%20découverte%20Orientation" class="cta">Réserver la séance découverte offerte</a>
+  </div>
+</section>
+
+
+<section class="access">
+<div class="wrap">
+<h2>Un autre moment de vie ?</h2>
+<p class="sub">Le parcours se poursuit, découvrez les autres accompagnements.</p>
+<div class="access-grid">
+<a href="orientation.html" class="acard current" style="--ac:#2563EB"><span class="ai">🧭</span><span class="an">Orientation</span><span class="ad">Parcoursup & TDAH · Lycéens</span></a>
+<a href="bilan-competences.html" class="acard" style="--ac:#0FA895"><span class="ai">💼</span><span class="an">Bilan de compétences</span><span class="ad">Transition professionnelle</span></a>
+<a href="bilan-neuro-atypique.html" class="acard" style="--ac:#9B84C4"><span class="ai">💜</span><span class="an">Bilan neuro-atypique</span><span class="ad">TDAH & hypersensibilité</span></a>
+<a href="le-grand-plus.html" class="acard" style="--ac:#E8745B"><span class="ai">🌅</span><span class="an">Le Grand+</span><span class="ad">Transition retraite</span></a>
+</div>
+</div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><h4>Le parcours de vie</h4>
+        <a href="orientation.html">Orientation Parcoursup &amp; TDAH</a>
+        <a href="bilan-competences.html">Bilan de compétences</a>
+        <a href="bilan-neuro-atypique.html">Bilan Talents neuro-atypique</a>
+        <a href="le-grand-plus.html">Le Grand+</a></div>
+      <div><h4>Contact</h4>
+        <a href="mailto:wanda.laurent@gmail.com">wanda.laurent@gmail.com</a>
+        <a href="https://www.wandalaurentcoaching.com">www.wandalaurentcoaching.com</a></div>
+    </div>
+    <div class="foot-legal">Wanda Laurent Coaching | Passerelles des Talents | wanda.laurent@gmail.com | www.wandalaurentcoaching.com</div>
+  </div>
+</footer>
+
+<script>
+function setAud(a){
+  document.querySelectorAll('[data-audience]').forEach(function(el){
+    el.classList.toggle('on', el.getAttribute('data-audience')===a);
+  });
+  document.getElementById('btn-eleve').classList.toggle('active', a==='eleve');
+  document.getElementById('btn-parent').classList.toggle('active', a==='parent');
+}
+var R={
+  choix:["Commence par te connaître","On identifie tes forces et tes centres d'intérêt avec le RIASEC, pour transformer le flou en projet concret."],
+  method:["Commence par la méthode","On structure l'exploration et l'organisation, étape par étape, à un rythme adapté à ton fonctionnement."],
+  conf:["Commence par la confiance","On s'appuie sur tes réussites et on dédramatise les échéances pour relancer la motivation."],
+  fam:["Commence par apaiser le dialogue","Un tiers neutre change tout : la parole se libère quand elle ne s'adresse pas au parent."]
+};
+function quiz(k){
+  document.getElementById('rtitle').textContent=R[k][0];
+  document.getElementById('rtext').textContent=R[k][1];
+  var r=document.getElementById('res');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
